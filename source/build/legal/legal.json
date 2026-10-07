@@ -1,0 +1,685 @@
+{
+ "privacy": {
+  "updated": "Last updated September 1, 2022",
+  "blocks": [
+   [
+    "h2",
+    "What personal data we collect and why"
+   ],
+   [
+    "h2",
+    "Comments"
+   ],
+   [
+    "p",
+    "When visitors leave comments on the site, we collect the data shown in the comments form, and also the visitor’s IP address and browser user agent string to help spam detection. An anonymized string created from your email address (also called a hash) may be provided to the Gravatar service to see if you are using it. The Gravatar service privacy policy is available here: https://automattic.com/privacy/. After approval of your comment, your profile picture is visible to the public in the context of your comment."
+   ],
+   [
+    "h2",
+    "Media"
+   ],
+   [
+    "p",
+    "If you upload images to the website, you should avoid uploading images with embedded location data (EXIF GPS) included. Visitors to the website can download and extract any location data from images on the website."
+   ],
+   [
+    "h2",
+    "Cookies"
+   ],
+   [
+    "p",
+    "If you leave a comment on our site, you may opt-in to saving your name, email address and website in cookies. These are for your convenience so that you do not have to fill in your details again when you leave another comment. These cookies will last for one year."
+   ],
+   [
+    "p",
+    "If you visit our login page, we will set a temporary cookie to determine if your browser accepts cookies. This cookie contains no personal data and is discarded when you close your browser. When you log in, we will also set up several cookies to save your login information and your screen display choices. Login cookies last for two days, and screen options cookies last for a year. If you select “Remember Me”, your login will persist for two weeks."
+   ],
+   [
+    "p",
+    "If you log out of your account, the login cookies will be removed. If you edit or publish an article, an additional cookie will be saved in your browser. This cookie includes no personal data and simply indicates the post ID of the article you just edited. It expires after 1 day."
+   ],
+   [
+    "h2",
+    "Embedded content from other websites"
+   ],
+   [
+    "p",
+    "Articles on this site may include embedded content (e.g. videos, images, articles, etc.). Embedded content from other websites behaves in the exact same way as if the visitor has visited the other website. These websites may collect data about you, use cookies, embed additional third-party tracking and monitor your interaction with that embedded content, including tracking your interaction with the embedded content if you have an account and are logged in to that website."
+   ],
+   [
+    "h2",
+    "Analytics"
+   ],
+   [
+    "h2",
+    "How long we retain your data"
+   ],
+   [
+    "p",
+    "If you leave a comment, the comment and its metadata are retained indefinitely. This is so we can recognize and approve any follow-up comments automatically instead of holding them in a moderation queue. For users that register on our website (if any), we also store the personal information they provide in their user profile. All users can see, edit or delete their personal information at any time (except they cannot change their username). Website administrators can also see and edit that information."
+   ],
+   [
+    "h2",
+    "What rights you have over your data"
+   ],
+   [
+    "p",
+    "If you have an account on this site, or have left comments, you can request to receive an exported file of the personal data we hold about you, including any data you have provided to us. You can also request that we erase any personal data we hold about you. This does not include any data we are obliged to keep for administrative, legal or security purposes."
+   ],
+   [
+    "h2",
+    "Where we send your data"
+   ],
+   [
+    "p",
+    "Visitor comments may be checked through an automated spam detection service."
+   ],
+   [
+    "h2",
+    "Who we share your data with"
+   ],
+   [
+    "p",
+    "Employees, Agents or contractors of Listaso may have access to your Personal Information on a need-to-know basis for the purpose of performing services on behalf of Listaso and are subject to their obligation to keep the information confidential and not use it for any other purpose other than to carry out the Services or as otherwise required by law."
+   ],
+   [
+    "p",
+    "Listaso may transfer the information you provide to us in cases of a merger with another organization, file for bankruptcy, or in case we sell our assets to a third party or share your Personal Information to the company with which we enter into such transactions as a part of such transaction."
+   ],
+   [
+    "p",
+    "If you do not want to receive e-mail from us in the future, please let us know by sending us email at the above address."
+   ]
+  ]
+ },
+ "subscription": {
+  "updated": "Last updated October 2, 2026",
+  "blocks": [
+   [
+    "h2",
+    "Definitions"
+   ],
+   [
+    "h3",
+    "Customer:"
+   ],
+   [
+    "p",
+    "Means any person and/or entity that has purchased the Subscription and has paid the applicable Subscription Fee."
+   ],
+   [
+    "h3",
+    "Subscription:"
+   ],
+   [
+    "p",
+    "Means having the right to (a) use the Software during the period for which the Customer has paid the Subscription Fee (b) receive Software updates from Listaso as they are made generally available from time-to-time during the Subscription period, and (c) use Listaso’s online Support site."
+   ],
+   [
+    "h3",
+    "Subscription Fee:"
+   ],
+   [
+    "p",
+    "Means a fee stipulated by Listaso, which shall be paid by the Customer, in order to receive the Subscription for the duration of the Subscription period."
+   ],
+   [
+    "h3",
+    "Services:"
+   ],
+   [
+    "p",
+    "Means a unique Listaso solution and retail point-of-sale information system distributed under the trademark “Listaso”, the implementation of which may include, the supply of certain Software (as described below) as well as the rendering of related Services."
+   ],
+   [
+    "h3",
+    "Software:"
+   ],
+   [
+    "p",
+    "Means any software (including but not limited to software as a service [SaaS]), utility, tool, or other computer or program code, as well as the related documentation, provided by Listaso to the Customer in connection with the Services. Software includes software locally installed on the Customer’s systems and web-based software accessed by the Customer through the Internet."
+   ],
+   [
+    "h3",
+    "Named User:"
+   ],
+   [
+    "p",
+    "Shall mean a single named individual who is the Customer’s employee or service provider and authorized by the Customer to use the license, for whom Subscription to the Service has been procured, and who has been supplied user identification and password by the Customer."
+   ],
+   [
+    "h2",
+    "Free Trial"
+   ],
+   [
+    "p",
+    "If the Customer registers for a free trial, one or more services will be made available to the Customer on a trial basis free of charge until the earlier of (a) the end of the free trial period for which the Customer registered or are registering to use or (b) the start date of any purchased services ordered by the Customer. Any data the Customer enters into the services, and any customizations made to the Services by or for the Customer, during the Customer’s free trial will be permanently lost unless the Customer purchases a Subscription to the same services as those covered by the trial, purchase upgraded services, or export such data, before the end of the trial period. During the free trial the Services are provided “as-is”."
+   ],
+   [
+    "h2",
+    "Protection of the customer’s data"
+   ],
+   [
+    "p",
+    "Listaso shall maintain appropriate administrative, physical, and technical safeguards for protection of the security, confidentiality and integrity of the Customer’s data. Listaso shall not (a) modify the Customer’s data, (b) disclose the Customer’s data except as compelled by law or as expressly permitted in writing by the Customer, or (c) access the Customer’s data except to provide the services and prevent or address service or technical problems, or at the Customer’s request in connection with customer support matters. Listaso might monitor the Customer’s account in order to optimize the performance of its servers, to optimize the operation of its services, and to make sure that the provisions of this Agreement are being followed by the Customer."
+   ],
+   [
+    "h2",
+    "The customer’s responsabilities"
+   ],
+   [
+    "p",
+    "The Customer shall (i) be responsible for the Customer’s Named Users’ compliance with the Terms and Conditions, (ii) be responsible for the accuracy, quality and legality of the Customer’s data and of the means by which the Customer acquired the Customer’s data, (iii) use commercially reasonable efforts to prevent unauthorized access to or use of the services, and notify us promptly of any such unauthorized access or use, and (iv) use the services only in accordance with our guidelines and applicable laws and government regulations. The Customer shall not (a) make the services available to anyone other than the Customer’s Named Users, (b) sell, resell, rent or lease the services, (c) use the services to store or transmit infringing, libelous, or otherwise unlawful or tortious material, or to store or transmit material in violation of third-party privacy rights, (d) use the services to store or transmit malicious code, (e) interfere with or disrupt the integrity or performance of the services or third-party data contained therein, or (f) attempt to gain unauthorized access to the services or their related systems or networks."
+   ],
+   [
+    "h2",
+    "Grant of licence"
+   ],
+   [
+    "p",
+    "Subject to the limitations and restrictions provided in this Terms and Conditions, Listaso grants the Customer a limited, non-exclusive, non-sub-licensable, non-transferable, license to install and use the Software provided to the Customer in connection with the Services in accordance with this Terms and Conditions. This Terms and Conditions do not convey to the Customer any interest in or title to the Software, but only limited rights to use the Software solely in accordance with the Terms and Conditions hereunder. It is hereby clarified that each license cannot be used by more than one designated Named User at all times."
+   ],
+   [
+    "h2",
+    "Free Mobile Apps"
+   ],
+   [
+    "p",
+    "Listaso provides, free of charge, native mobile applications that allow the Customer to access Listaso web-based software on iOS, Android, and Windows 8 devices. Mobile devices must be purchased separately and are not included in the Customer’s Subscription. Listaso mobile apps may incur data charges with the Customer’s wireless carrier, including roaming charges where applicable. Listaso mobile apps may collect technical data, including information about application crashes and usage statistics, and may use certain third party libraries or modules. Any such mobile apps offered by Listaso shall constitute part of the Software, and as such their usage is subject to the terms and conditions of this Agreement. Listaso only charges for Listaso’s web-based software, which includes modules for system and user configuration, data upload and integration, order management, sales management and B2B e-commerce. Therefore, during the Subscription period, Listaso mobile apps are provided to all of the Customer’s Named Users free of charge. Yet, once the Customer’s Subscription to the Listaso web-based software expires and is not renewed, all the Listaso mobile apps installed on devices of the Customer’s Named Users will be disconnected from the Listaso web-based software."
+   ],
+   [
+    "h2",
+    "Changes to the site and software"
+   ],
+   [
+    "p",
+    "Listaso shall have the right at any time to change or discontinue any aspect or feature of the Software and/or Services, including, but not limited to, content, hours of availability, and equipment needed for access or use."
+   ],
+   [
+    "h2",
+    "Intellectual Property Rights"
+   ],
+   [
+    "p",
+    "The Customer acknowledges and agrees that the Software is a proprietary product of Listaso, protected under national and international intellectual property laws. The Customer further acknowledges and agrees that any and all rights, titles, and interests in and to the Software, including associated intellectual property rights, any patents, patent applications, copyrighted material and trade secrets, and all copies, revisions, modifications, updates and/or upgrades thereto, and all derivative works thereof, whether made by Listaso, the Customer or on behalf of Listaso or the Customer, shall remain the sole and exclusive property of Listaso."
+   ],
+   [
+    "h2",
+    "Termination"
+   ],
+   [
+    "p",
+    "This Terms and Conditions and the license as set forth herein are effective until terminated. The Customer’s rights under this Terms and Conditions and the license will terminate automatically without notice from us if the Customer fails to comply with any of the term(s) of these Terms and Conditions. Upon the termination of these Terms and Conditions and license, the Customer shall cease all use of the Software and destroy all copies, full or partial, of the Software."
+   ],
+   [
+    "h2",
+    "Disclaimer of warranties"
+   ],
+   [
+    "p",
+    "The Customer acknowledges and understands that the Software licensed is provided to the Customer “as is” without any warranties whatsoever concerning the installation, use or performance of the software. Listaso expressly disclaims, and the Customer hereby expressly waives all other warranties, whether express or implied, including warranties of merchantability, fitness for a particular purpose, non-infringement, system integration, non-interference, accuracy, reliability and quality of the Software. Listaso do not warrant that the Software will meet the Customer’s requirements or that the operation of the Software will be uninterrupted or error-free."
+   ],
+   [
+    "h2",
+    "Limitation of Liability"
+   ],
+   [
+    "p",
+    "Listaso is not liable for direct, indirect, incidental, consequential, special, punitive, exemplary, or any other damages (including, without limitation, attorneys’ fees) (collectively, the “Damages”), arising out of the Customer’s use or inability to use the Software. By way of example and not of limitation, Listaso is not liable for Damages for: (i) loss of revenue, anticipated profits, business, savings, goodwill or data, (ii) any failure of performance, error, omission, denial of service attack, interruption, deletion, defect, delay in operation or transmission, computer virus, communication line failure, and (iii) third party theft of, destruction of, unauthorized access to, alteration of, or use of the Customer’s information, equipment, or property. The Customer specifically acknowledges and agrees that Listaso is not liable for the conduct of and information supplied by other site users or third parties (including, without limitation, defamatory, offensive or illegal conduct) and that the risk of injury from the foregoing rests entirely with the Customer."
+   ],
+   [
+    "p",
+    "Notwithstanding the above, if Listaso is found to be liable by a final judicial ruling, Listaso’s liability to the Customer or to any third party shall be limited to the sums actually paid by the Customer to Listaso in connection with the Software and/or the services."
+   ],
+   [
+    "p",
+    "The Customer shall indemnify, defend, and hold Listaso harmless from and against all Damages and liabilities that arise from a third party’s claim resulting from the Customer’s use of the services by violation of this Terms and Conditions or from any violation caused by the Customer of applicable law."
+   ],
+   [
+    "h2",
+    "Links"
+   ],
+   [
+    "p",
+    "Listaso’s website may contain links to external websites that are not within Listaso’s control. If the Customer decides to use any of these external links, the Customer will be connected to a site not covered by Listaso’s Terms and Conditions. Listaso is not responsible for the privacy or security practices or the content of such websites."
+   ],
+   [
+    "h2",
+    "Jurisdiction"
+   ],
+   [
+    "p",
+    "This Terms and Conditions shall be governed by and construed in accordance with the laws of the State of Florida. The parties to these Terms and Conditions submit to the exclusive jurisdiction of the Courts in Florida."
+   ]
+  ]
+ },
+ "terms": {
+  "updated": "Last updated October 2, 2026",
+  "blocks": [
+   [
+    "h2",
+    "Agreement to Terms"
+   ],
+   [
+    "p",
+    "These Terms of Use constitute a legally binding agreement made between you, whether personally or on behalf of an entity (“you”) and Listaso Inc., doing business as Listaso (“Listaso”, “we”, “us”, or “our”), concerning your access to and use of the listaso.com website as well as any other media form, media channel, mobile website or mobile application related, linked, or otherwise connected thereto (collectively, the “Site”). You agree that by accessing the Site, you have read, understood, and agreed to be bound by all of these Terms of Use. IF YOU DO NOT AGREE WITH ALL OF THESE TERMS OF USE, THEN YOU ARE EXPRESSLY PROHIBITED FROM USING THE SITE AND YOU MUST DISCONTINUE USE IMMEDIATELY."
+   ],
+   [
+    "p",
+    "Supplemental terms and conditions or documents that may be posted on the Site from time to time are hereby expressly incorporated herein by reference. We reserve the right, in our sole discretion, to make changes or modifications to these Terms of Use at any time and for any reason. We will alert you about any changes by updating the “Last updated” date of these Terms of Use, and you waive any right to receive specific notice of each such change. It is your responsibility to periodically review these Terms of Use to stay informed of updates. You will be subject to, and will be deemed to have been made aware of and to have accepted, the changes in any revised Terms of Use by your continued use of the Site after the date such revised Terms of Use are posted."
+   ],
+   [
+    "p",
+    "The information provided on the Site is not intended for distribution to or use by any person or entity in any jurisdiction or country where such distribution or use would be contrary to law or regulation or which would subject us to any registration requirement within such jurisdiction or country. Accordingly, those persons who choose to access the Site from other locations do so on their own initiative and are solely responsible for compliance with local laws, if and to the extent local laws are applicable."
+   ],
+   [
+    "p",
+    "The Site is not tailored to comply with industry-specific regulations (Health Insurance Portability and Accountability Act (HIPAA), Federal Information Security Management Act (FISMA), etc.), so if your interactions would be subjected to such laws, you may not use this Site. You may not use the Site in a way that would violate the Gramm-LeachBliley Act (GLBA). The Site is intended for users who are at least 18 years old. Persons under the age of 18 are not permitted to use or register for the Site."
+   ],
+   [
+    "h2",
+    "Intellectual Property Rights"
+   ],
+   [
+    "p",
+    "Unless otherwise indicated, the Site is our proprietary property and all source code, databases, functionality, software, website designs, audio, video, text, photographs, and graphics on the Site (collectively, the “Content”) and the trademarks, service marks, and logos contained therein (the “Marks”) are owned or controlled by us or licensed to us, and are protected by copyright and trademark laws and various other intellectual property rights and unfair competition laws of the United States, international copyright laws, and international conventions. The Content and the Marks are provided on the Site “AS IS” for your information and personal use only. Except as expressly provided in these Terms of Use, no part of the Site and no Content or Marks may be copied, reproduced, aggregated, republished, uploaded, posted, publicly displayed, encoded, translated, transmitted, distributed, sold, licensed, or otherwise exploited for any commercial purpose whatsoever, without our express prior written permission. Provided that you are eligible to use the Site, you are granted a limited license to access and use the Site and to download or print a copy of any portion of the Content to which you have properly gained access solely for your personal, non-commercial use. We reserve all rights not expressly granted to you in and to the Site, the Content and the Marks."
+   ],
+   [
+    "h2",
+    "User presentations"
+   ],
+   [
+    "p",
+    "By using the Site, you represent and warrant that: (1) you have the legal capacity and you agree to comply with these Terms of Use; (2) you are not a minor in the jurisdiction in which you reside; (3) you will not access the Site through automated or non-human means, whether through a bot, script, or otherwise; (4) you will not use the Site for any illegal or unauthorized purpose; and (5) your use of the Site will not violate any applicable law or regulation. If you provide any information that is untrue, inaccurate, not current, or incomplete, we have the right to suspend or terminate your account and refuse any and all current or future use of the Site (or any portion thereof)."
+   ],
+   [
+    "h2",
+    "Prohibited activities"
+   ],
+   [
+    "p",
+    "You may not access or use the Site for any purpose other than that for which we make the Site available."
+   ],
+   [
+    "p",
+    "The Site may not be used in connection with any commercial endeavors except those that are specifically endorsed or approved by us. As a user of the Site, you agree not to:"
+   ],
+   [
+    "li",
+    "1. Systematically retrieve data or other content from the Site to create or compile, directly or indirectly, a collection, compilation, database, or directory without written permission from us."
+   ],
+   [
+    "li",
+    "2. Trick, defraud, or mislead us and other users, especially in any attempt to learn sensitive account information such as user passwords."
+   ],
+   [
+    "li",
+    "3. Circumvent, disable, or otherwise interfere with security-related features of the Site, including features that prevent or restrict the use or copying of any Content or enforce limitations on the use of the Site and/or the Content contained therein."
+   ],
+   [
+    "li",
+    "4. Disparage, tarnish, or otherwise harm, in our opinion, us and/or the Site."
+   ],
+   [
+    "li",
+    "5. Use any information obtained from the Site in order to harass, abuse, or harm another person."
+   ],
+   [
+    "li",
+    "6. Make improper use of our support services or submit false reports of abuse or misconduct."
+   ],
+   [
+    "li",
+    "7. Use the Site in a manner inconsistent with any applicable laws or regulations."
+   ],
+   [
+    "li",
+    "8. Use the Site to advertise or offer to sell goods and services."
+   ],
+   [
+    "li",
+    "9. Engage in unauthorized framing of or linking to the Site."
+   ],
+   [
+    "li",
+    "10. Upload or transmit (or attempt to upload or to transmit) viruses, Trojan horses, or other material, including excessive use of capital letters and spamming (continuous posting of repetitive text), that interferes with any party’s uninterrupted use and enjoyment of the Site or modifies, impairs, disrupts, alters, or interferes with the use, features, functions, operation, or maintenance of the Site."
+   ],
+   [
+    "li",
+    "11. Engage in any automated use of the system, such as using scripts to send comments or messages, or using any data mining, robots, or similar data gathering and extraction tools."
+   ],
+   [
+    "li",
+    "12. Delete the copyright or other proprietary rights notice from any Content."
+   ],
+   [
+    "li",
+    "13. Attempt to impersonate another user or person or use the username of another user."
+   ],
+   [
+    "li",
+    "14. Sell or otherwise transfer your profile."
+   ],
+   [
+    "li",
+    "15. Upload or transmit (or attempt to upload or to transmit) any material that acts as a passive or active information collection or transmission mechanism, including without limitation, clear graphics interchange formats (“gifs”), 1×1 pixels, web bugs, cookies, or other similar devices (sometimes referred to as “spyware” or “passive collection mechanisms” or “pcms”)."
+   ],
+   [
+    "li",
+    "16. Interfere with, disrupt, or create an undue burden on the Site or the networks or services connected to the Site."
+   ],
+   [
+    "li",
+    "17. Harass, annoy, intimidate, or threaten any of our employees or agents engaged in providing any portion of the Site to you."
+   ],
+   [
+    "li",
+    "18. Attempt to bypass any measures of the Site designed to prevent or restrict access to the Site, or any portion of the Site."
+   ],
+   [
+    "li",
+    "19. Copy or adapt the Site’s software, including but not limited to Flash, PHP, HTML, JavaScript, or other code."
+   ],
+   [
+    "li",
+    "20. Decipher, decompile, disassemble, or reverse engineer any of the software comprising or in any way making up a part of the Site."
+   ],
+   [
+    "li",
+    "21. Except as may be the result of standard search engine or Internet browser usage, use, launch, develop, or distribute any automated system, including without limitation, any spider, robot, cheat utility, scraper, or offline reader that accesses the Site, or using or launching any unauthorized script or other software."
+   ],
+   [
+    "li",
+    "22. Use a buying agent or purchasing agent to make purchases on the Site."
+   ],
+   [
+    "li",
+    "23. Make any unauthorized use of the Site, including collecting usernames and/or email addresses of users by electronic or other means for the purpose of sending unsolicited email, or creating user accounts by automated means or under false pretenses."
+   ],
+   [
+    "li",
+    "24. Use the Site as part of any effort to compete with us or otherwise use the Site and/or the Content for any revenue-generating endeavor or commercial enterprise."
+   ],
+   [
+    "h2",
+    "User generated contributors"
+   ],
+   [
+    "p",
+    "The Site does not offer users to submit or post content. We may provide you with the opportunity to create, submit, post, display, transmit, perform, publish, distribute, or broadcast content and materials to us or on the Site, including but not limited to text, writings, video, audio, photographs, graphics, comments, suggestions, or personal information or other material (collectively, “Contributions”). Contributions may be viewable by other users of the Site and through third-party websites. As such, any Contributions you transmit may be treated in accordance with the Site Privacy Policy. When you create or make available any Contributions, you thereby represent and warrant that:"
+   ],
+   [
+    "li",
+    "1. The creation, distribution, transmission, public display, or performance, and the accessing, downloading, or copying of your Contributions do not and will not infringe the proprietary rights, including but not limited to the copyright, patent, trademark, trade secret, or moral rights of any third party."
+   ],
+   [
+    "li",
+    "2. You are the creator and owner of or have the necessary licenses, rights, consents, releases, and permissions to use and to authorize us, the Site, and other users of the Site to use your Contributions in any manner contemplated by the Site and these Terms of Use."
+   ],
+   [
+    "li",
+    "3. You have the written consent, release, and/or permission of each and every identifiable individual person in your Contributions to use the name or likeness of each and every such identifiable individual person to enable inclusion and use of your Contributions in any manner contemplated by the Site and these Terms of Use."
+   ],
+   [
+    "li",
+    "4. Your Contributions are not false, inaccurate, or misleading."
+   ],
+   [
+    "li",
+    "5. Your Contributions are not unsolicited or unauthorized advertising, promotional materials, pyramid schemes, chain letters, spam, mass mailings, or other forms of solicitation."
+   ],
+   [
+    "li",
+    "6. Your Contributions do not ridicule, mock, disparage, intimidate, or abuse anyone."
+   ],
+   [
+    "li",
+    "7. Your Contributions are not used to harass or threaten (in the legal sense of those terms) any other person and to promote violence against a specific person or class of people."
+   ],
+   [
+    "li",
+    "8. Your Contributions do not violate any applicable law, regulation, or rule."
+   ],
+   [
+    "li",
+    "9. Your Contributions do not violate the privacy or publicity rights of any third party."
+   ],
+   [
+    "li",
+    "10. Your Contributions do not contain any material that solicits personal information from anyone under the age of 18 or exploits people under the age of 18 in a sexual or violent manner."
+   ],
+   [
+    "li",
+    "11. Your Contributions do not violate any applicable law concerning child pornography, or otherwise intended to protect the health or well-being of minors."
+   ],
+   [
+    "li",
+    "12. Your Contributions do not include any offensive comments that are connected to race, national origin, gender, sexual preference, or physical handicap."
+   ],
+   [
+    "li",
+    "13. Your Contributions do not otherwise violate, or link to material that violates, any provision of these Terms of Use, or any applicable law or regulation."
+   ],
+   [
+    "p",
+    "Any use of the Site in violation of the foregoing violates these Terms of Use and may result in, among other things, termination or suspension of your rights to use the Site."
+   ],
+   [
+    "h2",
+    "Contribution License"
+   ],
+   [
+    "p",
+    "You and the Site agree that we may access, store, process, and use any information and personal data that you provide following the terms of the Privacy Policy and your choices (including settings)."
+   ],
+   [
+    "p",
+    "By submitting suggestions or other feedback regarding the Site, you agree that we can use and share such feedback for any purpose without compensation to you."
+   ],
+   [
+    "p",
+    "We do not assert any ownership over your Contributions. You retain full ownership of all of your Contributions and any intellectual property rights or other proprietary rights associated with your Contributions. We are not liable for any statements or representations in your Contributions provided by you in any area on the Site. You are solely responsible for your Contributions to the Site and you expressly agree to exonerate us from any and all responsibility and to refrain from any legal action against us regarding your Contributions."
+   ],
+   [
+    "h2",
+    "Submission"
+   ],
+   [
+    "p",
+    "You acknowledge and agree that any questions, comments, suggestions, ideas, feedback, or other information regarding the Site (“Submissions”) provided by you to us are non-confidential and shall become our sole property. We shall own exclusive rights, including all intellectual property rights, and shall be entitled to the unrestricted use and dissemination of these Submissions for any lawful purpose, commercial or otherwise, without acknowledgment or compensation to you. You hereby waive all moral rights to any such Submissions, and you hereby warrant that any such Submissions are original with you or that you have the right to submit such Submissions. You agree there shall be no recourse against us for any alleged or actual infringement or misappropriation of any proprietary right in your Submissions."
+   ],
+   [
+    "h2",
+    "Third-party website and content"
+   ],
+   [
+    "p",
+    "The Site may contain (or you may be sent via the Site) links to other websites (“Third-Party Websites”) as well as articles, photographs, text, graphics, pictures, designs, music, sound, video, information, applications, software, and other content or items belonging to or originating from third parties (“Third-Party Content”). Such Third-Party Websites and Third-Party Content are not investigated, monitored, or checked for accuracy, appropriateness, or completeness by us, and we are not responsible for any Third-Party Websites accessed through the Site or any ThirdParty Content posted on, available through, or installed from the Site, including the content, accuracy, offensiveness, opinions, reliability, privacy practices, or other policies of or contained in the Third-Party Websites or the Third-Party Content. Inclusion of, linking to, or permitting the use or installation of any Third-Party Websites or any Third-Party Content does not imply approval or endorsement thereof by us. If you decide to leave the Site and access the ThirdParty Websites or to use or install any Third-Party Content, you do so at your own risk, and you should be aware these Terms of Use no longer govern. You should review the applicable terms and policies, including privacy and data gathering practices, of any website to which you navigate from the Site or relating to any applications you use or install from the Site. Any purchases you make through Third-Party Websites will be through other websites and from other companies, and we take no responsibility whatsoever in relation to such purchases which are exclusively between you and the applicable third party. You agree and acknowledge that we do not endorse the products or services offered on Third-Party Websites and you shall hold us harmless from any harm caused by your purchase of such products or services. Additionally, you shall hold us harmless from any losses sustained by you or harm caused to you relating to or resulting in any way from any Third-Party Content or any contact with Third-Party Websites."
+   ],
+   [
+    "h2",
+    "Site Management"
+   ],
+   [
+    "p",
+    "We reserve the right, but not the obligation, to: (1) monitor the Site for violations of these Terms of Use; (2) take appropriate legal action against anyone who, in our sole discretion, violates the law or these Terms of Use, including without limitation, reporting such user to law enforcement authorities; (3) in our sole discretion and without limitation, refuse, restrict access to, limit the availability of, or disable (to the extent technologically feasible) any of your Contributions or any portion thereof; (4) in our sole discretion and without limitation, notice, or liability, to remove from the Site or otherwise disable all files and content that are excessive in size or are in any way burdensome to our systems; and (5) otherwise manage the Site in a manner designed to protect our rights and property and to facilitate the proper functioning of the Site."
+   ],
+   [
+    "h2",
+    "Privacy Policy"
+   ],
+   [
+    "p",
+    "We care about data privacy and security. By using the Site, you agree to be bound by our Privacy Policy posted on the Site, which is incorporated into these Terms of Use. Please be advised the Site is hosted in the United States. If you access the Site from any other region of the world with laws or other requirements governing personal data collection, use, or disclosure that differ from applicable laws in the United States, then through your continued use of the Site, you are transferring your data to the United States, and you agree to have your data transferred to and processed in the United States."
+   ],
+   [
+    "h2",
+    "Term and Termination"
+   ],
+   [
+    "p",
+    "These Terms of Use shall remain in full force and effect while you use the Site. WITHOUT LIMITING ANY OTHER PROVISION OF THESE TERMS OF USE, WE RESERVE THE RIGHT TO, IN OUR SOLE DISCRETION AND WITHOUT NOTICE OR LIABILITY, DENY ACCESS TO AND USE OF THE SITE (INCLUDING BLOCKING CERTAIN IP ADDRESSES), TO ANY PERSON FOR ANY REASON OR FOR NO REASON, INCLUDING WITHOUT LIMITATION FOR BREACH OF ANY REPRESENTATION, WARRANTY, OR COVENANT CONTAINED IN THESE TERMS OF USE OR OF ANY APPLICABLE LAW OR REGULATION. WE MAY TERMINATE YOUR USE OR PARTICIPATION IN THE SITE OR DELETE ANY CONTENT OR INFORMATION THAT YOU POSTED AT ANY TIME, WITHOUT WARNING, IN OUR SOLE DISCRETION."
+   ],
+   [
+    "p",
+    "If we terminate or suspend your account for any reason, you are prohibited from registering and creating a new account under your name, a fake or borrowed name, or the name of any third party, even if you may be acting on behalf of the third party. In addition to terminating or suspending your account, we reserve the right to take appropriate legal action, including without limitation pursuing civil, criminal, and injunctive redress."
+   ],
+   [
+    "h2",
+    "Modifications and Interruptions"
+   ],
+   [
+    "p",
+    "We reserve the right to change, modify, or remove the contents of the Site at any time or for any reason at our sole discretion without notice. However, we have no obligation to update any information on our Site. We also reserve the right to modify or discontinue all or part of the Site without notice at any time. We will not be liable to you or any third party for any modification, price change, suspension, or discontinuance of the Site. We cannot guarantee the Site will be available at all times. We may experience hardware, software, or other problems or need to perform maintenance related to the Site, resulting in interruptions, delays, or errors. We reserve the right to change, revise, update, suspend, discontinue, or otherwise modify the Site at any time or for any reason without notice to you. You agree that we have no liability whatsoever for any loss, damage, or inconvenience caused by your inability to access or use the Site during any downtime or discontinuance of the Site. Nothing in these Terms of Use will be construed to obligate us to maintain and support the Site or to supply any corrections, updates, or releases in connection therewith."
+   ],
+   [
+    "h2",
+    "Governing Law"
+   ],
+   [
+    "p",
+    "These Terms of Use and your use of the Site are governed by and construed in accordance with the laws of the State of Florida applicable to agreements made and to be entirely performed within the State of Florida, without regard to its conflict of law principles."
+   ],
+   [
+    "h2",
+    "Dispute Solution"
+   ],
+   [
+    "h2",
+    "Informal Negotiations"
+   ],
+   [
+    "p",
+    "To expedite resolution and control the cost of any dispute, controversy, or claim related to these Terms of Use (each a “Dispute” and collectively, the “Disputes”) brought by either you or us (individually, a “Party” and collectively, the “Parties”), the Parties agree to first attempt to negotiate any Dispute (except those Disputes expressly provided below) informally for at least thirty (30) days before initiating arbitration. Such informal negotiations commence upon written notice from one Party to the other Party."
+   ],
+   [
+    "h2",
+    "Binding Arbitration"
+   ],
+   [
+    "p",
+    "If the Parties are unable to resolve a Dispute through informal negotiations, the Dispute (except those Disputes expressly excluded below) will be finally and exclusively resolved through binding arbitration. YOU UNDERSTAND THAT WITHOUT THIS PROVISION, YOU WOULD HAVE THE RIGHT TO SUE IN COURT AND HAVE A JURY TRIAL. The arbitration shall be commenced and conducted under the Commercial Arbitration Rules of the American Arbitration Association (“AAA”) and, where appropriate, the AAA’s Supplementary Procedures for Consumer Related Disputes (“AAA Consumer Rules”), both of which are available at the AAA website:"
+   ],
+   [
+    "p",
+    "www.adr.org."
+   ],
+   [
+    "p",
+    "Your arbitration fees and your share of arbitrator compensation shall be governed by the AAA Consumer Rules and, where appropriate, limited by the AAA Consumer Rules. If such costs are determined by the arbitrator to be excessive, we will pay all arbitration fees and expenses. The arbitration may be conducted in person, through the submission of documents, by phone, or online. The arbitrator will make a decision in writing, but need not provide a statement of reasons unless requested by either Party. The arbitrator must follow applicable law, and any award may be challenged if the arbitrator fails to do so. Except where otherwise required by the applicable AAA rules or applicable law, the arbitration will take place in Florida. Except as otherwise provided herein, the Parties may litigate in court to compel arbitration, stay proceedings pending arbitration, or to confirm, modify, vacate, or enter judgment on the award entered by the arbitrator."
+   ],
+   [
+    "p",
+    "If for any reason, a Dispute proceeds in court rather than arbitration, the Dispute shall be commenced or prosecuted in the state and federal courts located in Florida, and the Parties hereby consent to, and waive all defenses of lack of personal jurisdiction, and forum non conveniens with respect to venue and jurisdiction in such state and federal courts. Application of the United Nations Convention on Contracts for the International Sale of Goods and the Uniform Computer Information Transaction Act (UCITA) is excluded from these Terms of Use. If this provision is found to be illegal or unenforceable, then neither Party will elect to arbitrate any Dispute falling within that portion of this provision found to be illegal or unenforceable, and such Dispute shall be decided by a court of competent jurisdiction within the courts listed for jurisdiction above, and the Parties agree to submit to the personal jurisdiction of that court."
+   ],
+   [
+    "h2",
+    "Restrictions"
+   ],
+   [
+    "p",
+    "The Parties agree that any arbitration shall be limited to the Dispute between the Parties individually. To the full extent permitted by law, (a) no arbitration shall be joined with any other proceeding; (b) there is no right or authority for any Dispute to be arbitrated on a class-action basis or to utilize class action procedures; and (c) there is no right or authority for any Dispute to be brought in a purported representative capacity on behalf of the general public or any other persons."
+   ],
+   [
+    "h2",
+    "Exceptions to Informal Negotiations and Arbitration"
+   ],
+   [
+    "p",
+    "The Parties agree that the following Disputes are not subject to the above provisions concerning informal negotiations and binding arbitration: (a) any Disputes seeking to enforce or protect, or concerning the validity of, any of the intellectual property rights of a Party; (b) any Dispute related to, or arising from, allegations of theft, piracy, invasion of privacy, or unauthorized use; and (c) any claim for injunctive relief. If this provision is found to be illegal or unenforceable, then neither Party will elect to arbitrate any Dispute falling within that portion of this provision found to be illegal or unenforceable and such Dispute shall be decided by a court of competent jurisdiction within the courts listed for jurisdiction above, and the Parties agree to submit to the personal jurisdiction of that court."
+   ],
+   [
+    "h2",
+    "Corrections"
+   ],
+   [
+    "p",
+    "There may be information on the Site that contains typographical errors, inaccuracies, or omissions, including descriptions, pricing, availability, and various other information. We reserve the right to correct any errors, inaccuracies, or omissions and to change or update the information on the Site at any time, without prior notice."
+   ],
+   [
+    "h2",
+    "Disclaimer"
+   ],
+   [
+    "p",
+    "THE SITE IS PROVIDED ON AN AS-IS AND AS-AVAILABLE BASIS. YOU AGREE THAT YOUR USE OF THE SITE AND OUR SERVICES WILL BE AT YOUR SOLE RISK. TO THE FULLEST EXTENT PERMITTED BY LAW, WE DISCLAIM ALL WARRANTIES, EXPRESS OR IMPLIED, IN CONNECTION WITH THE SITE AND YOUR USE THEREOF, INCLUDING, WITHOUT LIMITATION, THE IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND NONINFRINGEMENT. WE MAKE NO WARRANTIES OR REPRESENTATIONS ABOUT THE ACCURACY OR COMPLETENESS OF THE SITE’S CONTENT OR THE CONTENT OF ANY WEBSITES LINKED TO THE SITE AND WE WILL ASSUME NO LIABILITY OR RESPONSIBILITY FOR ANY (1) ERRORS, MISTAKES, OR INACCURACIES OF CONTENT AND MATERIALS, (2) PERSONAL INJURY OR PROPERTY DAMAGE, OF ANY NATURE WHATSOEVER, RESULTING FROM YOUR ACCESS TO AND USE OF THE SITE, (3) ANY UNAUTHORIZED ACCESS TO OR USE OF OUR SECURE SERVERS AND/OR ANY AND ALL PERSONAL INFORMATION AND/OR FINANCIAL INFORMATION STORED THEREIN, (4) ANY INTERRUPTION OR CESSATION OF TRANSMISSION TO OR FROM THE SITE, (5)"
+   ],
+   [
+    "p",
+    "ANY BUGS, VIRUSES, TROJAN HORSES, OR THE LIKE WHICH MAY BE TRANSMITTED TO OR THROUGH THE SITE BY ANY THIRD PARTY, AND/OR (6) ANY ERRORS OR OMISSIONS IN ANY CONTENT AND MATERIALS OR FOR ANY LOSS OR DAMAGE OF ANY KIND INCURRED AS A RESULT OF THE USE OF ANY CONTENT POSTED, TRANSMITTED, OR OTHERWISE MADE AVAILABLE VIA THE SITE. WE DO NOT WARRANT, ENDORSE, GUARANTEE, OR ASSUME RESPONSIBILITY FOR ANY PRODUCT OR SERVICE ADVERTISED OR OFFERED BY A THIRD PARTY THROUGH THE SITE, ANY HYPERLINKED WEBSITE, OR ANY WEBSITE OR MOBILE APPLICATION FEATURED IN ANY BANNER OR OTHER ADVERTISING, AND WE WILL NOT BE A PARTY TO OR IN ANY WAY BE RESPONSIBLE FOR MONITORING ANY TRANSACTION BETWEEN YOU AND ANY THIRD-PARTY PROVIDERS OF PRODUCTS OR SERVICES. AS WITH THE PURCHASE OF A PRODUCT OR SERVICE THROUGH ANY MEDIUM OR IN ANY ENVIRONMENT, YOU SHOULD USE YOUR BEST JUDGMENT AND EXERCISE CAUTION WHERE APPROPRIATE."
+   ],
+   [
+    "h2",
+    "Limitations of Liability"
+   ],
+   [
+    "p",
+    "IN NO EVENT WILL WE OR OUR DIRECTORS, EMPLOYEES, OR AGENTS BE LIABLE TO YOU OR ANY THIRD PARTY FOR ANY DIRECT, INDIRECT, CONSEQUENTIAL, EXEMPLARY, INCIDENTAL, SPECIAL, OR PUNITIVE DAMAGES, INCLUDING LOST PROFIT, LOST REVENUE, LOSS OF DATA, OR OTHER DAMAGES ARISING FROM YOUR USE OF THE SITE, EVEN IF WE HAVE BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES."
+   ],
+   [
+    "h2",
+    "Indemnification"
+   ],
+   [
+    "p",
+    "You agree to defend, indemnify, and hold us harmless, including our subsidiaries, affiliates, and all of our respective officers, agents, partners, and employees, from and against any loss, damage, liability, claim, or demand, including reasonable attorneys’ fees and expenses, made by any third party due to or arising out of: (1) use of the Site; (2) breach of these Terms of Use; (3) any breach of your representations and warranties set forth in these Terms of Use; (4) your violation of the rights of a third party, including but not limited to intellectual property rights; or (5) any overt harmful act toward any other user of the Site with whom you connected via the Site. Notwithstanding the foregoing, we reserve the right, at your expense, to assume the exclusive defense and control of any matter for which you are required to indemnify us, and you agree to cooperate, at your expense, with our defense of such claims. We will use reasonable efforts to notify you of any such claim, action, or proceeding which is subject to this indemnification upon becoming aware of it."
+   ],
+   [
+    "h2",
+    "User Data"
+   ],
+   [
+    "p",
+    "We will maintain certain data that you transmit to the Site for the purpose of managing the performance of the Site, as well as data relating to your use of the Site. Although we perform regular routine backups of data, you are solely responsible for all data that you transmit or that relates to any activity you have undertaken using the Site. You agree that we shall have no liability to you for any loss or corruption of any such data, and you hereby waive any right of action against us arising from any such loss or corruption of such data."
+   ],
+   [
+    "h2",
+    "Electronic Communications, Transactions, and Signatures"
+   ],
+   [
+    "p",
+    "Visiting the Site, sending us emails, and completing online forms constitute electronic communications. You consent to receive electronic communications, and you agree that all agreements, notices, disclosures, and other communications we provide to you electronically, via email and on the Site, satisfy any legal requirement that such communication be in writing. YOU HEREBY AGREE TO THE USE OF ELECTRONIC SIGNATURES, CONTRACTS, ORDERS, AND OTHER RECORDS, AND TO ELECTRONIC DELIVERY OF NOTICES, POLICIES, AND RECORDS OF TRANSACTIONS INITIATED OR COMPLETED BY US OR VIA THE SITE. You hereby waive any rights or requirements under any statutes, regulations, rules, ordinances, or other laws in any jurisdiction which require an original signature or delivery or retention of non-electronic records, or to payments or the granting of credits by any means other than electronic means."
+   ],
+   [
+    "h2",
+    "California users and residents"
+   ],
+   [
+    "p",
+    "If any complaint with us is not satisfactorily resolved, you can contact the Complaint Assistance Unit of the Division of Consumer Services of the California Department of Consumer Affairs in writing at 1625 North Market Blvd., Suite N 112, Sacramento, California 95834 or by telephone at (800) 952-5210 or (916) 445-1254."
+   ],
+   [
+    "h2",
+    "Miscellaneous"
+   ],
+   [
+    "p",
+    "These Terms of Use and any policies or operating rules posted by us on the Site or in respect to the Site constitute the entire agreement and understanding between you and us. Our failure to exercise or enforce any right or provision of these Terms of Use shall not operate as a waiver of such right or provision. These Terms of Use operate to the fullest extent permissible by law. We may assign any or all of our rights and obligations to others at any time. We shall not be responsible or liable for any loss, damage, delay, or failure to act caused by any cause beyond our reasonable control. If any provision or part of a provision of these Terms of Use is determined to be unlawful, void, or unenforceable, that provision or part of the provision is deemed severable from these Terms of Use and does not affect the validity and enforceability of any remaining provisions. There is no joint venture, partnership, employment or agency relationship created between you and us as a result of these Terms of Use or use of the Site. You agree that these Terms of Use will not be construed against us by virtue of having drafted them. You hereby waive any and all defenses you may have based on the electronic form of these Terms of Use and the lack of signing by the parties hereto to execute these Terms of Use."
+   ],
+   [
+    "h2",
+    "Contact Us"
+   ],
+   [
+    "p",
+    "In order to resolve a complaint regarding the Site or to receive further information regarding use of the Site, please contact us at:"
+   ],
+   [
+    "p",
+    "Listaso Inc."
+   ],
+   [
+    "p",
+    "5966 S Dixie Hwy, Ste 300, South Miami, FL 33143, United States"
+   ],
+   [
+    "p",
+    "Phone: 305-912-7770"
+   ],
+   [
+    "p",
+    "Email: sales@listaso.com"
+   ]
+  ]
+ }
+}
