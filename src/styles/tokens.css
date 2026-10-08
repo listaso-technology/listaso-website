@@ -1,0 +1,18 @@
+@theme inline {
+  --color-brand-ink: var(--listaso-color-ink);
+  --color-brand-muted: var(--listaso-color-muted);
+  --color-brand-accent: var(--listaso-color-accent);
+  --color-brand-surface: var(--listaso-color-surface);
+}
+
+:root {
+  /* Foundation tokens only. Final values require design-system validation. */
+  --listaso-color-ink: #0a426a;
+  --listaso-color-muted: #526579;
+  --listaso-color-accent: #00baa3;
+  --listaso-color-surface: #ffffff;
+  --listaso-focus-ring: #ff1478;
+  --listaso-motion-fast: 150ms;
+  --listaso-motion-standard: 250ms;
+  --listaso-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+}
