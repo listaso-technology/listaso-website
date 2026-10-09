@@ -34,6 +34,8 @@ en lint, tipos o build, y no es source of truth automático para contenido.
 
 ## Deployment
 
-GitHub Actions y Cloudflare todavía no están configurados. `main` será producción;
-`dev` es integración y `qa` validación. El dominio productivo no se modifica en
-esta etapa.
+GitHub Actions y Cloudflare todavía no están configurados. `dev` integra el
+trabajo activo y `main` conserva la propuesta estable para las validaciones
+presenciales. No hay rama `qa` en esta etapa. `main` no implica todavía un
+cutover productivo: el dominio y DNS no se modifican hasta una autorización
+posterior de Erick.

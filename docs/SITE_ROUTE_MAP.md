@@ -4,6 +4,9 @@
 **Estado:** Inventario de migración; no autoriza cambios en producción, DNS,
 Cloudflare, WordPress ni Analytics.
 
+La matriz por ruta, enriquecida con WordPress, Yoast, GA4 y Search Console, vive
+en `docs/ROUTE_CONTENT_MATRIX.md`.
+
 ## Fuentes
 
 - Sitemap público de `listaso.com` y sitemaps WordPress/Yoast.
@@ -39,10 +42,12 @@ canónica con slash.
 
 ## Rutas públicas faltantes en la referencia
 
-- `/blog/`: mantener WordPress o aprobar destino editorial.
-- `/book-a-demo/`: crear conservando exactamente la URL; prioridad comercial.
-- `/rating/`: conservar o aprobar equivalencia. El redirect a `/support/` sigue
-  bloqueado mientras `/support/` no exista y no se valide el contenido.
+- `/blog/`: conservar en WordPress y mantener exactamente la URL hasta la futura
+  plataforma editorial.
+- `/book-a-demo/`: preservar exactamente la URL; los CTA usan Calendly mientras
+  la integración de Zoho API queda pendiente.
+- `/rating/`: conservar como página independiente y añadir al dropdown Empresa;
+  no redirigir a `/support/`.
 
 ## Rutas nuevas presentes sólo en la referencia
 
@@ -56,12 +61,13 @@ Publicar `/es/` sólo con navegación y contenido validados, equivalencia uno a
 uno y `hreflang` real. No redirigir automáticamente por idioma ni incluir
 traducciones incompletas en sitemap.
 
-## Blog: bloqueo
+## Blog: preservación
 
-Los 56 artículos, cinco categorías y autor deben conservar un destino válido.
-Las pruebas del inventario encontraron login o 404 en `blog.listaso.com`; por eso
-no se activarán redirects hasta validar todos los destinos. Deben preservarse
-slugs, contenido, canonical, imágenes, fechas, schema, categorías y enlaces.
+Los 56 artículos, cinco categorías y autor conservarán sus URLs exactas en el
+sistema actual hasta contar con un entorno aprobado para generar y administrar
+blogs. La migración se hará después, sin perder slugs, contenido, canonical,
+imágenes, fechas, schema, categorías, enlaces ni métricas. No se activarán
+redirects generales del blog.
 
 Taxonomías:
 
@@ -145,8 +151,19 @@ Artículos que deben conservar un destino válido:
 | `/integrations/acctivate[/]` | `/acctivate/` | Válido |
 | `/integrations/accountmate[/]` | `/accountmate/` | Válido |
 | `/integrations/netsuite[/]` | `/netsuite/` | Válido |
-| `/rating/` | `/support/` | Bloqueado |
-| Blog, artículos y categorías | `blog.listaso.com` | Bloqueado |
+| `/rating/` | `/support/` | Descartado: ambas serán páginas independientes |
+| Blog, artículos y categorías | `blog.listaso.com` | No ejecutar; conservar URLs actuales |
+
+## Navegación y contacto aprobados
+
+- `/support/` será una página nueva.
+- `/rating/` se conserva como página independiente.
+- Ambas rutas estarán en el dropdown `Company` / `Empresa` de la nueva
+  navegación.
+- Los CTA de demo usarán temporalmente
+  `https://calendly.com/ernesto-henriquez-viasql/60min`.
+- La recepción mediante API de Zoho se implementará en una etapa posterior.
+- `/book-a-demo/` permanece preservada mientras se define esa implementación.
 
 ## Criterios antes de usar `listaso.com`
 

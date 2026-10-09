@@ -4,6 +4,10 @@ Decision: DEC-008 (8pt system approved by Erick). The values below are PROPOSED
 conventions. They replace the legacy sprawl of 15 radii, 5 shadows and 14
 breakpoints.
 
+Do not apply the proposed radii, shadows, glass recipes, typography or exact
+visual values to the application before Erick approves them in Chat 5. Until
+then, this file is a review candidate, not implementation authority.
+
 ## 8-point spacing
 
 **Rule.** Every spacing value is a multiple of 8px. 4px is allowed as a
@@ -103,7 +107,9 @@ system.
 ## Glass effect
 
 The brand guide reserves glass for "AI containers and widgets" (CONFIRMED,
-p14–15). We reuse it as a deliberate accent, not a default surface.
+p14–15). Erick permits broader decorative use as a PROPOSED direction, subject
+to final approval in Chat 5 and the limits below. It is a deliberate accent,
+not a default surface.
 
 **Allowed.**
 1. SAMI and AI containers and widgets: chat mocks, assistant panels, AI feature

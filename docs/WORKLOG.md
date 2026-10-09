@@ -4,8 +4,13 @@
 
 ## Tarea activa
 
-Ninguna. Antes de editar, cada agente registra aquí tarea, responsable, branch,
-archivos reservados y lo que queda fuera de alcance.
+Chat 3 y Chat 4 — Codex, branch `dev`.
+
+- Alcance: CI de GitHub Actions y preparación de Cloudflare Pages.
+- Archivos reservados: `.github/workflows/ci.yml`, `docs/CI_CLOUDFLARE.md`,
+  `docs/WORKLOG.md` y handoff correspondiente.
+- Fuera de alcance: commit, push, merge, custom domain, DNS, `main`, secretos y
+  primer deployment antes de que el checkpoint exista en GitHub.
 
 Últimas tareas cerradas (Claude, `dev`, sin commit):
 
@@ -19,7 +24,8 @@ archivos reservados y lo que queda fuera de alcance.
 - Repositorio clonado y referencia movida a `start-version/`.
 - Inventario read-only de la implementación heredada.
 - Mapa inicial de 89 URLs públicas y rutas estáticas preservado.
-- `main` confirmado como producción; flujo `dev -> qa -> main`.
+- Flujo vigente simplificado a `dev -> main`; `main` contiene la propuesta
+  estable, pero no autoriza DNS ni cutover productivo.
 - Foundation Next.js/TypeScript/Tailwind creada para export estático.
 - Documentos operativos para Codex y Claude creados.
 - `.DS_Store` eliminado y bloqueado mediante `.gitignore`.
@@ -49,13 +55,54 @@ archivos reservados y lo que queda fuera de alcance.
     Symbols.
   - Referencias de marca añadidas a las Skills `listaso-*` (ver
     `docs/SKILLS_CATALOG.md`).
+- Observaciones de marca cerradas documentalmente por Erick:
+  - radios, sombras, vidrio, tipografía web y ajustes de color permanecen
+    `PROPUESTOS` hasta su aprobación final en el Chat 5;
+  - aqua y vidrio pueden proponerse como recursos decorativos dentro de los
+    límites documentados;
+  - hash de la guía y commit/versiones de SAMI quedaron registrados.
+- Inputs necesarios para la matriz de rutas documentados en
+  `docs/ROUTE_CONTENT_INPUTS.md`.
+- Chat 2 iniciado con exports reales de WordPress, GA4 y Search Console:
+  - matriz de 125 rutas en `docs/ROUTE_CONTENT_MATRIX.md`;
+  - 89 URLs públicas de Yoast preservadas y 36 rutas nuevas de `start-version/`
+    inventariadas;
+  - un artículo de WordPress en borrador separado del inventario público;
+  - rutas históricas y probable spam de GA4 separados para no crear páginas por
+    error;
+  - cobertura, periodo corto y ausencia de eventos clave registrados como
+    limitaciones.
+- Erick cerró decisiones principales de Chat 2:
+  - el periodo corto de medición es todo el baseline disponible y no un faltante;
+  - blog, 56 artículos, categorías y autor conservan sus URLs en el sistema
+    actual hasta una futura plataforma editorial;
+  - demo usa temporalmente el Calendly existente y Zoho API queda para después;
+  - `/support/` será nueva, `/rating/` seguirá independiente y ambas irán en el
+    dropdown Empresa.
+- Chat 3 implementado localmente:
+  - workflow `CI / Quality` con Node/pnpm fijados, lockfile congelado, peers,
+    lint, typecheck, build y verificación de `out/index.html`;
+  - Actions fijadas a SHA completo y permisos reducidos a `contents: read`.
+  - `pnpm install --frozen-lockfile`, `pnpm peers check`, lint y typecheck pasan.
+  - El export estático pasa con Node `24.21.0` y webpack. El build Turbopack
+    predeterminado no pudo comprobarse dentro del sandbox de Codex porque éste
+    bloquea el puerto local que usa su proceso CSS; la primera ejecución en
+    GitHub verificará el mismo comando del workflow.
+- Chat 4 preparado:
+  - cuenta y conexión GitHub verificadas;
+  - no existe aún un proyecto Workers & Pages;
+  - configuración exacta, branches, variables no secretas y rollback definidos
+    en `docs/CI_CLOUDFLARE.md`;
+  - creación/primer deployment pospuestos hasta que el checkpoint esté en
+    `origin/dev`, para evitar construir la versión remota incompleta.
 
 ## Estado actual
 
 - Rama de trabajo: `dev`.
 - No hay páginas ni copy migrados.
 - Foundation bloqueada para indexación.
-- CI y Cloudflare pendientes.
+- CI preparado localmente; Cloudflare documentado y pendiente del checkpoint
+  remoto para crear el proyecto Pages.
 - Claude Code funciona y detecta las Skills. Figma Desktop MCP sigue sin
   responder en `127.0.0.1:3845`.
 - El working tree de la foundation continúa sin commit. Claude recomienda el
@@ -63,17 +110,19 @@ archivos reservados y lo que queda fuera de alcance.
 
 ## Pendientes inmediatos
 
-1. Erick decide si autoriza el commit de checkpoint en `dev` (y, por separado,
-   el push).
-2. Completar la matriz unificada de rutas y contenido (Chat 2).
-3. Configurar CI en una tarea separada (Chat 3).
-4. Preparar Cloudflare sin publicar producción ni modificar DNS (Chat 4).
+1. Erick crea y sube el commit de checkpoint en `dev`.
+2. Erick responde las decisiones abiertas de `docs/ROUTE_CONTENT_MATRIX.md` y,
+   si están disponibles, comparte los exports adicionales para cerrar Chat 2.
+3. Subir el workflow, observar `CI / Quality` y confirmar su nombre real.
+4. Crear el proyecto Pages después del checkpoint remoto y validar el preview
+   temporal de `dev`, sin dominio personalizado ni DNS.
 5. Definir la foundation visual antes de implementar la primera ruta (Chat 5).
 
 ## Desconocidos o bloqueadores
 
-- Destino operativo de WordPress y sus 56 artículos.
-- Decisión final para `/rating/` y contenido de `/book-a-demo/`.
+- Plataforma editorial futura y momento de migración; hasta entonces WordPress
+  y las URLs de los 56 artículos se conservan.
+- Implementación futura de Zoho API y posible equivalente `/es/rating/`.
 - Copy, claims, traducciones y assets aprobados por página.
 - IDs/eventos vigentes de GA4 y Clarity; GTM heredado debe verificarse.
 - Configuración y permisos de Cloudflare.

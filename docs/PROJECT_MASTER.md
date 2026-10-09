@@ -115,16 +115,21 @@ Flujo aprobado:
 ```text
 feat/*, ux/*, fix/*, chore/* o docs/*
     -> dev
-    -> qa
     -> main
 ```
 
-- `main` es la rama de producción.
-- No hacer push directo a `qa` o `main`.
+- `dev` integra el trabajo activo.
+- `main` conserva la propuesta estable para validación presencial con
+  developers y stakeholders.
+- No hacer push directo a `main`; promover mediante Pull Request, checks y
+  autorización de Erick.
+- No hay rama `qa` en esta etapa. Una etapa formal de QA se añadirá sólo mediante
+  una nueva decisión.
 - Un agente implementa cada alcance; el otro revisa o trabaja aparte.
 - GitHub Actions valida lint, typecheck, tests aplicables y production build.
 - Cloudflare crea previews/branch deployments y publica desde `main` cuando se
   configure y autorice.
+- `main` no autoriza por sí solo producción, DNS ni el uso de `listaso.com`.
 - Ninguna IA modifica producción, DNS, Cloudflare o `main` sin autorización.
 
 ## Definition of Done

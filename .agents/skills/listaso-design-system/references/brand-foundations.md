@@ -26,7 +26,16 @@ use the ADJUSTED value. Never introduce an off-palette hue.
 The file swatch says `#FF0080` and the logo SVG says `#FF1975`. Both are CONFLICTS
 until Marketing confirms them. Do not use these values in UI.
 
+Pure aqua `#00BDA9` is allowed for non-essential decorative shapes, fills,
+highlights and glass accents. Its 2.37:1 ratio on white does not prohibit a
+purely decorative mark, but it is insufficient when the shape conveys state,
+interaction, a control boundary or information needed to understand the page.
+In those functional cases, use an approved accessible role after Chat 5.
+
 ## Semantic roles — light theme (default)
+
+The exact values marked ADJUSTED or PROPOSED below are review candidates. Do not
+apply them to the application until Erick gives final approval in Chat 5.
 
 | Token (proposed name) | Value | Status | Contrast |
 | --- | --- | --- | --- |

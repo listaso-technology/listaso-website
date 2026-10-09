@@ -152,7 +152,7 @@ responsive, teclado, accesibilidad, SEO, analytics, performance, export estátic
 y regresiones contra la matriz de rutas. Ejecuta las validaciones disponibles y
 clasifica hallazgos por prioridad con archivo y evidencia.
 
-Indica si está listo para PR o promoción a dev/qa, pero no hagas commit, push,
+Indica si está listo para PR o promoción a dev/main, pero no hagas commit, push,
 merge ni deployment sin autorización explícita. Actualiza WORKLOG y deja handoff.
 ```
 
@@ -166,9 +166,9 @@ Chat 3: CI de GitHub Actions
 Chat 4: preparación de Cloudflare
 Chat 5: foundation visual
 Chat 6: una ruta o bloque pequeño
-Chat 7: review y QA independiente
+Chat 7: review y validación independiente
   → repetir Chats 6 y 7
-  → promoción dev → qa → main sólo con autorización
+  → promoción dev → main sólo con autorización
 ```
 
 ## Cuándo debe detenerse Claude y preguntar

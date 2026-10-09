@@ -13,9 +13,9 @@ especificado), `CONFLICTO`, `DESCONOCIDO`.
 
 | Fuente | Ruta | Uso |
 | --- | --- | --- |
-| Guía de marca | `~/Documents/Proyect reference LISTASO WEBSITE/Guide Sami Listaso AI/BrandGUIDElastConceptJ13.pdf` (34 p., Illustrator, 2026-07-21) | Fuente principal de marca. Es un concepto con errores; Marketing la auditará. |
+| Guía de marca | `~/Documents/Proyect reference LISTASO WEBSITE/Guide Sami Listaso AI/BrandGUIDElastConceptJ13.pdf` (34 p., Illustrator, 2026-07-21); SHA-256 `a9a12bab38bb1332051884300fab98a0f4bda2788acff40a45d55aded1d22f48` | Fuente principal de marca. Es un concepto con errores; Marketing la auditará. |
 | Sitio heredado | `start-version/` | Base de diseño y estructura. Read-only. |
-| Guide Sami Listaso AI | `~/Documents/Proyect reference LISTASO WEBSITE/Guide Sami Listaso AI/project/` | Referencia estética para SAMI e IA. Su código no se integra. |
+| Guide Sami Listaso AI | `~/Documents/Proyect reference LISTASO WEBSITE/Guide Sami Listaso AI/project/`; commit `1dadc6114a181acf2c0249f91e27bf8879fc3f3c`, `siteVersion` 43, `contentVersion` 64 | Referencia estética para SAMI e IA. Su código no se integra. |
 
 Ninguna de las tres carpetas se modificó.
 
@@ -193,7 +193,7 @@ conectores ni el enrutado por hash.
 | `#0960FF` / blanco | 5.09 | AA |
 | `#0960FF` / `#F5F8FB` | 4.77 | AA |
 | `#007267` / `#F5F8FB` | 5.47 | AA |
-| `#00BDA9` / blanco | 2.37 | Falla también como no-texto |
+| `#00BDA9` / blanco | 2.37 | Insuficiente para UI no textual esencial; permitido como decoración |
 | `#008476` / blanco | 4.60 | AA |
 | `#5FE6D6` / `#00375B` | 8.12 | AA |
 | `#00BDA9` / `#00375B` | 5.21 | AA |

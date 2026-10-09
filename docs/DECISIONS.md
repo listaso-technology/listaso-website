@@ -27,9 +27,18 @@ que exista otra decisión.
 
 **Estado:** Aprobada — 8 de octubre de 2026
 
-El flujo es `feat/*`, `ux/*`, `fix/*`, `chore/*` o `docs/*` -> `dev` -> `qa`
--> `main`. `dev` integra, `qa` contiene el candidato evaluable y `main`
-representa producción. No se hacen pushes directos a `qa` o `main`.
+El flujo actual es `feat/*`, `ux/*`, `fix/*`, `chore/*` o `docs/*` -> `dev`
+-> `main`. `dev` integra el trabajo activo y `main` conserva la propuesta estable
+que Erick presenta y valida en persona con developers y stakeholders. No se
+hacen pushes directos a `main`: la promoción requiere Pull Request, checks y
+autorización de Erick.
+
+La rama `qa` no forma parte de la etapa actual porque el proyecto tiene un solo
+responsable operativo y sigue siendo una propuesta. Se incorporará una etapa o
+entorno formal de QA mediante una nueva decisión cuando el equipo y la cercanía
+del lanzamiento lo justifiquen. Llegar a `main` no autoriza conectar
+`listaso.com`, cambiar DNS ni sustituir producción; esas acciones requieren una
+autorización posterior y explícita.
 
 Aclaración del 8 de octubre de 2026: Erick confirmó `feat/*` como prefijo
 oficial, igual que `docs/PROJECT_MASTER.md`; `feature/*` no se utiliza.
@@ -89,17 +98,25 @@ un sector muy competido.
 
 ## DEC-008 Espaciado, radios, elevación y vidrio
 
-**Estado:** Aprobada por Erick (sistema de 8 puntos); valores propuestos por
-Claude — 8 de octubre de 2026
+**Estado:** Sistema de 8 puntos aprobado por Erick; valores visuales exactos
+propuestos para aprobación en el Chat 5 — 8 de octubre de 2026
 
 **Espaciado.**
 - Sistema de 8 puntos, con 4px como medio paso para ajustes finos.
 - Los espacios y alineaciones se eligen según la necesidad dentro de esa escala.
 
-**Radios, sombras y vidrio.** Siguen escalas cerradas. El efecto vidrio se
-reutiliza en algunos componentes, pero tiene límites explícitos para no
-abusar de él. La especificación vive en
+**Radios, sombras y vidrio.** Las escalas documentadas permanecen como
+`PROPUESTAS`: buscan una imagen consistente y de buena calidad, pero no se
+aplican a la aplicación antes de que Erick las apruebe en el Chat 5. El efecto
+vidrio queda permitido como recurso decorativo propuesto, con límites explícitos
+para no abusar de él. La especificación vive en
 `.agents/skills/listaso-design-system/references/layout-and-surfaces.md`.
+
+**Color aqua.** Su uso decorativo queda permitido. Cuando el color comunique
+estado, interacción, límite de control, texto o iconografía esencial, deberá
+cumplir el contraste correspondiente; la excepción decorativa no convierte un
+elemento funcional en decoración. Los colores ajustados para accesibilidad
+siguen `PROPUESTOS` hasta el Chat 5.
 
 ## DEC-009 Fotografía temporal desde Unsplash
 
@@ -130,3 +147,29 @@ abusar de él. La especificación vive en
 **Pendiente.** El formato (SVG por ícono o fuente) y cualquier paquete
 requieren aprobación de dependencia al implementarse. La recomendación vive en
 `.agents/skills/listaso-design-system/references/imagery-and-icons.md`.
+
+## DEC-011 Continuidad de contenido, medición y contacto
+
+**Estado:** Aprobada por Erick — 8 de octubre de 2026
+
+**Medición.** El historial disponible desde el 1 de agosto de 2026 es la línea
+base completa de GA4 y Search Console porque las herramientas se conectaron al
+incorporarse Erick a la empresa. La ausencia de datos anteriores no bloquea la
+matriz ni se tratará como una exportación incompleta.
+
+**Blog.** `/blog/`, los 56 artículos, las cinco categorías y el autor conservan
+sus URLs exactas. Permanecen operativos en el sistema actual hasta contar con un
+entorno aprobado para publicar y administrar artículos. La migración futura no
+podrá cambiar slugs ni perder metadata, imágenes, fechas, categorías, enlaces o
+métricas. No se crean redirects generales del blog.
+
+**Solicitar demo.** La integración de formularios con Zoho mediante API queda
+para una etapa posterior. Mientras tanto, los CTA de demo usan el enlace ya
+presente en `start-version/`:
+`https://calendly.com/ernesto-henriquez-viasql/60min`. La URL pública
+`/book-a-demo/` se preserva hasta definir su implementación definitiva.
+
+**Empresa.** `/support/` será una página nueva. `/rating/` permanece como página
+independiente y no redirige a soporte. Ambas se ubicarán en el dropdown de
+Empresa de la nueva navegación. Esto no autoriza crear todavía `/es/rating/`;
+su equivalente en español requiere una decisión explícita.
