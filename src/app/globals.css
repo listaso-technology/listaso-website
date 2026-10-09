@@ -2,3 +2,5 @@
 @import "../styles/tokens.css";
 @import "../styles/base.css";
 @import "../styles/motion.css";
+
+@custom-variant reduced-transparency (@media (prefers-reduced-transparency: reduce));

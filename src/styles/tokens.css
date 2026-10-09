@@ -1,18 +1,324 @@
-@theme inline {
-  --color-brand-ink: var(--listaso-color-ink);
-  --color-brand-muted: var(--listaso-color-muted);
-  --color-brand-accent: var(--listaso-color-accent);
-  --color-brand-surface: var(--listaso-color-surface);
+/*
+ * Listaso design tokens (DEC-007, DEC-008). Source and contrast evidence:
+ * .agents/skills/listaso-design-system/references/brand-foundations.md
+ *
+ * Layers:
+ * 1. Primitives: the brand-guide palette. Do not use them in components.
+ * 2. Semantic roles: light values on :root and [data-theme="light"]; dark
+ *    values follow prefers-color-scheme or [data-theme="dark"].
+ * 3. Surface contexts: [data-surface="band"] and [data-surface="sami"].
+ * 4. Tailwind theme: utilities only expose semantic roles and the approved
+ *    scales. The default Tailwind palette, radii, shadows and type sizes are
+ *    cleared so off-system values cannot be used by accident.
+ *
+ * Theme-aware styling must use these tokens, not Tailwind's `dark:` variant,
+ * which only follows the media query and ignores [data-theme] overrides.
+ */
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+
+    /* Primitives — brand guide palette (p17). */
+    --listaso-navy: #00375b;
+    --listaso-ink: #151726;
+    --listaso-blue: #0960ff;
+    --listaso-aqua: #00bda9;
+    --listaso-magenta: #ff3a6a;
+    --listaso-red: #da415d;
+    --listaso-green: #03ea78;
+    --listaso-yellow: #ffc801;
+    --listaso-neutral: #dfdfdf;
+    --listaso-white: #ffffff;
+
+    /* Typography. Montserrat is not self-hosted yet; see the visual-foundation handoff. */
+    --listaso-font-sans: "Montserrat", "Avenir Next", "Segoe UI", Arial, sans-serif;
+
+    /* Radius scale (DEC-008). */
+    --listaso-radius-xs: 4px;
+    --listaso-radius-sm: 8px;
+    --listaso-radius-md: 16px;
+    --listaso-radius-lg: 24px;
+    --listaso-radius-xl: 32px;
+    --listaso-radius-full: 9999px;
+  }
+
+  /* Semantic roles — light theme (default). */
+  :root,
+  [data-theme="light"] {
+    --listaso-surface-page: #ffffff;
+    --listaso-surface-alt: #f5f8fb;
+    --listaso-surface-soft: #e9f3f6;
+    --listaso-surface-raised: #ffffff;
+    --listaso-surface-band: #00375b;
+
+    --listaso-text-default: #151726;
+    --listaso-text-muted: #4a5569;
+    --listaso-text-heading: #00375b;
+    --listaso-text-accent: #007267;
+    --listaso-text-on-band-muted: #b9cbe0;
+    --listaso-text-on-action: #ffffff;
+    --listaso-text-on-status: #151726;
+    --listaso-text-on-error: #ffffff;
+    --listaso-icon-accent: #008476;
+
+    --listaso-link: #0960ff;
+    --listaso-link-hover: #0050e6;
+    --listaso-link-on-band: #5fe6d6;
+
+    --listaso-action-primary: #d83553;
+    --listaso-action-primary-hover: #bf2a47;
+
+    --listaso-border-subtle: #dce3ec;
+    --listaso-border-control: #7a889b;
+    --listaso-focus-ring: #0960ff;
+
+    --listaso-status-success: #03ea78;
+    --listaso-status-warning: #ffc801;
+    --listaso-status-error: #b8243f;
+
+    --listaso-shadow-e1: 0 1px 2px rgb(0 55 91 / 0.06), 0 4px 8px rgb(0 55 91 / 0.06);
+    --listaso-shadow-e2: 0 8px 24px rgb(0 55 91 / 0.12);
+    --listaso-shadow-e3: 0 24px 64px rgb(0 55 91 / 0.2);
+
+    /* Show/hide helpers for theme-specific assets such as logos. */
+    --listaso-display-light: block;
+    --listaso-display-dark: none;
+  }
+
+  [data-theme="light"] {
+    color-scheme: light;
+  }
+
+  /*
+   * Dark theme. The custom properties repeat in two blocks because CSS cannot
+   * share one declaration list between a media query and an attribute selector.
+   * Keep both blocks identical.
+   */
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --listaso-surface-page: #0d1222;
+      --listaso-surface-alt: #151b2e;
+      --listaso-surface-soft: #14243a;
+      --listaso-surface-raised: #151b2e;
+      --listaso-surface-band: #00375b;
+
+      --listaso-text-default: #e7ecf4;
+      --listaso-text-muted: #a4afc3;
+      --listaso-text-heading: #ffffff;
+      --listaso-text-accent: #3fd9c6;
+      --listaso-text-on-band-muted: #b9cbe0;
+      --listaso-text-on-action: #ffffff;
+      --listaso-text-on-status: #151726;
+      --listaso-text-on-error: #151726;
+      --listaso-icon-accent: #3fd9c6;
+
+      --listaso-link: #5c93ff;
+      --listaso-link-hover: #8db3ff;
+      --listaso-link-on-band: #5fe6d6;
+
+      --listaso-action-primary: #d83553;
+      --listaso-action-primary-hover: #bf2a47;
+
+      --listaso-border-subtle: #283149;
+      --listaso-border-control: #6b7894;
+      --listaso-focus-ring: #70d4ff;
+
+      --listaso-status-success: #03ea78;
+      --listaso-status-warning: #ffc801;
+      --listaso-status-error: #ff8095;
+
+      --listaso-shadow-e1: none;
+      --listaso-shadow-e2: 0 8px 24px rgb(0 0 0 / 0.24);
+      --listaso-shadow-e3: 0 24px 64px rgb(0 0 0 / 0.32);
+
+      --listaso-display-light: none;
+      --listaso-display-dark: block;
+    }
+  }
+
+  [data-theme="dark"] {
+    color-scheme: dark;
+
+    --listaso-surface-page: #0d1222;
+    --listaso-surface-alt: #151b2e;
+    --listaso-surface-soft: #14243a;
+    --listaso-surface-raised: #151b2e;
+    --listaso-surface-band: #00375b;
+
+    --listaso-text-default: #e7ecf4;
+    --listaso-text-muted: #a4afc3;
+    --listaso-text-heading: #ffffff;
+    --listaso-text-accent: #3fd9c6;
+    --listaso-text-on-band-muted: #b9cbe0;
+    --listaso-text-on-action: #ffffff;
+    --listaso-text-on-status: #151726;
+    --listaso-text-on-error: #151726;
+    --listaso-icon-accent: #3fd9c6;
+
+    --listaso-link: #5c93ff;
+    --listaso-link-hover: #8db3ff;
+    --listaso-link-on-band: #5fe6d6;
+
+    --listaso-action-primary: #d83553;
+    --listaso-action-primary-hover: #bf2a47;
+
+    --listaso-border-subtle: #283149;
+    --listaso-border-control: #6b7894;
+    --listaso-focus-ring: #70d4ff;
+
+    --listaso-status-success: #03ea78;
+    --listaso-status-warning: #ffc801;
+    --listaso-status-error: #ff8095;
+
+    --listaso-shadow-e1: none;
+    --listaso-shadow-e2: 0 8px 24px rgb(0 0 0 / 0.24);
+    --listaso-shadow-e3: 0 24px 64px rgb(0 0 0 / 0.32);
+
+    --listaso-display-light: none;
+    --listaso-display-dark: block;
+  }
+
+  /*
+   * Navy band context: the same in both themes. Text on the band uses white and
+   * the on-band roles, and the focus ring switches because #0960ff fails on
+   * navy (2.43:1).
+   */
+  [data-surface="band"] {
+    background-color: var(--listaso-surface-band);
+    color: #ffffff;
+
+    --listaso-text-default: #ffffff;
+    --listaso-text-muted: var(--listaso-text-on-band-muted);
+    --listaso-text-heading: #ffffff;
+    --listaso-text-accent: var(--listaso-link-on-band);
+    --listaso-icon-accent: var(--listaso-link-on-band);
+    --listaso-link: var(--listaso-link-on-band);
+    --listaso-link-hover: #ffffff;
+    --listaso-border-subtle: rgb(255 255 255 / 0.14);
+    --listaso-border-control: rgb(255 255 255 / 0.56);
+    --listaso-focus-ring: #70d4ff;
+    --listaso-shadow-e1: none;
+
+    --listaso-display-light: none;
+    --listaso-display-dark: block;
+  }
+
+  /*
+   * SAMI context: SAMI/AI spaces only (DEC-007). Values come from Guide Sami,
+   * with the AA corrections from brand-foundations.md (no lighter #347cff
+   * hover; #4d8dff for blue text).
+   */
+  [data-surface="sami"] {
+    color-scheme: dark;
+    background-color: var(--listaso-surface-page);
+    color: var(--listaso-text-default);
+
+    --listaso-surface-page: #02090d;
+    --listaso-surface-alt: #071b29;
+    --listaso-surface-soft: #0c2b3d;
+    --listaso-surface-raised: #092332;
+
+    --listaso-text-default: #ffffff;
+    --listaso-text-muted: #a4bdcb;
+    --listaso-text-heading: #ffffff;
+    --listaso-text-accent: #66dcd4;
+    --listaso-icon-accent: #66dcd4;
+
+    --listaso-link: #4d8dff;
+    --listaso-link-hover: #8db3ff;
+
+    --listaso-action-primary: #0960ff;
+    --listaso-action-primary-hover: #0050e6;
+
+    --listaso-border-subtle: #224355;
+    --listaso-border-control: #7a8ba6;
+    --listaso-focus-ring: #70d4ff;
+
+    --listaso-shadow-e1: none;
+
+    --listaso-display-light: none;
+    --listaso-display-dark: block;
+  }
 }
 
-:root {
-  /* Foundation tokens only. Final values require design-system validation. */
-  --listaso-color-ink: #0a426a;
-  --listaso-color-muted: #526579;
-  --listaso-color-accent: #00baa3;
-  --listaso-color-surface: #ffffff;
-  --listaso-focus-ring: #ff1478;
-  --listaso-motion-fast: 150ms;
-  --listaso-motion-standard: 250ms;
-  --listaso-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+/* Tailwind: clear the default scales, then expose only approved values. */
+@theme {
+  --color-*: initial;
+  --radius-*: initial;
+  --shadow-*: initial;
+  --text-*: initial;
+
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 32px;
+
+  /* Containers (layout-and-surfaces.md). */
+  --container-content: 75rem;
+  --container-wide: 90rem;
+  --container-prose: 72ch;
+
+  /* Type scale (rem keeps user font-size preferences). */
+  --text-display: clamp(2.5rem, 5vw + 1rem, 4.5rem);
+  --text-display--line-height: 1.1;
+  --text-h1: clamp(2.25rem, 4vw + 1rem, 3.5rem);
+  --text-h1--line-height: 1.15;
+  --text-h2: clamp(2rem, 3vw + 1rem, 3rem);
+  --text-h2--line-height: 1.2;
+  --text-h3: 1.5rem;
+  --text-h3--line-height: 2rem;
+  --text-h4: 1.25rem;
+  --text-h4--line-height: 1.75rem;
+  --text-lead: 1.25rem;
+  --text-lead--line-height: 2rem;
+  --text-body-lg: 1.125rem;
+  --text-body-lg--line-height: 1.75rem;
+  --text-body: 1rem;
+  --text-body--line-height: 1.5rem;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.25rem;
+  --text-eyebrow: 0.875rem;
+  --text-eyebrow--line-height: 1.25rem;
+  --text-eyebrow--letter-spacing: 0.12em;
+  --text-caption: 0.75rem;
+  --text-caption--line-height: 1rem;
+}
+
+@theme inline {
+  --font-sans: var(--listaso-font-sans);
+
+  --color-surface-page: var(--listaso-surface-page);
+  --color-surface-alt: var(--listaso-surface-alt);
+  --color-surface-soft: var(--listaso-surface-soft);
+  --color-surface-raised: var(--listaso-surface-raised);
+  --color-surface-band: var(--listaso-surface-band);
+
+  --color-fg-default: var(--listaso-text-default);
+  --color-fg-muted: var(--listaso-text-muted);
+  --color-fg-heading: var(--listaso-text-heading);
+  --color-fg-accent: var(--listaso-text-accent);
+  --color-fg-on-action: var(--listaso-text-on-action);
+  --color-fg-on-status: var(--listaso-text-on-status);
+  --color-fg-on-error: var(--listaso-text-on-error);
+  --color-icon-accent: var(--listaso-icon-accent);
+
+  --color-link: var(--listaso-link);
+  --color-link-hover: var(--listaso-link-hover);
+
+  --color-action-primary: var(--listaso-action-primary);
+  --color-action-primary-hover: var(--listaso-action-primary-hover);
+
+  --color-line-subtle: var(--listaso-border-subtle);
+  --color-line-control: var(--listaso-border-control);
+  --color-focus: var(--listaso-focus-ring);
+
+  --color-status-success: var(--listaso-status-success);
+  --color-status-warning: var(--listaso-status-warning);
+  --color-status-error: var(--listaso-status-error);
+
+  --shadow-e1: var(--listaso-shadow-e1);
+  --shadow-e2: var(--listaso-shadow-e2);
+  --shadow-e3: var(--listaso-shadow-e3);
 }
