@@ -1,4 +1,30 @@
+/*
+ * Motion tokens (DEC-008). Motion supports hierarchy, feedback or continuity
+ * only: no scroll hijacking, no continuous loops, no animated backdrop-filter,
+ * and content is never hidden while waiting for an animation. GSAP is not
+ * part of this stage.
+ */
+:root {
+  --listaso-duration-fast: 150ms;
+  --listaso-duration-standard: 250ms;
+  --listaso-duration-slow: 400ms;
+  --listaso-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --listaso-ease-enter: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --listaso-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+/*
+ * Reduced motion: movement is removed and transitions shrink to an instant
+ * state change. Components should also gate transforms behind Tailwind's
+ * `motion-safe:` variant.
+ */
 @media (prefers-reduced-motion: reduce) {
+  :root {
+    --listaso-duration-fast: 0.01ms;
+    --listaso-duration-standard: 0.01ms;
+    --listaso-duration-slow: 0.01ms;
+  }
+
   *,
   *::before,
   *::after {

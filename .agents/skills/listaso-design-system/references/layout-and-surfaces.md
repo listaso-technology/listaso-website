@@ -1,12 +1,16 @@
 # Layout, radii, elevation and glass
 
-Decision: DEC-008 (8pt system approved by Erick). The values below are PROPOSED
-conventions. They replace the legacy sprawl of 15 radii, 5 shadows and 14
+Decision: DEC-008. Erick approved the 8pt system, radii, shadows, surfaces,
+glass, typography, themes and motion for the foundation in Chat 5 (9 October
+2026). They replace the legacy sprawl of 15 radii, 5 shadows and 14
 breakpoints.
 
-Do not apply the proposed radii, shadows, glass recipes, typography or exact
-visual values to the application before Erick approves them in Chat 5. Until
-then, this file is a review candidate, not implementation authority.
+Implementation:
+- Radii, elevation, containers and the type scale are Tailwind theme tokens in
+  `src/styles/tokens.css`. Tailwind's default palette, radii, shadows and type
+  sizes are cleared, so only these values exist.
+- Glass is `src/components/ui/GlassPanel.tsx`, with its CSS Module fallbacks.
+- Motion tokens live in `src/styles/motion.css`.
 
 ## 8-point spacing
 
@@ -107,9 +111,10 @@ system.
 ## Glass effect
 
 The brand guide reserves glass for "AI containers and widgets" (CONFIRMED,
-p14–15). Erick permits broader decorative use as a PROPOSED direction, subject
-to final approval in Chat 5 and the limits below. It is a deliberate accent,
-not a default surface.
+p14–15). Erick approved moderate decorative use beyond SAMI in Chat 5, within
+the limits below. It is a deliberate accent, not a default surface.
+Neumorphism, glassmorphism as a style and parallax are optional resources,
+never the default, and performance takes priority over effects.
 
 **Allowed.**
 1. SAMI and AI containers and widgets: chat mocks, assistant panels, AI feature

@@ -1,20 +1,38 @@
-*,
-*::before,
-*::after { box-sizing: border-box; }
+@layer base {
+  *,
+  *::before,
+  *::after { box-sizing: border-box; }
 
-html {
-  background: var(--listaso-color-surface);
-  color: var(--listaso-color-ink);
-}
+  html {
+    background: var(--listaso-surface-page);
+    color: var(--listaso-text-default);
+    font-family: var(--listaso-font-sans);
+    -webkit-text-size-adjust: 100%;
+  }
 
-body {
-  margin: 0;
-  min-width: 320px;
-  font-family: Arial, Helvetica, sans-serif;
-  text-rendering: optimizeLegibility;
-}
+  body {
+    margin: 0;
+    min-width: 320px;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-rendering: optimizeLegibility;
+  }
 
-:focus-visible {
-  outline: 3px solid var(--listaso-focus-ring);
-  outline-offset: 3px;
+  /* Theme overrides keep their own text color so nested previews stay correct. */
+  [data-theme] {
+    color: var(--listaso-text-default);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Theme-specific assets, e.g. navy logo in light and white logo in dark. */
+  .theme-light-only { display: var(--listaso-display-light); }
+  .theme-dark-only { display: var(--listaso-display-dark); }
+
+  @media (forced-colors: active) {
+    :focus-visible { outline-color: Highlight; }
+  }
 }

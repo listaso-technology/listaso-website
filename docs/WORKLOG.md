@@ -1,19 +1,20 @@
 # Estado de trabajo
 
-**Actualizado:** 8 de octubre de 2026
+**Actualizado:** 9 de octubre de 2026
 
 ## Tarea activa
 
-Chat 3 y Chat 4 — Codex, branch `dev`.
+Ninguna. Antes de editar, cada agente registra aquí tarea, responsable, branch,
+archivos reservados y lo que queda fuera de alcance.
 
-- Alcance: CI de GitHub Actions y preparación de Cloudflare Pages.
-- Archivos reservados: `.github/workflows/ci.yml`, `docs/CI_CLOUDFLARE.md`,
-  `docs/WORKLOG.md` y handoff correspondiente.
-- Fuera de alcance: commit, push, merge, custom domain, DNS, `main`, secretos y
-  primer deployment antes de que el checkpoint exista en GitHub.
+Últimas tareas cerradas:
 
-Últimas tareas cerradas (Claude, `dev`, sin commit):
-
+- Chat 5, foundation visual (Claude, `ux/visual-foundation`, sin commit):
+  `docs/handoffs/2026-10-09-visual-foundation.md`. Pendiente de revisión de
+  Erick.
+- Chats 3 y 4, CI y Cloudflare (Codex): `bf63e2e` está en `origin/dev`,
+  `CI / Quality` pasó en GitHub y Cloudflare Pages publicó el preview de
+  `ux/visual-foundation`.
 - Chat 1, auditoría del checkpoint:
   `docs/handoffs/2026-10-08-chat1-checkpoint-audit.md`.
 - Análisis de marca y contexto de Skills:
@@ -51,8 +52,8 @@ Chat 3 y Chat 4 — Codex, branch `dev`.
   - Evidencia en `docs/BRAND_ANALYSIS.md`.
   - Decisiones de Erick registradas como DEC-007 a DEC-010: tono, sitio
     preparado para oscuro desde el inicio (sigue el sistema; claro por
-    defecto), SAMI como complemento, sistema de 8 puntos, fotos de Unsplash temporales y Material
-    Symbols.
+    defecto), SAMI como complemento, sistema de 8 puntos, fotos de Unsplash
+    temporales y Material Symbols.
   - Referencias de marca añadidas a las Skills `listaso-*` (ver
     `docs/SKILLS_CATALOG.md`).
 - Observaciones de marca cerradas documentalmente por Erick:
@@ -95,28 +96,47 @@ Chat 3 y Chat 4 — Codex, branch `dev`.
     en `docs/CI_CLOUDFLARE.md`;
   - creación/primer deployment pospuestos hasta que el checkpoint esté en
     `origin/dev`, para evitar construir la versión remota incompleta.
+- Checkpoint publicado: `95974b1` y `bf63e2e` están en `origin/dev`. El primer
+  `CI / Quality` real pasó (Node 24.21.0, pnpm 12.10.1). Cloudflare Pages
+  construyó `bf63e2e` (57 s) y publicó
+  `https://ux-visual-foundation.listaso-website.pages.dev`. El deployment de
+  `main` falló de forma esperada: `main` sólo tiene el commit inicial.
+- Chat 5 (Claude, `ux/visual-foundation`): foundation visual implementada, sin
+  commit.
+  - 16 activos oficiales copiados byte a byte a `public/brand/`, con un
+    manifiesto en `src/content/brand/assets.ts` (estado, fondo, fuente y hash).
+  - Tokens primitivos y semánticos claros y oscuros, contextos `band` y `sami`,
+    escalas de radios, sombras, contenedores y tipografía en
+    `src/styles/tokens.css`. Movimiento en `src/styles/motion.css`.
+  - Iconografía: `listaso-icons.json` como fuente preferente y un fallback de
+    Material Symbols (`open_in_new`). Sólo se generan 33 iconos mapeados
+    (`pnpm icons`).
+  - Primitivas: Button, TextLink, Card, GlassPanel, FormField, StatusMessage,
+    Icon, BrandAsset y ThemedLogo.
+  - Muestra interna `/foundation/`, revisada en 320/375/768/1024/1440 px y en
+    los dos temas. Sin scroll horizontal y 0 fallos de contraste AA en los 418
+    textos revisados por tema.
+  - DEC-008 aprobado, DEC-010 actualizado y DEC-012 registrado.
 
 ## Estado actual
 
-- Rama de trabajo: `dev`.
-- No hay páginas ni copy migrados.
+- Rama de trabajo: `ux/visual-foundation` (base `bf63e2e`), con la foundation
+  visual sin commit.
+- No hay páginas comerciales ni copy migrados.
 - Foundation bloqueada para indexación.
-- CI preparado localmente; Cloudflare documentado y pendiente del checkpoint
-  remoto para crear el proyecto Pages.
+- CI y Cloudflare Pages activos para `dev` y las ramas de trabajo.
 - Claude Code funciona y detecta las Skills. Figma Desktop MCP sigue sin
   responder en `127.0.0.1:3845`.
-- El working tree de la foundation continúa sin commit. Claude recomienda el
-  checkpoint; commit y push requieren autorización explícita de Erick.
 
 ## Pendientes inmediatos
 
-1. Erick crea y sube el commit de checkpoint en `dev`.
-2. Erick responde las decisiones abiertas de `docs/ROUTE_CONTENT_MATRIX.md` y,
-   si están disponibles, comparte los exports adicionales para cerrar Chat 2.
-3. Subir el workflow, observar `CI / Quality` y confirmar su nombre real.
-4. Crear el proyecto Pages después del checkpoint remoto y validar el preview
-   temporal de `dev`, sin dominio personalizado ni DNS.
-5. Definir la foundation visual antes de implementar la primera ruta (Chat 5).
+1. Erick revisa el diff y `/foundation/` y, si aprueba, autoriza el commit y el
+   push de `ux/visual-foundation`.
+2. Erick confirma qué producto es `listaso-van-sales-1.svg` y entrega el
+   archivo de Sales Advanced.
+3. Decidir cómo autohospedar Montserrat (requiere aprobación; ver handoff).
+4. Erick responde las decisiones abiertas de `docs/ROUTE_CONTENT_MATRIX.md`.
+5. Definir la primera ruta del Chat 6.
 
 ## Desconocidos o bloqueadores
 
@@ -126,10 +146,11 @@ Chat 3 y Chat 4 — Codex, branch `dev`.
 - Copy, claims, traducciones y assets aprobados por página.
 - IDs/eventos vigentes de GA4 y Clarity; GTM heredado debe verificarse.
 - Configuración y permisos de Cloudflare.
-- `src/styles/tokens.css` usa colores sin fuente (`#0a426a`, `#00baa3`,
-  `#ff1478`). El Chat 5 debe reemplazarlos por los roles de
-  `.agents/skills/listaso-design-system/references/brand-foundations.md`.
-- Logo oficial (horizontal, vertical, isotipo), íconos de producto y logo de
-  SAMI en vector.
+- Montserrat no está autohospedada: no hay archivos en `start-version/`. La
+  copia instalada en esta Mac son TTF variables de unos 750 KB cada uno, sin
+  herramienta local para convertirlos a WOFF2.
+- Producto de `listaso-van-sales-1.svg` y archivo de Sales Advanced.
+- Versiones vectoriales de eCommerce y SAMI (las actuales incrustan PNG).
+- Regla de uso del wordmark sin símbolo, tamaño mínimo y espacio libre del logo.
 - Auditoría de marca de Marketing: magenta definitivo, 60-30-10, taglines y
   trato tú/usted en español.

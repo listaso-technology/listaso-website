@@ -2,8 +2,13 @@
 
 Source evidence: `docs/BRAND_ANALYSIS.md`. Decisions: DEC-007 to DEC-010 in `docs/DECISIONS.md`.
 Labels: CONFIRMED (printed in the brand guide), ADJUSTED (changed for WCAG AA
-per DEC-007), OBSERVED (seen in a source, not specified), PROPOSED (convention
-for this project, pending Marketing audit), UNKNOWN.
+per DEC-007), OBSERVED (seen in a source, not specified), APPROVED (approved by
+Erick for the foundation in Chat 5, 9 October 2026), PROPOSED (convention still
+awaiting approval or the Marketing audit), UNKNOWN.
+
+Implementation: `src/styles/tokens.css` (semantic roles, light, dark, band and
+SAMI contexts) and the primitives in `src/components/`. Approval does not erase
+provenance: OBSERVED and ADJUSTED values keep their labels.
 
 Rule of precedence: brand guide → AA accessibility and consistency → legacy
 `start-version/` → Guide Sami (SAMI spaces only). When a brand value fails AA,
@@ -30,12 +35,13 @@ Pure aqua `#00BDA9` is allowed for non-essential decorative shapes, fills,
 highlights and glass accents. Its 2.37:1 ratio on white does not prohibit a
 purely decorative mark, but it is insufficient when the shape conveys state,
 interaction, a control boundary or information needed to understand the page.
-In those functional cases, use an approved accessible role after Chat 5.
+In those functional cases, use `text.accent` (`#007267`) or `icon.accent`
+(`#008476`).
 
 ## Semantic roles — light theme (default)
 
-The exact values marked ADJUSTED or PROPOSED below are review candidates. Do not
-apply them to the application until Erick gives final approval in Chat 5.
+All values below are APPROVED for the foundation (Chat 5) and implemented. The
+Status column keeps their provenance.
 
 | Token (proposed name) | Value | Status | Contrast |
 | --- | --- | --- | --- |
@@ -56,11 +62,12 @@ apply them to the application until Erick gives final approval in Chat 5.
 | action.primary.hover | `#BF2A47` | ADJUSTED | white text 5.77 |
 | action.primary.on-dark (alt) | `#FF3A6A` bg + `#151726` text | CONFIRMED hue | 5.13 |
 | border.subtle | `#DCE3EC` | OBSERVED (legacy) | decorative only |
-| border.control | `#7A889B` | PROPOSED | 3.61 white, 3.38 alt (≥3:1 non-text) |
-| focus.ring (light) | `#0960FF`, 2px + 2px offset | PROPOSED | 5.09 |
+| border.control | `#7A889B` | APPROVED | 3.61 white, 3.38 alt (≥3:1 non-text) |
+| focus.ring (light) | `#0960FF`, 2px + 2px offset | APPROVED | 5.09 |
 | focus.ring (bands/SAMI) | `#70D4FF` or `#5FE6D6` | OBSERVED | ≥8:1 |
 | status.success / warning | `#03EA78` / `#FFC801` fill + ink text | CONFIRMED hues | 11.03 / 11.43 |
-| status.error text | `#B8243F` + icon + message | PROPOSED | 6.25 white |
+| status.error text | `#B8243F` + icon + message | APPROVED | 6.25 white |
+| text.on-error | `#FFFFFF` on `#B8243F` | APPROVED (Chat 5) | 6.25 |
 
 60-30-10 (PROPOSED, pending Marketing audit):
 - 60%: neutral surfaces.
@@ -104,15 +111,28 @@ soft surfaces:
 | text.muted | `#A4AFC3` | 8.43 / 7.73 / 7.07 |
 | text.heading | `#FFFFFF` | ≥15.6 |
 | text.accent | `#3FD9C6` | ≥8.9 |
-| link | `#5C93FF` (PROPOSED; `#0960FF` fails on dark) | 6.28 / 5.76 / 5.27 |
+| link | `#5C93FF` (APPROVED; `#0960FF` fails on dark) | 6.28 / 5.76 / 5.27 |
+| link.hover | `#8DB3FF` (derived in Chat 5) | 8.90 / 8.16 / 7.46 |
+| icon.accent | `#3FD9C6` (derived in Chat 5) | ≥8.9 |
 | action.primary | same `#D83553` / `#BF2A47` with white text | 4.61 / 5.77 |
 | border.subtle | `#283149` | decorative only |
-| border.control | `#6B7894` (PROPOSED) | 4.21 / 3.86 / 3.53 |
+| border.control | `#6B7894` (APPROVED) | 4.21 / 3.86 / 3.53 |
 | focus.ring | `#70D4FF` | ≥9.3 |
-| status.error text | `#FF8095` (PROPOSED) + icon | ≥6.5 |
+| status.error text | `#FF8095` (APPROVED) + icon | ≥6.5 |
+| text.on-error | `#151726` on `#FF8095` (derived in Chat 5) | 7.42 |
 | status fills | green/yellow + ink text | unchanged |
 
 Contrast columns are page / raised / soft.
+
+**Contexts (implemented in Chat 5).**
+- `[data-surface="band"]` uses white text, `link.on-band`, and focus `#70D4FF`,
+  because `#0960FF` fails on navy (2.43:1).
+- `[data-surface="sami"]` applies the SAMI theme.
+- Inside light glass, muted text uses the default color, because `#4A5569` over
+  a navy backdrop drops to 4.34:1.
+- Theme-specific logos use `ThemedLogo` or the `.theme-light-only` /
+  `.theme-dark-only` helpers. Never use Tailwind's `dark:` variant: it ignores
+  `[data-theme]` overrides.
 
 **Dark-specific rules:**
 - Shadows turn into surface steps plus a 1px border (see
@@ -151,13 +171,13 @@ reference, not a palette.
 **Family.** Montserrat (CONFIRMED). Self-host it, or load it at build time.
 Never load it from a runtime CDN. Ship only weights 400, 600, 700 and 700 italic
 unless a need is documented. The fallback stack is `"Montserrat", "Avenir Next",
-"Segoe UI", Arial, sans-serif` (PROPOSED).
+"Segoe UI", Arial, sans-serif` (APPROVED).
 
 **Signature device (CONFIRMED in the guide, OBSERVED in legacy).** A heading may
 open with one or two words in **700 italic** and continue in 400 regular. Use it
 for H1/H2 only, at most once per heading. It must remain real text, not an image.
 
-**Web scale (PROPOSED).** It sits on an 8pt rhythm, and line heights are multiples
+**Web scale (APPROVED, Chat 5).** It sits on an 8pt rhythm, and line heights are multiples
 of 4px. The guide's p23 scale is for social and print, not web.
 
 | Role | Size | Line height | Weight |
@@ -206,8 +226,10 @@ and never less than 16px. The guide's "0.3 / X" is ambiguous.
 **Accessibility.** A logo that is a link gets an accessible name ("Listaso —
 home"). A decorative repeat uses `alt=""`.
 
-**Pending.** Official vector files. The isotype HEX values (`#00BCA8`,
-`#003F69` and `#FF1975` in legacy) are UNKNOWN until those files arrive.
+**Official files (delivered 9 October 2026).** See `src/content/brand/assets.ts`
+and `public/brand/`. The vectors CONFIRM the isotype colors `#003F69`, `#00BDA9`
+and `#FF1975`, and the navy wordmark `#00375B`. These belong to the logo asset
+only; UI colors still come from the palette.
 
 ## Product icons and sub-brands
 
@@ -216,10 +238,14 @@ home"). A decorative repeat uses `alt=""`.
   p14–15, p25–29).
 - They are brand assets, not Material Symbols. They are good candidates for
   inner-page heroes, which are text-only in legacy.
-- Vector files are pending.
+- Delivered and classified in `src/content/brand/assets.ts`. Still pending:
+  a Sales Advanced file, confirmation of `listaso-van-sales-1.svg`, and vector
+  versions of eCommerce and SAMI (both temporary SVGs that embed PNG).
+- Customer Order Catalog is discontinued: historical record only, never shown
+  as a current product.
 - SAMI complements the master brand and never replaces the Listaso logo or
   palette outside SAMI spaces.
-- The SAMI logo is a raster PNG only. Request a vector version and a
+- `SAMI.svg` embeds a raster (735 KB). Request a true vector version and a
   light-background version.
 
 ## Conflicts resolved provisionally (DEC-007)

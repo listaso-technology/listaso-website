@@ -98,25 +98,46 @@ un sector muy competido.
 
 ## DEC-008 Espaciado, radios, elevación y vidrio
 
-**Estado:** Sistema de 8 puntos aprobado por Erick; valores visuales exactos
-propuestos para aprobación en el Chat 5 — 8 de octubre de 2026
+**Estado:** Aprobada por Erick para la foundation en el Chat 5 — 9 de octubre
+de 2026. El sistema de 8 puntos ya estaba aprobado desde el 8 de octubre.
 
 **Espaciado.**
 - Sistema de 8 puntos, con 4px como medio paso para ajustes finos.
 - Los espacios y alineaciones se eligen según la necesidad dentro de esa escala.
 
-**Radios, sombras y vidrio.** Las escalas documentadas permanecen como
-`PROPUESTAS`: buscan una imagen consistente y de buena calidad, pero no se
-aplican a la aplicación antes de que Erick las apruebe en el Chat 5. El efecto
-vidrio queda permitido como recurso decorativo propuesto, con límites explícitos
-para no abusar de él. La especificación vive en
-`.agents/skills/listaso-design-system/references/layout-and-surfaces.md`.
+**Valores aprobados.** Pasan de `PROPUESTOS` a aprobados los valores definidos
+en las referencias de `listaso-design-system`:
+- radios, sombras y superficies;
+- vidrio, con uso moderado;
+- tipografía;
+- temas claro y oscuro;
+- movimiento;
+- uso decorativo moderado del aqua.
 
-**Color aqua.** Su uso decorativo queda permitido. Cuando el color comunique
-estado, interacción, límite de control, texto o iconografía esencial, deberá
-cumplir el contraste correspondiente; la excepción decorativa no convierte un
-elemento funcional en decoración. Los colores ajustados para accesibilidad
-siguen `PROPUESTOS` hasta el Chat 5.
+Se implementan en `src/styles/` y `src/components/ui/`. La especificación vive
+en `.agents/skills/listaso-design-system/references/layout-and-surfaces.md` y
+`brand-foundations.md`; conserva la procedencia (`OBSERVED`, `ADJUSTED`) y las
+notas de contraste.
+
+**Vidrio.** Recurso decorativo moderado, con estos límites:
+- máximo dos superficies por viewport;
+- sin anidar;
+- nunca en formularios, tablas ni texto largo;
+- sin animar `backdrop-filter`;
+- con alternativas sólidas para `@supports`, `prefers-reduced-transparency` y
+  `forced-colors`.
+
+Neumorfismo, glassmorphism y parallax son recursos opcionales, no el estilo
+predeterminado. El rendimiento tiene prioridad sobre los efectos visuales.
+
+**Color aqua.** Su uso decorativo moderado queda permitido. Cuando el color
+comunique estado, interacción, límite de control, texto o iconografía esencial,
+deberá cumplir el contraste correspondiente (`text.accent` `#007267`,
+`icon.accent` `#008476`). La excepción decorativa no convierte un elemento
+funcional en decoración.
+
+**Siguen pendientes.** El mapeo 60-30-10 (auditoría de Marketing) y el tamaño
+mínimo y el espacio libre del logo continúan como `PROPUESTOS`.
 
 ## DEC-009 Fotografía temporal desde Unsplash
 
@@ -135,18 +156,23 @@ siguen `PROPUESTOS` hasta el Chat 5.
   real.
 - No se usan fotos con marcas de terceros visibles.
 
-## DEC-010 Íconos de Google Material Symbols
+## DEC-010 Iconografía: Listaso primero, Material Symbols como fallback
 
-**Estado:** Aprobada por Erick — 8 de octubre de 2026
+**Estado:** Aprobada por Erick — 8 de octubre de 2026; actualizada en el Chat 5,
+9 de octubre de 2026.
 
-**Biblioteca.**
-- La iconografía de interfaz viene de Google Material Symbols (licencia
-  Apache-2.0), para tener una biblioteca única y reemplazable.
-- Los íconos de producto y los logos son activos de marca, no Material Symbols.
-
-**Pendiente.** El formato (SVG por ícono o fuente) y cualquier paquete
-requieren aprobación de dependencia al implementarse. La recomendación vive en
-`.agents/skills/listaso-design-system/references/imagery-and-icons.md`.
+1. La fuente preferente para iconos propios de Listaso es `listaso-icons.json`
+   (IcoMoon, 153 iconos de Listaso App), conservado sin cambios en
+   `assets/icons/`.
+2. Google Material Symbols (Apache-2.0) se usa como fallback sólo cuando no
+   exista un icono adecuado de Listaso. Cada icono se añade como un SVG
+   individual, estilo Rounded. Nunca se usa la fuente completa.
+3. Los logos y los iconos de producto siguen siendo activos de marca
+   (`public/brand/`), no iconos de interfaz.
+4. No se incorpora un paquete npm de iconos.
+5. Una capa `Icon` semántica (`src/components/icons/Icon.tsx`) permite sustituir
+   la fuente sin cambiar a los consumidores. Sólo se generan los iconos
+   mapeados en `assets/icons/icon-map.json` (`pnpm icons`).
 
 ## DEC-011 Continuidad de contenido, medición y contacto
 
@@ -173,3 +199,32 @@ presente en `start-version/`:
 independiente y no redirige a soporte. Ambas se ubicarán en el dropdown de
 Empresa de la nueva navegación. Esto no autoriza crear todavía `/es/rating/`;
 su equivalente en español requiere una decisión explícita.
+
+## DEC-012 Activos oficiales de marca y producto
+
+**Estado:** Confirmada por Erick — 9 de octubre de 2026 (Chat 5)
+
+**Confirmaciones de Erick:**
+- `listaso-sales` corresponde a Sales Advanced.
+- Sales Order & Catalog usa el mismo símbolo multicolor confirmado.
+- `listaso-customer-order-catalog` se está descontinuando. El activo se
+  conserva en el inventario histórico, pero no se presenta como producto vigente
+  sin otra aprobación.
+- Los logos de Back Office claro y oscuro son oficiales.
+- El logo actualizado de Advanced Inventory es oficial.
+- `SAMI.svg` y el activo de eCommerce pueden conservarse temporalmente como
+  fueron entregados.
+- No se recolorean, deforman ni reconstruyen logos.
+- SAMI complementa a Listaso; no sustituye la marca principal.
+- El color aqua y el efecto de vidrio están permitidos con moderación.
+- Neuromorfismo, glassmorphism y parallax son recursos opcionales, no el estilo
+  predeterminado.
+- El rendimiento tiene prioridad sobre los efectos visuales.
+
+**Registro.** El inventario vive en `src/content/brand/assets.ts`, con archivo,
+variante, fondo permitido, estado, fuente original y hash. Los archivos en
+`public/brand/` son copias byte a byte de lo entregado.
+
+**Pendiente de confirmación.** No se entregó un archivo llamado `listaso-sales`.
+`listaso-van-sales-1.svg` (icono tricolor con efecto vidrio) queda como
+producto desconocido y no se publica hasta que Erick lo identifique.
