@@ -7,14 +7,19 @@
 ```text
 src/
 ├── app/          routing, layout, metadata y globals
+│   ├── (site)/       shell público (header, main, footer) y la Homepage `/`
 │   └── foundation/   muestra interna de la foundation visual (noindex)
 ├── components/
+│   ├── layout/   Container, SiteHeader, SiteFooter, NavDisclosures (único Client Component)
+│   ├── sections/ secciones de página; home/ para la Homepage
 │   ├── ui/       Button, TextLink, Card, GlassPanel, FormField, StatusMessage
 │   ├── icons/    Icon semántico y datos generados (icon-data.ts)
 │   └── brand/    BrandAsset y ThemedLogo
 ├── features/     capacidades de negocio justificadas
 ├── content/
-│   └── brand/    manifiesto de activos de marca (assets.ts)
+│   ├── brand/    manifiesto de activos de marca (assets.ts)
+│   ├── site/     navegación, contacto y legales (inglés)
+│   └── home/     copy de la Homepage en inglés (en.ts)
 ├── lib/
 │   └── utils/    utilidades enfocadas (cx)
 ├── styles/       tokens, base y motion compartido
@@ -22,9 +27,11 @@ src/
 
 public/
 ├── brand/        logos oficiales de Listaso, productos, SAMI y legacy
+├── customers/    logos de clientes (de start-version, DEC-013)
 ├── images/
 ├── icons/
-└── fonts/
+├── fonts/
+└── llms.txt     guía pública para asistentes y descubrimiento de fuentes
 
 assets/icons/     fuentes internas de iconos (no públicas) y mapa semántico
 scripts/          build-icons.mjs (`pnpm icons`)
@@ -35,13 +42,24 @@ scripts/          build-icons.mjs (`pnpm icons`)
 - **Tokens.** `src/styles/tokens.css` define primitivas, roles semánticos claros
   y oscuros (sistema u override `data-theme`) y los contextos `band` y `sami`.
   El tema de Tailwind sólo expone esos roles y las escalas aprobadas.
-- **Componentes.** Todos son Server Components. Los estados y temas funcionan
-  sin JavaScript.
+- **Componentes.** Server Components por defecto. Los estados, los temas, los
+  menús (`<details>`) y el selector de precios funcionan sin JavaScript. El
+  único Client Component, `NavDisclosures`, añade Escape y clic fuera a los
+  menús.
+- **Contenido.** El copy vive en `src/content/` y la presentación en
+  `src/components/`.
+- **Páginas implementadas.** `/` (Homepage inglesa, DEC-013) y `/foundation/`
+  (interna).
+- **Footer.** Directorio editorial responsive con contacto, redes y legales;
+  publica `/llms.txt` y ofrece accesos externos a ChatGPT, Gemini, Perplexity y
+  Claude con una consulta precargada basada en esa guía. El lockup oficial de
+  Listaso usa parallax CSS progresivo, sin cliente ni dependencia de animación.
 - **Tipografía.** Montserrat todavía no está autohospedada; se usa la pila de
   respaldo.
 - Static export a `out/`, `trailingSlash` e imágenes sin runtime de servidor.
 - Foundation `noindex` y robots bloqueado.
-- Aún no hay páginas migradas, analytics, SAMI funcional, Zoho, GSAP ni tests.
+- Aún no hay otras páginas comerciales, analytics activo, SAMI funcional, Zoho,
+  GSAP ni tests.
 
 ## Referencia heredada
 

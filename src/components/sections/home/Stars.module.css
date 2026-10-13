@@ -1,0 +1,22 @@
+/*
+ * Five-star rating row drawn with one CSS mask instead of five inline SVGs:
+ * the glyph (Listaso "star-filled", assets/icons/listaso-icons.json) ships once
+ * in the stylesheet, not in every HTML instance and RSC payload. The color
+ * follows currentColor through background-color.
+ */
+.stars {
+  display: inline-block;
+  flex-shrink: 0;
+  width: 80px;
+  height: 16px;
+  background-color: currentColor;
+  -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"%3E%3Cpath d="M285.559 922.852c-12.866 0-25.446-4.002-36.311-12.007-20.299-14.58-29.448-38.885-24.018-63.184l47.748-221.007-168.688-150.673c-18.582-16.581-25.446-41.74-17.728-65.472s28.020-40.027 52.606-42.6l225.009-22.872 91.204-207c10.005-22.872 31.735-36.884 56.608-36.884s46.603 14.294 56.608 36.884l91.204 207 225.009 22.872c24.873 2.575 44.888 18.87 52.606 42.6s0.86 48.89-17.728 65.472l-168.688 150.673 47.748 221.007c5.148 24.304-4.002 48.604-24.018 63.184-20.299 14.58-46.030 16.010-67.76 3.429l-195.561-113.793-195.561 113.793c-9.719 5.717-20.583 8.577-31.162 8.577z"/%3E%3C/svg%3E') left center / 16px 16px repeat-x;
+  mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"%3E%3Cpath d="M285.559 922.852c-12.866 0-25.446-4.002-36.311-12.007-20.299-14.58-29.448-38.885-24.018-63.184l47.748-221.007-168.688-150.673c-18.582-16.581-25.446-41.74-17.728-65.472s28.020-40.027 52.606-42.6l225.009-22.872 91.204-207c10.005-22.872 31.735-36.884 56.608-36.884s46.603 14.294 56.608 36.884l91.204 207 225.009 22.872c24.873 2.575 44.888 18.87 52.606 42.6s0.86 48.89-17.728 65.472l-168.688 150.673 47.748 221.007c5.148 24.304-4.002 48.604-24.018 63.184-20.299 14.58-46.030 16.010-67.76 3.429l-195.561-113.793-195.561 113.793c-9.719 5.717-20.583 8.577-31.162 8.577z"/%3E%3C/svg%3E') left center / 16px 16px repeat-x;
+}
+
+@media (forced-colors: active) {
+  .stars {
+    forced-color-adjust: none;
+    background-color: CanvasText;
+  }
+}

@@ -1,0 +1,87 @@
+@layer components {
+  .mark {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    width: 72px;
+    height: 72px;
+    flex: 0 0 72px;
+    place-items: center;
+  }
+
+  .mark::before,
+  .mark::after {
+    position: absolute;
+    z-index: 0;
+    inset: -35%;
+    pointer-events: none;
+    border-radius: 50%;
+    content: "";
+    opacity: 0;
+    transition: opacity var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .mark::before {
+    background: radial-gradient(
+      circle closest-side at 38% 38%,
+      rgb(9 96 255 / 0.48) 0%,
+      rgb(9 96 255 / 0.2) 35%,
+      transparent 100%
+    );
+  }
+
+  .mark::after {
+    background: radial-gradient(
+      circle closest-side at 62% 62%,
+      rgb(0 189 169 / 0.42) 0%,
+      rgb(0 189 169 / 0.14) 35%,
+      transparent 100%
+    );
+  }
+
+  .active::before,
+  .active::after {
+    opacity: 1;
+  }
+
+  .image {
+    position: relative;
+    z-index: 1;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    transform-origin: center;
+  }
+
+  .active .image {
+    will-change: transform;
+  }
+
+  @media (max-width: 639px) {
+    .mark {
+      width: 64px;
+      height: 64px;
+      flex-basis: 64px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mark::before,
+    .mark::after {
+      opacity: 0.24;
+      transition: none;
+    }
+
+    .image {
+      transform: none !important;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .mark::before,
+    .mark::after {
+      display: none;
+    }
+  }
+}

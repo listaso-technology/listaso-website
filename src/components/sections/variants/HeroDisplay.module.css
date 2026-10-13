@@ -1,0 +1,61 @@
+/*
+ * Display hero for SAMI (Stavros Symeonidis): giant headline over a dotted
+ * sphere on the SAMI canvas. The sphere is a dot pattern clipped to a circle;
+ * only the inner layer moves (transform), slowly, and stops with reduced
+ * motion. Decorative, behind the text.
+ */
+.canvas {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(60% 50% at 50% 40%, rgb(9 96 255 / 0.22), transparent 70%),
+    var(--listaso-surface-page);
+}
+
+.sphere {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: min(92vw, 44rem);
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: 50%;
+  translate: -50% -55%;
+  pointer-events: none;
+  mask-image: radial-gradient(circle at 42% 38%, #000 0 34%, rgb(0 0 0 / 0.55) 52%, transparent 71%);
+}
+
+.dots {
+  position: absolute;
+  inset: -50%;
+  background-image: radial-gradient(circle, rgb(102 220 212 / 0.85) 1.1px, transparent 1.7px);
+  background-size: 9px 9px;
+  animation: spin 90s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
+}
+
+.headline {
+  font-size: clamp(2.75rem, 9vw, 8.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dots {
+    animation: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .sphere {
+    display: none;
+  }
+}

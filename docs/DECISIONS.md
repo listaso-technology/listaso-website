@@ -228,3 +228,97 @@ variante, fondo permitido, estado, fuente original y hash. Los archivos en
 **Pendiente de confirmación.** No se entregó un archivo llamado `listaso-sales`.
 `listaso-van-sales-1.svg` (icono tricolor con efecto vidrio) queda como
 producto desconocido y no se publica hasta que Erick lo identifique.
+
+## DEC-013 Fuente de contenido y navegación de la Homepage inglesa
+
+**Estado:** Aprobada por Erick — 9 de octubre de 2026 (Etapa 6)
+
+**Contenido.** La Homepage `/` usa el copy completo de `start-version/`. Erick
+aprobó como fuente sus métricas, calificaciones, precios, tiempos de soporte,
+testimonios y logos de clientes. Ese copy reemplaza al de la Homepage publicada
+en WordPress.
+
+**Matices de la decisión.**
+- **CTA del hero:** "Book a free demo" (Calendly, DEC-011) es la acción
+  principal; "Learn more about Listaso Technology" → `/join-us/` (WordPress) es
+  la secundaria.
+- **Medios:** composición con activos oficiales (gradiente de marca, logos e
+  iconos), sin fotos ni vídeo. La imagen OG queda pendiente.
+- **Testimonios:** los 6 testimonios publicados se aprueban con nombre y
+  empresa.
+- **FIFOX:** se omite hasta confirmar qué es.
+
+**Navegación.** Header y footer siguen `start-version/`, con dos ajustes por
+DEC-011:
+- Support y Rate Listaso van dentro del dropdown Company.
+- El blog enlaza a `/blog/`, no a `blog.listaso.com`.
+
+Las rutas nuevas (`/forms/`, `/sami/`, `/integrations/`, `/about/`,
+`/industries/`, `/support/`) se enlazan como destinos aprobados todavía no
+implementados. No hay selector de tema ni de idioma (DEC-007; `/es/` sin
+paridad).
+
+## DEC-014 Fuente de contenido de las páginas de producto en inglés
+
+**Estado:** Instrucción de Erick — 12 de octubre de 2026. Los puntos abiertos
+P1 a P8 de `docs/PRODUCT_CONTENT_CONTRACT.md` siguen pendientes de
+confirmación.
+
+**Contenido.** Las nueve páginas de Products (`/pre-sales/`,
+`/direct-sales/`, `/inventory/`, `/delivery/`, `/back-office/`,
+`/b2b-ecommerce/`, `/forms/`, `/sami/`, `/custom-development/`) usan como
+referencia el copy en inglés de `start-version/`, igual que la Homepage
+(DEC-013). No se añaden claims, cifras, precios ni integraciones fuera de esa
+fuente.
+
+**Medios.** Fotografías de Unsplash como relleno temporal (DEC-009), a
+reemplazar con el equipo de Diseño. Registro en
+`src/content/media/products.ts`.
+
+**Temas.** Cada página se revisa en claro y oscuro antes de considerarse
+terminada (DEC-007). Sami usa el contexto SAMI en su hero y ejemplos.
+
+## DEC-015 Fuente de contenido de la sección Integrations en inglés
+
+**Estado:** Instrucción de Erick — 13 de octubre de 2026. Las preguntas I1 a
+I9 de `docs/INTEGRATIONS_CONTENT_CONTRACT.md` siguen abiertas.
+
+**Contenido.** `/integrations/`, las ocho integraciones contables
+(`/quickbooks/`, `/sage/`, `/acumatica/`, `/sap/`, `/netsuite/`, `/zoho/`,
+`/acctivate/`, `/accountmate/`) y `/printers-and-scanners/` usan el copy en
+inglés de `start-version/`. Las tablas de sincronización, la compatibilidad de
+hardware y los requisitos de dispositivos requieren validación de Development
+antes del cutover.
+
+**Reutilización.** La calificación de QuickBooks se reutiliza de la Homepage
+(DEC-013), sin nuevas métricas. Actualización del 13 de octubre de 2026: las
+cifras de marca ya no se muestran en Integrations (ver DEC-016).
+
+**Marcas de terceros.** Los sistemas y fabricantes se nombran sólo como texto.
+Sus logos o badges requieren las guías y el permiso de cada marca.
+
+## DEC-016 Variaciones de sección para Products e Integrations
+
+**Estado:** Instrucción de Erick — 13 de octubre de 2026 (referencias Good
+Fella, Symboolic, Thomas Thorstensson y Stavros Symeonidis). Implementación
+técnica de Claude, pendiente de revisión.
+
+**Decisión.** Las páginas de Products e Integrations usan variaciones propias
+de hero y de secciones, no copias de la Homepage. El catálogo y su asignación
+por página están en `docs/SECTION_VARIANTS.md`. El copy sigue siendo el de
+`start-version` (DEC-014 y DEC-015).
+
+**Restricciones técnicas.**
+- Sin GSAP ni dependencias nuevas.
+- El movimiento ligado al scroll usa CSS scroll-driven animations con mejora
+  progresiva y respeta `prefers-reduced-motion`.
+- Sin autoplay de contenido en movimiento: la marquesina sólo se mueve con
+  el scroll.
+- Un único componente cliente nuevo (`StoryObserver`).
+- Imágenes responsivas autohospedadas con `srcset`, porque el export estático
+  no tiene optimizador (DEC-006).
+
+**Actualización (Erick, 13 de octubre de 2026).** La sección de cifras de marca
+("Since 2015", 400+, 2,000+, 2M+, $1.8B+) se muestra sólo en la Homepage y en
+About us. Se retiró de Products e Integrations. `MetricOdometer` se conserva
+para About us.

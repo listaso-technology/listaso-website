@@ -1,17 +1,118 @@
 # Estado de trabajo
 
-**Actualizado:** 9 de octubre de 2026
+**Actualizado:** 13 de octubre de 2026
 
 ## Tarea activa
 
-Ninguna. Antes de editar, cada agente registra aquí tarea, responsable, branch,
-archivos reservados y lo que queda fuera de alcance.
+**Homepage — interacción móvil de cifras, SAMI, soporte, clientes y pricing
+(Codex, `feat/homepage`, en curso).** Se adaptan las referencias CodePen y
+Symboolic a controles y tokens Listaso: counters al entrar en viewport,
+carruseles táctiles accesibles, loop acotado del logo SAMI y pricing más
+compacto. Sin GSAP ni dependencias. Archivos reservados:
+`src/components/ui/SnapCarousel.tsx`,
+`src/components/ui/SnapCarousel.module.css`,
+`src/components/sections/home/ProofStrip.tsx`,
+`src/components/sections/home/ProofCounter.tsx`,
+`src/components/sections/home/ProofStrip.module.css`,
+`src/components/sections/home/SamiSpotlight.tsx`,
+`src/components/sections/home/SamiConversation.tsx`,
+`src/components/sections/home/SamiLogoMark.tsx`,
+`src/components/sections/home/SamiLogoMark.module.css`,
+`src/components/sections/home/SupportSection.tsx`,
+`src/components/sections/home/SupportSection.module.css`,
+`src/components/sections/home/CustomerProof.tsx`,
+`src/components/sections/home/CustomerProof.module.css`,
+`src/components/sections/home/PricingPlans.tsx`,
+`src/components/sections/home/PricingPlans.module.css`,
+`src/components/sections/backdrops.module.css`, `docs/WORKLOG.md`. Riesgos:
+gestos táctiles reales fuera del emulador, alturas variables de testimonios y
+movimiento continuo. Próximo paso: implementar, validar teclado/reduced motion,
+320/390/768/1280 px y ejecutar lint, typecheck y build.
 
 Últimas tareas cerradas:
 
-- Chat 5, foundation visual (Claude, `ux/visual-foundation`, sin commit):
-  `docs/handoffs/2026-10-09-visual-foundation.md`. Pendiente de revisión de
+- Narrativa de scroll inspirada por Symboolic y Cip Harvin (Codex,
+  `feat/homepage`, sin commit): flujo order-to-payment convertido en capítulos
+  activos con fotografía sticky, caption y progreso sincronizados por el
+  `IntersectionObserver` existente; banda de métricas editorial con
+  scroll-snap táctil en móvil. Se mantuvo el copy aprobado y la paleta Listaso,
+  sin copiar branding ni añadir GSAP/dependencias. En móvil el contenido
+  conserva flujo vertical, sin sticky ni captions duplicados; sin JavaScript o
+  con movimiento reducido, todo permanece visible. `pnpm lint`,
+  `pnpm typecheck` y `pnpm exec next build --webpack` pasan. QA real en
+  1280×720 y 390×844: capítulos y marcador se sincronizan, métricas desbordan
+  sólo dentro de su carril horizontal y la página no tiene overflow global.
+  Tema oscuro validado visualmente; tema claro conserva los tokens semánticos
+  existentes y requiere la revisión visual final junto con los demás cambios
+  sin commit.
+
+- Footer editorial con accesos de IA (Codex, `feat/homepage`, sin commit):
+  directorio principal ordenado en una superficie elevada, contacto, redes y
+  legales; `/llms.txt` integrado en el export; consulta fuente-guiada abierta
+  en ChatGPT, Gemini, Perplexity y Claude; marcas de proveedor autohospedadas y
+  presentadas como destinos externos, no integraciones. Cierre con lockup
+  oficial de Listaso y parallax CSS progresivo, sin JS ni dependencias, con
+  fallback de movimiento reducido. Typecheck, build webpack y ESLint dirigido
+  pasan. QA real en 1440 px y 390×844, claro y oscuro: sin overflow horizontal;
+  el único error de consola es el `favicon.ico` ausente previo a esta tarea. El
+  lint global queda bloqueado por `src/components/sections/product/Breadcrumbs.tsx`
+  (enlace interno con `<a>`), archivo ajeno y no modificado en este alcance.
+
+- Header Neon Glass y hover de SAMI (Codex, `feat/homepage`, sin commit): header
+  translúcido, dropdowns y menú móvil con borde cromático Listaso, entrada
+  corta, soporte claro/oscuro y fallbacks de transparencia/colores forzados.
+  Logo de SAMI alineado con “NEW · AI ASSISTANT” y animación `NoticeLogo`
+  reutilizada desde Guide Sami con giro inercial, aura, exclusión táctil y
+  reducción de movimiento. Sin GSAP ni dependencias nuevas. `pnpm lint`,
+  `pnpm typecheck` y `pnpm exec next build --webpack` pasan. QA real en 1280 px
+  y 390×844: dropdown y menú móvil correctos, Escape devuelve el foco al
+  toggle, sin overflow horizontal ni errores de consola. Tema oscuro validado
+  visualmente; tema claro validado por su mapeo a tokens semánticos.
+
+- Acentuación de movimiento y vidrio de Homepage (Codex, `feat/homepage`, sin
+  commit): reveals tipográficos con desenfoque gaussiano transitorio; SAMI en
+  loop fluido con pausa/reanudación, congelado fuera del viewport o al ocultar
+  la pestaña; orbes cromáticos transform-only y borde luminoso estático
+  concentrados en la sección de IA. `prefers-reduced-motion` entrega el estado
+  final sin animación y `forced-colors` retira los adornos. Sin filtros SVG,
+  dependencias ni cambios de copy comercial. `pnpm lint`, `pnpm typecheck` y
+  `pnpm exec next build --webpack` pasan. QA real en 1280 px y 390×844: loop y
+  pausa funcionales, sin overflow horizontal ni errores de consola.
+
+- Animación conversacional de SAMI reutilizada desde Guide Sami (Codex,
+  `feat/homepage`, sin commit): componente original extraído del ZIP y adaptado
+  al contenido, iconos y tokens existentes. Es una secuencia explicativa al
+  entrar en viewport, sin loop permanente; se detiene fuera de vista o con la
+  pestaña oculta, y `prefers-reduced-motion` muestra el estado final. La UI
+  completa tiene una sola descripción accesible y no anuncia cada carácter.
+  Skill global `hyperframes` instalada desde `heygen-com/hyperframes` para
+  próximos turnos. Sin dependencias nuevas en el proyecto. Lint, typecheck,
+  build y QA visual documentados al cierre.
+
+- Redirección creativa y narrativa de movimiento de la Homepage (Codex,
+  `feat/homepage`, sin commit): hero fotográfico editorial, flujo numerado con
+  fotografía sticky, máscaras de texto y reveals encadenados mediante mejora
+  progresiva. Dos imágenes Unsplash autohospedadas y optimizadas, con manifiesto
+  en `src/content/media/placeholders.ts`. Sin dependencias, GSAP, nuevo copy,
+  claims, rutas ni cambios de paleta. `pnpm peers check`, `pnpm lint`,
+  `pnpm typecheck` y `pnpm exec next build --webpack` pasan. QA en navegador a
+  1280×720: hero, proceso y Sami sin overflow horizontal; el reveal de medios
+  se corrigió para no depender de `clip-path` en el elemento observado.
+
+- Revisión editorial integral de la Homepage inglesa (Codex,
+  `feat/homepage`, sin commit): copy y metadata ajustados a los valores de
+  marca, con lenguaje más claro, cálido y accesible. No cambió claims, cifras,
+  precios, testimonios ni destinos aprobados. `pnpm lint`, `pnpm typecheck` y
+  `pnpm exec next build --webpack` pasan; 320/1440 px en claro y oscuro sin
+  overflow horizontal. Evidencia en `docs/HOME_CONTENT_CONTRACT.md`.
+
+- Etapa 6, Homepage en inglés (Claude, `feat/homepage` desde `a06635d`, sin
+  commit): `docs/handoffs/2026-10-09-homepage.md`. Pendiente de revisión de
   Erick.
+
+- Chat 5, foundation visual (Claude): commit `dbe2837` y promoción a `dev` con
+  el PR #2 (merge `a06635d`). `CI / Quality` y Cloudflare Pages pasaron.
+  Handoff: `docs/handoffs/2026-10-09-visual-foundation.md`.
 - Chats 3 y 4, CI y Cloudflare (Codex): `bf63e2e` está en `origin/dev`,
   `CI / Quality` pasó en GitHub y Cloudflare Pages publicó el preview de
   `ux/visual-foundation`.
@@ -118,10 +219,22 @@ archivos reservados y lo que queda fuera de alcance.
     textos revisados por tema.
   - DEC-008 aprobado, DEC-010 actualizado y DEC-012 registrado.
 
+- Etapa 6 (Claude, `feat/homepage`): Homepage inglesa `/` implementada, sin
+  commit.
+  - Auditoría y contrato en `docs/HOME_CONTENT_CONTRACT.md`. Erick eligió
+    `start-version` como fuente de copy y de navegación (DEC-013).
+  - Shell `(site)` con SiteHeader, SiteFooter y skip link; 8 secciones en
+    `src/components/sections/home/`; copy en `src/content/home/en.ts`.
+  - Metadata con canonical `https://listaso.com/` y Open Graph básico. Siguen
+    `noindex` y `Disallow: /`; sin hreflang ni scripts de analytics.
+  - Validada en 320/375/768/1024/1440 px y en claro y oscuro: 274 textos sin
+    fallos AA, incluido el peor caso sobre gradientes y vidrio. Teclado
+    completo, sin scroll horizontal y sin errores de consola.
+
 ## Estado actual
 
-- Rama de trabajo: `ux/visual-foundation` (base `bf63e2e`), con la foundation
-  visual sin commit.
+- Rama de trabajo: `feat/homepage` (base `a06635d`, `dev` con la foundation
+  fusionada), con la Homepage sin commit.
 - No hay páginas comerciales ni copy migrados.
 - Foundation bloqueada para indexación.
 - CI y Cloudflare Pages activos para `dev` y las ramas de trabajo.
@@ -130,13 +243,15 @@ archivos reservados y lo que queda fuera de alcance.
 
 ## Pendientes inmediatos
 
-1. Erick revisa el diff y `/foundation/` y, si aprueba, autoriza el commit y el
-   push de `ux/visual-foundation`.
+1. Erick revisa el diff y `/` y, si aprueba, autoriza el commit y el push de
+   `feat/homepage`, y después el PR hacia `dev`.
 2. Erick confirma qué producto es `listaso-van-sales-1.svg` y entrega el
    archivo de Sales Advanced.
 3. Decidir cómo autohospedar Montserrat (requiere aprobación; ver handoff).
 4. Erick responde las decisiones abiertas de `docs/ROUTE_CONTENT_MATRIX.md`.
-5. Definir la primera ruta del Chat 6.
+5. OG image de la Homepage, FIFOX y JSON-LD (ver
+   `docs/HOME_CONTENT_CONTRACT.md`).
+6. Elegir el siguiente bloque de rutas.
 
 ## Desconocidos o bloqueadores
 
