@@ -260,6 +260,22 @@ export const brandAssets = [
       "Kept as delivered (approved). 735 KB of embedded PNG; request a vector and a light-background version. Complements Listaso, never replaces it.",
   },
 
+  {
+    id: "sami-raster",
+    label: "SAMI (lightweight)",
+    product: "SAMI",
+    file: "/brand/sami/sami-logo.webp",
+    variant: "glossy symbol, 192 px WebP",
+    background: "dark",
+    status: "temporary",
+    width: 192,
+    height: 192,
+    source: "start-version/website/assets/sami-logo.webp",
+    sha256: "efdae7418d52",
+    notes:
+      "Same artwork as SAMI.svg at 17 KB instead of 735 KB (DEC-012: performance first). Use it up to 96 px; request a vector version.",
+  },
+
   // Historical inventory
   {
     id: "product-customer-order-catalog",
