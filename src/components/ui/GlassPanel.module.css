@@ -1,0 +1,101 @@
+/*
+ * Glass surfaces (DEC-008). A CSS Module is used because the effect needs
+ * @supports and media-query fallbacks that would be unreadable as utilities.
+ *
+ * Usage limits: at most two glass surfaces per viewport, never nested, never
+ * on forms, tables or long text, never on large areas, and backdrop-filter
+ * is never animated.
+ *
+ * The rules live in the `components` layer so Tailwind utilities (layout,
+ * spacing, position) can still be applied to a panel.
+ */
+@layer components {
+  .panel {
+    position: relative;
+    border-radius: var(--listaso-radius-lg);
+    padding: 24px;
+  }
+
+  /*
+   * Light glass always renders light content, whatever the page theme or
+   * surface context, so it redefines text, surface and border roles.
+   * Worst case measured: 72% white over the aqua hotspot of the brand mesh.
+   * Muted text uses the default color (#4a5569 drops to 4.34:1 over navy), and
+   * links use navy (8:1) because #0960ff drops to about 3.7:1 there. Links stay
+   * underlined.
+   */
+  .light {
+    --listaso-text-default: #151726;
+    --listaso-text-muted: #151726;
+    --listaso-text-heading: #00375b;
+    --listaso-text-accent: #007267;
+    --listaso-icon-accent: #008476;
+    --listaso-link: #00375b;
+    --listaso-link-hover: #151726;
+    --listaso-focus-ring: #0960ff;
+    --listaso-surface-raised: #ffffff;
+    --listaso-surface-soft: #e9f3f6;
+    --listaso-border-subtle: #dce3ec;
+    --listaso-border-control: #7a889b;
+
+    color: var(--listaso-text-default);
+    background: rgb(255 255 255 / 0.72);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid rgb(255 255 255 / 0.48);
+    box-shadow:
+      0 0 0 1px rgb(0 55 91 / 0.08),
+      0 8px 24px rgb(0 55 91 / 0.12);
+  }
+
+  /* SAMI/AI glass: always dark content, in any context. */
+  .sami {
+    --listaso-text-default: #ffffff;
+    --listaso-text-muted: #a4bdcb;
+    --listaso-text-heading: #ffffff;
+    --listaso-text-accent: #66dcd4;
+    --listaso-icon-accent: #66dcd4;
+    --listaso-link: #4d8dff;
+    --listaso-link-hover: #8db3ff;
+    --listaso-focus-ring: #70d4ff;
+    --listaso-surface-raised: #092332;
+    --listaso-surface-soft: #0c2b3d;
+    --listaso-border-subtle: rgb(255 255 255 / 0.1);
+    --listaso-border-control: #7a8ba6;
+
+    color: var(--listaso-text-default);
+    background: linear-gradient(145deg, rgb(12 45 64 / 0.85), rgb(7 30 44 / 0.91));
+    -webkit-backdrop-filter: blur(16px);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgb(255 255 255 / 0.1);
+  }
+
+  /* No blur support: solid surfaces keep the same contrast. */
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .light { background: #ffffff; }
+    .sami { background: #092332; }
+  }
+
+  @media (prefers-reduced-transparency: reduce) {
+    .light,
+    .sami {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+    }
+
+    .light { background: #ffffff; }
+    .sami { background: #092332; }
+  }
+
+  @media (forced-colors: active) {
+    .light,
+    .sami {
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      background: Canvas;
+      color: CanvasText;
+      border: 1px solid CanvasText;
+      box-shadow: none;
+    }
+  }
+}

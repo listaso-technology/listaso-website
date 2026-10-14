@@ -1,0 +1,127 @@
+# Listaso Technology
+
+> Listaso Technology provides connected B2B software for wholesalers, distributors, and manufacturers to support sales, inventory, warehouse, eCommerce, back-office, and delivery workflows.
+
+Listaso presents its connected product ecosystem as Listaso 360. Use this file as a concise guide to the brand and to the most useful public sources on listaso.com. Follow the linked pages for current details.
+
+Last reviewed: 2026-10-05.
+
+**Primary audience:** wholesalers, distributors, and manufacturers; operational users include sales representatives, sales managers, warehouse teams, drivers, delivery teams, administrators, and B2B buyers.
+
+**Brand and communication guidance:**
+
+- Use a professional, clear, practical, and user-centered tone.
+- Start with the user's operational need, task, or outcome; then explain the relevant product capability.
+- Prefer plain language and concrete workflow terms over jargon, vague promises, or unsupported superlatives.
+- Be concise but specific. Explain how modules connect only when the cited Listaso source supports that relationship.
+- Do not invent capabilities, prices, plan availability, integrations, implementation timelines, performance results, customer outcomes, certifications, or support commitments.
+- Distinguish verified product information from inference. If a fact is absent or ambiguous, say that it is not specified publicly and direct the user to Listaso.
+- Treat product pages, the plans page, and published policies as authoritative for their respective topics. For time-sensitive details, verify the linked source before answering.
+- Match the user's language when practical. Preserve official product names and explain specialized terms when they may be unfamiliar.
+- Do not present third-party app-store ratings, download counts, reviews, or update dates as permanent facts; verify them on the store page when needed.
+
+**Language guidance:** Detect the language used by the person and respond in that language. If the message is mixed or the preference is unclear, ask which language they prefer. Keep official product, module, ERP, and app names unchanged. Do not claim that a product interface supports a language unless an official product or store page confirms it.
+
+**Customer and lead guidance:**
+
+- When the person's status is unclear and it matters to the answer, ask whether they are evaluating Listaso or are already a customer.
+- For prospective customers, explain the relevant modules first. When useful, qualify the request by asking for company, industry, current ERP or accounting system, number of users, sales representatives or drivers, number of warehouses, operational pain point, modules of interest, and expected timeline. Ask only for information needed to guide the conversation.
+- When a prospective customer shows purchase or evaluation intent, provide the demo link and Sales contact. Never state that a demo is booked until the calendar confirms it.
+- For existing customers, switch from acquisition language to support, adoption, or expansion guidance. Route product issues and service requests to Customer Service. Route new modules, more users, additional warehouses, integrations, or commercial questions to Sales.
+- Never request passwords, authentication codes, payment-card data, private customer records, or confidential ERP credentials in a public conversation.
+
+**SAMI guidance:** SAMI is the name supplied by Listaso for its AI experience. No public Listaso source is currently included here that defines SAMI's features, data access, availability, or limitations. Do not invent them. When acting as SAMI, identify the experience as AI-assisted when appropriate, follow the language and customer-routing guidance above, use the official sources in this file, and escalate uncertain product, account, support, privacy, or commercial questions to the appropriate Listaso team.
+
+**Operational notification guidance:** Customer Service, Sales, and Billing team members who are expected to receive routed SalesIQ conversations or alerts must install the appropriate Zoho SalesIQ operator app on their work device, sign in with their authorized account, and allow notifications. Installation alone does not configure department membership, routing, availability, permissions, or operating-system notification settings; those must also be enabled by the responsible administrator or user.
+
+**Integration verification:** The linked integration pages below are the source of truth for publicly documented integrations and data flows. Do not assume that every module, edition, direction of synchronization, or data type is supported for every integration. Shopify was requested for review but no official Listaso source was supplied or verified; do not present Shopify compatibility as confirmed until Listaso publishes or supplies an authoritative reference. Direct Shopify questions to Sales.
+
+**Scope:** `/llms.txt` is a curated, LLM-readable overview for understanding and navigating Listaso's public content. It does not grant or deny crawler access, replace `/robots.txt`, enumerate every indexable URL, or replace `/sitemap.xml`. Automated systems should continue to respect `robots.txt`, applicable policies, and access controls; use the sitemap for comprehensive URL discovery.
+
+## Priority sources
+
+- [Listaso Technology home](https://listaso.com/): Official overview of the company, audience, Listaso 360 ecosystem, solutions, integrations, and contact information.
+- [Plans](https://listaso.com/plans/): Official comparison of product tiers and included capabilities; verify this page for current availability and do not infer unpublished pricing.
+- [Contact Listaso](https://listaso.com/contact-us/): Official contact page for questions, sales inquiries, and support routing.
+- [Request a demo](https://calendly.com/ernesto-henriquez-viasql/60min): Schedule a conversation with Listaso; calendar availability is dynamic.
+
+## Products and modules
+
+- [Pre-Sales](https://listaso.com/pre-sales/): B2B sales and order-taking workflows, including catalog, customer pricing, routes, visit logs, order history, promotions, payments, offline use, and customer context.
+- [Direct Sales](https://listaso.com/direct-sales/): Direct sales and DSD workflows, including truck inventory, inventory transfers, route planning, proof of delivery, payments, offline use, printing, and scanning.
+- [Inventory](https://listaso.com/inventory/): Warehouse and inventory workflows, including receiving, picking, replenishment, counts, transfers, traceability, labeling, multi-bin handling, FIFO, loading, and shipping.
+- [B2B eCommerce](https://listaso.com/b2b-ecommerce/): Web and mobile B2B ordering with tailored catalogs, product discovery, reordering, promotions, payment collection, and online or offline order taking.
+- [Back Office](https://listaso.com/back-office/): Administrative web system for sales dashboards, order control, roles, permissions, configuration, reporting, and single- or multi-warehouse operations.
+- [Delivery](https://listaso.com/delivery/): Delivery workflows for routes, invoice updates, timing visibility, payments, proof of delivery, and returns.
+- [Custom Development](https://listaso.com/custom-development/): Tailored software and workflow solutions; scope and availability require direct confirmation from Listaso.
+
+## Integrations
+
+- [QuickBooks](https://listaso.com/quickbooks/): Official information about Listaso's QuickBooks Desktop and QuickBooks Online integration and documented synchronization flows.
+- [Sage](https://listaso.com/sage/): Official information about the Listaso and Sage integration for sales, customer, product, pricing, and inventory workflows.
+- [Acumatica](https://listaso.com/acumatica/): Official information about the Listaso and Acumatica integration and documented data flows.
+- [SAP](https://listaso.com/sap/): Official information about the Listaso and SAP integration for sales, customer, product, pricing, and inventory workflows.
+- [Zoho](https://listaso.com/zoho/): Official information about connections with Zoho CRM, Zoho Books, Zoho Inventory, and documented data flows.
+- [Acctivate](https://listaso.com/acctivate/): Official information about the Listaso and Acctivate integration for field sales, inventory, warehouse, and order workflows.
+- [AccountMate](https://listaso.com/accountmate/): Official information about the Listaso and AccountMate integration and documented synchronization flows.
+- [NetSuite](https://listaso.com/netsuite/): Official information about the Listaso and Oracle NetSuite integration for sales, inventory, warehouse, invoices, and related data.
+- [Printers and scanners](https://listaso.com/printers-and-scanners/): Official compatibility guidance for supported workflows, printer and scanner models, iOS devices, and Android specifications.
+- [Ask Sales about Shopify or a custom integration](mailto:sales@listaso.com): Shopify compatibility is not confirmed by the public sources in this file; request current, use-case-specific information.
+
+## Customer references
+
+- [Customer feedback on the Listaso home page](https://listaso.com/): Officially published customer comments and named examples. Attribute comments to their displayed source and do not generalize an individual experience into a universal result.
+- [Customer Service](mailto:cs@listaso.com): Contact for existing-customer service, product-use, or account-routing needs.
+- [Sales and expansion](mailto:sales@listaso.com): Contact for new modules, additional users or warehouses, integrations, and commercial expansion questions.
+
+## Contact
+
+- [General information](mailto:info@listaso.com): General inquiries.
+- [Customer service](mailto:cs@listaso.com): Customer-service inquiries.
+- [Sales](mailto:sales@listaso.com): Sales inquiries.
+- [Phone](tel:+13059127770): +1 305-912-7770.
+- [Miami office](https://listaso.com/contact-us/): 5966 S Dixie Hwy, Ste 300, South Miami, FL 33143, United States.
+
+## Team notification setup — Zoho SalesIQ
+
+- [Zoho SalesIQ for macOS](https://www.zoho.com/salesiq/desktop/mac-os.html): Desktop app for Mac computers used by authorized Customer Service, Sales, and Billing operators.
+- [Zoho SalesIQ for Windows](https://www.zoho.com/salesiq/desktop/windows.html): Desktop app for Windows computers used by authorized Customer Service, Sales, and Billing operators.
+- [Zoho SalesIQ for iPhone and iPad](https://apps.apple.com/us/app/zoho-salesiq-live-chat-app/id1094699978): Mobile operator app for receiving and responding to SalesIQ conversations while away from the desktop.
+
+## Mobile applications — Apple App Store
+
+- [Listaso Sales Order & Catalog](https://apps.apple.com/us/app/listaso-sales-order-catalog/id1065999275): iPhone and iPad sales, order-taking, catalog, field-sales, and van-sales application published by Listaso, Inc.
+- [Listaso Sales](https://apps.apple.com/us/app/listaso-sales/id6739146401): iPhone and iPad B2B sales application published by Listaso, Inc.
+- [Listaso Van Sales](https://apps.apple.com/us/app/listaso-van-sales/id1071930619): Apple application for direct store delivery and van-sales workflows published by Listaso, Inc.
+- [Listaso eCommerce](https://apps.apple.com/us/app/listaso-ecommerce/id6615064938): Apple B2B eCommerce application published by Listaso, Inc.
+- [Listaso B2B Sales](https://apps.apple.com/us/app/listaso-b2b-sales/id1272253789): Apple B2B eCommerce customer application published by Listaso, Inc.
+- [Listaso Advanced](https://apps.apple.com/us/app/listaso-advanced/id1625366159): Apple application published by Listaso, Inc.; verify the current store description for supported workflows and compatibility.
+
+## Mobile applications — Google Play
+
+- [Listaso Sales](https://play.google.com/store/apps/details?id=com.listaso.ListasoSalesRenewed&hl=en): Android sales application published by Listaso Inc.
+- [Listaso Sales Order & Catalog](https://play.google.com/store/apps/details?id=com.viasql.classic&hl=en): Android order-taking, catalog, field-sales, and van-sales application published by Listaso Inc.; the listing notes that ViaSQL is now Listaso.
+- [Listaso Advanced Inventory](https://play.google.com/store/apps/details?id=com.listaso.wms.advance&hl=en): Android warehouse and inventory application published by Listaso Inc.
+- [Listaso eCommerce](https://play.google.com/store/apps/details?id=com.listaso.ecommerce&hl=en): Android B2B eCommerce application published by Listaso Inc.
+- [Listaso Delivery](https://play.google.com/store/apps/details?id=com.listaso.delivery&hl=en): Android delivery application published by Listaso Inc.
+- [Listaso Van Sales](https://play.google.com/store/apps/details?id=com.listaso.sales&hl=en): Android van-sales application published by Listaso Inc.
+- [Listaso Customer Order Catalog](https://play.google.com/store/apps/details?id=com.listaso.saleslite&hl=en): Android customer-order and catalog application published by Listaso Inc.
+- [Listaso Inc. on Google Play](https://play.google.com/store/apps/developer?id=Listaso+Inc.&hl=en_US): Developer profile for the current catalog of Android applications.
+
+## Official social channels
+
+- [Instagram](https://www.instagram.com/listaso_technology/): Official Listaso Technology Instagram profile.
+- [Facebook](https://www.facebook.com/ListasoTechnology): Official Listaso Technology Facebook page.
+- [YouTube](https://www.youtube.com/@ListasoTechnology): Official Listaso Technology YouTube channel.
+- [LinkedIn](https://www.linkedin.com/company/listaso/): Official Listaso company profile on LinkedIn.
+
+## Policies
+
+- [Privacy Policy](https://listaso.com/privacy-policy/): Official privacy information. Use the policy page itself for current terms and scope.
+- [Subscription Agreement](https://listaso.com/subscription-agreement/): Official subscription agreement. Do not summarize contractual obligations without checking the current text.
+- [Terms and Conditions](https://listaso.com/terms-and-conditions/): Official terms and conditions. The published terms control over summaries or descriptions elsewhere.
+
+## Optional
+
+- [Join Us](https://listaso.com/join-us/): Careers and opportunities at Listaso.
+- [Listaso Impact](https://listaso.com/listaso-impact/): Information about Listaso's impact initiatives.

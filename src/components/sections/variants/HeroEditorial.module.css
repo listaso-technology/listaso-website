@@ -1,0 +1,26 @@
+/*
+ * Editorial hero backdrop (Good Fella): the navy band with a quiet
+ * measuring grid. Static; colors from the brand primitives.
+ */
+.backdrop {
+  position: relative;
+  isolation: isolate;
+  background:
+    linear-gradient(rgb(255 255 255 / 0.045) 1px, transparent 1px) 0 0 / 100% 96px,
+    linear-gradient(90deg, rgb(255 255 255 / 0.045) 1px, transparent 1px) 0 0 / 96px 100%,
+    radial-gradient(50% 70% at 85% 30%, rgb(9 96 255 / 0.28), transparent 70%),
+    var(--listaso-navy);
+}
+
+/* Display size for the editorial headline: larger than text-display on wide screens. */
+.headline {
+  font-size: clamp(2.5rem, 3.6vw + 1rem, 4.75rem);
+  line-height: 1.02;
+  letter-spacing: -0.02em;
+}
+
+@media (forced-colors: active) {
+  .backdrop {
+    background: Canvas;
+  }
+}

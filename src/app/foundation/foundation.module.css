@@ -1,0 +1,28 @@
+/*
+ * Review-only backdrops for /foundation/. The layered gradients are too long
+ * for utilities, so they live in this module. Colors come from the primitives.
+ */
+
+/* Brand band mesh, modeled on the legacy .band gradient (one soft magenta radial). */
+.brandMesh {
+  background:
+    radial-gradient(60% 80% at 15% 20%, rgb(0 189 169 / 0.55), transparent 70%),
+    radial-gradient(50% 70% at 85% 30%, rgb(255 58 106 / 0.35), transparent 70%),
+    radial-gradient(60% 80% at 60% 100%, rgb(9 96 255 / 0.3), transparent 70%),
+    linear-gradient(160deg, #071e3a, var(--listaso-navy) 55%, #0a2a4a);
+}
+
+/* SAMI canvas with static orbs (Guide Sami reference; no ambient animation here). */
+.samiCanvas {
+  background:
+    radial-gradient(40% 60% at 20% 30%, rgb(0 55 91 / 0.9), transparent 70%),
+    radial-gradient(40% 60% at 80% 70%, rgb(9 96 255 / 0.35), transparent 70%),
+    var(--listaso-surface-page);
+}
+
+@media (forced-colors: active) {
+  .brandMesh,
+  .samiCanvas {
+    background: Canvas;
+  }
+}
