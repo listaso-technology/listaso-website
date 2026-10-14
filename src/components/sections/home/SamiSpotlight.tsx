@@ -8,7 +8,13 @@ import { SamiLogoMark } from "./SamiLogoMark";
 
 export function SamiSpotlight() {
   return (
-    <section aria-labelledby="sami-title" data-surface="sami" data-story-section className={backdrops.samiCanvas}>
+    <section
+      aria-labelledby="sami-title"
+      data-surface="sami"
+      data-story-section
+      data-sami-motion-scope
+      className={backdrops.samiCanvas}
+    >
       <Container className="grid items-center gap-12 py-16 lg:grid-cols-2 lg:gap-16 lg:py-24">
         <div data-reveal="group" className="flex flex-col gap-6">
           <div data-reveal-item className="flex flex-wrap items-center gap-4">

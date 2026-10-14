@@ -66,6 +66,17 @@
     }
   }
 
+  @media (hover: none), (pointer: coarse) {
+    .mark::before,
+    .mark::after {
+      opacity: 0.72;
+    }
+
+    .image {
+      will-change: transform;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .mark::before,
     .mark::after {

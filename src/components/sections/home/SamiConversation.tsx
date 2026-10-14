@@ -105,6 +105,14 @@ export function SamiConversation() {
     return () => window.clearTimeout(timer);
   }, [documentVisible, example.question.length, inView, letters, paused, phase, reduceMotion]);
 
+  useEffect(() => {
+    window.dispatchEvent(
+      new CustomEvent("listaso:sami-motion", {
+        detail: { paused },
+      }),
+    );
+  }, [paused]);
+
   return (
     <div ref={rootRef} data-reveal="media" className={styles.frame}>
       <GlassPanel tone="sami" className={styles.conversation}>

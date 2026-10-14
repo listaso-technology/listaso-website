@@ -1,13 +1,15 @@
 import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { Card } from "@/components/ui/Card";
+import { SnapCarousel } from "@/components/ui/SnapCarousel";
 import { customers } from "@/content/home/en";
 import { SectionHeader } from "../SectionHeader";
 import { Stars } from "./Stars";
+import styles from "./CustomerProof.module.css";
 
 /**
- * Approved testimonials and customer logos (DEC-013). Reviews render as a
- * static grid: all content stays visible without a carousel or JavaScript.
+ * Approved testimonials and customer logos (DEC-013). The carousel is native
+ * scroll-snap, so every review remains visible and swipeable without JavaScript.
  */
 export function CustomerProof() {
   return (
@@ -20,22 +22,24 @@ export function CustomerProof() {
           lead={customers.lead}
         />
 
-        <ul data-reveal="group" aria-label={customers.reviewsLabel} className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {customers.testimonials.map((item) => (
-            <Card data-reveal-item key={item.name} as="li">
-              <figure className="flex h-full flex-col gap-4">
-                <Stars label={customers.starsLabel} />
-                <blockquote className="text-body text-fg-default">
-                  <p>{item.quote}</p>
-                </blockquote>
-                <figcaption className="mt-auto flex flex-col text-small">
-                  <span className="font-semibold text-fg-heading">{item.name}</span>
-                  <span className="text-fg-muted">{item.source}</span>
-                </figcaption>
-              </figure>
-            </Card>
-          ))}
-        </ul>
+        <div data-reveal="group">
+          <SnapCarousel label={customers.reviewsLabel} variant="reviews">
+            {customers.testimonials.map((item) => (
+              <Card data-reveal-item key={item.name} as="article" className={styles.reviewCard}>
+                <figure className="flex h-full flex-col gap-4">
+                  <Stars label={customers.starsLabel} />
+                  <blockquote className="text-body text-fg-default">
+                    <p>{item.quote}</p>
+                  </blockquote>
+                  <figcaption className="mt-auto flex flex-col text-small">
+                    <span className="font-semibold text-fg-heading">{item.name}</span>
+                    <span className="text-fg-muted">{item.source}</span>
+                  </figcaption>
+                </figure>
+              </Card>
+            ))}
+          </SnapCarousel>
+        </div>
 
         {/* Logos sit on light plates in both themes: not every logo has a dark variant. */}
         <ul data-reveal="group" aria-label={customers.logosLabel} data-theme="light" className="grid grid-cols-2 gap-4 sm:grid-cols-4">
@@ -52,6 +56,7 @@ export function CustomerProof() {
                   width={Math.round((logo.width / logo.height) * 48)}
                   height={48}
                   className="max-h-12 w-auto max-w-full"
+                  style={{ width: "auto", height: "auto" }}
                 />
               ) : (
                 <span className="text-body font-semibold text-fg-heading">{logo.name}</span>

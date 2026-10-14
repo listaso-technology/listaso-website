@@ -1,35 +1,35 @@
 # Estado de trabajo
 
-**Actualizado:** 13 de octubre de 2026
+**Actualizado:** 14 de octubre de 2026
 
 ## Tarea activa
 
-**Homepage — interacción móvil de cifras, SAMI, soporte, clientes y pricing
-(Codex, `feat/homepage`, en curso).** Se adaptan las referencias CodePen y
-Symboolic a controles y tokens Listaso: counters al entrar en viewport,
-carruseles táctiles accesibles, loop acotado del logo SAMI y pricing más
-compacto. Sin GSAP ni dependencias. Archivos reservados:
-`src/components/ui/SnapCarousel.tsx`,
-`src/components/ui/SnapCarousel.module.css`,
-`src/components/sections/home/ProofStrip.tsx`,
-`src/components/sections/home/ProofCounter.tsx`,
-`src/components/sections/home/ProofStrip.module.css`,
-`src/components/sections/home/SamiSpotlight.tsx`,
-`src/components/sections/home/SamiConversation.tsx`,
-`src/components/sections/home/SamiLogoMark.tsx`,
-`src/components/sections/home/SamiLogoMark.module.css`,
-`src/components/sections/home/SupportSection.tsx`,
-`src/components/sections/home/SupportSection.module.css`,
-`src/components/sections/home/CustomerProof.tsx`,
-`src/components/sections/home/CustomerProof.module.css`,
-`src/components/sections/home/PricingPlans.tsx`,
-`src/components/sections/home/PricingPlans.module.css`,
-`src/components/sections/backdrops.module.css`, `docs/WORKLOG.md`. Riesgos:
-gestos táctiles reales fuera del emulador, alturas variables de testimonios y
-movimiento continuo. Próximo paso: implementar, validar teclado/reduced motion,
-320/390/768/1280 px y ejecutar lint, typecheck y build.
+Ninguna. Antes de editar, cada agente registra aquí tarea, responsable, branch,
+archivos reservados y lo que queda fuera de alcance.
 
 Últimas tareas cerradas:
+
+- Auditoría integral y proceso QA por página (Codex, `feat/homepage`, sin
+  cambios de producto): 21 páginas verificadas en el export actual, excluyendo
+  `start-version/`; peers, lint, typecheck y build pasan. Matriz responsive a
+  320/375/768/1024/1440 px, oscuro a 390 px y movimiento reducido sin overflow
+  ni animaciones activas. Se documentaron links a 12 rutas aún ausentes,
+  bloqueo SEO intencional, desalineación de `llms.txt`, claims pendientes,
+  payload cliente, movimiento continuo, targets táctiles, favicon, SEO social,
+  código reservado sin uso y documentación desactualizada. Informe y proceso
+  repetible: `docs/QA_SITE_AUDIT_2026-10-14.md`.
+
+- Homepage, experiencia móvil de cifras, SAMI, soporte, clientes y pricing
+  (Codex, `feat/homepage`, sin commit): componente común de carrusel con
+  scroll-snap, swipe, teclado, controles de 48 px y posición; counters al
+  entrar en viewport; Support convertido en tarjetas secuenciales; Customers y
+  Pricing compactados en carruseles móviles; selector de billing con SAMI como
+  indicador; logo SAMI en loop sólo visible en móvil y al hover de la sección
+  en desktop, controlado por la pausa existente. Sin dependencias ni cambios de
+  copy/claims. `pnpm lint`, `pnpm typecheck`, `git diff --check` y
+  `pnpm exec next build --webpack` pasan. QA en navegador a 320, 390 y 1280 px:
+  sin overflow global, controles 48×48, precios/mascota sincronizados y pausa de
+  SAMI verificada; el swipe real queda para la comprobación final en hardware.
 
 - Narrativa de scroll inspirada por Symboolic y Cip Harvin (Codex,
   `feat/homepage`, sin commit): flujo order-to-payment convertido en capítulos

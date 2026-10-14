@@ -1,9 +1,11 @@
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
+import { SnapCarousel } from "@/components/ui/SnapCarousel";
 import { support } from "@/content/home/en";
 import { SectionHeader } from "../SectionHeader";
 import { Stars } from "./Stars";
+import styles from "./SupportSection.module.css";
 
 /** Published support response times, hours and support proof. */
 export function SupportSection() {
@@ -13,35 +15,24 @@ export function SupportSection() {
         <SectionHeader id="support-title" eyebrow={support.eyebrow} title={support.title} lead={support.lead} />
 
         <div data-reveal="group" className="grid gap-12 lg:grid-cols-[1.3fr_1fr]">
-          <div data-reveal-item className="flex flex-col gap-6">
-            <table aria-labelledby="support-title" className="w-full border-collapse overflow-hidden rounded-md bg-surface-raised text-left">
-              <thead>
-                <tr className="border-b border-line-subtle">
-                  {support.table.columns.map((column, index) => (
-                    <th
-                      key={column}
-                      scope="col"
-                      className={`p-4 text-small font-semibold text-fg-heading ${index === 1 ? "text-right" : ""}`}
-                    >
-                      {column}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-line-subtle">
-                {support.table.rows.map((row) => (
-                  <tr key={row.level}>
-                    <th scope="row" className="p-4 text-left align-top font-normal">
-                      <span className="block text-body font-semibold text-fg-default">{row.level}</span>
-                      <span className="block text-small text-fg-muted">{row.detail}</span>
-                    </th>
-                    <td className="p-4 text-right align-top text-body font-bold whitespace-nowrap text-fg-heading">
-                      {row.response}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div data-reveal-item className="min-w-0 flex flex-col gap-6">
+            <SnapCarousel label={support.table.columns.join(": ")} variant="support">
+              {support.table.rows.map((row, index) => (
+                <article className={styles.responseCard} key={row.level}>
+                  <div className={styles.cardIndex} aria-hidden="true">
+                    {String(index + 1).padStart(2, "0")}
+                  </div>
+                  <div className={styles.cardContent}>
+                    <h3 className="text-h3 font-bold text-fg-heading">{row.level}</h3>
+                    <p className="text-body text-fg-muted">{row.detail}</p>
+                    <dl className={styles.responseTime}>
+                      <dt>{support.table.columns[1]}</dt>
+                      <dd>{row.response}</dd>
+                    </dl>
+                  </div>
+                </article>
+              ))}
+            </SnapCarousel>
 
             <ul className="flex flex-col gap-2 text-body text-fg-default">
               {support.hours.map((item) => (

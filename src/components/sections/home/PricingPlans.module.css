@@ -1,0 +1,81 @@
+@layer components {
+  .section {
+    overflow: hidden;
+  }
+
+  .billingArea {
+    display: flex;
+    width: fit-content;
+    max-width: 100%;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .mascotTrack {
+    position: relative;
+    width: 100%;
+    height: 4.25rem;
+    overflow: hidden;
+    border-bottom: 1px solid var(--listaso-border-subtle);
+  }
+
+  .mascotTrack::before {
+    position: absolute;
+    right: 0;
+    bottom: -2.75rem;
+    left: 0;
+    height: 4rem;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, rgb(9 96 255 / 0.16), transparent 68%);
+    content: "";
+  }
+
+  .mascot {
+    position: absolute;
+    bottom: -0.85rem;
+    left: 1rem;
+    transform: translateX(0) rotate(-8deg);
+    transition: transform 560ms var(--listaso-ease-standard);
+  }
+
+  .section:has(:global(#billing-yearly):checked) .mascot {
+    transform: translateX(clamp(7rem, 26vw, 11rem)) rotate(8deg);
+  }
+
+  .planCard {
+    min-height: 38rem;
+    transition:
+      transform var(--listaso-duration-standard) var(--listaso-ease-standard),
+      box-shadow var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .planCard:hover,
+  .planCard:focus-within {
+    transform: translateY(-4px);
+    box-shadow: var(--listaso-shadow-e2);
+  }
+
+  @media (min-width: 64rem) {
+    .planCard {
+      min-height: 44rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mascot,
+    .planCard {
+      transition: none;
+    }
+
+    .planCard:hover,
+    .planCard:focus-within {
+      transform: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .mascotTrack::before {
+      display: none;
+    }
+  }
+}

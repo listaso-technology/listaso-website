@@ -6,6 +6,7 @@
 
 .container {
   position: relative;
+  padding-block: 3rem;
 }
 
 .leadLine {
@@ -17,36 +18,24 @@
   background: var(--listaso-text-accent);
 }
 
-.list {
-  display: flex;
-  gap: 0;
-  overflow-x: auto;
-  padding-block: 3rem;
-  scroll-snap-type: x proximity;
-  scrollbar-color: var(--listaso-border-control) transparent;
-  scrollbar-width: thin;
-}
-
 .item {
   display: flex;
-  min-width: min(78vw, 17rem);
+  min-height: 14rem;
   flex-direction: column;
-  gap: 0.5rem;
-  padding-inline: 1.5rem;
-  border-left: 1px solid var(--listaso-border-subtle);
-  scroll-snap-align: start;
-}
-
-.item:first-child {
-  padding-left: 0;
-  border-left: 0;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 1.5rem;
+  border: 1px solid var(--listaso-border-subtle);
+  border-radius: var(--listaso-radius-lg);
+  background: var(--listaso-surface-raised);
+  box-shadow: var(--listaso-shadow-e1);
 }
 
 .value {
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-size: clamp(2.75rem, 9vw, 4.5rem);
   font-weight: 700;
-  line-height: 1.1;
-  letter-spacing: -0.025em;
+  line-height: 0.92;
+  letter-spacing: -0.06em;
   color: var(--listaso-text-heading);
   font-variant-numeric: tabular-nums;
 }
@@ -70,15 +59,13 @@
     width: 6rem;
   }
 
-  .list {
-    display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-    overflow: visible;
+  .item {
+    min-height: 15rem;
+    padding: 1.5rem;
   }
 
-  .item {
-    min-width: 0;
-    padding-inline: 1.5rem;
+  .value {
+    font-size: clamp(2.5rem, 3.5vw, 3.75rem);
   }
 }
 
