@@ -1,0 +1,126 @@
+/*
+ * The footer pattern (72px grid over aqua and magenta glows), rebuilt on
+ * semantic tokens so it works in light and dark themes, and animated:
+ * - once on load, the grid fades in (finite);
+ * - while the stage crosses the viewport, the grid drifts one cell and the
+ *   glows move (scroll-linked, transform only).
+ * No infinite loop, nothing to pause (QA-006). Static with reduced motion or
+ * without scroll-driven animation support.
+ */
+.stage {
+  --grid-line: color-mix(in srgb, var(--listaso-text-heading) 8%, transparent);
+
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: var(--listaso-surface-page);
+}
+
+.grid {
+  position: absolute;
+  inset: -72px 0 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 35%, #000 35%, transparent 80%);
+  animation: grid-in 1200ms var(--listaso-ease-enter) both;
+}
+
+.glow {
+  position: absolute;
+  z-index: -1;
+  width: min(70vw, 44rem);
+  aspect-ratio: 1;
+  pointer-events: none;
+  border-radius: 50%;
+}
+
+.glowAqua {
+  top: -18rem;
+  left: -10rem;
+  background: radial-gradient(circle, rgb(0 189 169 / 0.2), transparent 65%);
+}
+
+.glowMagenta {
+  top: 4rem;
+  right: -14rem;
+  background: radial-gradient(circle, rgb(255 58 106 / 0.14), transparent 65%);
+}
+
+@keyframes grid-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .grid {
+      animation:
+        grid-in 1200ms var(--listaso-ease-enter) both,
+        grid-drift linear both;
+      animation-timeline: auto, view();
+      animation-range: normal, exit 0% exit 100%;
+    }
+
+    .glowAqua {
+      animation: glow-a linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+
+    .glowMagenta {
+      animation: glow-b linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+@keyframes grid-drift {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 0 72px;
+  }
+}
+
+@keyframes glow-a {
+  from {
+    translate: 0 0;
+    scale: 0.9;
+  }
+  to {
+    translate: 12rem 8rem;
+    scale: 1.15;
+  }
+}
+
+@keyframes glow-b {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: -10rem 6rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .grid {
+    animation: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .grid,
+  .glow {
+    display: none;
+  }
+}

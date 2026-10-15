@@ -322,3 +322,67 @@ por página están en `docs/SECTION_VARIANTS.md`. El copy sigue siendo el de
 ("Since 2015", 400+, 2,000+, 2M+, $1.8B+) se muestra sólo en la Homepage y en
 About us. Se retiró de Products e Integrations. `MetricOdometer` se conserva
 para About us.
+
+## DEC-017 Company y Pricing: variantes "dossier" y patrón del footer animado
+
+**Estado:** Instrucción de Erick — 14 de octubre de 2026 (referencia
+ddark.dev, sólo secciones). Implementación técnica de Claude, pendiente de
+revisión.
+
+**Decisión.** `/about/`, `/industries/`, `/support/`, `/listaso-impact/`,
+`/join-us/`, `/contact-us/` y `/plans/` usan el copy de `start-version` y una
+familia de variantes "dossier" (etiquetas entre corchetes, titulares display
+en mayúsculas, cajas enmarcadas, cronologías, palabras cinéticas, canales e
+índice con vista previa). El catálogo está en `docs/SECTION_VARIANTS.md` y el
+contenido en `docs/COMPANY_PRICING_CONTENT_CONTRACT.md`.
+
+**Pricing.**
+- El patrón del footer (retícula de 72 px con brillos aqua y magenta) se
+  reconstruye con tokens semánticos (`GridPattern`), así funciona en claro y
+  en oscuro. No se modifica `SiteFooter` (Codex).
+- Movimiento: aparición única al cargar y deriva ligada al scroll (sólo
+  `translate`/`scale`). Sin bucles infinitos (QA-006); estático con
+  movimiento reducido o sin soporte de scroll-driven animations.
+- Selector mensual/anual sin JavaScript: radios nativos `#plans-monthly` y
+  `#plans-yearly` (distintos de `#billing-*` de la Homepage). El logo de SAMI
+  es la perilla y "rueda" (desplazamiento + una vuelta) hacia la opción
+  elegida; el riel es decorativo y también alterna con un clic.
+- **Pendiente:** el enlace de CodePen que Erick mencionó no llegó en el
+  mensaje. El selector es una interpretación ("en vez del oso, el logo de
+  SAMI") y se ajustará cuando se comparta el enlace.
+
+**Navegación.** `NextPage` acepta el grupo "Company" con una lista de rutas
+de esta app, para omitir `/rating/` y `/blog/` (DEC-011).
+
+**Restricciones.** Sin dependencias nuevas ni componentes cliente nuevos;
+Server Components por defecto; CSS Modules sólo para estados con `:has()`,
+animaciones y el patrón.
+
+## DEC-018 Skill externa de motion como referencia subordinada
+
+**Estado:** Aceptada — 15 de octubre de 2026 (instrucción de Erick). Registrada
+por Claude; revisión pendiente de Erick.
+
+**Decisión.** Se incorpora `design-motion-principles` (MIT, Kyle Zantos) en
+`.agents/skills/design-motion-principles/`, con `LICENSE.txt` y un bloque
+"Uso en Listaso" al inicio de `SKILL.md`. Es referencia para audit y revisión
+de motion; no es fuente de código ni de dependencias.
+
+**Reglas que prevalecen sobre la Skill.**
+- Sin dependencias nuevas: las recetas de Framer Motion / Motion no aplican.
+  Stack: CSS y, si se aprueba, GSAP según `listaso-gsap-motion`.
+- Audit no edita código automáticamente.
+- `prefers-reduced-motion` obligatorio; sin scroll hijacking ni bucles
+  decorativos (QA-006, DEC-017).
+- Informes HTML generados fuera del repo.
+- Hallazgos validados con `listaso-accessibility-qa` y
+  `listaso-web-performance`.
+
+**Descartadas en la misma revisión.** `taste-skill`, `image-to-code-skill`,
+`awesome-design-md`, `design-md-chrome`, OmniRoute, Headroom,
+`everything-claude-code`, Caveman y `awesome-claude-skills` (lista). Motivos en
+`docs/handoffs/2026-10-15-motion-skill.md`. `web-design-guidelines` ya estaba
+instalada y no se duplica.
+
+**Restricciones.** Sin cambios en `src/`, `public/`, dependencias, build ni
+producción; sin credenciales.

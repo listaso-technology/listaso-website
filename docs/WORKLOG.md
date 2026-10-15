@@ -1,6 +1,6 @@
 # Estado de trabajo
 
-**Actualizado:** 14 de octubre de 2026
+**Actualizado:** 15 de octubre de 2026
 
 ## Tarea activa
 
@@ -8,6 +8,77 @@ Ninguna. Antes de editar, cada agente registra aquí tarea, responsable, branch,
 archivos reservados y lo que queda fuera de alcance.
 
 Últimas tareas cerradas:
+
+- Baseline estático Website → Figma (Codex, `feat/homepage`, sin commit): las
+  27 rutas quedaron a 1280 px, identificadas con `/ Static` y ordenadas en la
+  página `Website`. Se sustituyeron 23 vistas por capturas con movimiento
+  reducido, transiciones, autoplay y parallax congelados; B2B eCommerce,
+  Delivery, Forms y QuickBooks conservan sus capas editables previas, ya
+  estáticas en Figma. Validación final: 27 frames de ruta, 5,574 textos y
+  13,414 frames internos, con Montserrat y Menlo como familias detectadas.
+  Índice actualizado en `39:2` y mapeo exacto en `docs/FIGMA_SYNC.md`. La
+  instrumentación temporal se retiró de `src/app/layout.tsx`; sin cambios de
+  producto, copy, rutas o comportamiento.
+
+- Sincronización integral Website → Figma (Codex, `feat/homepage`, sin commit):
+  las 27 rutas públicas implementadas se importaron en la página Figma
+  `Website` con nombres trazables y cuadrícula de revisión. Se añadió el índice
+  editable `WEB / 00 / INDEX & HANDOFF` (`39:2`) y se documentó el mapeo en
+  `docs/FIGMA_SYNC.md`. Validación estructural: 27 frames de ruta, 2,772 capas
+  de texto, 7,655 frames internos y 542 formas/vectoriales; no son capturas
+  planas. El código sigue siendo canónico y las capas DOM importadas aún no son
+  componentes de librería ni conservan motion, estados o reflow responsive.
+  Fuera de alcance: mobile, rutas WordPress, legales no implementadas, ES,
+  Code Connect, publicación y cambios de UI. El script temporal de captura se
+  retiró de `src/app/layout.tsx` al finalizar.
+
+- Skill de motion vendorizada (Claude, `feat/homepage`, sin commit):
+  `design-motion-principles` (MIT) en `.agents/skills/`, con bloque de uso
+  Listaso que subordina sus recomendaciones a las reglas del proyecto (DEC-018).
+  Sin dependencias ni cambios en `src/` o `public/`. Lint y typecheck pasan.
+  Handoff: `docs/handoffs/2026-10-15-motion-skill.md`. Pendiente: confirmar
+  que Claude la lista como skill en la próxima sesión.
+
+- Homepage — autoplay accesible y logos de clientes (Codex,
+  `feat/homepage`, sin commit): Support y Customers avanzan en loop sólo
+  cuando están visibles, se pausan por hover/foco/interacción o por control
+  explícito y respetan `prefers-reduced-motion`; Support aumenta la presencia
+  del índice lateral. Se integraron y optimizaron los logos entregados de
+  Productos Bredy, Comercial Mexicana y Fabi Saa; los cinco destinos indicados
+  usan `nofollow noopener noreferrer` y hover sólo para puntero preciso. QA:
+  loop, pausa, 320/390 px sin overflow, enlaces/atributos, lint, typecheck,
+  `git diff --check` y build webpack pasan. El único error de consola observado
+  en desarrollo es el `favicon.ico` 404 preexistente.
+
+- Company y Pricing en inglés (Claude, `feat/homepage`, sin commit):
+  `/about/`, `/industries/`, `/support/`, `/listaso-impact/`, `/join-us/`,
+  `/contact-us/` y `/plans/` con el copy de `start-version`, variantes
+  "dossier" inspiradas en ddark.dev y, en Pricing, el patrón del footer
+  animado en claro y oscuro con selector de facturación SAMI (DEC-017).
+  `/rating/` y `/blog/` siguen en WordPress. Pendiente: enlace de CodePen
+  para ajustar el selector; preguntas C1–C9 en
+  `docs/COMPANY_PRICING_CONTENT_CONTRACT.md`. Handoff:
+  `docs/handoffs/2026-10-14-company-pricing.md`.
+
+- Variaciones de sección para Products e Integrations (Claude,
+  `feat/homepage`, sin commit): heroes Statement, Editorial, Case study y
+  Display; sticky story, bento, índices, marquesina ligada al scroll, ficha
+  técnica, banda en pareja, carril, divisor pixelado y "siguiente página"
+  (DEC-016, `docs/SECTION_VARIANTS.md`). Las cifras de marca quedaron sólo
+  para Homepage y About us. Handoff:
+  `docs/handoffs/2026-10-13-section-variants.md`.
+
+- Integrations en inglés (Claude, `feat/homepage`, sin commit): hub, 8
+  integraciones contables y Printers and scanners con el copy de
+  `start-version` (DEC-015). Viabilidad y preguntas I1–I9 en
+  `docs/INTEGRATIONS_CONTENT_CONTRACT.md`. Handoff:
+  `docs/handoffs/2026-10-13-integrations.md`.
+
+- Páginas de producto en inglés (Claude, `feat/homepage`, sin commit): 9
+  rutas de Products con el copy de `start-version` (DEC-014), fotos Unsplash
+  temporales y 28 iconos Listaso. Preguntas P1–P8 en
+  `docs/PRODUCT_CONTENT_CONTRACT.md`. Handoff:
+  `docs/handoffs/2026-10-13-product-pages.md`.
 
 - Auditoría integral y proceso QA por página (Codex, `feat/homepage`, sin
   cambios de producto): 21 páginas verificadas en el export actual, excluyendo

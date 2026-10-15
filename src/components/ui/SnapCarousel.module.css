@@ -62,6 +62,33 @@
       background-color var(--listaso-duration-fast) var(--listaso-ease-standard);
   }
 
+  .autoplayControl {
+    min-height: 3rem;
+    cursor: pointer;
+    margin-right: auto;
+    padding-inline: 1rem;
+    border: 1px solid var(--listaso-border-control);
+    border-radius: var(--listaso-radius-full);
+    background: transparent;
+    color: var(--listaso-text-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    transition:
+      color var(--listaso-duration-fast) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-fast) var(--listaso-ease-standard),
+      background-color var(--listaso-duration-fast) var(--listaso-ease-standard);
+  }
+
+  .autoplayControl:hover {
+    border-color: var(--listaso-text-accent);
+    background: var(--listaso-surface-soft);
+  }
+
+  .autoplayControl:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 3px;
+  }
+
   .control:hover:not(:disabled) {
     transform: translateY(-2px);
     border-color: var(--listaso-text-accent);
@@ -138,10 +165,16 @@
     .control {
       transition: none;
     }
+
+    .autoplayControl {
+      display: none;
+      transition: none;
+    }
   }
 
   @media (forced-colors: active) {
-    .control {
+    .control,
+    .autoplayControl {
       border: 1px solid ButtonText;
       box-shadow: none;
     }

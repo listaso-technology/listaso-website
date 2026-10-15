@@ -68,7 +68,8 @@ export function MetricOdometer({ tone = "alt", className }: MetricOdometerProps)
       )}
     >
       <Container width="wide">
-        <ul data-reveal="group" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        {/* 2 columns, then 3 + 2 on laptops, then one row of 5 on wide screens. */}
+        <ul data-reveal="group" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-5">
           {proof.items.map((item, index) => (
             <li
               data-reveal-item
@@ -76,7 +77,9 @@ export function MetricOdometer({ tone = "alt", className }: MetricOdometerProps)
               className={cx(
                 "flex min-h-48 flex-col justify-between gap-8 rounded-lg border border-line-subtle p-6",
                 tone === "band" ? "bg-surface-band" : "bg-surface-raised",
-                index === 0 && "sm:col-span-2 lg:col-span-1",
+                index === 0 && "sm:col-span-2",
+                index < 3 ? "lg:col-span-2" : "lg:col-span-3",
+                "xl:col-span-1",
               )}
             >
               <span aria-hidden="true" className="text-small font-bold text-fg-accent">

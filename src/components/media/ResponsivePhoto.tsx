@@ -33,7 +33,8 @@ export function ResponsivePhoto({
   const loading = eager ? ({ loading: "eager", fetchPriority: "high" } as const) : ({ loading: "lazy" } as const);
 
   return (
-    <picture>
+    // With `fill`, the <picture> covers the positioned frame so the <img> has a positioned parent.
+    <picture className={fill ? "absolute inset-0" : undefined}>
       <source type="image/webp" srcSet={srcSet} sizes={sizes} />
       {fill ? (
         <Image

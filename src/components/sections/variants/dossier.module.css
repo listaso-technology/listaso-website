@@ -1,0 +1,175 @@
+/*
+ * "Dossier" visuals (ddark.dev), in Listaso tokens: bracketed labels,
+ * uppercase display type, outlined kinetic words, accent bars and the
+ * index-with-preview states. CSS only; motion is scroll-linked or finite,
+ * respects reduced motion, and never hides content.
+ */
+
+/* [ Label ] — the brackets are decorative and skipped by screen readers. */
+.bracket::before {
+  content: "[\00a0";
+  content: "[\00a0" / "";
+}
+
+.bracket::after {
+  content: "\00a0]";
+  content: "\00a0]" / "";
+}
+
+/* Uppercase display headline. Long words break only when they cannot fit. */
+.display {
+  font-size: clamp(2.25rem, 5.2vw + 1rem, 6.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  overflow-wrap: break-word;
+}
+
+.displaySmall {
+  font-size: clamp(1.875rem, 3.4vw + 1rem, 4.25rem);
+  line-height: 1;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  overflow-wrap: break-word;
+}
+
+/* Outlined copy of a word (decorative repeats). */
+.outline {
+  color: transparent;
+  -webkit-text-stroke: 1.5px var(--listaso-text-heading);
+}
+
+/* Accent bar at the bottom of a dossier box; fills once when revealed. */
+.bar {
+  transform-origin: left center;
+  transition: transform 1200ms var(--listaso-ease-enter);
+}
+
+:global(.home-motion-ready) [data-reveal]:not([data-revealed="true"]) .bar {
+  transform: scaleX(0.08);
+}
+
+/* Kinetic word rows: the outlined copies drift while the row crosses the viewport. */
+.kinetic {
+  will-change: transform;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 64rem) {
+    .kinetic {
+      animation: drift-left linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+
+    .kineticReverse {
+      animation-name: drift-right;
+    }
+  }
+}
+
+/* Only the outlined copies move, always away from the solid word. */
+@keyframes drift-left {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 10% 0;
+  }
+}
+
+@keyframes drift-right {
+  from {
+    translate: 10% 0;
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+/*
+ * Index with preview: the preview layer that matches the hovered row shows;
+ * with no row hovered, the first one does. Up to eight rows.
+ */
+.previewLayer {
+  opacity: 0;
+  transition: opacity var(--listaso-duration-slow) var(--listaso-ease-standard);
+}
+
+.index:not(:has(.row:hover)) .previewLayer:first-child,
+.index:has(.row:nth-child(1):hover) .previewLayer:nth-child(1),
+.index:has(.row:nth-child(2):hover) .previewLayer:nth-child(2),
+.index:has(.row:nth-child(3):hover) .previewLayer:nth-child(3),
+.index:has(.row:nth-child(4):hover) .previewLayer:nth-child(4),
+.index:has(.row:nth-child(5):hover) .previewLayer:nth-child(5),
+.index:has(.row:nth-child(6):hover) .previewLayer:nth-child(6),
+.index:has(.row:nth-child(7):hover) .previewLayer:nth-child(7),
+.index:has(.row:nth-child(8):hover) .previewLayer:nth-child(8) {
+  opacity: 1;
+}
+
+.row {
+  transition: padding-left var(--listaso-duration-standard) var(--listaso-ease-standard);
+}
+
+.row:hover {
+  padding-left: 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bar,
+  .previewLayer,
+  .row {
+    transition: none;
+  }
+
+  .row:hover {
+    padding-left: 0;
+  }
+}
+
+@media (forced-colors: active) {
+  .outline {
+    color: CanvasText;
+    -webkit-text-stroke: 0;
+  }
+}
+
+/*
+ * Halftone photo (ddark.dev's portrait): grayscale with a dot screen; the
+ * colour comes back on hover. Decorative treatment only.
+ */
+.halftone {
+  position: relative;
+  overflow: hidden;
+}
+
+.halftone img {
+  filter: grayscale(1) contrast(1.15);
+  transition: filter var(--listaso-duration-slow) var(--listaso-ease-standard);
+}
+
+.halftone::after {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(circle, rgb(0 0 0 / 0.38) 1px, transparent 1.6px) 0 0 / 5px 5px;
+  content: "";
+  mix-blend-mode: multiply;
+  transition: opacity var(--listaso-duration-slow) var(--listaso-ease-standard);
+}
+
+.halftone:hover img {
+  filter: none;
+}
+
+.halftone:hover::after {
+  opacity: 0.25;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .halftone img,
+  .halftone::after {
+    transition: none;
+  }
+}
