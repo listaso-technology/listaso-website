@@ -1,8 +1,7 @@
 # Contrato de contenido — Company y Pricing (EN)
 
-**Fecha:** 14 de octubre de 2026
-**Agente:** Claude, `feat/homepage` (en paralelo con Codex; sin editar sus
-archivos reservados)
+**Fecha:** 16 de octubre de 2026
+**Agentes:** Claude y Codex, `feat/homepage`
 **Estado:** Implementado, pendiente de revisión de Erick y de validación de
 Development, Ventas y RR. HH. donde se indica.
 
@@ -20,12 +19,14 @@ RECOMENDACIÓN, DESCONOCIDO, REQUIERE VALIDACIÓN DEV.
 | `/join-us/` | `pages_company.py`, `careers_body()` | `company/careers.ts` | Sin banda CTA (igual que la fuente) |
 | `/contact-us/` | `pages_company.py`, `contact_body()` | `company/contact.ts` | `FinalCta` |
 | `/plans/` | `pages_more.py`, `plans_body`, `COMPARE`, `PLANS_FAQ` | `pricing/plans.ts` | `FinalCta` |
+| `/rating/` | Página pública de WordPress capturada el 15 de octubre de 2026 | `company/rating.ts` | `FinalCta` |
 
-Fuera de alcance: `/rating/` y `/blog/` siguen en WordPress (DEC-011). El
-menú los conserva; `NextPage` del grupo Company los omite.
+El blog sigue en WordPress (DEC-011). `/rating/` ya tiene vista en la aplicación
+nueva y forma parte de `NextPage`; su publicación sigue dependiendo de validar
+la continuidad del endpoint de Site Reviews antes del cutover (DEC-019).
 
-Titles y meta descriptions: los de `start-version`, en cada archivo de
-contenido (`metadata`).
+Titles y meta descriptions: los de la fuente indicada en la tabla, en cada
+archivo de contenido (`metadata`).
 
 ## 2. Reutilización de datos aprobados (DEC-013)
 
@@ -52,6 +53,7 @@ duplican, para que la Homepage y las páginas internas digan siempre lo mismo:
 | C7 | Direcciones de Miami y El Salvador | REQUIERE VALIDACIÓN | Operaciones |
 | C8 | Beneficios de Careers (8) y enlace de vacantes en LinkedIn | REQUIERE VALIDACIÓN | RR. HH. |
 | C9 | Selector de facturación con el logo de SAMI: es una interpretación, porque el enlace de CodePen mencionado por Erick no llegó en el mensaje (ver DEC-017) | HIPÓTESIS | Erick |
+| C10 | El formulario de `/rating/` envía al endpoint público actual `https://listaso.com/wp-json/site-reviews/v1/submissions`. Validar CORS, antispam, moderación y continuidad del endpoint desde el dominio final antes del cutover; no se creó una reseña de prueba pública | REQUIERE VALIDACIÓN DEV | Development |
 
 ## 4. Fotografía (DEC-009)
 
@@ -79,3 +81,6 @@ Todas las fotos son temporales (Unsplash, licencia libre), autohospedadas en
   encabezado `rowgroup` por app y texto `sr-only` "Included" / "Not
   included". "Optional" es texto visible.
 - Enlaces externos de LinkedIn: aviso `sr-only` de pestaña nueva.
+- Rating: grupo de radios requerido en orden 1–5, foco visible, campos con
+  labels, estado de envío anunciado con `aria-live` y distribución expuesta
+  como barras de progreso con nombre y valor.

@@ -25,10 +25,10 @@ visuales que no estén aprobadas en los documentos canónicos del proyecto.
 - Índice/handoff editable: node `39:2`.
 - Cada frame final está identificado con el sufijo `/ Static` y organizado en
   una cuadrícula de revisión estable.
-- 23 vistas se recapturaron con `prefers-reduced-motion`, animaciones,
-  transiciones, autoplay y parallax congelados; B2B eCommerce, Delivery,
-  Forms y QuickBooks conservan su captura editable previa, que en Figma ya es
-  estática.
+- Las 27 vistas se capturaron con `prefers-reduced-motion`, animaciones,
+  transiciones, autoplay y parallax congelados. B2B eCommerce, Delivery, Forms
+  y QuickBooks se recapturaron el 15 de octubre de 2026 después de detectar
+  que sus primeras capas no producían una vista visual válida.
 - La estructura contiene texto, contenedores, formas e imágenes discretas; no
   son capturas planas.
 - Las importaciones son capas derivadas del DOM. Todavía no son componentes de
@@ -54,15 +54,15 @@ visuales que no estén aprobadas en los documentos canónicos del proyecto.
 | 01 | `/` | `src/app/(site)/page.tsx` | 1280 | [42:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=42-2) | Static validado |
 | 02 | `/pre-sales/` | `src/app/(site)/pre-sales/page.tsx` | 1280 | [43:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=43-2) | Static validado |
 | 03 | `/direct-sales/` | `src/app/(site)/direct-sales/page.tsx` | 1280 | [44:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=44-2) | Static validado |
-| 04 | `/b2b-ecommerce/` | `src/app/(site)/b2b-ecommerce/page.tsx` | 1280 | [15:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=15-2) | Static validado |
+| 04 | `/b2b-ecommerce/` | `src/app/(site)/b2b-ecommerce/page.tsx` | 1280 | [75:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=75-2) | Static validado |
 | 05 | `/inventory/` | `src/app/(site)/inventory/page.tsx` | 1280 | [46:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=46-2) | Static validado |
-| 06 | `/delivery/` | `src/app/(site)/delivery/page.tsx` | 1280 | [17:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=17-2) | Static validado |
+| 06 | `/delivery/` | `src/app/(site)/delivery/page.tsx` | 1280 | [76:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=76-2) | Static validado |
 | 07 | `/back-office/` | `src/app/(site)/back-office/page.tsx` | 1280 | [48:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=48-2) | Static validado |
 | 08 | `/custom-development/` | `src/app/(site)/custom-development/page.tsx` | 1280 | [49:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=49-2) | Static validado |
-| 09 | `/forms/` | `src/app/(site)/forms/page.tsx` | 1280 | [20:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=20-2) | Static validado |
+| 09 | `/forms/` | `src/app/(site)/forms/page.tsx` | 1280 | [77:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=77-2) | Static validado |
 | 10 | `/sami/` | `src/app/(site)/sami/page.tsx` | 1280 | [51:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=51-2) | Static validado |
 | 11 | `/integrations/` | `src/app/(site)/integrations/page.tsx` | 1280 | [52:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=52-2) | Static validado |
-| 12 | `/quickbooks/` | `src/app/(site)/quickbooks/page.tsx` | 1280 | [23:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=23-2) | Static validado |
+| 12 | `/quickbooks/` | `src/app/(site)/quickbooks/page.tsx` | 1280 | [78:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=78-2) | Static validado |
 | 13 | `/sage/` | `src/app/(site)/sage/page.tsx` | 1280 | [54:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=54-2) | Static validado |
 | 14 | `/acumatica/` | `src/app/(site)/acumatica/page.tsx` | 1280 | [55:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=55-2) | Static validado |
 | 15 | `/sap/` | `src/app/(site)/sap/page.tsx` | 1280 | [56:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=56-2) | Static validado |

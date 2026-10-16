@@ -352,7 +352,8 @@ contenido en `docs/COMPANY_PRICING_CONTENT_CONTRACT.md`.
   SAMI") y se ajustará cuando se comparta el enlace.
 
 **Navegación.** `NextPage` acepta el grupo "Company" con una lista de rutas
-de esta app, para omitir `/rating/` y `/blog/` (DEC-011).
+de esta app. En esta etapa omitía `/rating/` y `/blog/`; DEC-019 incorpora
+`/rating/` y mantiene únicamente el blog fuera de la aplicación nueva.
 
 **Restricciones.** Sin dependencias nuevas ni componentes cliente nuevos;
 Server Components por defecto; CSS Modules sólo para estados con `:has()`,
@@ -386,3 +387,23 @@ instalada y no se duplica.
 
 **Restricciones.** Sin cambios en `src/`, `public/`, dependencias, build ni
 producción; sin credenciales.
+
+## DEC-019 `/rating/` en la aplicación nueva con Site Reviews como backend
+
+**Estado:** Instrucción de Erick — 16 de octubre de 2026. Implementación de
+Codex; pendiente de revisión visual de Erick y validación de Development.
+
+**Decisión.** `/rating/` conserva su URL, metadata, copy, calificación agregada
+y reseñas publicadas de la página vigente. La presentación se adapta a la
+familia dossier ya aprobada para Company, con composición responsive y temas
+claro/oscuro. La ruta entra en la secuencia `NextPage` de Company; `/blog/`
+continúa fuera de la aplicación nueva.
+
+**Formulario.** La interfaz nueva envía el mismo conjunto de datos público
+(rating, review y name) al endpoint actual de WordPress Site Reviews. No se
+creó una reseña de prueba porque eso publicaría contenido externo. Antes del
+cutover, Development debe validar CORS, antispam, moderación, respuestas de
+error y disponibilidad del endpoint desde el dominio final.
+
+**Restricciones.** No se crea `/es/rating/`, no se migra el historial ni la
+moderación, no se inventa copy y no se cambia WordPress, producción o DNS.

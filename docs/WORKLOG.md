@@ -1,6 +1,6 @@
 # Estado de trabajo
 
-**Actualizado:** 15 de octubre de 2026
+**Actualizado:** 16 de octubre de 2026
 
 ## Tarea activa
 
@@ -8,6 +8,28 @@ Ninguna. Antes de editar, cada agente registra aquí tarea, responsable, branch,
 archivos reservados y lo que queda fuera de alcance.
 
 Últimas tareas cerradas:
+
+- Página `/rating/` (Codex, `feat/homepage`, sin commit): la ruta nueva conserva
+  URL, metadata, copy, resumen 5.0 y las dos reseñas públicas; adopta la familia
+  dossier de Company con formulario accesible, responsive y compatible con
+  temas claro/oscuro. El formulario apunta al endpoint público actual de
+  WordPress Site Reviews, sin crear una reseña de prueba. La ruta se añadió a
+  la secuencia `NextPage` de Company y se registró DEC-019/C10. QA: 1280, 390 y
+  320 px sin overflow; navegación semántica; validación requerida nativa;
+  reduced motion con 0 bloques ocultos; `pnpm lint`, `pnpm typecheck`,
+  `git diff --check` y build webpack pasan. Pendiente Development: CORS,
+  antispam, moderación y continuidad del endpoint desde el dominio final.
+
+- Corrección de cuatro vistas estáticas en Figma (Codex, `feat/homepage`, sin
+  commit): B2B eCommerce, Delivery, Forms y QuickBooks se recapturaron una por
+  una con movimiento reducido y reemplazaron los frames sin diseño visible.
+  Nodos finales: `75:2`, `76:2`, `77:2` y `78:2`; los cuatro nodos anteriores
+  se eliminaron. Cada frame mide 1280 px, contiene entre 208 y 236 textos,
+  entre 525 y 572 frames editables y entre 8 y 11 imágenes. Las cuatro vistas
+  se verificaron visualmente mediante render de Figma; el inventario conserva
+  27 rutas y 28 frames superiores incluyendo el índice. La instrumentación
+  temporal se retiró de `src/app/layout.tsx`; sin cambios de producto, copy,
+  rutas o comportamiento.
 
 - Baseline estático Website → Figma (Codex, `feat/homepage`, sin commit): las
   27 rutas quedaron a 1280 px, identificadas con `/ Static` y ordenadas en la

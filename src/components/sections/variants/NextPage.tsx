@@ -3,11 +3,16 @@ import { Container } from "@/components/layout/Container";
 import { mainNav, type NavGroup, type NavLink } from "@/content/site/navigation";
 import { TextRoll } from "./TextRoll";
 
-/*
- * Company pages built in this app. Rate Listaso and the blog stay on
- * WordPress (DEC-011), so the Company sequence skips them.
- */
-const companyPages = ["/about/", "/industries/", "/support/", "/listaso-impact/", "/join-us/", "/contact-us/"];
+/* Company pages built in this app. The blog stays on WordPress (DEC-011/019). */
+const companyPages = [
+  "/about/",
+  "/industries/",
+  "/support/",
+  "/listaso-impact/",
+  "/join-us/",
+  "/rating/",
+  "/contact-us/",
+];
 
 type NextPageProps = {
   /** Navigation group the current page belongs to. */
