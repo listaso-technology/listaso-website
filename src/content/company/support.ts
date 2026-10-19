@@ -27,7 +27,12 @@ export const responseTimes = {
   title: { emphasis: "How fast", rest: "we answer" },
   columns: homeSupport.table.columns,
   rows: homeSupport.table.rows,
-  hours: homeSupport.hours,
+  // The Homepage shortened the weekday line on 19 October 2026 (DEC-020). This
+  // page keeps its published wording until its own copy is reviewed.
+  hours: [
+    { label: "Monday through Friday:", value: "8:00 a.m. to 8:00 p.m. Eastern Time" },
+    ...homeSupport.hours.slice(1),
+  ],
 } as const satisfies SectionCopy & Record<string, unknown>;
 
 export const reach = {

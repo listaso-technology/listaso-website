@@ -1,13 +1,99 @@
 # Estado de trabajo
 
-**Actualizado:** 16 de octubre de 2026
+**Actualizado:** 19 de octubre de 2026
 
 ## Tarea activa
 
-Ninguna. Antes de editar, cada agente registra aquí tarea, responsable, branch,
-archivos reservados y lo que queda fuera de alcance.
+No hay una tarea activa reservando archivos.
 
 Últimas tareas cerradas:
+
+- Validación de HOME y ajustes globales (Claude, `feat/homepage`, sin commit,
+  19 de octubre de 2026). Aprobada con dos correcciones. **Corregido:**
+  (1) `ProofStrip.module.css`: `white-space: nowrap` en `.value` hacía que
+  `Since 2015` (223 px) desbordara su tarjeta (171 px de contenido) a 768, 1024
+  y 1440 px; ahora ajusta en el espacio. (2) `ProofCounter.tsx`: el primer
+  frame de rAF podía llegar antes de `start` y mostrar cifras negativas
+  (`-57`, `$-0.1B+`); se limita el progreso a ≥ 0. **Verificado:** cifras sin
+  recorte a 320/390/640/720/768/1024/1280/1440 px; sin overflow horizontal a
+  320–1440 px en claro y oscuro; un H1; `B2B e-Commerce`, `SAMI AI`,
+  `Learn More` y `Book a Demo` en las 28 rutas (texto, metadata y alt;
+  `/sami/` conserva además "Start My Free Month"); autoplay de Capabilities
+  (una tarjeta, ciclo continuo, Pause/Play, pausa por hover, foco y fuera de
+  viewport, altura estable de 320 px, sin autoplay en móvil); Enter/Space; hover
+  y carrusel de Pricing; `/plans/` íntegro. **Limitaciones:** el navegador
+  integrado sólo renderiza frames al capturar pantalla (los IO no disparan
+  sin ellos) y no emula reduced motion, reduced transparency, forced colors,
+  pestaña oculta ni zoom real; `Pausa por visibilidad de pestaña` y reduced
+  motion se validaron por lectura de `CapabilityDisclosures.tsx`; `focusin`
+  se simuló con eventos porque la ventana no tenía foco. Sin lector de
+  pantalla ni tap en hardware. **Pendientes:** el badge `NEW` de SAMI AI ya no
+  se renderiza (`sami.badge.tag` eliminado); a 1024 px el panel abierto de la
+  primera tarjeta pierde ~17 px de padding inferior (sin recorte de texto);
+  el recorrido sticky del workflow es de ~300 px (la imagen sale durante el
+  paso 4); `ai-assistants.ts` conserva "B2B eCommerce" en un prompt interno;
+  "first month free" sigue en Pricing, `/plans/` y `/sami/` frente a
+  "15-Day Free Trial". Lint, typecheck, build webpack y `git diff --check`
+  pasan; `start-version/` sin cambios. Archivos liberados.
+
+- Ajustes finales HOME y copy global (Codex, `feat/homepage`, sin commit, 19 de
+  octubre de 2026). Se corrigió el ajuste de cifras en Proof; el storytelling
+  deja más recorrido al bloque sticky, centra/cubre la imagen y separa caption
+  y rail; Capabilities rota automáticamente en desktop con pausa visible,
+  pausa por interacción/visibilidad y respeto a reduced motion. Los CTA de la
+  sección son `Learn More`. Se unificó la nomenclatura visible a `B2B
+  e-Commerce` y `SAMI AI`, además de Title Case en CTA compartidos. El lockup
+  de SAMI reserva área para que su glow no se recorte y la HOME muestra `Meet
+  SAMI AI,` / `Your Listaso Assistant`. Pricing en HOME quedó como resumen de
+  tres niveles con hover y enlace a `/plans/`; la página dedicada conserva la
+  comparación completa. Archivos liberados. Pruebas: `npm run lint`, `npm run
+  typecheck`, `pnpm exec next build --webpack` y `git diff --check` pasan. La
+  revisión visual automatizada no se ejecutó porque el sandbox rechazó abrir
+  `localhost:3000` (`listen EPERM`); el build Turbopack se detuvo después de no
+  producir progreso, y el build webpack completó correctamente.
+
+- Homepage editorial, visual y responsive + logo core "Listaso" (Claude,
+  `feat/homepage`, sin commit, 19 de octubre de 2026; DEC-020). Archivos
+  liberados.
+  - **Completado.** Logo "Listaso" en header y footer (4 SVG copiados byte a
+    byte como `public/brand/listaso/*/listaso-logo-*.svg`, registrados con
+    hash; lockups "Listaso Technology" pasan a `legacy`); "Listaso home" como
+    nombre accesible. "Book a Demo" en header, menú móvil y hero. Copy nuevo de
+    hero, workflow, SAMI, Support y Customers en `src/content/home/en.ts`;
+    metadata alineada. "Explore Our Solutions" → `#solutions` con
+    `scroll-mt-20`. `ProofStrip` como composición enmarcada con tintes por
+    tono, compartida con `MetricOdometer` de About
+    (`src/components/sections/ProofCards.module.css`, `proofTones.ts`).
+    `HowItWorks` compacto (capítulos de 196 px en lugar de 34rem/68svh, rail
+    conectado entre números, imagen sticky sólo desde 1024 px). Nuevo
+    `HomeCapabilities` con `<details name>` nativos: fila expandible en
+    desktop (20rem de alto), acordeón en móvil; `CapabilityDisclosures` sólo
+    mantiene una tarjeta abierta en desktop. Token `--text-h2-compact` para el
+    H2 de SAMI y el índice de Support (ahora horizontal); "First response" a
+    16 px y apilado bajo 48rem para evitar recorte a 320 px.
+    `src/content/company/support.ts` fija su línea de horario para que
+    `/support/` no cambie. Alt de `/foundation/` actualizado a "Listaso".
+  - **Bloqueado / pendiente.** Selector ES/EN: auditoría y propuesta en
+    `docs/I18N_SWITCH_PLAN.md`, sin selector ni rutas `/es/`. Trial de SAMI:
+    Development/Producto deben confirmar el destino de activación (hoy
+    `/sami/`) y resolver "15-day free trial" vs. "first month free", que
+    convive en la misma Homepage (add-on de Pricing) y en `/sami/` y
+    `/plans/`. H2 provisional y oculto de capacidades ("More Listaso
+    capabilities"). CTA de demo fuera de alcance con otra capitalización
+    (Pricing, banda final, Products, Contact). Navy del wordmark distinto entre
+    archivos (#00375B vs #003F69).
+  - **Pruebas ejecutadas.** `pnpm lint`, `pnpm typecheck`,
+    `pnpm exec next build --webpack` y `git diff --check` pasan. Navegador
+    (dev): sin overflow horizontal a 320/390/768/1024/1280/1440 px en claro y
+    a 320/1024/1440 px en oscuro; un solo H1 y H2/H3 lógicos; tarjetas con
+    clic, Enter y Space y foco visible; anchor bajo el header sticky;
+    `/about/` y `/support/` sin overflow y con su copy previo; consola sin
+    errores; `start-version/` sin cambios.
+  - **Omitido.** Emulación de `prefers-reduced-motion`,
+    `prefers-reduced-transparency` y `forced-colors` (sin herramienta en el
+    navegador integrado; verificado sólo por lectura de CSS/JS); medición de
+    contraste automatizada; lector de pantalla real; tap en hardware; oscuro a
+    390/768/1280 px.
 
 - Página `/rating/` (Codex, `feat/homepage`, sin commit): la ruta nueva conserva
   URL, metadata, copy, resumen 5.0 y las dos reseñas públicas; adopta la familia
@@ -19,6 +105,11 @@ archivos reservados y lo que queda fuera de alcance.
   reduced motion con 0 bloques ocultos; `pnpm lint`, `pnpm typecheck`,
   `git diff --check` y build webpack pasan. Pendiente Development: CORS,
   antispam, moderación y continuidad del endpoint desde el dominio final.
+  Baseline Figma añadido como frame editable de 1280 px
+  `WEB / 28 / /rating/ / Desktop / 1280 / Static` (`110:2`): 570 capas
+  descendientes, 168 textos y 7 imágenes discretas. El índice `39:2` registra
+  ahora 28 rutas; se eliminaron únicamente las dos capturas de prueba de
+  `/rating/` y se retiró la instrumentación temporal de captura.
 
 - Corrección de cuatro vistas estáticas en Figma (Codex, `feat/homepage`, sin
   commit): B2B eCommerce, Delivery, Forms y QuickBooks se recapturaron una por

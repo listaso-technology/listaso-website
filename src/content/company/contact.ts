@@ -22,8 +22,8 @@ export const hero: ProductHeroContent = {
 };
 
 export const ctas = {
-  demo: { href: externalLinks.demo, label: "Book a free demo" },
-  message: { href: "https://zfrmz.com/h6RkbByHQKx7RtjV0sUn", label: "Send us a message" },
+  demo: { href: externalLinks.demo, label: "Book a Demo" },
+  message: { href: "https://zfrmz.com/h6RkbByHQKx7RtjV0sUn", label: "Send Us a Message" },
 } as const;
 
 export type ChannelGroup = {

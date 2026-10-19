@@ -162,7 +162,7 @@ export function SiteHeader() {
           <ThemedLogo
             light="listaso-horizontal-navy"
             dark="listaso-horizontal-white"
-            height={28}
+            height={32}
             alt={headerLabels.homeLink}
             priority
           />

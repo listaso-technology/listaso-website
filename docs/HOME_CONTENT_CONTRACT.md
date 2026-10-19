@@ -4,7 +4,8 @@
 **Etapa:** 6.1, auditoría read-only (Claude, `feat/homepage`)
 **Estado:** Inventario completo y decisiones cerradas por Erick (DEC-013).
 Implementado en `feat/homepage`. La auditoría inicial se conserva abajo como
-evidencia; la sección "Contrato final" manda.
+evidencia. Manda la "Revisión editorial del 19 de octubre de 2026" (DEC-020)
+y, para lo que no toca, la sección "Contrato final".
 
 Etiquetas (PROJECT_MASTER): CONFIRMADO, OBSERVACIÓN, HIPÓTESIS,
 RECOMENDACIÓN, DESCONOCIDO, REQUIERE VALIDACIÓN DEV.
@@ -110,6 +111,59 @@ pueda leerlos cuando se active, sin emitir eventos.
 - **D6:** no se usan logos de producto en la Homepage. El copy de
   `start-version` no los necesita.
 - **D9:** el copyright es el de `start-version`: "© 2026 Listaso Inc.".
+
+## Revisión editorial del 19 de octubre de 2026 (DEC-020) — vigente
+
+Esta sección manda sobre la tabla "Contrato final" de abajo en todo lo que
+toca. Fuente: encargo editorial de Erick del 19 de octubre de 2026.
+
+**Erratas normalizadas** (sin cambiar el sentido): "Distribution Management
+Software from Growing Businesses" → "…for Growing Businesses"; "One Platforn…"
+→ "One Platform…"; "When your team work…" → "When your team works…".
+
+**Orden:** HomeHero, ProofStrip, HowItWorks (sólo 4 pasos, `id="solutions"`),
+SamiSpotlight, SupportSection, HomeCapabilities, CustomerProof, PricingPlans,
+FinalCta, HomeMotion.
+
+| Sección | Campo | Copy vigente |
+| --- | --- | --- |
+| Metadata | title | Listaso \| Distribution Management Software for Growing Businesses |
+| Metadata | description | Listaso connects sales, inventory, warehousing and delivery workflows in one distribution management platform. Integrates with QuickBooks, Sage and more. |
+| Header | CTA (desktop y móvil) | Book a Demo → Calendly (`cta_demo_click`, `header` / `mobile-menu`) |
+| Header/Footer | Logo | Lockup "Listaso" (`listaso-horizontal-navy` / `-white`); nombre accesible "Listaso home" |
+| Hero | Eyebrow | Distribution Management Software for Growing Businesses |
+| Hero | H1 | One Platform to Run Your Distribution Business. |
+| Hero | Descripción | Listaso connects sales, inventory, warehousing, and delivery workflows in one distribution management platform, helping your team work smarter and stay in control. |
+| Hero | CTA principal | Book a Demo → Calendly (`cta_demo_click`, `hero`) |
+| Hero | CTA secundario | Explore Our Solutions → `#solutions` (`cta_secondary_click`, `hero`); antes `/join-us/` |
+| Workflow | Eyebrow | One connected distribution workflow |
+| Workflow | H2 | From sales to delivery, keep every step connected. |
+| Workflow | Descripción | When your team works with disconnected information, delays and costly mistakes follow. Listaso brings your distribution workflows together, helping your team manage orders, track inventory, coordinate deliveries, and keep your back office informed. |
+| Workflow | CTA paso 1 / paso 3 | Sales → `/pre-sales/`; Delivery and Direct Store Delivery → `/delivery/` (pasos 2 y 4 sin cambios) |
+| Capacidades | Tarjetas | B2B online store, Forms, Integrations, Industries: títulos de la navegación aprobada; frase, texto y destinos sin cambios (antes `howItWorks.more`) |
+| Capacidades | H2 | "More Listaso capabilities", **provisional** y visualmente oculto; falta título editorial |
+| SAMI | Badge | NEW · Meet SAMI, Your Listaso AI Assistant |
+| SAMI | H2 | Your business has questions. SAMI has the answers. (`text-h2-compact`, ~36 px) |
+| SAMI | Descripción | Sin cambios ("Ask Sami about your sales…") |
+| SAMI | Chips | Ask questions in English or Spanish · Generate Excel and PDF reports · Works with ChatGPT and Claude · Get answers from your Listaso data |
+| SAMI | CTA | Start your 15-day free trial → `/sami/` (destino informativo; `sami_cta_click`) |
+| SAMI | Precio | From $57.99 a month |
+| Support | Eyebrow | Customer Support (H2 sin cambios) |
+| Support | Descripción | When your distribution operation depends on technology, reliable support matters. Our bilingual team is here to help you resolve issues, answer questions, and keep your business moving, with clear response times based on your needs. |
+| Support | Horario | Monday to Friday: 8:00 a.m. to 8:00 p.m. ET (sólo Homepage; `/support/` conserva su redacción) |
+| Support | CTA | Explore our Support Services → `/support/` |
+| Customers | Eyebrow | Customer Testimonials (H2 sin cambios) |
+| Customers | Descripción | See how distributors use Listaso to streamline daily operations, connect their teams, and improve the way they manage sales, inventory, and deliveries. |
+
+**Sin cambios:** cifras y valores, testimonios, logos y enlaces de clientes,
+tiempos de respuesta, precios de Pricing, banda final.
+
+**Inconsistencias abiertas (no resueltas en esta tarea):**
+- La Homepage muestra "Start your 15-day free trial" (SAMI) y "The first month
+  is free" (add-on de Pricing, compartido con `/plans/`); `/sami/` también dice
+  "first month free". Development/Producto deben decidir.
+- CTA de demo fuera del alcance: Pricing "Book a demo", banda final "Book a free
+  demo", Products y Contact "Book a free demo".
 
 ## Contrato final (implementado)
 

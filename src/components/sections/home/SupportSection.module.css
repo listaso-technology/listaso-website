@@ -30,6 +30,10 @@
     transform: translate3d(-1.25rem, -1rem, 0) scale(1.12);
   }
 
+  /*
+   * The index reads horizontally: at ~36px, vertical digits were hard to
+   * read, so the side column keeps the number upright at the top.
+   */
   .cardIndex {
     display: grid;
     width: 4rem;
@@ -38,10 +42,11 @@
     border-right: 1px solid var(--listaso-border-subtle);
     background: var(--listaso-surface-alt);
     color: var(--listaso-text-accent);
-    font-size: 1rem;
+    font-size: var(--text-h2-compact);
+    font-variant-numeric: tabular-nums;
     font-weight: 700;
-    letter-spacing: 0.12em;
-    writing-mode: vertical-rl;
+    line-height: 1;
+    letter-spacing: -0.02em;
   }
 
   .cardContent {
@@ -51,12 +56,12 @@
     padding: 1.5rem;
   }
 
+  /* Label above the value on narrow cards, side by side from 48rem. */
   .responseTime {
     display: flex;
     margin-top: auto;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 1rem;
+    flex-direction: column;
+    gap: 0.25rem;
     padding-top: 1.5rem;
     border-top: 1px solid var(--listaso-border-subtle);
   }
@@ -64,8 +69,9 @@
   .responseTime dt {
     max-width: 8rem;
     color: var(--listaso-text-muted);
-    font-size: 0.75rem;
+    font-size: var(--text-body);
     font-weight: 600;
+    line-height: var(--text-body--line-height);
   }
 
   .responseTime dd {
@@ -74,7 +80,7 @@
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.04em;
-    text-align: right;
+    overflow-wrap: anywhere;
   }
 
   @media (min-width: 48rem) {
@@ -87,8 +93,18 @@
     }
 
     .cardIndex {
-      width: 4.5rem;
-      font-size: 1.125rem;
+      width: 5rem;
+    }
+
+    .responseTime {
+      flex-direction: row;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .responseTime dd {
+      text-align: right;
     }
   }
 

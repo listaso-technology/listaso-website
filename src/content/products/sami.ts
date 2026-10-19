@@ -1,5 +1,5 @@
 /**
- * Sami AI (/sami/). Source: start-version/source/build/pages_more.py,
+ * SAMI AI (/sami/). Source: start-version/source/build/pages_more.py,
  * sami_body() and SAMI_FAQ. Plan prices match the Sami add-on approved for
  * the Homepage (DEC-013). The SAMI Credit ($9.99) comes from the same
  * start-version page; see docs/PRODUCT_CONTENT_CONTRACT.md.
@@ -9,7 +9,7 @@ import type { Feature, ProductHeroContent, ProductMetadata, SectionCopy } from "
 
 export const metadata: ProductMetadata = {
   path: "/sami/",
-  title: "Sami: AI Assistant for Distributors | Listaso",
+  title: "SAMI AI Assistant for Distributors | Listaso",
   description:
     "Ask about your sales, customers, inventory and orders in plain words and get answers in seconds, plus Excel and PDF reports. From $57.99 a month, first month free.",
 };
@@ -19,18 +19,18 @@ export const hero: ProductHeroContent & {
   badge: { tag: string; label: string };
   price: { prefix: string; amount: string; suffix: string };
 } = {
-  breadcrumb: "Sami AI",
+  breadcrumb: "SAMI AI",
   eyebrow: "AI assistant",
-  logoAlt: "Sami, Listaso’s AI assistant",
+  logoAlt: "SAMI AI, Listaso’s AI assistant",
   badge: { tag: "New", label: "AI assistant" },
-  title: { emphasis: "Meet Sami.", rest: "Ask your business anything." },
-  lead: "Sami is Listaso's AI assistant. Ask about your sales, customers, inventory and orders in plain words, and get answers in seconds, in English or Spanish.",
+  title: { emphasis: "Meet SAMI AI.", rest: "Ask your business anything." },
+  lead: "SAMI AI is Listaso's AI assistant. Ask about your sales, customers, inventory and orders in plain words, and get answers in seconds, in English or Spanish.",
   price: { prefix: "From", amount: "$57.99", suffix: "a month · first month free" },
 };
 
 export const heroCtas = {
-  start: { href: externalLinks.demo, label: "Start my free month" },
-  pricing: { href: "#sami-pricing", label: "See pricing" },
+  start: { href: externalLinks.demo, label: "Start My Free Month" },
+  pricing: { href: "#sami-pricing", label: "See Pricing" },
 } as const;
 
 export const examples: SectionCopy & { questions: readonly string[] } = {
@@ -48,10 +48,10 @@ export const examples: SectionCopy & { questions: readonly string[] } = {
 };
 
 export const included: SectionCopy & { items: readonly Feature[] } = {
-  eyebrow: "Included in every Sami plan",
+  eyebrow: "Included in every SAMI AI plan",
   title: { emphasis: "Everything", rest: "you need to start" },
   items: [
-    { icon: "ai", title: "AI assistant", text: "Chat with Sami in plain language, any time." },
+    { icon: "ai", title: "AI assistant", text: "Chat with SAMI AI in plain language, any time." },
     { icon: "report", title: "Excel and PDF reports", text: "Ask for a report and download it, ready to share." },
     { icon: "link", title: "Works with ChatGPT and Claude", text: "Use your Listaso data in the AI you already use." },
     { icon: "customers", title: "Shared team usage", text: "Monthly use included, shared by your team." },
@@ -76,12 +76,12 @@ export const pricing: SectionCopy & {
   addon: { title: string; text: string; logoAlt: string };
 } = {
   id: "sami-pricing",
-  eyebrow: "Sami pricing",
+  eyebrow: "SAMI AI pricing",
   title: { emphasis: "One price", rest: "for your whole team" },
   lead: "Based on your users, customers and items. Your first month is free.",
   perTeam: "a month per team",
   featuredTag: "Most popular",
-  cta: { href: externalLinks.demo, label: "Start my free month" },
+  cta: { href: externalLinks.demo, label: "Start My Free Month" },
   plans: [
     {
       name: "Starter",
@@ -108,40 +108,40 @@ export const pricing: SectionCopy & {
   ],
   addon: {
     title: "Need more?",
-    text: "A SAMI Credit ($9.99) adds extra use for your whole team this month. We'll let you know when you reach 80% of your plan.",
+    text: "A SAMI AI Credit ($9.99) adds extra use for your whole team this month. We'll let you know when you reach 80% of your plan.",
     logoAlt: "",
   },
 };
 
 export const faq: SectionCopy & { items: readonly { question: string; answer: string }[] } = {
   eyebrow: "Questions",
-  title: { emphasis: "Sami,", rest: "explained simply" },
+  title: { emphasis: "SAMI AI,", rest: "explained simply" },
   items: [
     {
       question: "Do I need to know about AI or technology?",
       answer:
-        "No. You write a question the way you'd text an employee, and Sami answers in plain words. If you can send a WhatsApp message, you can use Sami.",
+        "No. You write a question the way you'd text an employee, and SAMI AI answers in plain words. If you can send a WhatsApp message, you can use SAMI AI.",
     },
     {
-      question: "Does Sami work in Spanish?",
-      answer: "Yes. Ask in Spanish or English and Sami answers in the same language.",
+      question: "Does SAMI AI work in Spanish?",
+      answer: "Yes. Ask in Spanish or English and SAMI AI answers in the same language.",
     },
     {
-      question: "Where does Sami get its answers?",
+      question: "Where does SAMI AI get its answers?",
       answer: "From your own Listaso data: your sales, customers, products, inventory and orders.",
     },
     {
-      question: "Is Sami included in my Listaso plan?",
-      answer: "Sami is an add-on to any Listaso plan, priced per team. Your first month is free.",
+      question: "Is SAMI AI included in my Listaso plan?",
+      answer: "SAMI AI is an add-on to any Listaso plan, priced per team. Your first month is free.",
     },
     {
       question: "What does “use included” mean?",
       answer:
-        "Each Sami plan includes a monthly amount of use, shared by your whole team. We let you know when you reach 80%. If you need more that month, add a SAMI Credit for $9.99.",
+        "Each SAMI AI plan includes a monthly amount of use, shared by your whole team. We let you know when you reach 80%. If you need more that month, add a SAMI AI Credit for $9.99.",
     },
     {
       question: "Can I use my Listaso data in ChatGPT or Claude?",
-      answer: "Yes. Every Sami plan lets you connect your Listaso data to the AI you already use.",
+      answer: "Yes. Every SAMI AI plan lets you connect your Listaso data to the AI you already use.",
     },
   ],
 };

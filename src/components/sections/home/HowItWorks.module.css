@@ -4,7 +4,7 @@
 
 .storyGrid {
   display: grid;
-  gap: 2.5rem;
+  gap: 2rem;
 }
 
 .visualColumn {
@@ -13,7 +13,7 @@
 
 .visualFrame {
   position: relative;
-  aspect-ratio: 4 / 3;
+  aspect-ratio: 16 / 10;
   overflow: hidden;
   border-radius: var(--listaso-radius-xl);
   background: var(--listaso-surface-soft);
@@ -39,7 +39,7 @@
   inset: auto 1.5rem 1.5rem;
   z-index: 1;
   display: grid;
-  gap: 0.5rem;
+  gap: 0.75rem;
   color: var(--listaso-text-on-action);
 }
 
@@ -54,7 +54,7 @@
 
 .captionStage {
   display: none;
-  min-height: 4.5rem;
+  min-height: 5.5rem;
 }
 
 .captionItem {
@@ -62,7 +62,7 @@
   display: grid;
   grid-template-columns: auto 1fr;
   align-items: end;
-  gap: 0.75rem;
+  gap: 1rem;
   max-width: 28rem;
   font-size: clamp(1.25rem, 2vw, 1.75rem);
   font-weight: 600;
@@ -72,6 +72,10 @@
   transition:
     opacity 320ms var(--listaso-ease-enter),
     transform 480ms var(--listaso-ease-enter);
+}
+
+.captionItem > span:last-child {
+  text-wrap: balance;
 }
 
 .captionNumber {
@@ -108,83 +112,145 @@
   background: var(--listaso-link-on-band);
 }
 
+/*
+ * The flow rail: every step except the last draws a connector from its node
+ * to the next one. The connector is complete by default (no JavaScript,
+ * reduced motion); HomeMotion's root class turns it into progress.
+ */
 .chapterList {
-  border-top: 1px solid var(--listaso-border-subtle);
+  position: relative;
+  display: grid;
 }
 
 .chapter {
+  position: relative;
   display: grid;
-  gap: 1.5rem;
-  padding-block: 2rem;
-  border-bottom: 1px solid var(--listaso-border-subtle);
+  grid-template-columns: 3rem minmax(0, 1fr);
+  column-gap: 1rem;
+  padding-block: 1.25rem;
 }
 
-.chapterHeading {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
+.chapter:not(:last-child)::before,
+.chapter:not(:last-child)::after {
+  position: absolute;
+  top: 4.5rem;
+  bottom: -1.25rem;
+  left: calc(1.5rem - 1px);
+  width: 2px;
+  content: "";
 }
 
-.chapterNumber {
-  min-width: 2.5rem;
-  font-size: 1.5rem;
-  font-weight: 700;
-  line-height: 2rem;
+.chapter:not(:last-child)::before {
+  background: var(--listaso-border-subtle);
+}
+
+.chapter:not(:last-child)::after {
+  background: linear-gradient(180deg, var(--listaso-text-accent), var(--listaso-link));
+  transform-origin: top;
+  transition: transform 520ms var(--listaso-ease-enter);
+}
+
+.chapterNode {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  border: 2px solid var(--listaso-text-accent);
+  border-radius: var(--listaso-radius-full);
+  background: var(--listaso-surface-page);
   color: var(--listaso-text-accent);
+  font-size: 0.875rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  transition:
+    background-color 320ms var(--listaso-ease-standard),
+    border-color 320ms var(--listaso-ease-standard),
+    color 320ms var(--listaso-ease-standard);
 }
 
 .chapterIcon {
   display: flex;
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2.75rem;
+  height: 2.75rem;
+  flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  border-radius: var(--listaso-radius-full);
+  border-radius: var(--listaso-radius-md);
   background: var(--listaso-surface-soft);
   color: var(--listaso-icon-accent);
 }
 
 .chapterBody {
   display: flex;
+  min-width: 0;
   flex-direction: column;
   gap: 0.75rem;
+  padding-bottom: 0.5rem;
 }
 
-.capabilityGrid {
-  display: grid;
-  gap: 0;
-  border-top: 1px solid var(--listaso-border-subtle);
+/* Progress states, only while HomeMotion is active. */
+:global(.home-motion-ready) .chapter:not(:last-child)::after {
+  transform: scaleY(0);
 }
 
-.capabilityItem {
-  display: flex;
-  gap: 1rem;
-  padding-block: 1.5rem;
-  border-bottom: 1px solid var(--listaso-border-subtle);
+:global(.home-motion-ready) .chapterNode {
+  border-color: var(--listaso-border-control);
+  color: var(--listaso-text-muted);
 }
 
-@media (min-width: 48rem) {
-  .capabilityGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    column-gap: 2rem;
-  }
+:global(.home-motion-ready) .storyGrid[data-active-step="1"] .chapter:nth-child(-n + 1)::after,
+:global(.home-motion-ready) .storyGrid[data-active-step="2"] .chapter:nth-child(-n + 2)::after,
+:global(.home-motion-ready) .storyGrid[data-active-step="3"] .chapter:nth-child(-n + 3)::after {
+  transform: scaleY(1);
+}
+
+/* :where() keeps these below the active-step rule in specificity. */
+:global(.home-motion-ready)
+  :where(
+    .storyGrid[data-active-step="0"] .chapter:nth-child(-n + 1),
+    .storyGrid[data-active-step="1"] .chapter:nth-child(-n + 2),
+    .storyGrid[data-active-step="2"] .chapter:nth-child(-n + 3),
+    .storyGrid[data-active-step="3"] .chapter
+  )
+  .chapterNode {
+  border-color: var(--listaso-text-accent);
+  color: var(--listaso-text-accent);
+}
+
+:global(.home-motion-ready) .chapter[data-flow-active="true"] .chapterNode {
+  border-color: var(--listaso-text-heading);
+  background: var(--listaso-text-heading);
+  color: var(--listaso-surface-page);
 }
 
 @media (min-width: 64rem) {
   .storyGrid {
-    grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
     gap: 4rem;
+    align-items: start;
   }
 
   .visualColumn {
-    position: relative;
+    position: sticky;
+    top: 7rem;
   }
 
   .visualFrame {
-    position: sticky;
-    top: 7rem;
-    aspect-ratio: 4 / 5;
-    max-height: calc(100svh - 9rem);
+    height: min(42rem, calc(100svh - 10rem));
+    min-height: 34rem;
+    aspect-ratio: auto;
+    width: 100%;
+  }
+
+  .visualCaption {
+    inset: auto 7rem 2rem 2rem;
+  }
+
+  .progressRail {
+    right: 2rem;
+    bottom: 2rem;
   }
 
   .captionStage {
@@ -196,26 +262,23 @@
   }
 
   .chapter {
-    min-height: min(34rem, 68svh);
-    align-content: center;
-    grid-template-columns: 4rem minmax(0, 1fr);
-    transition:
-      opacity 400ms var(--listaso-ease-standard),
-      transform 560ms var(--listaso-ease-enter);
+    grid-template-columns: 3.5rem minmax(0, 1fr);
+    column-gap: 1.5rem;
+    padding-block: 1.5rem;
+    min-height: clamp(14rem, 27svh, 18rem);
   }
 
-  .chapterHeading {
-    flex-direction: column;
-    align-items: flex-start;
+  .chapter:not(:last-child)::before,
+  .chapter:not(:last-child)::after {
+    top: 5rem;
+    bottom: -1.5rem;
+    left: calc(1.75rem - 1px);
   }
 
-  :global(.home-motion-ready) .chapter {
-    opacity: 0.44;
-  }
-
-  :global(.home-motion-ready) .chapter[data-flow-active="true"] {
-    opacity: 1;
-    transform: translateX(0.5rem);
+  .chapterNode {
+    width: 3.5rem;
+    height: 3.5rem;
+    font-size: 1rem;
   }
 
   .storyGrid[data-active-step="1"] .captionItem:first-child,
@@ -263,13 +326,13 @@
   .visualImage,
   .captionItem,
   .progressMarker,
-  .chapter {
+  .chapterNode,
+  .chapter::after {
     transition: none;
   }
 
   .visualImage,
-  .storyGrid[data-active-step] .visualImage,
-  .chapter[data-flow-active="true"] {
+  .storyGrid[data-active-step] .visualImage {
     transform: none;
   }
 }
@@ -279,7 +342,15 @@
     background: linear-gradient(transparent, CanvasText);
   }
 
-  .progressMarker {
+  .progressMarker,
+  .chapter:not(:last-child)::before,
+  .chapter:not(:last-child)::after {
     background: CanvasText;
+  }
+
+  .chapterNode {
+    border-color: CanvasText;
+    background: Canvas;
+    color: CanvasText;
   }
 }

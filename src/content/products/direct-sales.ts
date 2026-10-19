@@ -71,7 +71,7 @@ export const hardware = {
   tagline: "Compatible hardware",
   title: "Printers and scanners",
   text: "Zebra, Bixolon, Woosim, Star Micronics, Socket Mobile and Brother models that work with Listaso.",
-  link: { href: "/printers-and-scanners/", label: "See the list" },
+  link: { href: "/printers-and-scanners/", label: "See the List" },
 } as const;
 
 /** Printed receipt illustration for the drivers section. */

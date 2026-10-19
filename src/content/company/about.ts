@@ -46,7 +46,7 @@ export const values: SectionCopy & { items: readonly { title: string; text: stri
   items: [
     { title: "Customers first", text: "Every decision starts with what helps our customers sell and deliver." },
     { title: "Excellence", text: "We keep improving our skills so our customers get the best results." },
-    { title: "New challenges", text: "We welcome hard problems and keep building new tools, like Sami and Forms." },
+    { title: "New challenges", text: "We welcome hard problems and keep building new tools, like SAMI AI and Forms." },
   ],
 };
 

@@ -407,3 +407,55 @@ error y disponibilidad del endpoint desde el dominio final.
 
 **Restricciones.** No se crea `/es/rating/`, no se migra el historial ni la
 moderación, no se inventa copy y no se cambia WordPress, producción o DNS.
+
+## DEC-020 Homepage editorial (19 de octubre de 2026) y logo core "Listaso"
+
+**Estado:** Instrucción de Erick — 19 de octubre de 2026. Implementación de
+Claude en `feat/homepage`, sin commit; pendiente de revisión visual de Erick.
+
+**Copy.** El encargo del 19 de octubre reemplaza, sólo en la Homepage, el copy
+aprobado en DEC-013 para hero, workflow, SAMI, Support y Customers. Se
+normalizaron tres erratas del texto original sin cambiar su sentido: "from" →
+"for Growing Businesses", "Platforn" → "Platform" y "team work" → "team
+works". El detalle vive en `docs/HOME_CONTENT_CONTRACT.md`.
+
+**Metadata.** Title y description se alinearon con la nueva propuesta de
+valor usando sólo frases del copy aprobado (eyebrow y descripción del hero) y
+la mención a integraciones que ya existía.
+
+**Orden de la Homepage.** Hero, cifras, workflow de 4 pasos (`#solutions`),
+SAMI, Support, capacidades (`HomeCapabilities`, nuevo), Customers, Pricing y
+banda final.
+
+**CTA.** "Book a Demo" en header, menú móvil y hero; los eventos y ubicaciones
+de analytics no cambian. "Explore Our Solutions" deja `/join-us/` y apunta a
+`#solutions`. Los CTA de demo de Pricing ("Book a demo") y de la banda final
+("Book a free demo"), y los de otras páginas, no se tocaron: quedan registrados
+como inconsistencia pendiente de decisión.
+
+**Logo core.** Header, footer y lockups usan los SVG "Listaso" entregados por
+Erick (`~/Downloads/1x`), copiados byte a byte como `listaso-logo-*` y
+registrados en `src/content/brand/assets.ts`. Los lockups anteriores
+"Listaso Technology" quedan como `legacy`. Nombre accesible: "Listaso home".
+SAMI, productos, clientes y terceros no cambian.
+
+**Tipografía.** Se añade `--text-h2-compact` (32 → 36 px) porque la escala no
+tenía un paso de ~36 px. Lo usan el H2 de SAMI y el índice de Support; "First
+response" usa `text-body` (16 px).
+
+**Cifras.** `ProofStrip` y `MetricOdometer` (About) comparten
+`ProofCards.module.css` y el orden de tonos de `proofTones.ts`: tintes de
+roles semánticos (aqua, azul, navy, magenta), sin vidrio ni animación nueva.
+
+**Pendientes registrados.**
+- **SAMI:** Development/Producto confirman el destino de activación del
+  trial (hoy `/sami/`) y la convivencia de "Start your 15-day free trial" con
+  "first month free", que sigue visible en la misma Homepage (add-on de
+  Pricing, compartido con `/plans/`) y en `/sami/`.
+- **H2 de capacidades:** "More Listaso capabilities" es provisional y visualmente
+  oculto; falta título editorial.
+- **ES/EN:** el selector queda bloqueado por falta de paridad
+  (`docs/I18N_SWITCH_PLAN.md`).
+- **Logo:** el navy del wordmark difiere entre archivos (#00375B horizontal,
+  #003F69 "stacked"); los archivos "stacked" muestran símbolo y wordmark en una
+  línea. Confirmar con Marketing.

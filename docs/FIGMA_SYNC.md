@@ -1,6 +1,6 @@
 # Sincronización Website NEXT.js ↔ Figma
 
-**Estado:** importación desktop completada y validada el 15 de octubre de 2026  
+**Estado:** importación desktop completada y validada el 19 de octubre de 2026
 **Archivo:** [Website NEXT.js · página Website](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=8-9)  
 **Índice editable:** [WEB / 00 / STATIC INDEX & HANDOFF](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=39-2)  
 **Figma file key:** `b8KTxbbW8Ogsqu1IzeRnQW`
@@ -21,11 +21,11 @@ visuales que no estén aprobadas en los documentos canónicos del proyecto.
 
 ## Resultado y editabilidad
 
-- 27 rutas implementadas importadas en la página `Website`.
+- 28 rutas implementadas importadas en la página `Website`.
 - Índice/handoff editable: node `39:2`.
 - Cada frame final está identificado con el sufijo `/ Static` y organizado en
   una cuadrícula de revisión estable.
-- Las 27 vistas se capturaron con `prefers-reduced-motion`, animaciones,
+- Las 28 vistas se capturaron con `prefers-reduced-motion`, animaciones,
   transiciones, autoplay y parallax congelados. B2B eCommerce, Delivery, Forms
   y QuickBooks se recapturaron el 15 de octubre de 2026 después de detectar
   que sus primeras capas no producían una vista visual válida.
@@ -35,7 +35,7 @@ visuales que no estén aprobadas en los documentos canónicos del proyecto.
   librería ni tienen Code Connect.
 - Motion, hover, foco, scroll, estados interactivos y reflow responsive se
   verifican exclusivamente en desarrollo; Figma representa el baseline visual.
-- Las 27 vistas finales usan un viewport desktop de 1280 px.
+- Las 28 vistas finales usan un viewport desktop de 1280 px.
 
 ## Convención de nombres
 
@@ -78,11 +78,12 @@ visuales que no estén aprobadas en los documentos canónicos del proyecto.
 | 25 | `/join-us/` | `src/app/(site)/join-us/page.tsx` | 1280 | [66:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=66-2) | Static validado |
 | 26 | `/contact-us/` | `src/app/(site)/contact-us/page.tsx` | 1280 | [67:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=67-2) | Static validado |
 | 27 | `/plans/` | `src/app/(site)/plans/page.tsx` | 1280 | [68:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=68-2) | Static validado |
+| 28 | `/rating/` | `src/app/(site)/rating/page.tsx` | 1280 | [110:2](https://www.figma.com/design/b8KTxbbW8Ogsqu1IzeRnQW/Website-NEXT.js?node-id=110-2) | Static validado |
 
 ## Exclusiones actuales
 
 - `/foundation/` es una ruta interna de referencia, no una página pública.
-- `/blog/`, `/rating/` y `/book-a-demo/` siguen fuera del export Next.js.
+- `/blog/` y `/book-a-demo/` siguen fuera del export Next.js.
 - Las rutas legales todavía no están implementadas en `src/app/(site)/`.
 - Español requiere paridad aprobada antes de importarse.
 - Los breakpoints móviles y el mapeo a componentes compartidos son fases

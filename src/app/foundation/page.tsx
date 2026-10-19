@@ -67,7 +67,7 @@ export default function FoundationPage() {
           light="listaso-horizontal-navy"
           dark="listaso-horizontal-white"
           height={40}
-          alt="Listaso Technology"
+          alt="Listaso"
           priority
         />
         <p className="text-eyebrow font-bold uppercase text-fg-accent">Revisión interna · Chat 5</p>

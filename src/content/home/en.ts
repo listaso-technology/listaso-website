@@ -4,7 +4,8 @@
  * prices, support times, testimonials and customer logos as published there.
  *
  * Exceptions:
- * - hero.secondaryCta comes from the WordPress Homepage (DEC-013 D2);
+ * - The 19 October 2026 editorial brief from Erick (DEC-020) replaces the hero,
+ *   workflow, SAMI, Support and Customers copy, and the hero secondary CTA;
  * - FIFOX is omitted (DEC-013).
  *
  * Do not edit claims here without an approved source.
@@ -18,27 +19,28 @@ export type SignatureText = { emphasis: string; rest: string };
 export type Link = { href: string; label: string };
 
 export const homeMetadata = {
-  title: "Listaso | Sales, Delivery & Inventory App for Distributors",
+  title: "Listaso | Distribution Management Software for Growing Businesses",
   description:
-    "Connect sales, delivery and inventory in one platform built for distributors and wholesalers. Integrates with QuickBooks, Sage and more.",
+    "Listaso connects sales, inventory, warehousing and delivery workflows in one distribution management platform. Integrates with QuickBooks, Sage and more.",
   siteName: "Listaso",
   canonical: "https://listaso.com/",
   locale: "en_US",
 } as const;
 
 export const hero = {
-  eyebrow: "Built for distributors, wholesalers and manufacturers",
-  title: { emphasis: "Sell more.", rest: "Deliver on time. Get paid faster." },
-  lead: "Connect sales, delivery and inventory in one platform. Keep your field and office teams in sync with your accounting system. Sami helps them find answers in your business data, in English or Spanish.",
-  primaryCta: { href: externalLinks.demo, label: "Book a free demo" },
-  secondaryCta: { href: "/join-us/", label: "Learn more about Listaso Technology" },
+  eyebrow: "Distribution Management Software for Growing Businesses",
+  title: { emphasis: "One Platform", rest: "to Run Your Distribution Business." },
+  lead: "Listaso connects sales, inventory, warehousing, and delivery workflows in one distribution management platform, helping your team work smarter and stay in control.",
+  primaryCta: { href: externalLinks.demo, label: "Book a Demo" },
+  /** Same-page anchor to the workflow section (`solutionsAnchor`). */
+  secondaryCta: { href: "#solutions", label: "Explore Our Solutions" },
   ratings: [
     { score: "4.7", label: "on Google (42 reviews)" },
     { score: "5.0", label: "on QuickBooks App Store" },
   ],
   /** Illustrative example shown in the hero composition. */
   example: {
-    label: "Example of a Listaso order sent to QuickBooks, with an inventory answer from Sami",
+    label: "Example of a Listaso order sent to QuickBooks, with an inventory answer from SAMI AI",
     order: {
       title: "New order",
       customer: "Mercado La Esperanza",
@@ -54,7 +56,7 @@ export const hero = {
       sync: "Sent to QuickBooks",
     },
     sami: {
-      name: "Sami",
+      name: "SAMI AI",
       question: "Which products are running low?",
       answer: "3 items below minimum: Queso fresco (8 cases), Horchata 1 gal (11) and Crema 32 oz (5).",
     },
@@ -72,16 +74,19 @@ export const proof = {
   ],
 } as const;
 
+/** Stable id of the workflow section, target of the hero secondary CTA. */
+export const solutionsAnchor = "solutions";
+
 export const howItWorks = {
-  eyebrow: "One system, start to finish",
-  title: { emphasis: "From order", rest: "to payment, all connected" },
-  lead: "Keep every team connected as an order moves through your business. Enter information once, then use it across sales, inventory, delivery and accounting.",
+  eyebrow: "One connected distribution workflow",
+  title: { emphasis: "From sales to delivery,", rest: "keep every step connected." },
+  lead: "When your team works with disconnected information, delays and costly mistakes follow. Listaso brings your distribution workflows together, helping your team manage orders, track inventory, coordinate deliveries, and keep your back office informed.",
   steps: [
     {
       icon: "orders",
       title: "Your rep takes the order",
       text: "Show a photo catalog, customer-specific prices, promotions and purchase history. Keep working without an internet connection.",
-      link: { href: "/pre-sales/", label: "Sales and pre-sales" },
+      link: { href: "/pre-sales/", label: "Sales" },
     },
     {
       icon: "warehouse",
@@ -93,7 +98,7 @@ export const howItWorks = {
       icon: "delivery",
       title: "Your driver delivers and collects",
       text: "Follow the day’s route, print the invoice at the store, capture a signature and collect payment at delivery.",
-      link: { href: "/delivery/", label: "Delivery and direct store delivery" },
+      link: { href: "/delivery/", label: "Delivery and Direct Store Delivery" },
     },
     {
       icon: "analytics",
@@ -102,45 +107,68 @@ export const howItWorks = {
       link: { href: "/back-office/", label: "Back Office" },
     },
   ] satisfies readonly { icon: IconName; title: string; text: string; link: Link }[],
-  more: [
+} as const;
+
+/**
+ * Four additional capabilities, shown as expandable cards before Customers.
+ * `title` reuses the approved navigation labels; `lead`, `text` and `link`
+ * keep the approved copy and destinations (formerly `howItWorks.more`).
+ */
+export const capabilities = {
+  /**
+   * PROVISIONAL, not approved copy: visually hidden H2 that keeps the heading
+   * outline correct. Replace when Marketing supplies a section title (DEC-020).
+   */
+  label: "More Listaso capabilities",
+  items: [
     {
       icon: "store",
+      title: "B2B e-Commerce",
       lead: "Let customers order when it works for them.",
       text: "Give each customer a business-to-business online store with their own prices, available from their phone.",
-      link: { href: "/b2b-ecommerce/", label: "Online store" },
+      link: { href: "/b2b-ecommerce/", label: "Learn More" },
     },
     {
       icon: "forms",
+      title: "Forms",
       lead: "Capture information at every visit.",
       text: "Use forms and surveys for shelf photos, competitor checks and signatures.",
-      link: { href: "/forms/", label: "Forms" },
+      link: { href: "/forms/", label: "Learn More" },
     },
     {
       icon: "sync",
+      title: "Integrations",
       lead: "Connect your accounting system.",
       text: "Integrate with QuickBooks, Sage 100, Acumatica, SAP, NetSuite, Zoho, Acctivate or AccountMate.",
-      link: { href: "/integrations/", label: "Integrations" },
+      link: { href: "/integrations/", label: "Learn More" },
     },
     {
       icon: "industries",
+      title: "Industries",
       lead: "Built with food and beverage distribution in mind.",
       text: "Listaso also supports health and beauty, housewares, paper and packaging, and other industries.",
-      link: { href: "/industries/", label: "Industries" },
+      link: { href: "/industries/", label: "Learn More" },
     },
-  ] satisfies readonly { icon: IconName; lead: string; text: string; link: Link }[],
+  ] satisfies readonly { icon: IconName; title: string; lead: string; text: string; link: Link }[],
 } as const;
 
 export const sami = {
-  logoAlt: "Sami, Listaso’s AI assistant",
-  badge: { tag: "New", label: "AI assistant" },
-  title: { emphasis: "Meet Sami.", rest: "Get answers from your business data." },
-  lead: "Ask Sami about your sales, customers, inventory or orders in everyday language. Get an answer in seconds, in English or Spanish, without learning a technical tool.",
-  chips: ["Excel and PDF reports", "Uses your Listaso data", "Works with ChatGPT and Claude", "Share access with your team"],
-  cta: { href: "/sami/", label: "Meet Sami" },
-  price: { prefix: "From", amount: "$57.99", suffix: "a month · first month free" },
+  logoAlt: "SAMI AI, Listaso’s AI assistant",
+  badge: { primary: "Meet SAMI AI,", accent: "Your Listaso Assistant" },
+  title: { emphasis: "Your business has questions.", rest: "SAMI AI has the answers." },
+  lead: "Ask SAMI AI about your sales, customers, inventory or orders in everyday language. Get an answer in seconds, in English or Spanish, without learning a technical tool.",
+  chips: [
+    "Ask questions in English or Spanish",
+    "Generate Excel and PDF reports",
+    "Works with ChatGPT and Claude",
+    "Get answers from your Listaso data",
+  ],
+  /** Informational destination until Development/Product confirm trial activation (DEC-020). */
+  cta: { href: "/sami/", label: "Start Your 15-Day Free Trial" },
+  price: { prefix: "From", amount: "$57.99", suffix: "a month" },
   example: {
-    label: "Example of Sami identifying inactive customers and preparing an Excel report",
-    name: "Sami",
+    label: "Example of SAMI AI identifying inactive customers and preparing an Excel report",
+    name: "SAMI AI",
     tag: "Example",
     question: "Which customers haven't ordered in 60 days?",
     answer: "14 customers. The 3 who bought the most last quarter:",
@@ -156,9 +184,9 @@ export const sami = {
 } as const;
 
 export const support = {
-  eyebrow: "Support",
+  eyebrow: "Customer Support",
   title: { emphasis: "Real people.", rest: "Clear help when you need it." },
-  lead: "Our bilingual support team helps you keep your operation moving. See our first-response targets below, so you know what to expect when you contact us.",
+  lead: "When your distribution operation depends on technology, reliable support matters. Our bilingual team is here to help you resolve issues, answer questions, and keep your business moving, with clear response times based on your needs.",
   table: {
     columns: ["Type of problem", "First response"],
     rows: [
@@ -170,11 +198,11 @@ export const support = {
     ],
   },
   hours: [
-    { label: "Monday through Friday:", value: "8:00 a.m. to 8:00 p.m. Eastern Time" },
+    { label: "Monday to Friday:", value: "8:00 a.m. to 8:00 p.m. ET" },
     { label: "Weekends and after hours:", value: `urgent issues only at ${contact.emails.urgent}` },
     { label: "Languages:", value: "English and Spanish" },
   ],
-  cta: { href: "/support/", label: "How support works" },
+  cta: { href: "/support/", label: "Explore Our Support Services" },
   quote: {
     text: "“The support team is always available, responds quickly, and truly makes sure everything runs smoothly.”",
     cite: "AH, Quickchoice · QuickBooks App Store review, March 2026",
@@ -186,9 +214,9 @@ export const support = {
 } as const;
 
 export const customers = {
-  eyebrow: "Customers",
+  eyebrow: "Customer Testimonials",
   title: { emphasis: "Built for distributors.", rest: "Trusted by their teams." },
-  lead: "Nearly one in three customers has been with Listaso for more than five years.",
+  lead: "See how distributors use Listaso to streamline daily operations, connect their teams, and improve the way they manage sales, inventory, and deliveries.",
   reviewsLabel: "Customer reviews",
   starsLabel: "5 out of 5 stars",
   testimonials: [
@@ -277,7 +305,7 @@ export const customers = {
 
 export const pricing = {
   eyebrow: "Pricing",
-  title: { emphasis: "Clear pricing", rest: "for every stage of growth" },
+  title: { emphasis: "The right solution", rest: "for every stage of your growth" },
   lead: "Choose a plan based on how your team works. Pricing is per user, per month, with a two-user minimum. There is no contract, so you can cancel at any time.",
   billing: {
     label: "Billing period",
@@ -341,7 +369,7 @@ export const pricing = {
       ],
     },
   ],
-  planCta: { href: externalLinks.demo, label: "Book a demo" },
+  planCta: { href: externalLinks.demo, label: "Book a Demo" },
   notes: [
     {
       title: "Setup tailored to your system",
@@ -353,18 +381,18 @@ export const pricing = {
       text: "Onboarding includes team training, so your staff can start with clear guidance.",
     },
   ],
-  compareCta: { href: "/plans/", label: "Compare every feature" },
+  compareCta: { href: "/plans/", label: "Compare Every Feature" },
   samiAddon: {
-    title: "Add Sami, your AI assistant.",
-    text: "Starter: $57.99 a month for 1 user · Professional: $127.99 a month for up to 3 users · Business: $297.99 a month for up to 10 users. Sami is priced per team, not per user. The first month is free.",
-    cta: { href: "/sami/", label: "Meet Sami" },
+    title: "Add SAMI AI, your AI assistant.",
+    text: "Starter: $57.99 a month for 1 user · Professional: $127.99 a month for up to 3 users · Business: $297.99 a month for up to 10 users. SAMI AI is priced per team, not per user. The first month is free.",
+    cta: { href: "/sami/", label: "Meet SAMI AI" },
   },
 } as const;
 
 export const finalCta = {
   title: { emphasis: "See Listaso", rest: "with your products and workflow" },
   lead: "In a free demo, we’ll walk through how Listaso fits your operation and provide exact pricing, including setup. Choose English or Spanish.",
-  cta: { href: externalLinks.demo, label: "Book a free demo" },
+  cta: { href: externalLinks.demo, label: "Book a Demo" },
   call: { prefix: "Or call sales:", phone: contact.phoneSales, suffix: "option 2" },
   email: { label: "Sales:", address: contact.emails.sales },
 } as const;

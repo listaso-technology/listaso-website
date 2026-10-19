@@ -27,7 +27,7 @@ export function SiteFooter() {
                 <ThemedLogo
                   light="listaso-horizontal-navy"
                   dark="listaso-horizontal-white"
-                  height={32}
+                  height={40}
                   alt={headerLabels.homeLink}
                 />
               </Link>

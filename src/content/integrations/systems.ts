@@ -349,7 +349,7 @@ export const systemPageCopy = {
     eyebrow: "More integrations",
     title: { emphasis: "Other systems", rest: "we connect to" },
   } satisfies SectionCopy,
-  moreCta: { href: "/integrations/", label: "All integrations" },
+  moreCta: { href: "/integrations/", label: "All Integrations" },
   /** Hero example: the first rows of the sync table. */
   exampleLabel: (name: string) => `Example of data syncing between Listaso and ${name}`,
   exampleTitle: "Sync",

@@ -44,7 +44,8 @@ export function ProofCounter({ value, className }: { value: string; className?: 
         const duration = 850;
 
         const tick = (now: number) => {
-          const progress = Math.min(1, (now - start) / duration);
+          // rAF can hand over a timestamp slightly before `start`: never go negative.
+          const progress = Math.max(0, Math.min(1, (now - start) / duration));
           const eased = 1 - Math.pow(1 - progress, 3);
           const current = parsed.target * eased;
           const formatted = parsed.grouped

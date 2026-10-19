@@ -53,5 +53,5 @@ export const benefits: SectionCopy & { items: readonly string[] } = {
 export const openings = {
   title: { emphasis: "Open positions", rest: "" },
   lead: "We post our openings on LinkedIn. Follow us there to see new roles first.",
-  cta: { href: "https://www.linkedin.com/company/listaso/jobs/", label: "See openings on LinkedIn" },
+  cta: { href: "https://www.linkedin.com/company/listaso/jobs/", label: "See Openings on LinkedIn" },
 } as const;
