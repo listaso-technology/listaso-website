@@ -20,12 +20,26 @@
   box-shadow: var(--listaso-shadow-e2);
 }
 
+.visualImageLayer {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 600ms var(--listaso-ease-enter);
+}
+
 .visualImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transform: scale(1.03);
   transition: transform 900ms var(--listaso-ease-enter);
+}
+
+.storyGrid[data-active-step="0"] [data-flow-image="0"],
+.storyGrid[data-active-step="1"] [data-flow-image="1"],
+.storyGrid[data-active-step="2"] [data-flow-image="2"],
+.storyGrid[data-active-step="3"] [data-flow-image="3"] {
+  opacity: 1;
 }
 
 .visualScrim {
@@ -39,7 +53,7 @@
   inset: auto 1.5rem 1.5rem;
   z-index: 1;
   display: grid;
-  gap: 0.75rem;
+  gap: 1.5rem;
   color: var(--listaso-text-on-action);
 }
 
@@ -309,20 +323,21 @@
     background: var(--listaso-link-on-band);
   }
 
-  .storyGrid[data-active-step="1"] .visualImage {
+  .storyGrid[data-active-step="1"] [data-flow-image="1"] .visualImage {
     transform: scale(1.06) translate3d(-1%, -1%, 0);
   }
 
-  .storyGrid[data-active-step="2"] .visualImage {
+  .storyGrid[data-active-step="2"] [data-flow-image="2"] .visualImage {
     transform: scale(1.08) translate3d(1%, -2%, 0);
   }
 
-  .storyGrid[data-active-step="3"] .visualImage {
+  .storyGrid[data-active-step="3"] [data-flow-image="3"] .visualImage {
     transform: scale(1.05) translate3d(0, 1%, 0);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .visualImageLayer,
   .visualImage,
   .captionItem,
   .progressMarker,
@@ -331,8 +346,7 @@
     transition: none;
   }
 
-  .visualImage,
-  .storyGrid[data-active-step] .visualImage {
+  .visualImage {
     transform: none;
   }
 }

@@ -3,18 +3,23 @@ import { Icon } from "@/components/icons/Icon";
 import { Container } from "@/components/layout/Container";
 import { TextLink } from "@/components/ui/TextLink";
 import { howItWorks, solutionsAnchor } from "@/content/home/en";
-import { homeMedia } from "@/content/media/placeholders";
+import { productMedia } from "@/content/media/products";
 import { SectionHeader } from "../SectionHeader";
 import styles from "./HowItWorks.module.css";
 
 /**
  * Sales-to-delivery workflow: four steps read as one connected flow. A rail
- * links the step numbers; HomeMotion fills it and syncs the photo caption on
- * wide screens. Without JavaScript or with reduced motion every step stays
- * fully visible and the rail is drawn complete.
+ * links the step numbers; HomeMotion fills it and syncs the sticky photo and
+ * caption on wide screens. Without JavaScript or with reduced motion every
+ * step stays fully visible and the rail is drawn complete.
  */
 export function HowItWorks() {
-  const photo = homeMedia.operationsShelving;
+  const stepPhotos = [
+    productMedia.preSalesTablet,
+    productMedia.inventoryFloor,
+    productMedia.deliveryHandTruck,
+    productMedia.backOfficeDashboards,
+  ];
 
   return (
     <section
@@ -34,14 +39,23 @@ export function HowItWorks() {
         <div data-flow-root data-active-step="0" className={styles.storyGrid}>
           <div className={styles.visualColumn}>
             <figure data-reveal="media" className={styles.visualFrame}>
-              <Image
-                src={photo.src}
-                alt={photo.alt}
-                width={photo.width}
-                height={photo.height}
-                sizes="(max-width: 1023px) 92vw, 40vw"
-                className={styles.visualImage}
-              />
+              {stepPhotos.map((photo, index) => (
+                <span
+                  key={photo.src}
+                  aria-hidden="true"
+                  data-flow-image={index}
+                  className={styles.visualImageLayer}
+                >
+                  <Image
+                    src={photo.src}
+                    alt=""
+                    width={photo.width}
+                    height={photo.height}
+                    sizes="(max-width: 1023px) 92vw, 40vw"
+                    className={styles.visualImage}
+                  />
+                </span>
+              ))}
               <div aria-hidden="true" className={styles.visualScrim} />
 
               <figcaption className={styles.visualCaption}>

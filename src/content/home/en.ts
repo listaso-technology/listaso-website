@@ -384,7 +384,7 @@ export const pricing = {
   compareCta: { href: "/plans/", label: "Compare Every Feature" },
   samiAddon: {
     title: "Add SAMI AI, your AI assistant.",
-    text: "Starter: $57.99 a month for 1 user · Professional: $127.99 a month for up to 3 users · Business: $297.99 a month for up to 10 users. SAMI AI is priced per team, not per user. The first month is free.",
+    text: "Starter: $57.99 a month for 1 user · Professional: $127.99 a month for up to 3 users · Business: $297.99 a month for up to 10 users. SAMI AI is priced per team, not per user. Start with a 15-day free trial.",
     cta: { href: "/sami/", label: "Meet SAMI AI" },
   },
 } as const;

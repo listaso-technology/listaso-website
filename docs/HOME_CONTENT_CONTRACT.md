@@ -130,7 +130,7 @@ FinalCta, HomeMotion.
 | Metadata | title | Listaso \| Distribution Management Software for Growing Businesses |
 | Metadata | description | Listaso connects sales, inventory, warehousing and delivery workflows in one distribution management platform. Integrates with QuickBooks, Sage and more. |
 | Header | CTA (desktop y móvil) | Book a Demo → Calendly (`cta_demo_click`, `header` / `mobile-menu`) |
-| Header/Footer | Logo | Lockup "Listaso" (`listaso-horizontal-navy` / `-white`); nombre accesible "Listaso home" |
+| Header/Footer | Logo | Lockup oficial Listaso de trazo grueso (`listaso-stacked-navy` / `-white`); nombre accesible "Listaso home" |
 | Hero | Eyebrow | Distribution Management Software for Growing Businesses |
 | Hero | H1 | One Platform to Run Your Distribution Business. |
 | Hero | Descripción | Listaso connects sales, inventory, warehousing, and delivery workflows in one distribution management platform, helping your team work smarter and stay in control. |
@@ -159,9 +159,12 @@ FinalCta, HomeMotion.
 tiempos de respuesta, precios de Pricing, banda final.
 
 **Inconsistencias abiertas (no resueltas en esta tarea):**
-- La Homepage muestra "Start your 15-day free trial" (SAMI) y "The first month
-  is free" (add-on de Pricing, compartido con `/plans/`); `/sami/` también dice
-  "first month free". Development/Producto deben decidir.
+- **Resuelta (19 de octubre de 2026, instrucción de Erick):** todo el copy de
+  prueba de SAMI AI dice "15-day free trial" (Home, add-on de Pricing, `/plans/`
+  y `/sami/`); los CTA de `/sami/` se llaman "Start Your 15-Day Free Trial".
+  Destinos sin cambio: Home → `/sami/`; los CTA dentro de `/sami/` siguen
+  apuntando a Calendly hasta que Development/Producto confirmen el destino real
+  de activación.
 - CTA de demo fuera del alcance: Pricing "Book a demo", banda final "Book a free
   demo", Products y Contact "Book a free demo".
 
@@ -192,8 +195,16 @@ sin cambiar el contenido ni la paleta aprobados:
 
 - El hero combina fotografía operativa a gran escala con los ejemplos ya
   aprobados de pedido y Sami en dos superficies de vidrio como máximo.
-- "From order to payment" deja la cuadrícula uniforme de tarjetas y pasa a
-  una secuencia numerada junto a una fotografía fija durante parte del scroll.
+- El workflow deja la cuadrícula uniforme de tarjetas y pasa a una secuencia
+  numerada junto a un panel fotográfico (sticky en escritorio) durante parte
+  del scroll.
+- El workflow asigna una fotografía distinta a cada paso: pedido en tablet,
+  preparación en almacén, entrega y reportes de oficina. Las cuatro viven sólo
+  en el panel visual lateral: en móvil aparece antes de la secuencia de texto y
+  en escritorio permanece sticky y cambia con el paso activo. No se insertan
+  imágenes en los capítulos de texto. Se reutilizan placeholders autohospedados
+  registrados en `src/content/media/products.ts`; son ilustrativos y no
+  representan clientes ni operaciones reales de Listaso.
 - Los encabezados aparecen desde una máscara de texto; los grupos usan
   entradas cortas y escalonadas con un desenfoque gaussiano transitorio de
   5–8 px, y los medios usan opacidad, traslación y escala. No hay scroll
@@ -239,12 +250,17 @@ sin cambiar el contenido ni la paleta aprobados:
 El manifiesto técnico y las instrucciones de reemplazo están en
 `src/content/media/placeholders.ts`.
 
+Las fotografías por paso del workflow se mapean en `HowItWorks` a
+`productMedia.preSalesTablet`, `inventoryFloor`, `deliveryHandTruck` y
+`backOfficeDashboards`; su fuente, atribución, dimensiones y brief están en
+`src/content/media/products.ts`.
+
 | # | Sección | Componente | Contenido | CTA → destino | Activos | Estado |
 | --- | --- | --- | --- | --- | --- | --- |
 | — | Header | `SiteHeader` | Navegación de `start-version` + DEC-011 | Log in → `app.listaso.com/BOClassic/site/login.aspx`; Book a demo → Calendly | Logo horizontal oficial (navy y blanco según tema) | CONFIRMADO |
 | 1 | Hero | `HomeHero` | Eyebrow, H1 "Sell more. Deliver on time. Get paid faster.", lead, calificaciones (4.7 Google, 5.0 QuickBooks App Store) | Book a free demo → Calendly; Learn more about Listaso Technology → `/join-us/` | Fotografía Unsplash temporal; ejemplos de pedido y Sami en vidrio; SAMI WebP | CONFIRMADO |
 | 2 | Cifras | `ProofStrip` | 5 cifras (Since 2015, 400+, 2,000+, 2M+, $1.8B+) | — | — | CONFIRMADO (D1) |
-| 3 | Cómo funciona | `HowItWorks` | 4 pasos + 4 capacidades | `/pre-sales/`, `/inventory/`, `/delivery/`, `/back-office/`, `/b2b-ecommerce/`, `/forms/`, `/integrations/`, `/industries/` | Fotografía Unsplash temporal; iconos Listaso | CONFIRMADO |
+| 3 | Cómo funciona | `HowItWorks` | 4 pasos + 4 capacidades | `/pre-sales/`, `/inventory/`, `/delivery/`, `/back-office/`, `/b2b-ecommerce/`, `/forms/`, `/integrations/`, `/industries/` | 4 fotografías Unsplash temporales; iconos Listaso | CONFIRMADO |
 | 4 | SAMI | `SamiSpotlight` + `SamiConversation` | Badge, H2 orientado a respuestas desde los datos del negocio, lead, 4 chips, precio "From $57.99" | Meet Sami → `/sami/` | SAMI WebP; conversación animada reutilizada de Guide Sami | CONFIRMADO (D1) |
 | 5 | Soporte | `SupportSection` | Lenguaje no confrontativo, tabla de tiempos de respuesta, horario, cita AH/Quickchoice y puntuaciones | How support works → `/support/` | — | CONFIRMADO (D1) |
 | 6 | Clientes | `CustomerProof` | 6 testimonios + 8 logos de clientes; 5 logos enlazan a los destinos entregados con `nofollow` | — | `public/customers/` (los tres recursos nuevos fueron entregados por Erick y optimizados localmente) | CONFIRMADO (D1, D8) |

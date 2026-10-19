@@ -11,7 +11,7 @@ export const metadata: ProductMetadata = {
   path: "/sami/",
   title: "SAMI AI Assistant for Distributors | Listaso",
   description:
-    "Ask about your sales, customers, inventory and orders in plain words and get answers in seconds, plus Excel and PDF reports. From $57.99 a month, first month free.",
+    "Ask about your sales, customers, inventory and orders in plain words and get answers in seconds, plus Excel and PDF reports. From $57.99 a month, with a 15-day free trial.",
 };
 
 export const hero: ProductHeroContent & {
@@ -25,11 +25,11 @@ export const hero: ProductHeroContent & {
   badge: { tag: "New", label: "AI assistant" },
   title: { emphasis: "Meet SAMI AI.", rest: "Ask your business anything." },
   lead: "SAMI AI is Listaso's AI assistant. Ask about your sales, customers, inventory and orders in plain words, and get answers in seconds, in English or Spanish.",
-  price: { prefix: "From", amount: "$57.99", suffix: "a month · first month free" },
+  price: { prefix: "From", amount: "$57.99", suffix: "a month · 15-day free trial" },
 };
 
 export const heroCtas = {
-  start: { href: externalLinks.demo, label: "Start My Free Month" },
+  start: { href: externalLinks.demo, label: "Start Your 15-Day Free Trial" },
   pricing: { href: "#sami-pricing", label: "See Pricing" },
 } as const;
 
@@ -78,10 +78,10 @@ export const pricing: SectionCopy & {
   id: "sami-pricing",
   eyebrow: "SAMI AI pricing",
   title: { emphasis: "One price", rest: "for your whole team" },
-  lead: "Based on your users, customers and items. Your first month is free.",
+  lead: "Based on your users, customers and items. Start with a 15-day free trial.",
   perTeam: "a month per team",
   featuredTag: "Most popular",
-  cta: { href: externalLinks.demo, label: "Start My Free Month" },
+  cta: { href: externalLinks.demo, label: "Start Your 15-Day Free Trial" },
   plans: [
     {
       name: "Starter",
@@ -132,7 +132,7 @@ export const faq: SectionCopy & { items: readonly { question: string; answer: st
     },
     {
       question: "Is SAMI AI included in my Listaso plan?",
-      answer: "SAMI AI is an add-on to any Listaso plan, priced per team. Your first month is free.",
+      answer: "SAMI AI is an add-on to any Listaso plan, priced per team. Start with a 15-day free trial.",
     },
     {
       question: "What does “use included” mean?",

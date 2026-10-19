@@ -9,6 +9,18 @@ Este documento es el contrato de trabajo entre el código, Figma, Claude y
 Codex. No autoriza publicar, desplegar ni sustituir el código por decisiones
 visuales que no estén aprobadas en los documentos canónicos del proyecto.
 
+## Logos Listaso (19 de octubre de 2026)
+
+Se actualizaron las 56 ubicaciones de marca de los 28 frames estáticos de la
+página `Website`: variante `listaso-technology-logo-stacked-navy.svg` en cada
+header claro y variante `listaso-technology-logo-stacked-white.svg` en cada
+footer oscuro. Los logos se importaron como vectores editables dentro de sus
+contenedores existentes; el índice `39:2` y las dimensiones de los frames no
+cambiaron. Los archivos compartidos por el usuario son byte a byte idénticos a
+los SVG existentes bajo `public/brand/listaso/stacked/`. La verificación
+visual de ambas variantes se hizo en los nodos `42:7` (header) y `42:1229`
+(footer) de HOME.
+
 ## Autoridad y flujo
 
 1. El código de `src/app/(site)/` sigue siendo la fuente canónica.

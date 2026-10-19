@@ -8,6 +8,59 @@ No hay una tarea activa reservando archivos.
 
 Últimas tareas cerradas:
 
+- Imágenes por paso y composición del workflow Home (Codex, `feat/homepage`,
+  19 de octubre de 2026): se asignaron fotografías autohospedadas distintas a
+  pedido, preparación de almacén, entrega y oficina, sólo dentro del panel
+  visual lateral. En móvil el panel aparece antes de la secuencia de texto; en
+  escritorio permanece sticky y cambia con el paso activo. Los capítulos de
+  texto no contienen imágenes. Se amplió de 12 a 24 px la separación entre
+  la etiqueta y el título de la imagen. Copy, enlaces y comportamiento de
+  fallback/reduced motion se
+  conservaron. El contrato de Home y este log registran el mapeo. `pnpm lint`,
+  `pnpm typecheck`, `pnpm exec next build --webpack` y `git diff --check`
+  pasan.
+
+- Alineación del trial de SAMI AI (Claude, `feat/homepage`, sin commit, 19 de
+  octubre de 2026): "first month free" y "Start My Free Month" pasan a "15-day
+  free trial" / "Start Your 15-Day Free Trial" en `sami.ts`, `home/en.ts` y
+  `pricing/plans.ts`. Destinos sin cambio. Pendiente Development/Producto: los
+  CTA de `/sami/` aún abren Calendly (evento `cta_demo_click`) y no una
+  activación real del trial.
+
+- Actualización global del lockup Listaso (Codex, `feat/homepage`, 19 de
+  octubre de 2026): header, footer y muestras vigentes de `/foundation/` ahora
+  usan las variantes navy/blanca de trazo grueso entregadas por Erick. Los dos
+  archivos ya estaban en `public/brand/listaso/stacked/` y se verificaron como
+  copias byte a byte de los SVG proporcionados. Se conservó el tamaño de
+  presentación y el cambio por tema; los símbolos de producto y los archivos
+  históricos no se alteraron, y estos lockups se retiraron de la muestra vigente.
+  `pnpm lint`, `pnpm typecheck`,
+  `pnpm exec next build --webpack` y `git diff --check` pasan.
+
+- Auditoría de CTA y flujo entre pantallas (Claude, `feat/homepage`, sin
+  commit, 19 de octubre de 2026). Se rastrearon las 28 rutas renderizadas
+  (todos los `<a>`, incluidos header y footer): 0 `href="#"`, 0 anclas rotas
+  (`#solutions`, `#compare`, `#sami-pricing` existen), 108 enlaces de demo con
+  `data-analytics-event` y ubicación, enlaces externos con `noopener`, mismo
+  Calendly y login en las 28 páginas. **Corregido:** `impact.ts`, "See the post
+  on LinkedIn" → "See the Post on LinkedIn" (Title Case). **Abiertos:** `/blog/`,
+  `/privacy-policy/`, `/subscription-agreement/` y `/terms-and-conditions/`
+  siguen sin página en la app nueva (WordPress, DEC-011) y dan 404 en este
+  entorno; Home enlaza "15-Day Free Trial" → `/sami/`, pero `/sami/` ofrece
+  "Start My Free Month" → Calendly con evento `cta_demo_click`; Calendly abre en
+  la misma pestaña. Sin cambios de destinos. Lint, typecheck y diff-check pasan.
+
+- Actualización de logos Listaso en Figma (Codex, 19 de octubre de 2026): los
+  archivos SVG navy y white proporcionados por el usuario coinciden byte a
+  byte con `public/brand/listaso/stacked/listaso-logo-stacked-navy.svg` y
+  `public/brand/listaso/stacked/listaso-logo-stacked-white.svg`. Se
+  sustituyeron los 28 logos de header por vectores editables navy y los 28
+  logos de footer por vectores editables blancos en los 28 frames estáticos de
+  `Website` (56 ubicaciones). La verificación visual confirmó el wordmark y el
+  isotipo completos sobre los fondos claros/oscuros correspondientes. No se
+  modificó código ni la página de índice. Figma actualizado; siguiente paso:
+  continuar con la sincronización de los diseños solicitada previamente.
+
 - Validación de HOME y ajustes globales (Claude, `feat/homepage`, sin commit,
   19 de octubre de 2026). Aprobada con dos correcciones. **Corregido:**
   (1) `ProofStrip.module.css`: `white-space: nowrap` en `.value` hacía que

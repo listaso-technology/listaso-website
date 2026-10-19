@@ -33,9 +33,9 @@ const DOWNLOADS = "~/Downloads";
 const DOWNLOADS_1X = "~/Downloads/1x";
 
 export const brandAssets = [
-  // Listaso master brand. Core lockups say only "Listaso" since 19 October
-  // 2026 (delivered by Erick in ~/Downloads/1x; the file names still say
-  // "listaso-technology", so they are copied under listaso-logo-*).
+  // Listaso master brand. The bold navy/white lockups are the current
+  // presentation logo (delivered by Erick on 19 October 2026). The thinner
+  // horizontal lockups are preserved as historical assets below.
   {
     id: "listaso-horizontal-navy",
     label: "Listaso — horizontal",
@@ -43,13 +43,13 @@ export const brandAssets = [
     file: "/brand/listaso/horizontal/listaso-logo-horizontal-navy-outlined.svg",
     variant: "horizontal, regular-weight wordmark, navy (#00375B)",
     background: "light",
-    status: "active",
+    status: "legacy",
     width: 473,
     height: 117,
     source: `${DOWNLOADS_1X}/listaso-technology-logo-horizontal-navy-outlined.svg`,
     sha256: "d250b44dad74",
     notes:
-      "Primary logo (header, footer). Symbol on a white tile; the wordmark navy is #00375B here but #003F69 in the stacked file: confirm with Marketing.",
+      "Previous thinner wordmark. Superseded on 19 October 2026 by the bold Listaso lockup; retained unchanged for historical reference.",
   },
   {
     id: "listaso-horizontal-white",
@@ -58,11 +58,13 @@ export const brandAssets = [
     file: "/brand/listaso/horizontal/listaso-logo-horizontal-white.svg",
     variant: "horizontal, regular-weight wordmark, white",
     background: "dark",
-    status: "active",
+    status: "legacy",
     width: 473,
     height: 117,
     source: `${DOWNLOADS_1X}/listaso-technology-logo-horizontal-white.svg`,
     sha256: "214d9fa12979",
+    notes:
+      "Previous thinner white wordmark. Superseded on 19 October 2026 by the bold Listaso lockup; retained unchanged for historical reference.",
   },
   {
     id: "listaso-stacked-navy",

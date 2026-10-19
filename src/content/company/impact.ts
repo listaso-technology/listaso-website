@@ -35,7 +35,7 @@ export const posts: SectionCopy & {
 } = {
   eyebrow: "In the community",
   title: { emphasis: "Technology", rest: "that makes a difference" },
-  linkLabel: "See the post on LinkedIn",
+  linkLabel: "See the Post on LinkedIn",
   items: [
     {
       title: "Earth Day",

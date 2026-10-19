@@ -152,7 +152,7 @@ export const faq: SectionCopy & { items: readonly { question: string; answer: st
     },
     {
       question: "Can I try it before I pay?",
-      answer: "Book a Demo and we'll show you Listaso with the way you work. SAMI AI includes a free first month.",
+      answer: "Book a Demo and we'll show you Listaso with the way you work. SAMI AI includes a 15-day free trial.",
     },
     {
       question: "Which accounting systems do you work with?",
