@@ -8,6 +8,18 @@ No hay una tarea activa reservando archivos.
 
 Últimas tareas cerradas:
 
+- Inventario de recursos gráficos para Marketing (Codex, 19 de octubre de
+  2026): Google Sheet nativo con 144 filas de recursos para las 28 páginas
+  comerciales implementadas, la muestra interna `/foundation/`, rutas públicas
+  aún en WordPress/no implementadas, los 56 artículos individuales, 5
+  categorías y el autor. Incluye estado de página/recurso, descripción,
+  clasificación IMAGEN/VIDEO/GIF/Motion Graphic/Asset UI, brief y fuente por
+  fila; las propuestas inferidas de títulos de artículos quedan marcadas para
+  validar con el contenido y medios actuales antes de producción. Se añadieron
+  filtro de tabla y pestaña de criterios. Verificación de valores y pestañas
+  mediante Google Sheets, 144 filas sin huecos y revisión visual en navegador.
+  Entregable: https://docs.google.com/spreadsheets/d/1Sr86cTZOxr3Ggn423lbtqTxjInzPGV2mBdHcGq_BVIk/edit
+
 - Imágenes por paso y composición del workflow Home (Codex, `feat/homepage`,
   19 de octubre de 2026): se asignaron fotografías autohospedadas distintas a
   pedido, preparación de almacén, entrega y oficina, sólo dentro del panel
