@@ -1,5 +1,5 @@
 /**
- * B2B online store (/b2b-ecommerce/). Source: start-version/source/build/
+ * B2B e-Commerce (/b2b-ecommerce/). Source: start-version/source/build/
  * pages.py, product_page("b2b-ecommerce"). The storefront is illustrative and
  * reuses the Homepage example products (src/content/home/en.ts).
  */
@@ -8,14 +8,14 @@ import type { Feature, FeatureSection, ProductHeroContent, ProductMetadata } fro
 
 export const metadata: ProductMetadata = {
   path: "/b2b-ecommerce/",
-  title: "B2B Online Store for Distributors | Listaso",
+  title: "B2B e-Commerce for Distributors | Listaso",
   description:
     "Let your customers order 24/7 from the web or their phone, with their own catalog, prices and promotions. Easy reorders and invoice payments by card.",
 };
 
 export const hero: ProductHeroContent = {
-  breadcrumb: "B2B online store",
-  eyebrow: "B2B online store",
+  breadcrumb: "B2B e-Commerce",
+  eyebrow: "B2B e-Commerce",
   title: { emphasis: "Take orders", rest: "even while you sleep" },
   lead: "Your customers see their own catalog and prices, repeat past orders and pay their invoices online, from a computer or their phone.",
   plan: "Professional includes 40 customer logins. Enterprise 360: unlimited.",
@@ -23,7 +23,7 @@ export const hero: ProductHeroContent = {
 
 /** Illustrative storefront: the customer's own catalog and prices. */
 export const storefrontExample = {
-  label: "Example of a distributor's B2B online store showing one customer's catalog, prices and a quick reorder",
+  label: "Example of a distributor's B2B e-Commerce showing one customer's catalog, prices and a quick reorder",
   store: "Your store",
   customer: homeHero.example.order.customer,
   search: "Search products",

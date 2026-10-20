@@ -1,0 +1,73 @@
+.stars {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.25rem;
+}
+
+.stars input {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.stars label {
+  display: grid;
+  inline-size: 3rem;
+  block-size: 3rem;
+  place-items: center;
+  border: 1px solid var(--listaso-border-control);
+  border-radius: var(--listaso-radius-full);
+  color: var(--listaso-text-muted);
+  cursor: pointer;
+  font-size: 1.5rem;
+  line-height: 1;
+  transition:
+    background-color var(--listaso-duration-fast) var(--listaso-ease-standard),
+    border-color var(--listaso-duration-fast) var(--listaso-ease-standard),
+    color var(--listaso-duration-fast) var(--listaso-ease-standard),
+    translate var(--listaso-duration-fast) var(--listaso-ease-standard);
+}
+
+.stars label:hover,
+.stars label:has(~ label:hover),
+.stars label:has(~ input:checked),
+.stars input:checked + label {
+  border-color: var(--listaso-status-warning);
+  background: var(--listaso-status-warning);
+  color: var(--listaso-text-default);
+}
+
+.stars input:focus-visible + label {
+  outline: 2px solid var(--listaso-focus-ring);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .stars label:hover {
+    translate: 0 -2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stars label {
+    transition: none;
+  }
+
+  .stars label:hover {
+    translate: 0;
+  }
+}
+
+@media (forced-colors: active) {
+  .stars label:hover,
+  .stars label:has(~ label:hover),
+  .stars label:has(~ input:checked),
+  .stars input:checked + label {
+    border-color: Highlight;
+    background: Highlight;
+    color: HighlightText;
+  }
+}

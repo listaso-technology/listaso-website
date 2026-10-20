@@ -4,7 +4,8 @@
 **Etapa:** 6.1, auditoría read-only (Claude, `feat/homepage`)
 **Estado:** Inventario completo y decisiones cerradas por Erick (DEC-013).
 Implementado en `feat/homepage`. La auditoría inicial se conserva abajo como
-evidencia; la sección "Contrato final" manda.
+evidencia. Manda la "Revisión editorial del 19 de octubre de 2026" (DEC-020)
+y, para lo que no toca, la sección "Contrato final".
 
 Etiquetas (PROJECT_MASTER): CONFIRMADO, OBSERVACIÓN, HIPÓTESIS,
 RECOMENDACIÓN, DESCONOCIDO, REQUIERE VALIDACIÓN DEV.
@@ -55,7 +56,7 @@ requiere una decisión (D1).
 | 3 | Listaso 360 | Plataforma integral | "Listaso 360 automates your entire B2B Process" / "From Sales and Customer Purchases to Inventory Management and Deliveries, we've got you covered!" | — | Gráfico `flow_gradient1` (WP) | `PlatformIntro` | CONFIRMADO (copy). Activo PENDIENTE (D3) |
 | 4 | Productos | Presentar soluciones | Encabezado "Keep your Sales and Logistics Teams perfectly in sync at all times!" (WP lo partía en P + H1: error de jerarquía). 7 tarjetas con H3 y P: Pre-Sales, Direct Sales, B2B eCommerce, Back Office, Inventory, Delivery, Custom Development | "View product" → `/pre-sales/`, `/direct-sales/`, `/b2b-ecommerce/`, `/back-office/`, `/inventory/`, `/delivery/`, `/custom-development/` | WP usa PNG propios (`card_*`, `i_*_gradient`). Logos de producto oficiales disponibles, pero sin mapeo confirmado | `ProductGrid` + `Card` | CONFIRMADO (copy y rutas). HIPÓTESIS: correspondencia producto → logo (D6). RECOMENDACIÓN: iconos semánticos mientras tanto |
 | 5 | FIFOX | Otro producto o socio | H2 "FIFOX" y párrafo de WMS | "View product" → `http://www.fifox.com` (externo, http) | `mockup_fifox` (WP) | — | PENDIENTE (D7): DESCONOCIDO si FIFOX es producto de Listaso, socio o marca aparte |
-| 6 | Testimonios | Prueba social | H2 "Your Feedback Powers Us: See What Customers Are Saying!" + intro. 6 citas con nombre y empresa (Mark Somwaru; Nazly Rojas, LADI; Emeterio Perez, Perez Distributing Fresno Inc.; Jesús Nuñez, Comercial Mexicana Internacional Inc.; Evelyn Alvarado, Boticas Mexicana; Eduardo Ch., Cecilia Bakery LLC) | — | — | `Testimonials` (lista estática; el carrusel no es necesario) | Publicado en WP. PENDIENTE (D8): la regla de Skills pide aprobación escrita para nombres y testimonios |
+| 6 | Testimonios | Prueba social | H2 "Your Feedback Powers Us: See What Customers Are Saying!" + intro. 6 citas con nombre y empresa (Mark Somwaru; Nazly Rojas, LADI; Emeterio Perez, Perez Distributing Fresno Inc.; Jesús Nuñez, Comercial Mexicana Internacional Inc.; Evelyn Alvarado, Boticas Mexicana; Eduardo Ch., Cecilia Bakery LLC) | — | — | `Testimonials` en carrusel con autoplay controlable, pausa por interacción y fallback de movimiento reducido | Publicado en WP. PENDIENTE (D8): la regla de Skills pide aprobación escrita para nombres y testimonios |
 | 7 | Blog | Contenido | H2 "Get the Insights You Need to Succeed" | "Join Our Blog Community!" → `/blog/` (WordPress, DEC-011) | — | `BlogCta` | CONFIRMADO. Lista dinámica de artículos fuera de alcance |
 | 8 | Footer | Navegación secundaria y contacto | Solutions (7 productos); About Listaso (Join Us, Listaso Impact, Contact Us, Plans, Blog); legales (Privacy Policy, Subscription Agreement, Terms & Conditions); Social (LinkedIn, YouTube, Instagram, Facebook); Contact (+1 305-912-7770, info@, cs@, sales@, Miami: 5966 S Dixie Hwy, Ste 300, South Miami, FL 33143); "Copyright © 2025 Listaso Technology - All Rights Reserved" | Mismos destinos | Logo | `SiteFooter` | CONFIRMADO. Newsletter (formulario Zoho) DESCARTADO en esta etapa: Zoho está fuera de alcance y no se crea un formulario falso. RECOMENDACIÓN: año del copyright (D9) |
 
@@ -111,6 +112,62 @@ pueda leerlos cuando se active, sin emitir eventos.
   `start-version` no los necesita.
 - **D9:** el copyright es el de `start-version`: "© 2026 Listaso Inc.".
 
+## Revisión editorial del 19 de octubre de 2026 (DEC-020) — vigente
+
+Esta sección manda sobre la tabla "Contrato final" de abajo en todo lo que
+toca. Fuente: encargo editorial de Erick del 19 de octubre de 2026.
+
+**Erratas normalizadas** (sin cambiar el sentido): "Distribution Management
+Software from Growing Businesses" → "…for Growing Businesses"; "One Platforn…"
+→ "One Platform…"; "When your team work…" → "When your team works…".
+
+**Orden:** HomeHero, ProofStrip, HowItWorks (sólo 4 pasos, `id="solutions"`),
+SamiSpotlight, SupportSection, HomeCapabilities, CustomerProof, PricingPlans,
+FinalCta, HomeMotion.
+
+| Sección | Campo | Copy vigente |
+| --- | --- | --- |
+| Metadata | title | Listaso \| Distribution Management Software for Growing Businesses |
+| Metadata | description | Listaso connects sales, inventory, warehousing and delivery workflows in one distribution management platform. Integrates with QuickBooks, Sage and more. |
+| Header | CTA (desktop y móvil) | Book a Demo → Calendly (`cta_demo_click`, `header` / `mobile-menu`) |
+| Header/Footer | Logo | Lockup oficial Listaso de trazo grueso (`listaso-stacked-navy` / `-white`); nombre accesible "Listaso home" |
+| Hero | Eyebrow | Distribution Management Software for Growing Businesses |
+| Hero | H1 | One Platform to Run Your Distribution Business. |
+| Hero | Descripción | Listaso connects sales, inventory, warehousing, and delivery workflows in one distribution management platform, helping your team work smarter and stay in control. |
+| Hero | CTA principal | Book a Demo → Calendly (`cta_demo_click`, `hero`) |
+| Hero | CTA secundario | Explore Our Solutions → `#solutions` (`cta_secondary_click`, `hero`); antes `/join-us/` |
+| Workflow | Eyebrow | One connected distribution workflow |
+| Workflow | H2 | From sales to delivery, keep every step connected. |
+| Workflow | Descripción | When your team works with disconnected information, delays and costly mistakes follow. Listaso brings your distribution workflows together, helping your team manage orders, track inventory, coordinate deliveries, and keep your back office informed. |
+| Workflow | CTA paso 1 / paso 3 | Sales → `/pre-sales/`; Delivery and Direct Store Delivery → `/delivery/` (pasos 2 y 4 sin cambios) |
+| Capacidades | Tarjetas | B2B online store, Forms, Integrations, Industries: títulos de la navegación aprobada; frase, texto y destinos sin cambios (antes `howItWorks.more`) |
+| Capacidades | H2 | "More Listaso capabilities", **provisional** y visualmente oculto; falta título editorial |
+| SAMI | Badge | NEW · Meet SAMI, Your Listaso AI Assistant |
+| SAMI | H2 | Your business has questions. SAMI has the answers. (`text-h2-compact`, ~36 px) |
+| SAMI | Descripción | Sin cambios ("Ask Sami about your sales…") |
+| SAMI | Chips | Ask questions in English or Spanish · Generate Excel and PDF reports · Works with ChatGPT and Claude · Get answers from your Listaso data |
+| SAMI | CTA | Start your 15-day free trial → `/sami/` (destino informativo; `sami_cta_click`) |
+| SAMI | Precio | From $57.99 a month |
+| Support | Eyebrow | Customer Support (H2 sin cambios) |
+| Support | Descripción | When your distribution operation depends on technology, reliable support matters. Our bilingual team is here to help you resolve issues, answer questions, and keep your business moving, with clear response times based on your needs. |
+| Support | Horario | Monday to Friday: 8:00 a.m. to 8:00 p.m. ET (sólo Homepage; `/support/` conserva su redacción) |
+| Support | CTA | Explore our Support Services → `/support/` |
+| Customers | Eyebrow | Customer Testimonials (H2 sin cambios) |
+| Customers | Descripción | See how distributors use Listaso to streamline daily operations, connect their teams, and improve the way they manage sales, inventory, and deliveries. |
+
+**Sin cambios:** cifras y valores, testimonios, logos y enlaces de clientes,
+tiempos de respuesta, precios de Pricing, banda final.
+
+**Inconsistencias abiertas (no resueltas en esta tarea):**
+- **Resuelta (19 de octubre de 2026, instrucción de Erick):** todo el copy de
+  prueba de SAMI AI dice "15-day free trial" (Home, add-on de Pricing, `/plans/`
+  y `/sami/`); los CTA de `/sami/` se llaman "Start Your 15-Day Free Trial".
+  Destinos sin cambio: Home → `/sami/`; los CTA dentro de `/sami/` siguen
+  apuntando a Calendly hasta que Development/Producto confirmen el destino real
+  de activación.
+- CTA de demo fuera del alcance: Pricing "Book a demo", banda final "Book a free
+  demo", Products y Contact "Book a free demo".
+
 ## Contrato final (implementado)
 
 ### Revisión editorial del 12 de octubre de 2026
@@ -138,8 +195,16 @@ sin cambiar el contenido ni la paleta aprobados:
 
 - El hero combina fotografía operativa a gran escala con los ejemplos ya
   aprobados de pedido y Sami en dos superficies de vidrio como máximo.
-- "From order to payment" deja la cuadrícula uniforme de tarjetas y pasa a
-  una secuencia numerada junto a una fotografía fija durante parte del scroll.
+- El workflow deja la cuadrícula uniforme de tarjetas y pasa a una secuencia
+  numerada junto a un panel fotográfico (sticky en escritorio) durante parte
+  del scroll.
+- El workflow asigna una fotografía distinta a cada paso: pedido en tablet,
+  preparación en almacén, entrega y reportes de oficina. Las cuatro viven sólo
+  en el panel visual lateral: en móvil aparece antes de la secuencia de texto y
+  en escritorio permanece sticky y cambia con el paso activo. No se insertan
+  imágenes en los capítulos de texto. Se reutilizan placeholders autohospedados
+  registrados en `src/content/media/products.ts`; son ilustrativos y no
+  representan clientes ni operaciones reales de Listaso.
 - Los encabezados aparecen desde una máscara de texto; los grupos usan
   entradas cortas y escalonadas con un desenfoque gaussiano transitorio de
   5–8 px, y los medios usan opacidad, traslación y escala. No hay scroll
@@ -185,15 +250,20 @@ sin cambiar el contenido ni la paleta aprobados:
 El manifiesto técnico y las instrucciones de reemplazo están en
 `src/content/media/placeholders.ts`.
 
+Las fotografías por paso del workflow se mapean en `HowItWorks` a
+`productMedia.preSalesTablet`, `inventoryFloor`, `deliveryHandTruck` y
+`backOfficeDashboards`; su fuente, atribución, dimensiones y brief están en
+`src/content/media/products.ts`.
+
 | # | Sección | Componente | Contenido | CTA → destino | Activos | Estado |
 | --- | --- | --- | --- | --- | --- | --- |
 | — | Header | `SiteHeader` | Navegación de `start-version` + DEC-011 | Log in → `app.listaso.com/BOClassic/site/login.aspx`; Book a demo → Calendly | Logo horizontal oficial (navy y blanco según tema) | CONFIRMADO |
 | 1 | Hero | `HomeHero` | Eyebrow, H1 "Sell more. Deliver on time. Get paid faster.", lead, calificaciones (4.7 Google, 5.0 QuickBooks App Store) | Book a free demo → Calendly; Learn more about Listaso Technology → `/join-us/` | Fotografía Unsplash temporal; ejemplos de pedido y Sami en vidrio; SAMI WebP | CONFIRMADO |
 | 2 | Cifras | `ProofStrip` | 5 cifras (Since 2015, 400+, 2,000+, 2M+, $1.8B+) | — | — | CONFIRMADO (D1) |
-| 3 | Cómo funciona | `HowItWorks` | 4 pasos + 4 capacidades | `/pre-sales/`, `/inventory/`, `/delivery/`, `/back-office/`, `/b2b-ecommerce/`, `/forms/`, `/integrations/`, `/industries/` | Fotografía Unsplash temporal; iconos Listaso | CONFIRMADO |
+| 3 | Cómo funciona | `HowItWorks` | 4 pasos + 4 capacidades | `/pre-sales/`, `/inventory/`, `/delivery/`, `/back-office/`, `/b2b-ecommerce/`, `/forms/`, `/integrations/`, `/industries/` | 4 fotografías Unsplash temporales; iconos Listaso | CONFIRMADO |
 | 4 | SAMI | `SamiSpotlight` + `SamiConversation` | Badge, H2 orientado a respuestas desde los datos del negocio, lead, 4 chips, precio "From $57.99" | Meet Sami → `/sami/` | SAMI WebP; conversación animada reutilizada de Guide Sami | CONFIRMADO (D1) |
 | 5 | Soporte | `SupportSection` | Lenguaje no confrontativo, tabla de tiempos de respuesta, horario, cita AH/Quickchoice y puntuaciones | How support works → `/support/` | — | CONFIRMADO (D1) |
-| 6 | Clientes | `CustomerProof` | 6 testimonios + 8 clientes (5 logos y 3 nombres) | — | `public/customers/` (copiados de `start-version`, idénticos) | CONFIRMADO (D1, D8) |
+| 6 | Clientes | `CustomerProof` | 6 testimonios + 8 logos de clientes; 5 logos enlazan a los destinos entregados con `nofollow` | — | `public/customers/` (los tres recursos nuevos fueron entregados por Erick y optimizados localmente) | CONFIRMADO (D1, D8) |
 | 7 | Precios | `PricingPlans` | Growth $57.99, Professional $67.99, Enterprise 360 $77.99 (anual $48.33 / $56.66 / $64.99), notas, add-on de Sami | Book a demo → Calendly; Compare every feature → `/plans/`; Meet Sami → `/sami/` | SAMI WebP | CONFIRMADO (D1) |
 | 8 | Banda final | `FinalCta` | H2 "See Listaso with your products and workflow", lead, teléfono (opción 2), `sales@` | Book a free demo → Calendly; `tel:+13059127770,2`; `mailto:sales@listaso.com` | — | CONFIRMADO |
 | — | Footer | `SiteFooter` | Oficinas Miami y El Salvador; Products, Integrations y Company; contacto; redes; legales; accesos externos de IA basados en `/llms.txt`; "© 2026 Listaso Inc." | Rutas del footer; ChatGPT, Gemini, Perplexity y Claude | Logo oficial de Listaso y marcas identificadoras de los asistentes | CONFIRMADO para contenido Listaso; enlaces de asistentes sujetos a cambios de terceros |

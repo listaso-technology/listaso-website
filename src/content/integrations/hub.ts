@@ -45,7 +45,7 @@ export const howSync: SectionCopy & {
 export const systemsSection: SectionCopy & { linkLabel: string } = {
   eyebrow: "Supported systems",
   title: { emphasis: "Pick", rest: "your system" },
-  linkLabel: "Learn more",
+  linkLabel: "Learn More",
 };
 
 export const alsoSection: SectionCopy & {

@@ -11,8 +11,8 @@ import { externalLinks, mainNav, type NavGroup } from "@/content/site/navigation
 import type { ProductSlug, SectionCopy } from "./types";
 
 export const productCtas = {
-  demo: { href: externalLinks.demo, label: "Book a free demo" },
-  pricing: { href: "/plans/", label: "See pricing" },
+  demo: { href: externalLinks.demo, label: "Book a Demo" },
+  pricing: { href: "/plans/", label: "See Pricing" },
 } as const;
 
 export const breadcrumbLabels = {
@@ -61,7 +61,7 @@ export const productCatalog = {
   },
   "b2b-ecommerce": {
     href: "/b2b-ecommerce/",
-    name: "B2B online store",
+    name: "B2B e-Commerce",
     summary: "Your customers order and pay online, 24/7.",
     icon: "store",
   },
@@ -73,7 +73,7 @@ export const productCatalog = {
   },
   sami: {
     href: "/sami/",
-    name: "Sami AI",
+    name: "SAMI AI",
     summary: "Ask your business anything and get answers in seconds.",
     icon: "ai",
   },
@@ -88,7 +88,7 @@ export const productCatalog = {
 export const relatedSection = {
   eyebrow: "Works together",
   title: { emphasis: "Pairs well", rest: "with" },
-  linkLabel: "Learn more",
+  linkLabel: "Learn More",
 } as const satisfies SectionCopy & { linkLabel: string };
 
 const integrationsGroup = mainNav.find(
@@ -104,6 +104,6 @@ export const integrationsSection = {
   eyebrow: "Integrations",
   title: { emphasis: "Connected", rest: "to the accounting system you already use" },
   lead: "No double entry: orders, invoices and payments flow into your books on their own.",
-  cta: { href: "/integrations/", label: "See how it works" },
+  cta: { href: "/integrations/", label: "See How It Works" },
   listLabel: "Accounting systems that work with Listaso",
 } as const;

@@ -1,0 +1,659 @@
+- generic [active] [ref=e1]:
+  - link "Skip to content" [ref=e2] [cursor=pointer]:
+    - /url: "#main"
+  - banner [ref=e3]:
+    - generic [ref=e4]:
+      - link [ref=e5] [cursor=pointer]:
+        - /url: /
+        - img "Listaso Technology home" [ref=e6]
+      - group [ref=e7]:
+        - generic "Navigation menu" [ref=e8] [cursor=pointer]
+  - main [ref=e14]:
+    - region [ref=e15]:
+      - generic [ref=e16]:
+        - generic [ref=e17]:
+          - paragraph [ref=e18]: Built for distributors, wholesalers and manufacturers
+          - heading "Sell more. Deliver on time. Get paid faster." [level=1] [ref=e19]
+          - paragraph [ref=e21]: Connect sales, delivery and inventory in one platform. Keep your field and office teams in sync with your accounting system. Sami helps them find answers in your business data, in English or Spanish.
+          - generic [ref=e22]:
+            - link "Book a free demo" [ref=e23] [cursor=pointer]:
+              - /url: https://calendly.com/ernesto-henriquez-viasql/60min
+            - link "Learn more about Listaso Technology" [ref=e24] [cursor=pointer]:
+              - /url: /join-us/
+          - list [ref=e25]:
+            - listitem [ref=e26]:
+              - strong [ref=e28]: "4.7"
+              - generic [ref=e29]: on Google (42 reviews)
+            - listitem [ref=e30]:
+              - strong [ref=e32]: "5.0"
+              - generic [ref=e33]: on QuickBooks App Store
+        - generic [ref=e35]:
+          - img "A warehouse aisle lined with inventory shelving" [ref=e37]
+          - img "Example of a Listaso order sent to QuickBooks, with an inventory answer from Sami" [ref=e39]:
+            - generic [aria-hidden] [ref=e40]:
+              - generic [ref=e41]: New order
+              - generic [ref=e42]: Mercado La Esperanza
+            - list [aria-hidden] [ref=e43]:
+              - listitem [ref=e44]:
+                - generic [ref=e45]: Tortillas de maíz 30 ct
+                - generic [ref=e46]: $86.40
+                - generic [ref=e47]: 12 × $7.20
+              - listitem [ref=e48]:
+                - generic [ref=e49]: Queso fresco 5 lb
+                - generic [ref=e50]: $71.96
+                - generic [ref=e51]: 4 × $17.99
+            - generic [aria-hidden] [ref=e52]:
+              - generic [ref=e53]: Total
+              - generic [ref=e54]: $230.27
+            - generic [aria-hidden] [ref=e55]: Sent to QuickBooks
+          - generic [ref=e58]:
+            - generic [aria-hidden] [ref=e59]: Sami
+            - generic [aria-hidden] [ref=e60]: Which products are running low?
+            - generic [aria-hidden] [ref=e61]: "3 items below minimum: Queso fresco (8 cases), Horchata 1 gal (11) and Crema 32 oz (5)."
+    - region "Listaso in numbers" [ref=e62]:
+      - region "Listaso in numbers" [ref=e65]:
+        - list "Listaso in numbers items" [ref=e66]:
+          - listitem [ref=e67]:
+            - article [ref=e68]:
+              - generic "Since 2015" [ref=e69]
+              - generic [ref=e70]: Supporting distributors for over a decade
+          - listitem [ref=e71]:
+            - article [ref=e72]:
+              - generic "400+" [ref=e73]
+              - generic [ref=e74]: Distributors across the US, Puerto Rico and Canada
+          - listitem [ref=e75]:
+            - article [ref=e76]:
+              - generic "2,000+" [ref=e77]
+              - generic [ref=e78]: Sales reps, drivers and office users
+          - listitem [ref=e79]:
+            - article [ref=e80]:
+              - generic "2M+" [ref=e81]
+              - generic [ref=e82]: Orders processed each year
+          - listitem [ref=e83]:
+            - article [ref=e84]:
+              - generic "$1.8B+" [ref=e85]
+              - generic [ref=e86]: Customer sales processed in 2025
+    - region [ref=e87]:
+      - generic [ref=e88]:
+        - generic [ref=e89]:
+          - paragraph [ref=e90]: One system, start to finish
+          - heading "From order to payment, all connected" [level=2] [ref=e91]
+          - paragraph [ref=e93]: Keep every team connected as an order moves through your business. Enter information once, then use it across sales, inventory, delivery and accounting.
+        - generic [ref=e94]:
+          - figure "One system, start to finish" [ref=e96]:
+            - img "Industrial storage shelving inside a distribution facility" [ref=e97]
+            - generic [ref=e99]:
+              - generic [ref=e100]: One system, start to finish
+              - generic [aria-hidden] [ref=e101]:
+                - generic [ref=e102]:
+                  - generic [ref=e103]: "01"
+                  - generic [ref=e104]: Your rep takes the order
+                - generic [ref=e105]:
+                  - generic [ref=e106]: "02"
+                  - generic [ref=e107]: Your warehouse prepares it
+                - generic [ref=e108]:
+                  - generic [ref=e109]: "03"
+                  - generic [ref=e110]: Your driver delivers and collects
+                - generic [ref=e111]:
+                  - generic [ref=e112]: "04"
+                  - generic [ref=e113]: Your office stays informed
+          - list [ref=e119]:
+            - listitem [ref=e120]:
+              - generic [aria-hidden] [ref=e122]: "01"
+              - generic [ref=e129]:
+                - heading "Your rep takes the order" [level=3] [ref=e130]
+                - paragraph [ref=e131]: Show a photo catalog, customer-specific prices, promotions and purchase history. Keep working without an internet connection.
+                - link "Sales and pre-sales" [ref=e132] [cursor=pointer]:
+                  - /url: /pre-sales/
+            - listitem [ref=e135]:
+              - generic [aria-hidden] [ref=e137]: "02"
+              - generic [ref=e142]:
+                - heading "Your warehouse prepares it" [level=3] [ref=e143]
+                - paragraph [ref=e144]: Receive the order right away. Use a scanner to receive, pick and count inventory, including products sold by variable weight.
+                - link "Inventory" [ref=e145] [cursor=pointer]:
+                  - /url: /inventory/
+            - listitem [ref=e148]:
+              - generic [aria-hidden] [ref=e150]: "03"
+              - generic [ref=e156]:
+                - heading "Your driver delivers and collects" [level=3] [ref=e157]
+                - paragraph [ref=e158]: Follow the day’s route, print the invoice at the store, capture a signature and collect payment at delivery.
+                - link "Delivery and direct store delivery" [ref=e159] [cursor=pointer]:
+                  - /url: /delivery/
+            - listitem [ref=e162]:
+              - generic [aria-hidden] [ref=e164]: "04"
+              - generic [ref=e173]:
+                - heading "Your office stays informed" [level=3] [ref=e174]
+                - paragraph [ref=e175]: Manage customers, prices, routes, receivables and reports in one place, connected to your accounting system.
+                - link "Back Office" [ref=e176] [cursor=pointer]:
+                  - /url: /back-office/
+        - list [ref=e179]:
+          - listitem [ref=e180]:
+            - generic [ref=e185]:
+              - paragraph [ref=e186]:
+                - strong [ref=e187]: Let customers order when it works for them.
+                - text: Give each customer a business-to-business online store with their own prices, available from their phone.
+              - link "Online store" [ref=e188] [cursor=pointer]:
+                - /url: /b2b-ecommerce/
+          - listitem [ref=e191]:
+            - generic [ref=e201]:
+              - paragraph [ref=e202]:
+                - strong [ref=e203]: Capture information at every visit.
+                - text: Use forms and surveys for shelf photos, competitor checks and signatures.
+              - link "Forms" [ref=e204] [cursor=pointer]:
+                - /url: /forms/
+          - listitem [ref=e207]:
+            - generic [ref=e212]:
+              - paragraph [ref=e213]:
+                - strong [ref=e214]: Connect your accounting system.
+                - text: Integrate with QuickBooks, Sage 100, Acumatica, SAP, NetSuite, Zoho, Acctivate or AccountMate.
+              - link "Integrations" [ref=e215] [cursor=pointer]:
+                - /url: /integrations/
+          - listitem [ref=e218]:
+            - generic [ref=e222]:
+              - paragraph [ref=e223]:
+                - strong [ref=e224]: Built with food and beverage distribution in mind.
+                - text: Listaso also supports health and beauty, housewares, paper and packaging, and other industries.
+              - link "Industries" [ref=e225] [cursor=pointer]:
+                - /url: /industries/
+    - region [ref=e228]:
+      - generic [ref=e229]:
+        - generic [ref=e230]:
+          - generic [ref=e231]:
+            - img "Sami, Listaso’s AI assistant" [ref=e233]
+            - paragraph [ref=e234]:
+              - generic [ref=e235]: New
+              - generic [ref=e236]: AI assistant
+          - heading "Meet Sami. Get answers from your business data." [level=2] [ref=e237]
+          - paragraph [ref=e239]: Ask Sami about your sales, customers, inventory or orders in everyday language. Get an answer in seconds, in English or Spanish, without learning a technical tool.
+          - list [ref=e240]:
+            - listitem [ref=e241]: Excel and PDF reports
+            - listitem [ref=e242]: Uses your Listaso data
+            - listitem [ref=e243]: Works with ChatGPT and Claude
+            - listitem [ref=e244]: Share access with your team
+          - generic [ref=e245]:
+            - link "Meet Sami" [ref=e246] [cursor=pointer]:
+              - /url: /sami/
+            - paragraph [ref=e247]:
+              - text: From
+              - strong [ref=e248]: $57.99
+              - text: a month · first month free
+        - generic [ref=e250]:
+          - generic [ref=e251]:
+            - generic [ref=e252]: Sami
+            - generic [ref=e253]:
+              - generic [ref=e254]: Example
+              - button "Pause animation" [ref=e255] [cursor=pointer]
+          - paragraph [ref=e256]: Example of Sami identifying inactive customers and preparing an Excel report
+    - region [ref=e263]:
+      - generic [ref=e264]:
+        - generic [ref=e265]:
+          - paragraph [ref=e266]: Support
+          - heading "Real people. Clear help when you need it." [level=2] [ref=e267]
+          - paragraph [ref=e269]: Our bilingual support team helps you keep your operation moving. See our first-response targets below, so you know what to expect when you contact us.
+        - generic [ref=e270]:
+          - generic [ref=e271]:
+            - 'region "Type of problem: First response" [ref=e272]':
+              - 'list "Type of problem: First response items" [ref=e273]':
+                - listitem [ref=e274]:
+                  - article [ref=e275]:
+                    - generic [aria-hidden] [ref=e276]: "01"
+                    - generic [ref=e277]:
+                      - heading "Urgent" [level=3] [ref=e278]
+                      - paragraph [ref=e279]: You cannot sell, deliver or collect. Typically resolved in 3.5 hours.
+                      - generic [ref=e280]:
+                        - term [ref=e281]: First response
+                        - definition [ref=e282]: 15 minutes
+                - listitem [ref=e283]:
+                  - article [ref=e284]:
+                    - generic [aria-hidden] [ref=e285]: "02"
+                    - generic [ref=e286]:
+                      - heading "Critical" [level=3] [ref=e287]
+                      - paragraph [ref=e288]: A key feature is unavailable for many users. Typically resolved in 8 hours.
+                      - generic [ref=e289]:
+                        - term [ref=e290]: First response
+                        - definition [ref=e291]: 30 minutes
+                - listitem [ref=e292]:
+                  - article [ref=e293]:
+                    - generic [aria-hidden] [ref=e294]: "03"
+                    - generic [ref=e295]:
+                      - heading "Important" [level=3] [ref=e296]
+                      - paragraph [ref=e297]: A problem affects your work, but your team can continue using an alternative.
+                      - generic [ref=e298]:
+                        - term [ref=e299]: First response
+                        - definition [ref=e300]: 2 hours
+                - listitem [ref=e301]:
+                  - article [ref=e302]:
+                    - generic [aria-hidden] [ref=e303]: "04"
+                    - generic [ref=e304]:
+                      - heading "Normal" [level=3] [ref=e305]
+                      - paragraph [ref=e306]: A problem affects one user or a secondary feature.
+                      - generic [ref=e307]:
+                        - term [ref=e308]: First response
+                        - definition [ref=e309]: 8 hours
+                - listitem [ref=e310]:
+                  - article [ref=e311]:
+                    - generic [aria-hidden] [ref=e312]: "05"
+                    - generic [ref=e313]:
+                      - heading "Questions and requests" [level=3] [ref=e314]
+                      - paragraph [ref=e315]: How-to questions, changes or improvement requests.
+                      - generic [ref=e316]:
+                        - term [ref=e317]: First response
+                        - definition [ref=e318]: 24–48 hours
+              - generic [ref=e319]:
+                - button "Pause autoplay" [ref=e320] [cursor=pointer]
+                - button "Previous item" [ref=e321] [cursor=pointer]
+                - paragraph [ref=e324]: 01 / 05
+                - button "Next item" [ref=e325] [cursor=pointer]
+            - list [ref=e328]:
+              - listitem [ref=e329]:
+                - strong [ref=e330]: "Monday through Friday:"
+                - text: 8:00 a.m. to 8:00 p.m. Eastern Time
+              - listitem [ref=e331]:
+                - strong [ref=e332]: "Weekends and after hours:"
+                - text: urgent issues only at sos@listaso.com
+              - listitem [ref=e333]:
+                - strong [ref=e334]: "Languages:"
+                - text: English and Spanish
+            - link "How support works" [ref=e335] [cursor=pointer]:
+              - /url: /support/
+          - generic [ref=e336]:
+            - figure "AH, Quickchoice · QuickBooks App Store review, March 2026" [ref=e338]:
+              - blockquote [ref=e339]:
+                - paragraph [ref=e340]: “The support team is always available, responds quickly, and truly makes sure everything runs smoothly.”
+            - list [ref=e342]:
+              - listitem [ref=e343]:
+                - generic [ref=e344]: "4.7"
+                - generic [ref=e346]: Google · 42 reviews
+              - listitem [ref=e347]:
+                - generic [ref=e348]: "5.0"
+                - generic [ref=e350]: QuickBooks App Store
+    - region [ref=e351]:
+      - generic [ref=e352]:
+        - generic [ref=e353]:
+          - paragraph [ref=e354]: Customers
+          - heading "Built for distributors. Trusted by their teams." [level=2] [ref=e355]
+          - paragraph [ref=e357]: Nearly one in three customers has been with Listaso for more than five years.
+        - region "Customer reviews" [ref=e359]:
+          - list "Customer reviews items" [ref=e360]:
+            - listitem [ref=e361]:
+              - article [ref=e362]:
+                - figure "Mark Somwaru Google review" [ref=e363]:
+                  - img "5 out of 5 stars" [ref=e364]
+                  - blockquote [ref=e365]:
+                    - paragraph [ref=e366]: “Listaso Technologies has been a great partner for our business. Their Sales App, Delivery App, and Back Office platform, along with their seamless integration with Sage 100, have helped streamline our sales, distribution, and accounting processes.”
+                  - generic [ref=e367]:
+                    - generic [ref=e368]: Mark Somwaru
+                    - generic [ref=e369]: Google review
+            - listitem [ref=e370]:
+              - article [ref=e371]:
+                - figure "Jesús Nuñez Comercial Mexicana Internacional Inc." [ref=e372]:
+                  - img "5 out of 5 stars" [ref=e373]
+                  - blockquote [ref=e374]:
+                    - paragraph [ref=e375]: “Listaso is an ally in our operations. Their team listens, improves, and always delivers. I rate them 10 out of 10.”
+                  - generic [ref=e376]:
+                    - generic [ref=e377]: Jesús Nuñez
+                    - generic [ref=e378]: Comercial Mexicana Internacional Inc.
+            - listitem [ref=e379]:
+              - article [ref=e380]:
+                - figure "Eduardo Ch. Cecilia Bakery LLC" [ref=e381]:
+                  - img "5 out of 5 stars" [ref=e382]
+                  - blockquote [ref=e383]:
+                    - paragraph [ref=e384]: “We use Listaso's software in our operation at Cecilia Bakery LLC. Our drivers are happy, it's easy to manage, great customer service. Highly recommend it.”
+                  - generic [ref=e385]:
+                    - generic [ref=e386]: Eduardo Ch.
+                    - generic [ref=e387]: Cecilia Bakery LLC
+            - listitem [ref=e388]:
+              - article [ref=e389]:
+                - figure "Emeterio Perez Owner, Perez Distributing Fresno Inc." [ref=e390]:
+                  - img "5 out of 5 stars" [ref=e391]
+                  - blockquote [ref=e392]:
+                    - paragraph [ref=e393]: “When it comes to making sales and maintaining inventory, this is a good system that works very well. It has helped us in enhancing the productivity of our processes.”
+                  - generic [ref=e394]:
+                    - generic [ref=e395]: Emeterio Perez
+                    - generic [ref=e396]: Owner, Perez Distributing Fresno Inc.
+            - listitem [ref=e397]:
+              - article [ref=e398]:
+                - figure "Nazly Rojas LADI" [ref=e399]:
+                  - img "5 out of 5 stars" [ref=e400]
+                  - blockquote [ref=e401]:
+                    - paragraph [ref=e402]: “They've improved report sync times. I timed how long it took me to sync, and it was 03:08.68, which I think is a great reduction in time. It makes the process more efficient for our entire sales team by helping us speed up the sync, and it also means the tablets don't use as much battery for this function. Good job!”
+                  - generic [ref=e403]:
+                    - generic [ref=e404]: Nazly Rojas
+                    - generic [ref=e405]: LADI
+            - listitem [ref=e406]:
+              - article [ref=e407]:
+                - figure "Evelyn Alvarado Boticas Mexicana" [ref=e408]:
+                  - img "5 out of 5 stars" [ref=e409]
+                  - blockquote [ref=e410]:
+                    - paragraph [ref=e411]: “Listaso is a very functional application. With proper training, you can fully exploit the resources it offers.”
+                  - generic [ref=e412]:
+                    - generic [ref=e413]: Evelyn Alvarado
+                    - generic [ref=e414]: Boticas Mexicana
+          - generic [ref=e415]:
+            - button "Pause autoplay" [ref=e416] [cursor=pointer]
+            - button "Previous item" [ref=e417] [cursor=pointer]
+            - paragraph [ref=e420]: 01 / 06
+            - button "Next item" [ref=e421] [cursor=pointer]
+        - list "Customer logos" [ref=e424]:
+          - listitem [ref=e425]:
+            - link "Diamond Rock Food Import" [ref=e426] [cursor=pointer]:
+              - /url: https://diamondrockfoods.com/
+              - img "Diamond Rock Food Import"
+          - listitem [ref=e427]:
+            - link "Productos Bredy" [ref=e428] [cursor=pointer]:
+              - /url: https://productosbredy.com/
+              - img "Productos Bredy"
+          - listitem [ref=e429]:
+            - generic [ref=e430]:
+              - img "TRT Overseas"
+          - listitem [ref=e431]:
+            - generic [ref=e432]:
+              - img "Candesa Aliments Foods"
+          - listitem [ref=e433]:
+            - link "Comercial Mexicana Internacional" [ref=e434] [cursor=pointer]:
+              - /url: https://comercialmexicanaint.com/
+              - img "Comercial Mexicana Internacional"
+          - listitem [ref=e435]:
+            - link "Unifoods" [ref=e436] [cursor=pointer]:
+              - /url: https://unifoodsusa.com/
+              - img "Unifoods"
+          - listitem [ref=e437]:
+            - link "Fabi Saa" [ref=e438] [cursor=pointer]:
+              - /url: https://fabisaa.com/es
+              - img "Fabi Saa"
+          - listitem [ref=e439]:
+            - generic [ref=e440]:
+              - img "Perez Distributing Yakima"
+    - region [ref=e441]:
+      - generic [ref=e442]:
+        - generic [ref=e443]:
+          - paragraph [ref=e444]: Pricing
+          - heading "Clear pricing for every stage of growth" [level=2] [ref=e445]
+          - paragraph [ref=e447]: Choose a plan based on how your team works. Pricing is per user, per month, with a two-user minimum. There is no contract, so you can cancel at any time.
+        - group "Billing period" [ref=e452]:
+          - generic [ref=e454] [cursor=pointer]:
+            - radio "Monthly" [checked] [ref=e455]
+            - text: Monthly
+          - generic [ref=e456] [cursor=pointer]:
+            - radio "Yearly 2 months free" [ref=e457]
+            - text: Yearly
+            - generic [ref=e458]: 2 months free
+        - region "Pricing" [ref=e460]:
+          - list "Pricing items" [ref=e461]:
+            - listitem [ref=e462]:
+              - article [ref=e463]:
+                - generic [ref=e464]:
+                  - heading "Growth" [level=3] [ref=e465]
+                  - paragraph [ref=e466]: For teams taking orders in the field.
+                - generic [ref=e467]:
+                  - paragraph [ref=e468]:
+                    - generic [ref=e469]: $57.99
+                    - generic [ref=e471]: per user, per month
+                  - paragraph
+                - list [ref=e472]:
+                  - listitem [ref=e473]: Orders and credits on a tablet or phone
+                  - listitem [ref=e477]: Customer-specific prices and promotions
+                  - listitem [ref=e481]: Photo catalog and purchase history
+                  - listitem [ref=e485]: Open invoices and payment collection
+                  - listitem [ref=e489]: Works without internet
+                  - listitem [ref=e493]: Connects to your accounting system
+                  - listitem [ref=e497]: "Back Office: customers, products, prices and routes"
+                - link "Book a demo" [ref=e501] [cursor=pointer]:
+                  - /url: https://calendly.com/ernesto-henriquez-viasql/60min
+            - listitem [ref=e502]:
+              - article [ref=e503]:
+                - generic [ref=e504]: Most chosen
+                - generic [ref=e505]:
+                  - heading "Professional" [level=3] [ref=e506]
+                  - paragraph [ref=e507]: For distributors who deliver and run a warehouse.
+                - generic [ref=e508]:
+                  - paragraph [ref=e509]:
+                    - generic [ref=e510]: $67.99
+                    - generic [ref=e512]: per user, per month
+                  - paragraph
+                - list [ref=e513]:
+                  - listitem [ref=e514]: "Everything in Growth, plus:"
+                  - listitem [ref=e515]: "Direct store delivery: create and print invoices on the route"
+                  - listitem [ref=e519]: Proof of delivery with signature
+                  - listitem [ref=e523]: "Warehouse app: receive, pick and count"
+                  - listitem [ref=e527]: Delivery app for drivers
+                  - listitem [ref=e531]: Products sold by variable weight and multiple warehouses
+                  - listitem [ref=e535]: Online store for 40 customers
+                - link "Book a demo" [ref=e539] [cursor=pointer]:
+                  - /url: https://calendly.com/ernesto-henriquez-viasql/60min
+            - listitem [ref=e540]:
+              - article [ref=e541]:
+                - generic [ref=e542]:
+                  - heading "Enterprise 360" [level=3] [ref=e543]
+                  - paragraph [ref=e544]: For larger operations that need full control.
+                - generic [ref=e545]:
+                  - paragraph [ref=e546]:
+                    - generic [ref=e547]: $77.99
+                    - generic [ref=e549]: per user, per month
+                  - paragraph
+                - list [ref=e550]:
+                  - listitem [ref=e551]: "Everything in Professional, plus:"
+                  - listitem [ref=e552]: Forms and surveys at every visit
+                  - listitem [ref=e556]: Visit planner, reminders and in-store activities
+                  - listitem [ref=e560]: Sales commission dashboard
+                  - listitem [ref=e564]: Lot numbers, expiration dates and multiple storage bins
+                  - listitem [ref=e568]: Truck loading and delivery route planner
+                  - listitem [ref=e572]: Online store with unlimited customers
+                - link "Book a demo" [ref=e576] [cursor=pointer]:
+                  - /url: https://calendly.com/ernesto-henriquez-viasql/60min
+        - list [ref=e577]:
+          - listitem [ref=e578]:
+            - strong [ref=e579]: Setup tailored to your system
+            - generic [ref=e580]: A one-time fee covers setup with your accounting system, such as QuickBooks, Sage or SAP, and training for your team. We provide the exact amount during your demo.
+          - listitem [ref=e581]:
+            - strong [ref=e582]: No contract
+            - generic [ref=e583]: Pay month to month, or pay for the year and get 2 months free.
+          - listitem [ref=e584]:
+            - strong [ref=e585]: Onboarding in English or Spanish
+            - generic [ref=e586]: Onboarding includes team training, so your staff can start with clear guidance.
+        - link "Compare every feature" [ref=e587] [cursor=pointer]:
+          - /url: /plans/
+        - generic [ref=e588]:
+          - paragraph [ref=e590]:
+            - strong [ref=e591]: Add Sami, your AI assistant.
+            - text: "Starter: $57.99 a month for 1 user · Professional: $127.99 a month for up to 3 users · Business: $297.99 a month for up to 10 users. Sami is priced per team, not per user. The first month is free."
+          - link "Meet Sami" [ref=e592] [cursor=pointer]:
+            - /url: /sami/
+    - region [ref=e593]:
+      - generic [ref=e594]:
+        - generic [ref=e595]:
+          - heading "See Listaso with your products and workflow" [level=2] [ref=e596]
+          - paragraph [ref=e598]: In a free demo, we’ll walk through how Listaso fits your operation and provide exact pricing, including setup. Choose English or Spanish.
+        - generic [ref=e599]:
+          - link "Book a free demo" [ref=e600] [cursor=pointer]:
+            - /url: https://calendly.com/ernesto-henriquez-viasql/60min
+          - paragraph [ref=e601]:
+            - text: "Or call sales:"
+            - link "+1 305-912-7770" [ref=e602] [cursor=pointer]:
+              - /url: tel:+13059127770,2
+            - text: ", option 2"
+          - paragraph [ref=e603]:
+            - text: "Sales:"
+            - link "sales@listaso.com" [ref=e604] [cursor=pointer]:
+              - /url: mailto:sales@listaso.com
+  - contentinfo [ref=e605]:
+    - generic [ref=e606]:
+      - generic [ref=e607]:
+        - generic [ref=e608]:
+          - generic [ref=e609]:
+            - link [ref=e610] [cursor=pointer]:
+              - /url: /
+              - img "Listaso Technology home" [ref=e611]
+            - generic [ref=e612]:
+              - generic [ref=e613]:
+                - generic [ref=e614]: Miami
+                - generic [ref=e615]: 5966 S Dixie Hwy, Ste 300
+                - generic [ref=e616]: South Miami, FL 33143
+              - generic [ref=e617]:
+                - generic [ref=e618]: El Salvador
+                - generic [ref=e619]: Plaza Madre Tierra, Edificio 11, Local 10-A
+                - generic [ref=e620]: Santa Elena, Antiguo Cuscatlán, La Libertad
+          - navigation "Footer navigation" [ref=e621]:
+            - generic [ref=e622]:
+              - heading "Products" [level=2] [ref=e623]
+              - list [ref=e624]:
+                - listitem [ref=e625]:
+                  - link "Pre-sales" [ref=e626] [cursor=pointer]:
+                    - /url: /pre-sales/
+                - listitem [ref=e627]:
+                  - link "Direct store delivery" [ref=e628] [cursor=pointer]:
+                    - /url: /direct-sales/
+                - listitem [ref=e629]:
+                  - link "Inventory" [ref=e630] [cursor=pointer]:
+                    - /url: /inventory/
+                - listitem [ref=e631]:
+                  - link "Delivery" [ref=e632] [cursor=pointer]:
+                    - /url: /delivery/
+                - listitem [ref=e633]:
+                  - link "Back Office" [ref=e634] [cursor=pointer]:
+                    - /url: /back-office/
+                - listitem [ref=e635]:
+                  - link "B2B online store" [ref=e636] [cursor=pointer]:
+                    - /url: /b2b-ecommerce/
+                - listitem [ref=e637]:
+                  - link "Forms and surveys" [ref=e638] [cursor=pointer]:
+                    - /url: /forms/
+                - listitem [ref=e639]:
+                  - link "Sami AI" [ref=e640] [cursor=pointer]:
+                    - /url: /sami/
+                - listitem [ref=e641]:
+                  - link "Custom development" [ref=e642] [cursor=pointer]:
+                    - /url: /custom-development/
+                - listitem [ref=e643]:
+                  - link "Pricing" [ref=e644] [cursor=pointer]:
+                    - /url: /plans/
+            - generic [ref=e645]:
+              - heading "Integrations" [level=2] [ref=e646]
+              - list [ref=e647]:
+                - listitem [ref=e648]:
+                  - link "QuickBooks" [ref=e649] [cursor=pointer]:
+                    - /url: /quickbooks/
+                - listitem [ref=e650]:
+                  - link "Sage 100" [ref=e651] [cursor=pointer]:
+                    - /url: /sage/
+                - listitem [ref=e652]:
+                  - link "Acumatica" [ref=e653] [cursor=pointer]:
+                    - /url: /acumatica/
+                - listitem [ref=e654]:
+                  - link "SAP" [ref=e655] [cursor=pointer]:
+                    - /url: /sap/
+                - listitem [ref=e656]:
+                  - link "NetSuite" [ref=e657] [cursor=pointer]:
+                    - /url: /netsuite/
+                - listitem [ref=e658]:
+                  - link "Zoho" [ref=e659] [cursor=pointer]:
+                    - /url: /zoho/
+                - listitem [ref=e660]:
+                  - link "Acctivate" [ref=e661] [cursor=pointer]:
+                    - /url: /acctivate/
+                - listitem [ref=e662]:
+                  - link "AccountMate" [ref=e663] [cursor=pointer]:
+                    - /url: /accountmate/
+                - listitem [ref=e664]:
+                  - link "Printers and scanners" [ref=e665] [cursor=pointer]:
+                    - /url: /printers-and-scanners/
+            - generic [ref=e666]:
+              - heading "Company" [level=2] [ref=e667]
+              - list [ref=e668]:
+                - listitem [ref=e669]:
+                  - link "About Listaso" [ref=e670] [cursor=pointer]:
+                    - /url: /about/
+                - listitem [ref=e671]:
+                  - link "Industries" [ref=e672] [cursor=pointer]:
+                    - /url: /industries/
+                - listitem [ref=e673]:
+                  - link "Support" [ref=e674] [cursor=pointer]:
+                    - /url: /support/
+                - listitem [ref=e675]:
+                  - link "Listaso Impact" [ref=e676] [cursor=pointer]:
+                    - /url: /listaso-impact/
+                - listitem [ref=e677]:
+                  - link "Careers" [ref=e678] [cursor=pointer]:
+                    - /url: /join-us/
+                - listitem [ref=e679]:
+                  - link "Blog" [ref=e680] [cursor=pointer]:
+                    - /url: /blog/
+                - listitem [ref=e681]:
+                  - link "Contact us" [ref=e682] [cursor=pointer]:
+                    - /url: /contact-us/
+        - region [ref=e683]:
+          - heading "How can we help? Contact us." [level=2] [ref=e684]
+          - list [ref=e685]:
+            - listitem [ref=e686]:
+              - link "+1 305-912-7770" [ref=e687] [cursor=pointer]:
+                - /url: tel:+13059127770
+            - listitem [ref=e688]:
+              - generic [ref=e689]: "Sales: option 2 · Support: option 1"
+            - listitem [ref=e690]:
+              - 'link "Sales: sales@listaso.com" [ref=e691] [cursor=pointer]':
+                - /url: mailto:sales@listaso.com
+            - listitem [ref=e692]:
+              - 'link "Support: cs@listaso.com" [ref=e693] [cursor=pointer]':
+                - /url: mailto:cs@listaso.com
+            - listitem [ref=e694]:
+              - 'link "Urgent: sos@listaso.com" [ref=e695] [cursor=pointer]':
+                - /url: mailto:sos@listaso.com
+        - generic [ref=e696]:
+          - list "Social media" [ref=e697]:
+            - listitem [ref=e698]:
+              - link "LinkedIn" [ref=e699] [cursor=pointer]:
+                - /url: https://www.linkedin.com/company/listaso/
+            - listitem [ref=e700]:
+              - link "YouTube" [ref=e701] [cursor=pointer]:
+                - /url: https://www.youtube.com/@ListasoTechnology
+            - listitem [ref=e702]:
+              - link "Instagram" [ref=e703] [cursor=pointer]:
+                - /url: https://www.instagram.com/listaso_technology/
+            - listitem [ref=e704]:
+              - link "Facebook" [ref=e705] [cursor=pointer]:
+                - /url: https://www.facebook.com/ListasoTechnology/
+          - generic [ref=e706]:
+            - paragraph [ref=e707]: © 2026 Listaso Inc.
+            - navigation "Legal information" [ref=e708]:
+              - list [ref=e709]:
+                - listitem [ref=e710]:
+                  - link "Privacy Policy" [ref=e711] [cursor=pointer]:
+                    - /url: /privacy-policy/
+                - listitem [ref=e712]:
+                  - link "Subscription Agreement" [ref=e713] [cursor=pointer]:
+                    - /url: /subscription-agreement/
+                - listitem [ref=e714]:
+                  - link "Terms & Conditions" [ref=e715] [cursor=pointer]:
+                    - /url: /terms-and-conditions/
+      - region [ref=e716]:
+        - generic [ref=e717]:
+          - paragraph [ref=e718]: Source-guided AI overview
+          - heading "Ask an AI about Listaso." [level=2] [ref=e719]
+          - paragraph [ref=e720]: Open the same source-guided question in your preferred assistant to explore how Listaso connects sales, inventory, warehouse, eCommerce, back-office, and delivery workflows.
+        - list [ref=e721]:
+          - listitem [ref=e722]:
+            - link "Ask ChatGPT about Listaso (opens in a new tab)" [ref=e723] [cursor=pointer]:
+              - /url: https://chatgpt.com/?q=I%20run%20a%20wholesale%20or%20distribution%20business%20and%20I%20am%20evaluating%20Listaso.%20Use%20https%3A%2F%2Flistaso.com%2Fllms.txt%20and%20the%20official%20Listaso%20pages%20linked%20there%20as%20your%20source%20guide.%20Explain%20step%20by%20step%20how%20Listaso%20connects%20field%20sales%2C%20inventory%20and%20warehouse%20operations%2C%20B2B%20eCommerce%2C%20back-office%20work%2C%20and%20delivery.%20Show%20the%20operational%20flow%20from%20order%20capture%20through%20fulfillment%2C%20delivery%2C%20and%20payment.%20Clearly%20distinguish%20verified%20information%20from%20inference%2C%20identify%20anything%20that%20is%20not%20publicly%20specified%2C%20and%20cite%20the%20relevant%20Listaso%20sources.
+              - generic [ref=e725]: ChatGPT
+              - generic [aria-hidden] [ref=e726]: ↗
+          - listitem [ref=e727]:
+            - link "Ask Gemini about Listaso (opens in a new tab)" [ref=e728] [cursor=pointer]:
+              - /url: https://gemini.google.com/app?q=I%20run%20a%20wholesale%20or%20distribution%20business%20and%20I%20am%20evaluating%20Listaso.%20Use%20https%3A%2F%2Flistaso.com%2Fllms.txt%20and%20the%20official%20Listaso%20pages%20linked%20there%20as%20your%20source%20guide.%20Explain%20step%20by%20step%20how%20Listaso%20connects%20field%20sales%2C%20inventory%20and%20warehouse%20operations%2C%20B2B%20eCommerce%2C%20back-office%20work%2C%20and%20delivery.%20Show%20the%20operational%20flow%20from%20order%20capture%20through%20fulfillment%2C%20delivery%2C%20and%20payment.%20Clearly%20distinguish%20verified%20information%20from%20inference%2C%20identify%20anything%20that%20is%20not%20publicly%20specified%2C%20and%20cite%20the%20relevant%20Listaso%20sources.
+              - generic [ref=e730]: Gemini
+              - generic [aria-hidden] [ref=e731]: ↗
+          - listitem [ref=e732]:
+            - link "Ask Perplexity about Listaso (opens in a new tab)" [ref=e733] [cursor=pointer]:
+              - /url: https://www.perplexity.ai/search?q=I%20run%20a%20wholesale%20or%20distribution%20business%20and%20I%20am%20evaluating%20Listaso.%20Use%20https%3A%2F%2Flistaso.com%2Fllms.txt%20and%20the%20official%20Listaso%20pages%20linked%20there%20as%20your%20source%20guide.%20Explain%20step%20by%20step%20how%20Listaso%20connects%20field%20sales%2C%20inventory%20and%20warehouse%20operations%2C%20B2B%20eCommerce%2C%20back-office%20work%2C%20and%20delivery.%20Show%20the%20operational%20flow%20from%20order%20capture%20through%20fulfillment%2C%20delivery%2C%20and%20payment.%20Clearly%20distinguish%20verified%20information%20from%20inference%2C%20identify%20anything%20that%20is%20not%20publicly%20specified%2C%20and%20cite%20the%20relevant%20Listaso%20sources.
+              - generic [ref=e735]: Perplexity
+              - generic [aria-hidden] [ref=e736]: ↗
+          - listitem [ref=e737]:
+            - link "Ask Claude about Listaso (opens in a new tab)" [ref=e738] [cursor=pointer]:
+              - /url: https://claude.ai/new?q=I%20run%20a%20wholesale%20or%20distribution%20business%20and%20I%20am%20evaluating%20Listaso.%20Use%20https%3A%2F%2Flistaso.com%2Fllms.txt%20and%20the%20official%20Listaso%20pages%20linked%20there%20as%20your%20source%20guide.%20Explain%20step%20by%20step%20how%20Listaso%20connects%20field%20sales%2C%20inventory%20and%20warehouse%20operations%2C%20B2B%20eCommerce%2C%20back-office%20work%2C%20and%20delivery.%20Show%20the%20operational%20flow%20from%20order%20capture%20through%20fulfillment%2C%20delivery%2C%20and%20payment.%20Clearly%20distinguish%20verified%20information%20from%20inference%2C%20identify%20anything%20that%20is%20not%20publicly%20specified%2C%20and%20cite%20the%20relevant%20Listaso%20sources.
+              - generic [ref=e740]: Claude
+              - generic [aria-hidden] [ref=e741]: ↗
+        - paragraph [ref=e742]:
+          - text: AI responses can be incomplete or inaccurate. Verify details on the cited Listaso pages or contact Sales at
+          - link "sales@listaso.com" [ref=e743] [cursor=pointer]:
+            - /url: mailto:sales@listaso.com
+          - text: .
+  - alert [ref=e745]

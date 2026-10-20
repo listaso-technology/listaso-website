@@ -1,4 +1,4 @@
-# Variaciones de sección — Products e Integrations
+# Variaciones de sección — Products, Integrations, Company y Pricing
 
 **Fecha:** 13 de octubre de 2026
 **Agente:** Claude, `feat/homepage` (sin tocar archivos reservados por Codex)
@@ -77,6 +77,41 @@ Integrations.
 etiquetas del índice salen del copy existente: los títulos "From X to
 Listaso" y "Both ways" de la sección de sync, el eyebrow de cada página y las
 descripciones del menú.
+
+## Variantes "dossier" — Company y Pricing (14 de octubre de 2026)
+
+Referencia: [ddark.dev](https://ddark.dev/) (sólo secciones: Dossier,
+Record, Arsenal, Chronology, Core pillars, Selected work, Channels). Se
+adaptó el patrón; su branding y textos no se copiaron. Decisión: DEC-017.
+
+| Variante | Tipo | Notas técnicas |
+| --- | --- | --- |
+| `HeroDossier` | Hero | Superficie de página; eyebrow entre corchetes (los corchetes son contenido CSS con texto alternativo vacío); H1 display en mayúsculas; aside opcional |
+| `DossierHeader` | Encabezado | H2 display (`large` o `small`) con firma Listaso |
+| `DossierBox` | Ficha | Caja enmarcada con estado entre corchetes, filas con etiqueta o check, `<dl>` opcional y barra de acento que se llena una vez |
+| `DossierPhoto` | Imagen | Marco grueso, medios tonos en escala de grises que recupera el color al hover |
+| `Chronology` | Lista | Entradas con regla y línea de acento; enlace externo opcional con aviso de pestaña nueva |
+| `KineticWords` | Pilares | Palabra sólida estática (la que leen los lectores de pantalla) y dos copias con contorno `aria-hidden` que derivan con el scroll, sólo en pantallas anchas |
+| `ChannelList` | Contacto | Etiqueta y valor grande con `TextRoll`; container query: la etiqueta pasa arriba cuando la lista es angosta (sirve en un aside) |
+| `IndexPreview` | Índice | Filas grandes; en desktop una vista previa sticky muestra la foto de la fila con hover (`:has()`, sin JS); en móvil la foto va en línea. Encabezado visible u `h2` `sr-only` |
+| `FaqList` | FAQ | Encabezado sticky y `<details>` nativos |
+| `NoteGrid` | Notas / citas | Retícula con reglas; modo `quotes` con `blockquote` y `figcaption` |
+| `LinkRows` | Navegación | Enlaces internos grandes numerados |
+| `GridPattern` (`pricing/`) | Fondo | Patrón del footer en tokens, animado (ver DEC-017) |
+| `PlanBoard` (`pricing/`) | Precios | Hero de Pricing, selector con perilla SAMI, precios que ruedan, tres planes en un marco con reglas, notas y add-on de Sami |
+| `CompareTable` (`pricing/`) | Tabla | Encabezado sticky bajo el header en desktop; en móvil, desplazamiento horizontal con la columna de funciones fija y región enfocable |
+
+### Asignación por página
+
+| Página | Secciones |
+| --- | --- |
+| `/about/` | `HeroDossier` + `DossierPhoto` · `MetricOdometer` · historia con Misión y Visión en `DossierBox` · valores en `KineticWords` · `LinkRows` · `FinalCta` |
+| `/industries/` | `HeroDossier` + `DossierBox` de la especialidad · `IndexPreview` de 7 industrias · `RelatedRail` · `NextPage` · `FinalCta` |
+| `/support/` | `HeroDossier` + `ChannelList` · tabla de tiempos de respuesta y horario · `Chronology` de urgencias · calificaciones y `NoteGrid` de citas · `NextPage` · `FinalCta` |
+| `/listaso-impact/` | `HeroDossier` + `DossierPhoto` · `KineticWords` de áreas · `Chronology` de publicaciones · retícula tipográfica de aliados · `NextPage` |
+| `/join-us/` | `HeroDossier` · cultura y crecimiento en dos columnas · beneficios en `DossierBox` · vacantes · `NextPage` |
+| `/contact-us/` | `HeroDossier` con CTAs · canales en tres columnas · oficinas con `DossierPhoto` · `NextPage` · `FinalCta` |
+| `/plans/` | `PlanBoard` sobre `GridPattern` · `CompareTable` · `FaqList` · `FinalCta` |
 
 ## Fotografía nueva (DEC-009)
 

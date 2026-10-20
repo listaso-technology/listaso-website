@@ -23,7 +23,7 @@ export function CustomerProof() {
         />
 
         <div data-reveal="group">
-          <SnapCarousel label={customers.reviewsLabel} variant="reviews">
+          <SnapCarousel label={customers.reviewsLabel} variant="reviews" autoPlay>
             {customers.testimonials.map((item) => (
               <Card data-reveal-item key={item.name} as="article" className={styles.reviewCard}>
                 <figure className="flex h-full flex-col gap-4">
@@ -43,26 +43,35 @@ export function CustomerProof() {
 
         {/* Logos sit on light plates in both themes: not every logo has a dark variant. */}
         <ul data-reveal="group" aria-label={customers.logosLabel} data-theme="light" className="grid grid-cols-2 gap-4 sm:grid-cols-4">
-          {customers.logos.map((logo) => (
-            <li
-              data-reveal-item
-              key={logo.type === "image" ? logo.src : logo.name}
-              className="flex min-h-24 items-center justify-center rounded-md border border-line-subtle bg-surface-page p-4 text-center"
-            >
-              {logo.type === "image" ? (
-                <Image
-                  src={logo.src}
-                  alt={logo.alt}
-                  width={Math.round((logo.width / logo.height) * 48)}
-                  height={48}
-                  className="max-h-12 w-auto max-w-full"
-                  style={{ width: "auto", height: "auto" }}
-                />
-              ) : (
-                <span className="text-body font-semibold text-fg-heading">{logo.name}</span>
-              )}
-            </li>
-          ))}
+          {customers.logos.map((logo) => {
+            const content = (
+              <Image
+                src={logo.src}
+                alt={logo.alt}
+                width={Math.round((logo.width / logo.height) * 56)}
+                height={56}
+                className={styles.logoImage}
+                style={{ width: "auto", height: "auto" }}
+              />
+            );
+
+            return (
+              <li data-reveal-item key={logo.src}>
+                {"href" in logo ? (
+                  <a
+                    href={logo.href}
+                    target="_blank"
+                    rel="nofollow noopener noreferrer"
+                    className={`${styles.logoPlate} ${styles.logoLink}`}
+                  >
+                    {content}
+                  </a>
+                ) : (
+                  <div className={styles.logoPlate}>{content}</div>
+                )}
+              </li>
+            );
+          })}
         </ul>
       </Container>
     </section>

@@ -33,7 +33,7 @@ que Erick presenta y valida en persona con developers y stakeholders. No se
 hacen pushes directos a `main`: la promoción requiere Pull Request, checks y
 autorización de Erick.
 
-La rama `qa` no forma parte de la etapa actual porque el proyecto tiene un solo
+(Reemplazado por DEC-021 el 20 de octubre de 2026.) La rama `qa` no formaba parte de la etapa inicial porque el proyecto tiene un solo
 responsable operativo y sigue siendo una propuesta. Se incorporará una etapa o
 entorno formal de QA mediante una nueva decisión cuando el equipo y la cercanía
 del lanzamiento lo justifiquen. Llegar a `main` no autoriza conectar
@@ -322,3 +322,155 @@ por página están en `docs/SECTION_VARIANTS.md`. El copy sigue siendo el de
 ("Since 2015", 400+, 2,000+, 2M+, $1.8B+) se muestra sólo en la Homepage y en
 About us. Se retiró de Products e Integrations. `MetricOdometer` se conserva
 para About us.
+
+## DEC-017 Company y Pricing: variantes "dossier" y patrón del footer animado
+
+**Estado:** Instrucción de Erick — 14 de octubre de 2026 (referencia
+ddark.dev, sólo secciones). Implementación técnica de Claude, pendiente de
+revisión.
+
+**Decisión.** `/about/`, `/industries/`, `/support/`, `/listaso-impact/`,
+`/join-us/`, `/contact-us/` y `/plans/` usan el copy de `start-version` y una
+familia de variantes "dossier" (etiquetas entre corchetes, titulares display
+en mayúsculas, cajas enmarcadas, cronologías, palabras cinéticas, canales e
+índice con vista previa). El catálogo está en `docs/SECTION_VARIANTS.md` y el
+contenido en `docs/COMPANY_PRICING_CONTENT_CONTRACT.md`.
+
+**Pricing.**
+- El patrón del footer (retícula de 72 px con brillos aqua y magenta) se
+  reconstruye con tokens semánticos (`GridPattern`), así funciona en claro y
+  en oscuro. No se modifica `SiteFooter` (Codex).
+- Movimiento: aparición única al cargar y deriva ligada al scroll (sólo
+  `translate`/`scale`). Sin bucles infinitos (QA-006); estático con
+  movimiento reducido o sin soporte de scroll-driven animations.
+- Selector mensual/anual sin JavaScript: radios nativos `#plans-monthly` y
+  `#plans-yearly` (distintos de `#billing-*` de la Homepage). El logo de SAMI
+  es la perilla y "rueda" (desplazamiento + una vuelta) hacia la opción
+  elegida; el riel es decorativo y también alterna con un clic.
+- **Pendiente:** el enlace de CodePen que Erick mencionó no llegó en el
+  mensaje. El selector es una interpretación ("en vez del oso, el logo de
+  SAMI") y se ajustará cuando se comparta el enlace.
+
+**Navegación.** `NextPage` acepta el grupo "Company" con una lista de rutas
+de esta app. En esta etapa omitía `/rating/` y `/blog/`; DEC-019 incorpora
+`/rating/` y mantiene únicamente el blog fuera de la aplicación nueva.
+
+**Restricciones.** Sin dependencias nuevas ni componentes cliente nuevos;
+Server Components por defecto; CSS Modules sólo para estados con `:has()`,
+animaciones y el patrón.
+
+## DEC-018 Skill externa de motion como referencia subordinada
+
+**Estado:** Aceptada — 15 de octubre de 2026 (instrucción de Erick). Registrada
+por Claude; revisión pendiente de Erick.
+
+**Decisión.** Se incorpora `design-motion-principles` (MIT, Kyle Zantos) en
+`.agents/skills/design-motion-principles/`, con `LICENSE.txt` y un bloque
+"Uso en Listaso" al inicio de `SKILL.md`. Es referencia para audit y revisión
+de motion; no es fuente de código ni de dependencias.
+
+**Reglas que prevalecen sobre la Skill.**
+- Sin dependencias nuevas: las recetas de Framer Motion / Motion no aplican.
+  Stack: CSS y, si se aprueba, GSAP según `listaso-gsap-motion`.
+- Audit no edita código automáticamente.
+- `prefers-reduced-motion` obligatorio; sin scroll hijacking ni bucles
+  decorativos (QA-006, DEC-017).
+- Informes HTML generados fuera del repo.
+- Hallazgos validados con `listaso-accessibility-qa` y
+  `listaso-web-performance`.
+
+**Descartadas en la misma revisión.** `taste-skill`, `image-to-code-skill`,
+`awesome-design-md`, `design-md-chrome`, OmniRoute, Headroom,
+`everything-claude-code`, Caveman y `awesome-claude-skills` (lista). Motivos en
+`docs/handoffs/2026-10-15-motion-skill.md`. `web-design-guidelines` ya estaba
+instalada y no se duplica.
+
+**Restricciones.** Sin cambios en `src/`, `public/`, dependencias, build ni
+producción; sin credenciales.
+
+## DEC-019 `/rating/` en la aplicación nueva con Site Reviews como backend
+
+**Estado:** Instrucción de Erick — 16 de octubre de 2026. Implementación de
+Codex; pendiente de revisión visual de Erick y validación de Development.
+
+**Decisión.** `/rating/` conserva su URL, metadata, copy, calificación agregada
+y reseñas publicadas de la página vigente. La presentación se adapta a la
+familia dossier ya aprobada para Company, con composición responsive y temas
+claro/oscuro. La ruta entra en la secuencia `NextPage` de Company; `/blog/`
+continúa fuera de la aplicación nueva.
+
+**Formulario.** La interfaz nueva envía el mismo conjunto de datos público
+(rating, review y name) al endpoint actual de WordPress Site Reviews. No se
+creó una reseña de prueba porque eso publicaría contenido externo. Antes del
+cutover, Development debe validar CORS, antispam, moderación, respuestas de
+error y disponibilidad del endpoint desde el dominio final.
+
+**Restricciones.** No se crea `/es/rating/`, no se migra el historial ni la
+moderación, no se inventa copy y no se cambia WordPress, producción o DNS.
+
+## DEC-020 Homepage editorial (19 de octubre de 2026) y logo core "Listaso"
+
+**Estado:** Instrucción de Erick — 19 de octubre de 2026. Implementación de
+Claude en `feat/homepage`, sin commit; pendiente de revisión visual de Erick.
+
+**Copy.** El encargo del 19 de octubre reemplaza, sólo en la Homepage, el copy
+aprobado en DEC-013 para hero, workflow, SAMI, Support y Customers. Se
+normalizaron tres erratas del texto original sin cambiar su sentido: "from" →
+"for Growing Businesses", "Platforn" → "Platform" y "team work" → "team
+works". El detalle vive en `docs/HOME_CONTENT_CONTRACT.md`.
+
+**Metadata.** Title y description se alinearon con la nueva propuesta de
+valor usando sólo frases del copy aprobado (eyebrow y descripción del hero) y
+la mención a integraciones que ya existía.
+
+**Orden de la Homepage.** Hero, cifras, workflow de 4 pasos (`#solutions`),
+SAMI, Support, capacidades (`HomeCapabilities`, nuevo), Customers, Pricing y
+banda final.
+
+**CTA.** "Book a Demo" en header, menú móvil y hero; los eventos y ubicaciones
+de analytics no cambian. "Explore Our Solutions" deja `/join-us/` y apunta a
+`#solutions`. Los CTA de demo de Pricing ("Book a demo") y de la banda final
+("Book a free demo"), y los de otras páginas, no se tocaron: quedan registrados
+como inconsistencia pendiente de decisión.
+
+**Logo core.** Header, footer y lockups usan los SVG "Listaso" entregados por
+Erick (`~/Downloads/1x`), copiados byte a byte como `listaso-logo-*` y
+registrados en `src/content/brand/assets.ts`. Los lockups anteriores
+"Listaso Technology" quedan como `legacy`. Nombre accesible: "Listaso home".
+SAMI, productos, clientes y terceros no cambian.
+
+**Tipografía.** Se añade `--text-h2-compact` (32 → 36 px) porque la escala no
+tenía un paso de ~36 px. Lo usan el H2 de SAMI y el índice de Support; "First
+response" usa `text-body` (16 px).
+
+**Cifras.** `ProofStrip` y `MetricOdometer` (About) comparten
+`ProofCards.module.css` y el orden de tonos de `proofTones.ts`: tintes de
+roles semánticos (aqua, azul, navy, magenta), sin vidrio ni animación nueva.
+
+**Pendientes registrados.**
+- **SAMI:** Development/Producto confirman el destino de activación del
+  trial (hoy `/sami/`) y la convivencia de "Start your 15-day free trial" con
+  "first month free", que sigue visible en la misma Homepage (add-on de
+  Pricing, compartido con `/plans/`) y en `/sami/`.
+- **H2 de capacidades:** "More Listaso capabilities" es provisional y visualmente
+  oculto; falta título editorial.
+- **ES/EN:** el selector queda bloqueado por falta de paridad
+  (`docs/I18N_SWITCH_PLAN.md`).
+- **Logo:** el navy del wordmark difiere entre archivos (#00375B horizontal,
+  #003F69 "stacked"); los archivos "stacked" muestran símbolo y wordmark en una
+  línea. Confirmar con Marketing.
+
+## DEC-021 Tres ramas permanentes: dev, qa y main
+
+**Estado:** Aprobada por Erick — 20 de octubre de 2026. Reemplaza DEC-004.
+
+Sólo existen tres ramas: `dev`, `qa` y `main`. El flujo es
+`dev -> qa -> main`, siempre mediante Pull Request con el check `CI / Quality`.
+No se crean ramas `feat/*`, `ux/*`, `fix/*`, `chore/*` ni `docs/*`; el trabajo
+se integra en `dev`. Las ramas de trabajo existentes se eliminan una vez
+integradas. `main` mantiene la ruleset "Protect main" (PR con una aprobación,
+sin borrado ni force push) y no hay push directo. Llegar a `main` no autoriza
+conectar `listaso.com`, cambiar DNS ni sustituir producción.
+
+**Cloudflare.** Los previews automáticos se limitan a `dev` y `qa`; revisar en
+Branch control que ya no dependan de los patrones `feat/*`, `ux/*`, etc.

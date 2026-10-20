@@ -2,18 +2,33 @@ import Image from "next/image";
 import { Icon } from "@/components/icons/Icon";
 import { Container } from "@/components/layout/Container";
 import { TextLink } from "@/components/ui/TextLink";
-import { howItWorks } from "@/content/home/en";
-import { homeMedia } from "@/content/media/placeholders";
+import { howItWorks, solutionsAnchor } from "@/content/home/en";
+import { productMedia } from "@/content/media/products";
 import { SectionHeader } from "../SectionHeader";
 import styles from "./HowItWorks.module.css";
 
-/** Order-to-payment flow: four connected steps plus related capabilities. */
+/**
+ * Sales-to-delivery workflow: four steps read as one connected flow. A rail
+ * links the step numbers; HomeMotion fills it and syncs the sticky photo and
+ * caption on wide screens. Without JavaScript or with reduced motion every
+ * step stays fully visible and the rail is drawn complete.
+ */
 export function HowItWorks() {
-  const photo = homeMedia.operationsShelving;
+  const stepPhotos = [
+    productMedia.preSalesTablet,
+    productMedia.inventoryFloor,
+    productMedia.deliveryHandTruck,
+    productMedia.backOfficeDashboards,
+  ];
 
   return (
-    <section aria-labelledby="how-title" data-story-section className={`${styles.section} py-16 lg:py-24`}>
-      <Container className="flex flex-col gap-12">
+    <section
+      id={solutionsAnchor}
+      aria-labelledby="how-title"
+      data-story-section
+      className={`${styles.section} scroll-mt-20 py-16 lg:py-20`}
+    >
+      <Container className="flex flex-col gap-10 lg:gap-12">
         <SectionHeader
           id="how-title"
           eyebrow={howItWorks.eyebrow}
@@ -24,14 +39,23 @@ export function HowItWorks() {
         <div data-flow-root data-active-step="0" className={styles.storyGrid}>
           <div className={styles.visualColumn}>
             <figure data-reveal="media" className={styles.visualFrame}>
-              <Image
-                src={photo.src}
-                alt={photo.alt}
-                width={photo.width}
-                height={photo.height}
-                sizes="(max-width: 1023px) 92vw, 42vw"
-                className={styles.visualImage}
-              />
+              {stepPhotos.map((photo, index) => (
+                <span
+                  key={photo.src}
+                  aria-hidden="true"
+                  data-flow-image={index}
+                  className={styles.visualImageLayer}
+                >
+                  <Image
+                    src={photo.src}
+                    alt=""
+                    width={photo.width}
+                    height={photo.height}
+                    sizes="(max-width: 1023px) 92vw, 40vw"
+                    className={styles.visualImage}
+                  />
+                </span>
+              ))}
               <div aria-hidden="true" className={styles.visualScrim} />
 
               <figcaption className={styles.visualCaption}>
@@ -57,16 +81,18 @@ export function HowItWorks() {
           <ol className={styles.chapterList}>
             {howItWorks.steps.map((step, index) => (
               <li data-flow-step={index} data-reveal="fade" key={step.title} className={styles.chapter}>
-                <div className={styles.chapterHeading}>
-                  <span aria-hidden="true" className={styles.chapterNumber}>
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className={styles.chapterIcon}>
-                    <Icon name={step.icon} size={20} />
-                  </span>
-                </div>
+                <span aria-hidden="true" className={styles.chapterNode}>
+                  {String(index + 1).padStart(2, "0")}
+                </span>
                 <div className={styles.chapterBody}>
-                  <h3 className="text-h3 font-semibold text-balance text-fg-heading">{step.title}</h3>
+                  <div className="flex items-start gap-3">
+                    <span className={styles.chapterIcon}>
+                      <Icon name={step.icon} size={24} />
+                    </span>
+                    <h3 className="pt-1 text-h4 font-semibold text-balance text-fg-heading lg:text-h3">
+                      {step.title}
+                    </h3>
+                  </div>
                   <p className="max-w-xl text-body text-fg-muted">{step.text}</p>
                   <TextLink
                     href={step.link.href}
@@ -82,25 +108,6 @@ export function HowItWorks() {
             ))}
           </ol>
         </div>
-
-        <ul data-reveal="group" className={styles.capabilityGrid}>
-          {howItWorks.more.map((item) => (
-            <li data-reveal-item key={item.link.href} className={styles.capabilityItem}>
-              <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-surface-soft text-icon-accent">
-                <Icon name={item.icon} size={20} />
-              </span>
-              <div className="flex flex-col gap-2">
-                <p className="text-body text-fg-muted">
-                  <strong className="font-semibold text-fg-default">{item.lead}</strong> {item.text}
-                </p>
-                <TextLink href={item.link.href} className="w-fit">
-                  {item.link.label}
-                  <Icon name="arrow-right" size={16} className="self-center" />
-                </TextLink>
-              </div>
-            </li>
-          ))}
-        </ul>
       </Container>
     </section>
   );

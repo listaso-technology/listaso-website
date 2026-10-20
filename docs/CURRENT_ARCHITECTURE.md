@@ -69,8 +69,9 @@ en lint, tipos o build, y no es source of truth automático para contenido.
 
 ## Deployment
 
-**Ramas.** `dev` integra el trabajo activo y `main` conserva la propuesta
-estable para las validaciones presenciales. No hay rama `qa` en esta etapa.
+**Ramas.** Sólo `dev`, `qa` y `main` (DEC-021). `dev` integra el trabajo
+activo, `qa` valida y `main` conserva la propuesta estable para las
+validaciones presenciales.
 `main` no implica todavía un cutover productivo: el dominio y DNS no se
 modifican hasta una autorización posterior de Erick.
 

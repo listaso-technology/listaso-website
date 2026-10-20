@@ -267,6 +267,9 @@
   --text-h1--line-height: 1.15;
   --text-h2: clamp(2rem, 3vw + 1rem, 3rem);
   --text-h2--line-height: 1.2;
+  /* About 36px on tablet and desktop: compact H2 and large figures (DEC-020). */
+  --text-h2-compact: clamp(2rem, 1vw + 1.75rem, 2.25rem);
+  --text-h2-compact--line-height: 1.2;
   --text-h3: 1.5rem;
   --text-h3--line-height: 2rem;
   --text-h4: 1.25rem;
