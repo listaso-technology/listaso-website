@@ -88,7 +88,8 @@ el panel. No se requieren secretos para la foundation actual.
 ### Branch control
 
 - Producción temporal: `main` en `*.pages.dev`.
-- Preview automático: `dev`, `feat/*`, `ux/*`, `fix/*`, `chore/*` y `docs/*`.
+- Preview automático: `dev` y `qa` (DEC-021; ya no se usan ramas `feat/*`,
+  `ux/*`, `fix/*`, `chore/*` ni `docs/*`).
 - No conectar `listaso.com` ni agregar un custom domain.
 - `main` continúa siendo una propuesta estable; el término “Production” de
   Cloudflare sólo identifica su branch principal dentro de Pages.

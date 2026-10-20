@@ -33,7 +33,7 @@ que Erick presenta y valida en persona con developers y stakeholders. No se
 hacen pushes directos a `main`: la promoción requiere Pull Request, checks y
 autorización de Erick.
 
-La rama `qa` no forma parte de la etapa actual porque el proyecto tiene un solo
+(Reemplazado por DEC-021 el 20 de octubre de 2026.) La rama `qa` no formaba parte de la etapa inicial porque el proyecto tiene un solo
 responsable operativo y sigue siendo una propuesta. Se incorporará una etapa o
 entorno formal de QA mediante una nueva decisión cuando el equipo y la cercanía
 del lanzamiento lo justifiquen. Llegar a `main` no autoriza conectar
@@ -459,3 +459,18 @@ roles semánticos (aqua, azul, navy, magenta), sin vidrio ni animación nueva.
 - **Logo:** el navy del wordmark difiere entre archivos (#00375B horizontal,
   #003F69 "stacked"); los archivos "stacked" muestran símbolo y wordmark en una
   línea. Confirmar con Marketing.
+
+## DEC-021 Tres ramas permanentes: dev, qa y main
+
+**Estado:** Aprobada por Erick — 20 de octubre de 2026. Reemplaza DEC-004.
+
+Sólo existen tres ramas: `dev`, `qa` y `main`. El flujo es
+`dev -> qa -> main`, siempre mediante Pull Request con el check `CI / Quality`.
+No se crean ramas `feat/*`, `ux/*`, `fix/*`, `chore/*` ni `docs/*`; el trabajo
+se integra en `dev`. Las ramas de trabajo existentes se eliminan una vez
+integradas. `main` mantiene la ruleset "Protect main" (PR con una aprobación,
+sin borrado ni force push) y no hay push directo. Llegar a `main` no autoriza
+conectar `listaso.com`, cambiar DNS ni sustituir producción.
+
+**Cloudflare.** Los previews automáticos se limitan a `dev` y `qa`; revisar en
+Branch control que ya no dependan de los patrones `feat/*`, `ux/*`, etc.

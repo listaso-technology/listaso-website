@@ -113,18 +113,20 @@ variables o infraestructura requieren validación de Development.
 Flujo aprobado:
 
 ```text
-feat/*, ux/*, fix/*, chore/* o docs/*
-    -> dev
-    -> main
+dev -> qa -> main
 ```
 
+**Sólo existen tres ramas permanentes: `dev`, `qa` y `main` (DEC-021).** No se
+crean ramas `feat/*`, `ux/*`, `fix/*`, `chore/*` ni `docs/*`; el trabajo se
+integra en `dev`. Una rama de trabajo temporal sólo se admite con autorización
+explícita de Erick y se elimina al hacer merge.
+
 - `dev` integra el trabajo activo.
+- `qa` valida lo promovido desde `dev` antes de `main`.
 - `main` conserva la propuesta estable para validación presencial con
   developers y stakeholders.
-- No hacer push directo a `main`; promover mediante Pull Request, checks y
-  autorización de Erick.
-- No hay rama `qa` en esta etapa. Una etapa formal de QA se añadirá sólo mediante
-  una nueva decisión.
+- Promover sólo mediante Pull Request (`dev` -> `qa` -> `main`), checks y
+  autorización de Erick. Nunca push directo a `main`.
 - Un agente implementa cada alcance; el otro revisa o trabaja aparte.
 - GitHub Actions valida lint, typecheck, tests aplicables y production build.
 - Cloudflare crea previews/branch deployments y publica desde `main` cuando se
