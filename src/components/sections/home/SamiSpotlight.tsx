@@ -19,14 +19,12 @@ export function SamiSpotlight() {
         <div data-reveal="group" className="flex flex-col gap-6">
           <div data-reveal-item className="flex flex-wrap items-center gap-4">
             <SamiLogoMark alt={sami.logoAlt} />
-            <p className="flex flex-wrap items-center gap-2">
-              <span className="rounded-full bg-action-primary px-3 py-1 text-caption font-bold uppercase text-fg-on-action">
-                {sami.badge.tag}
-              </span>
-              <span className="text-eyebrow font-bold uppercase text-fg-accent">{sami.badge.label}</span>
+            <p className="flex flex-col gap-1 text-eyebrow font-bold uppercase sm:flex-row sm:items-center sm:gap-2">
+              <span className="text-fg-heading">{sami.badge.primary}</span>
+              <span className="text-fg-accent">{sami.badge.accent}</span>
             </p>
           </div>
-          <h2 id="sami-title" data-reveal="mask" className="overflow-hidden text-h2 text-balance text-fg-heading">
+          <h2 id="sami-title" data-reveal="mask" className="overflow-hidden text-h2-compact text-balance text-fg-heading">
             <span data-reveal-content className="block"><Signature text={sami.title} /></span>
           </h2>
           <p data-reveal-item className="text-lead text-fg-muted">{sami.lead}</p>

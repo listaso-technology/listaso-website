@@ -46,7 +46,9 @@ const contents = [
   ["inventario", "Activos temporales e históricos"],
 ] as const;
 
-const masterLogos = brandAssets.filter((asset) => asset.product === "Listaso");
+const masterLogos = brandAssets.filter(
+  (asset) => asset.product === "Listaso" && asset.status === "active",
+);
 const productLogos = brandAssets.filter(
   (asset) => asset.product !== "Listaso" && asset.product !== "SAMI" && asset.status !== "discontinued",
 );
@@ -64,10 +66,10 @@ export default function FoundationPage() {
     <main lang="es" className="mx-auto flex max-w-content flex-col gap-12 px-4 py-12 md:px-6 lg:px-8 lg:py-16">
       <header className="flex flex-col gap-6">
         <ThemedLogo
-          light="listaso-horizontal-navy"
-          dark="listaso-horizontal-white"
+          light="listaso-stacked-navy"
+          dark="listaso-stacked-white"
           height={40}
-          alt="Listaso Technology"
+          alt="Listaso"
           priority
         />
         <p className="text-eyebrow font-bold uppercase text-fg-accent">Revisión interna · Chat 5</p>

@@ -91,7 +91,7 @@ export const plans = {
       text: "Everything in Professional, plus lots and expiration dates, multi-bin and truck loading",
     },
   ],
-  cta: { href: "/plans/", label: "Compare plans" },
+  cta: { href: "/plans/", label: "Compare Plans" },
 } as const;
 
 export const related = ["delivery", "direct-sales", "back-office"] as const;

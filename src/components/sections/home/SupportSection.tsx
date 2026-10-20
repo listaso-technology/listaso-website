@@ -16,7 +16,11 @@ export function SupportSection() {
 
         <div data-reveal="group" className="grid gap-12 lg:grid-cols-[1.3fr_1fr]">
           <div data-reveal-item className="min-w-0 flex flex-col gap-6">
-            <SnapCarousel label={support.table.columns.join(": ")} variant="support">
+            <SnapCarousel
+              label={support.table.columns.join(": ")}
+              variant="support"
+              autoPlay
+            >
               {support.table.rows.map((row, index) => (
                 <article className={styles.responseCard} key={row.level}>
                   <div className={styles.cardIndex} aria-hidden="true">

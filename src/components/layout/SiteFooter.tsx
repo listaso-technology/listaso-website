@@ -25,9 +25,9 @@ export function SiteFooter() {
             <div className={styles.brandColumn}>
               <Link href="/" className={styles.logoLink}>
                 <ThemedLogo
-                  light="listaso-horizontal-navy"
-                  dark="listaso-horizontal-white"
-                  height={32}
+                  light="listaso-stacked-navy"
+                  dark="listaso-stacked-white"
+                  height={40}
                   alt={headerLabels.homeLink}
                 />
               </Link>

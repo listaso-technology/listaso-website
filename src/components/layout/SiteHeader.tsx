@@ -160,9 +160,9 @@ export function SiteHeader() {
       <Container width="wide" className="relative flex min-h-18 items-center justify-between gap-4">
         <Link href="/" className="inline-flex min-h-12 shrink-0 items-center">
           <ThemedLogo
-            light="listaso-horizontal-navy"
-            dark="listaso-horizontal-white"
-            height={28}
+            light="listaso-stacked-navy"
+            dark="listaso-stacked-white"
+            height={32}
             alt={headerLabels.homeLink}
             priority
           />

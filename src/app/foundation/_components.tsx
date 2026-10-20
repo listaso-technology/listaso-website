@@ -121,7 +121,7 @@ export function ThemeSample({ theme }: { theme: "light" | "dark" }) {
       className="flex flex-col gap-6 rounded-lg border border-line-subtle bg-surface-page p-6"
     >
       <div className="flex flex-col gap-4">
-        <ThemedLogo light="listaso-horizontal-navy" dark="listaso-horizontal-white" height={28} alt="Listaso Technology" />
+        <ThemedLogo light="listaso-stacked-navy" dark="listaso-stacked-white" height={28} alt="Listaso" />
         <p className="text-eyebrow font-bold uppercase text-fg-accent">Tema {name}</p>
         <h3 className="text-h4 font-semibold text-fg-heading">Superficie y texto</h3>
         <p className="text-body text-fg-default">

@@ -2,6 +2,8 @@ import { Fragment, type CSSProperties } from "react";
 import { Container } from "@/components/layout/Container";
 import { proof } from "@/content/home/en";
 import { cx } from "@/lib/utils/cx";
+import proofCards from "../ProofCards.module.css";
+import { proofTone } from "../proofTones";
 import styles from "./MetricOdometer.module.css";
 
 const DIGITS = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
@@ -68,15 +70,19 @@ export function MetricOdometer({ tone = "alt", className }: MetricOdometerProps)
       )}
     >
       <Container width="wide">
-        <ul data-reveal="group" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
+        {/* 2 columns, then 3 + 2 on laptops, then one row of 5 on wide screens. */}
+        <ul data-reveal="group" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-6 xl:grid-cols-5">
           {proof.items.map((item, index) => (
             <li
               data-reveal-item
               key={item.value}
+              data-tone={tone === "band" ? undefined : proofTone(index)}
               className={cx(
-                "flex min-h-48 flex-col justify-between gap-8 rounded-lg border border-line-subtle p-6",
-                tone === "band" ? "bg-surface-band" : "bg-surface-raised",
-                index === 0 && "sm:col-span-2 lg:col-span-1",
+                "flex min-h-48 flex-col justify-between gap-8 p-6",
+                tone === "band" ? "rounded-lg border border-line-subtle bg-surface-band" : proofCards.card,
+                index === 0 && "sm:col-span-2",
+                index < 3 ? "lg:col-span-2" : "lg:col-span-3",
+                "xl:col-span-1",
               )}
             >
               <span aria-hidden="true" className="text-small font-bold text-fg-accent">
@@ -84,7 +90,7 @@ export function MetricOdometer({ tone = "alt", className }: MetricOdometerProps)
               </span>
               <span className="flex flex-col gap-3">
                 <OdometerValue value={item.value} />
-                <span className="text-small text-fg-muted">{item.label}</span>
+                <span className={tone === "band" ? "text-small text-fg-muted" : proofCards.label}>{item.label}</span>
               </span>
             </li>
           ))}
