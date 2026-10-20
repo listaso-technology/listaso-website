@@ -1,0 +1,106 @@
+/*
+ * Section backdrops. The layered gradients are too long for utilities, so
+ * they live in this module. Colors come from the brand primitives; the only
+ * magenta is one soft radial inside a navy mesh (brand-foundations.md).
+ * Only the SAMI canvas has slow transform-only ambient movement. The gradients
+ * themselves and every backdrop filter remain static.
+ */
+
+/*
+ * Color hotspots sit on the right and bottom, behind illustrations and glass
+ * panels. Alphas are capped so that even text placed right over a hotspot
+ * (stacked mobile layouts) passes AA. Worst case is the aqua center: #b9cbe0
+ * 4.7:1, #5fe6d6 5.3:1, white 7.3:1.
+ */
+.brandMesh {
+  background:
+    radial-gradient(45% 60% at 92% 92%, rgb(0 189 169 / 0.32), transparent 70%),
+    radial-gradient(40% 55% at 95% 5%, rgb(255 58 106 / 0.3), transparent 70%),
+    radial-gradient(60% 70% at 50% 110%, rgb(9 96 255 / 0.36), transparent 70%),
+    linear-gradient(160deg, #071e3a, var(--listaso-navy) 55%, #0a2a4a);
+}
+
+.samiCanvas {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(40% 60% at 15% 25%, rgb(0 55 91 / 0.94), transparent 70%),
+    radial-gradient(40% 60% at 85% 75%, rgb(9 96 255 / 0.36), transparent 70%),
+    var(--listaso-surface-page);
+}
+
+.samiCanvas::before,
+.samiCanvas::after {
+  position: absolute;
+  z-index: -1;
+  width: min(46vw, 38rem);
+  aspect-ratio: 1;
+  pointer-events: none;
+  border-radius: 50%;
+  content: "";
+  will-change: transform;
+}
+
+.samiCanvas::before {
+  top: -30%;
+  left: -12%;
+  background: radial-gradient(
+    circle at 36% 34%,
+    rgb(95 230 214 / 0.38),
+    rgb(9 96 255 / 0.18) 42%,
+    transparent 72%
+  );
+  animation: sami-orbit-a 16s var(--listaso-ease-standard) infinite alternate;
+}
+
+.samiCanvas::after {
+  right: -12%;
+  bottom: -42%;
+  background: radial-gradient(
+    circle at 58% 44%,
+    rgb(255 58 106 / 0.26),
+    rgb(9 96 255 / 0.2) 44%,
+    transparent 72%
+  );
+  animation: sami-orbit-b 19s var(--listaso-ease-standard) infinite alternate;
+}
+
+.samiCanvas > * {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes sami-orbit-a {
+  from { transform: translate3d(-4%, -2%, 0) scale(0.94); }
+  to { transform: translate3d(14%, 10%, 0) scale(1.08); }
+}
+
+@keyframes sami-orbit-b {
+  from { transform: translate3d(6%, 8%, 0) scale(1.06); }
+  to { transform: translate3d(-12%, -8%, 0) scale(0.92); }
+}
+
+.photoScrim {
+  background: linear-gradient(180deg, transparent 42%, rgb(0 18 34 / 0.58) 100%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .samiCanvas::before,
+  .samiCanvas::after {
+    animation: none;
+    transform: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .brandMesh,
+  .samiCanvas {
+    background: Canvas;
+  }
+
+  .samiCanvas::before,
+  .samiCanvas::after {
+    display: none;
+  }
+}

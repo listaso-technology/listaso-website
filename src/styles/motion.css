@@ -1,0 +1,116 @@
+/*
+ * Motion tokens (DEC-008). Motion supports hierarchy, feedback or continuity
+ * only: no scroll hijacking, no animated backdrop-filter, and content is never
+ * hidden while waiting for an animation. GSAP is not part of this stage.
+ */
+:root {
+  --listaso-duration-fast: 150ms;
+  --listaso-duration-standard: 250ms;
+  --listaso-duration-slow: 400ms;
+  --listaso-ease-standard: cubic-bezier(0.2, 0, 0, 1);
+  --listaso-ease-enter: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --listaso-ease-exit: cubic-bezier(0.4, 0, 1, 1);
+}
+
+/*
+ * Homepage reveals are progressive enhancement. The hidden state exists only
+ * after HomeMotion confirms IntersectionObserver support and motion consent.
+ */
+.home-motion-ready [data-reveal="mask"] > [data-reveal-content],
+.home-motion-ready [data-reveal="group"] [data-reveal-item],
+.home-motion-ready [data-reveal="fade"],
+.home-motion-ready [data-reveal="media"] {
+  transition-timing-function: var(--listaso-ease-enter);
+}
+
+.home-motion-ready [data-reveal="fade"] {
+  transition-duration: 500ms;
+  transition-property: opacity, transform;
+}
+
+.home-motion-ready [data-reveal="fade"]:not([data-revealed="true"]) {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.home-motion-ready [data-reveal="mask"] > [data-reveal-content] {
+  transition-duration: 700ms;
+  transition-property: opacity, filter, transform;
+  opacity: 1;
+  filter: blur(0);
+}
+
+.home-motion-ready [data-reveal="mask"]:not([data-revealed="true"]) > [data-reveal-content] {
+  opacity: 0;
+  filter: blur(8px);
+  transform: translateY(108%);
+}
+
+.home-motion-ready [data-reveal="group"] [data-reveal-item] {
+  transition-duration: 560ms;
+  transition-property: opacity, filter, transform;
+  filter: blur(0);
+}
+
+.home-motion-ready [data-reveal="group"]:not([data-revealed="true"]) [data-reveal-item] {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateY(18px);
+}
+
+.home-motion-ready [data-reveal="group"][data-revealed="true"] [data-reveal-item]:nth-child(2) {
+  transition-delay: 60ms;
+}
+
+.home-motion-ready [data-reveal="group"][data-revealed="true"] [data-reveal-item]:nth-child(3) {
+  transition-delay: 120ms;
+}
+
+.home-motion-ready [data-reveal="group"][data-revealed="true"] [data-reveal-item]:nth-child(4) {
+  transition-delay: 180ms;
+}
+
+.home-motion-ready [data-reveal="group"][data-revealed="true"] [data-reveal-item]:nth-child(n + 5) {
+  transition-delay: 240ms;
+}
+
+.home-motion-ready [data-reveal="media"] {
+  transition-duration: 820ms;
+  transition-property: opacity, transform;
+}
+
+.home-motion-ready [data-reveal="media"]:not([data-revealed="true"]) {
+  opacity: 0;
+  transform: translateY(20px) scale(1.025);
+}
+
+/*
+ * Reduced motion: movement is removed and transitions shrink to an instant
+ * state change. Components should also gate transforms behind Tailwind's
+ * `motion-safe:` variant.
+ */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --listaso-duration-fast: 0.01ms;
+    --listaso-duration-standard: 0.01ms;
+    --listaso-duration-slow: 0.01ms;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  [data-reveal-content],
+  [data-reveal-item],
+  [data-reveal="media"] {
+    clip-path: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

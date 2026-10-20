@@ -1,0 +1,91 @@
+@layer components {
+  .reviewCard {
+    min-height: 23rem;
+    transition:
+      transform var(--listaso-duration-standard) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      box-shadow var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .logoPlate {
+    display: flex;
+    min-height: 7rem;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-md);
+    background: var(--listaso-surface-page);
+    text-align: center;
+  }
+
+  .logoLink {
+    color: var(--listaso-text-heading);
+    text-decoration: none;
+    transition:
+      transform var(--listaso-duration-standard) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      box-shadow var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .logoImage {
+    display: block;
+    width: auto;
+    max-width: 100%;
+    height: auto;
+    max-height: 3.5rem;
+    object-fit: contain;
+    transition: transform var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .logoLink:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 3px;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .logoLink:hover {
+      transform: translateY(-4px);
+      border-color: var(--listaso-text-accent);
+      box-shadow: var(--listaso-shadow-e1);
+    }
+
+    .logoLink:hover .logoImage {
+      transform: scale(1.04);
+    }
+  }
+
+  .reviewCard:hover,
+  .reviewCard:focus-within {
+    transform: translateY(-4px);
+    border-color: var(--listaso-text-accent);
+    box-shadow: var(--listaso-shadow-e2);
+  }
+
+  @media (min-width: 48rem) {
+    .reviewCard {
+      min-height: 25rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .reviewCard {
+      transition: none;
+    }
+
+    .reviewCard:hover,
+    .reviewCard:focus-within {
+      transform: none;
+    }
+
+    .logoLink,
+    .logoImage {
+      transition: none;
+    }
+
+    .logoLink:hover,
+    .logoLink:hover .logoImage {
+      transform: none;
+    }
+  }
+}

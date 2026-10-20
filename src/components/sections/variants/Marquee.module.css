@@ -1,0 +1,78 @@
+/*
+ * Scroll-linked marquee. Rows move only while the visitor scrolls (CSS
+ * scroll-driven animation, transform only), so there is no autoplay to pause
+ * (WCAG 2.2.2). Without support or with reduced motion, the first row wraps
+ * as a static list and the decorative copies are hidden.
+ */
+.marquee {
+  overflow: hidden;
+}
+
+.track {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  width: max-content;
+  gap: 0.75rem;
+}
+
+.copy,
+.secondRow {
+  display: none;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .copy {
+      display: flex;
+      align-items: center;
+    }
+
+    .secondRow {
+      display: block;
+    }
+
+    .track {
+      flex-wrap: nowrap;
+      animation: slide linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+
+    .reverse {
+      animation-name: slide-reverse;
+    }
+  }
+}
+
+@supports not (animation-timeline: view()) {
+  .track {
+    width: auto;
+    flex-wrap: wrap;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track {
+    width: auto;
+    flex-wrap: wrap;
+  }
+}
+
+@keyframes slide {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: -35% 0;
+  }
+}
+
+@keyframes slide-reverse {
+  from {
+    translate: -35% 0;
+  }
+  to {
+    translate: 0 0;
+  }
+}

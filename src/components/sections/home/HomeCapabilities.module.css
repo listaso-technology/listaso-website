@@ -1,0 +1,282 @@
+/*
+ * Expandable capability cards (reference: flexible expanding panels). Native
+ * <details>: narrow screens stack an accordion; wide screens place the four
+ * cards in one bounded row where the open card takes most of the width.
+ * Only flex-grow, color and opacity transition; nothing animates filters.
+ */
+@layer components {
+  .group {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .card {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-lg);
+    background: var(--listaso-surface-alt);
+    transition:
+      background-color var(--listaso-duration-fast) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-fast) var(--listaso-ease-standard);
+  }
+
+  .card[open] {
+    border-color: color-mix(in srgb, var(--listaso-text-accent) 45%, var(--listaso-border-subtle));
+    background:
+      radial-gradient(70% 90% at 100% 0%, rgb(0 189 169 / 0.16), transparent 70%),
+      linear-gradient(150deg, var(--listaso-surface-soft), var(--listaso-surface-raised) 72%);
+    box-shadow: var(--listaso-shadow-e2);
+  }
+
+  .summary {
+    display: flex;
+    min-height: 4.5rem;
+    cursor: pointer;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1rem;
+    list-style: none;
+    border-radius: inherit;
+  }
+
+  .summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .summary:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: -4px;
+  }
+
+  .icon {
+    display: grid;
+    width: 3.5rem;
+    height: 3.5rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: var(--listaso-radius-md);
+    background: var(--listaso-surface-soft);
+    color: var(--listaso-icon-accent);
+  }
+
+  .card[open] .icon {
+    background: var(--listaso-text-heading);
+    color: var(--listaso-surface-page);
+  }
+
+  .title {
+    flex: 1;
+    min-width: 0;
+    color: var(--listaso-text-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.75rem;
+    text-wrap: balance;
+  }
+
+  .chevron {
+    flex-shrink: 0;
+    color: var(--listaso-text-muted);
+    transform: rotate(90deg);
+    transition: transform var(--listaso-duration-fast) var(--listaso-ease-standard);
+  }
+
+  .card[open] .chevron {
+    transform: rotate(-90deg);
+  }
+
+  .watermark {
+    display: none;
+  }
+
+  .panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0 1.25rem 1.5rem;
+  }
+
+  .lead {
+    color: var(--listaso-text-default);
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.75rem;
+  }
+
+  .autoplayControls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding-top: 1rem;
+  }
+
+  .autoplayButton {
+    min-height: 3rem;
+    cursor: pointer;
+    padding-inline: 1rem;
+    border: 1px solid var(--listaso-border-control);
+    border-radius: var(--listaso-radius-full);
+    color: var(--listaso-text-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+
+  .autoplayButton:hover {
+    border-color: var(--listaso-text-accent);
+    background: var(--listaso-surface-soft);
+  }
+
+  .autoplayButton:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 3px;
+  }
+
+  .autoplayPosition {
+    color: var(--listaso-text-muted);
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.08em;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .card:not([open]):hover {
+      border-color: var(--listaso-border-control);
+      background: var(--listaso-surface-soft);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .group {
+      display: flex;
+      height: 20rem;
+      gap: 1rem;
+    }
+
+    .card {
+      flex: 1 1 0;
+      min-width: 0;
+      transition:
+        flex-grow var(--listaso-duration-slow) var(--listaso-ease-enter),
+        background-color var(--listaso-duration-fast) var(--listaso-ease-standard),
+        border-color var(--listaso-duration-fast) var(--listaso-ease-standard);
+    }
+
+    .card[open] {
+      flex-grow: 2.6;
+    }
+
+    /*
+     * Collapsed card: the summary fills the card (icon on top, title at the
+     * bottom). Absolute positioning avoids relying on percentage heights
+     * inside the <details> internal layout box.
+     */
+    .card:not([open]) .summary {
+      position: absolute;
+      inset: 0;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 1.25rem;
+    }
+
+    .card:not([open]) .title {
+      flex: none;
+      font-size: 1.125rem;
+      line-height: 1.5rem;
+      hyphens: auto;
+    }
+
+    .card[open] .summary {
+      padding: 2rem 2rem 1rem;
+    }
+
+    .card[open] .title {
+      font-size: 1.5rem;
+      line-height: 2rem;
+    }
+
+    .chevron {
+      display: none;
+    }
+
+    .watermark {
+      position: absolute;
+      z-index: -1;
+      right: 1.5rem;
+      bottom: 1.5rem;
+      display: block;
+      width: 6rem;
+      height: 6rem;
+      color: var(--listaso-text-accent);
+      opacity: 0.12;
+    }
+
+    .panel {
+      max-width: 34rem;
+      padding: 0 8rem 2rem 2rem;
+      animation: capability-panel-in 320ms var(--listaso-ease-enter) 80ms both;
+    }
+
+    @media (hover: hover) and (pointer: fine) {
+      .card:not([open]):hover {
+        flex-grow: 1.2;
+      }
+    }
+  }
+
+  @media (min-width: 80rem) {
+    .card[open] {
+      flex-grow: 3.2;
+    }
+
+    .card:not([open]) .summary {
+      padding: 1.5rem;
+    }
+
+    .card:not([open]) .title {
+      font-size: 1.25rem;
+      line-height: 1.75rem;
+    }
+  }
+
+  @keyframes capability-panel-in {
+    from {
+      opacity: 0;
+      transform: translateY(0.5rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card,
+    .chevron {
+      transition: none;
+    }
+
+    .panel {
+      animation: none;
+    }
+
+    .autoplayControls {
+      display: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .card,
+    .card[open] {
+      border: 1px solid CanvasText;
+      background: Canvas;
+      box-shadow: none;
+    }
+
+    .card[open] .icon {
+      border: 2px solid CanvasText;
+      background: Canvas;
+      color: CanvasText;
+    }
+  }
+}

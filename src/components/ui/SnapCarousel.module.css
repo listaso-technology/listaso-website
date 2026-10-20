@@ -1,0 +1,182 @@
+@layer components {
+  .root {
+    min-width: 0;
+  }
+
+  .track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: min(86vw, 22rem);
+    gap: 1rem;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    padding: 0.25rem 0.25rem 1rem;
+    scroll-padding-inline: 0.25rem;
+    scroll-snap-type: inline mandatory;
+    scrollbar-width: none;
+    touch-action: pan-x pan-y;
+  }
+
+  .track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .track:focus-visible {
+    border-radius: var(--listaso-radius-md);
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 4px;
+  }
+
+  .item {
+    min-width: 0;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .item > * {
+    height: 100%;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding-top: 0.5rem;
+  }
+
+  .control {
+    display: inline-grid;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+    place-items: center;
+    border: 1px solid var(--listaso-border-control);
+    border-radius: 999px;
+    background: var(--listaso-surface-raised);
+    color: var(--listaso-text-heading);
+    box-shadow: var(--listaso-shadow-e1);
+    transition:
+      transform var(--listaso-duration-fast) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-fast) var(--listaso-ease-standard),
+      background-color var(--listaso-duration-fast) var(--listaso-ease-standard);
+  }
+
+  .autoplayControl {
+    min-height: 3rem;
+    cursor: pointer;
+    margin-right: auto;
+    padding-inline: 1rem;
+    border: 1px solid var(--listaso-border-control);
+    border-radius: var(--listaso-radius-full);
+    background: transparent;
+    color: var(--listaso-text-heading);
+    font-size: 0.75rem;
+    font-weight: 700;
+    transition:
+      color var(--listaso-duration-fast) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-fast) var(--listaso-ease-standard),
+      background-color var(--listaso-duration-fast) var(--listaso-ease-standard);
+  }
+
+  .autoplayControl:hover {
+    border-color: var(--listaso-text-accent);
+    background: var(--listaso-surface-soft);
+  }
+
+  .autoplayControl:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 3px;
+  }
+
+  .control:hover:not(:disabled) {
+    transform: translateY(-2px);
+    border-color: var(--listaso-text-accent);
+  }
+
+  .control:active:not(:disabled) {
+    transform: translateY(1px) scale(0.96);
+  }
+
+  .control:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 3px;
+  }
+
+  .control:disabled {
+    cursor: default;
+    opacity: 0.4;
+    box-shadow: none;
+  }
+
+  .position {
+    min-width: 4.5rem;
+    text-align: center;
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    color: var(--listaso-text-muted);
+  }
+
+  @media (min-width: 48rem) {
+    .track {
+      grid-auto-columns: calc((100% - 1rem) / 2);
+    }
+
+    .root[data-variant="support"] .track {
+      grid-auto-columns: min(72%, 32rem);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .root[data-variant="reviews"] .track {
+      grid-auto-columns: calc((100% - 2rem) / 3);
+    }
+
+    .root[data-variant="support"] .track {
+      grid-auto-columns: min(82%, 36rem);
+    }
+
+    .root[data-variant="stats"] .track,
+    .root[data-variant="pricing"] .track {
+      grid-auto-flow: row;
+      grid-template-columns: repeat(var(--carousel-columns, 3), minmax(0, 1fr));
+      overflow: visible;
+      padding: 0;
+      scroll-snap-type: none;
+    }
+
+    .root[data-variant="stats"] .track {
+      --carousel-columns: 5;
+    }
+
+    .root[data-variant="stats"] .controls,
+    .root[data-variant="pricing"] .controls {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .track {
+      scroll-behavior: auto;
+    }
+
+    .control {
+      transition: none;
+    }
+
+    .autoplayControl {
+      display: none;
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .control,
+    .autoplayControl {
+      border: 1px solid ButtonText;
+      box-shadow: none;
+    }
+  }
+}

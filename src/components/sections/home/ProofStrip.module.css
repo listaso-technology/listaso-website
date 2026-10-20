@@ -1,0 +1,98 @@
+.section {
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid var(--listaso-border-subtle);
+  background:
+    radial-gradient(40% 120% at 0% 0%, color-mix(in srgb, var(--listaso-text-accent) 10%, transparent), transparent 70%),
+    radial-gradient(35% 120% at 100% 100%, color-mix(in srgb, var(--listaso-action-primary) 7%, transparent), transparent 70%),
+    var(--listaso-surface-alt);
+}
+
+.container {
+  position: relative;
+  padding-block: 3rem;
+}
+
+.item {
+  display: flex;
+  min-width: 0;
+  min-height: 14rem;
+  flex-direction: column;
+  gap: 0.75rem;
+  padding: 1.5rem;
+}
+
+.index {
+  margin-bottom: auto;
+  padding-bottom: 1.5rem;
+  color: var(--listaso-text-muted);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  font-variant-numeric: tabular-nums;
+}
+
+.value {
+  max-width: 100%;
+  font-size: clamp(2.4rem, 10vw, 4.25rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.05em;
+  color: var(--listaso-text-heading);
+  font-variant-numeric: tabular-nums;
+  /* "Since 2015" must wrap at its space; the other figures have no space. */
+  overflow-wrap: normal;
+}
+
+.label {
+  max-width: 16rem;
+}
+
+/*
+ * From 1024px the five figures share one frame: the cards lose their own
+ * radius and shadow and become cells separated by hairlines.
+ */
+@media (min-width: 64rem) {
+  .container {
+    padding-block: 4rem;
+  }
+
+  .frame {
+    overflow: hidden;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-xl);
+    background: var(--listaso-surface-raised);
+    box-shadow: var(--listaso-shadow-e2);
+  }
+
+  .frame ul {
+    gap: 0;
+  }
+
+  .item {
+    min-height: 16rem;
+    padding: 2rem 1.75rem;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .frame li + li .item {
+    border-left: 1px solid var(--listaso-border-subtle);
+  }
+
+  .item::before {
+    left: 1.75rem;
+  }
+
+  .value {
+    font-size: clamp(2rem, 2.8vw, 3.25rem);
+    letter-spacing: -0.04em;
+  }
+}
+
+@media (forced-colors: active) {
+  .frame {
+    border: 1px solid CanvasText;
+  }
+}

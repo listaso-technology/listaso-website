@@ -1,0 +1,68 @@
+/*
+ * Sticky story states. Up to six steps. Media layers cross-fade (opacity
+ * only). The active step is marked by its title color and filled marker;
+ * text is never dimmed below its AA color, and without JavaScript every step
+ * keeps its normal colors.
+ */
+.media {
+  opacity: 0;
+  transition: opacity var(--listaso-duration-slow) var(--listaso-ease-standard);
+}
+
+.media:first-child {
+  opacity: 1;
+}
+
+.title {
+  transition: color var(--listaso-duration-standard) var(--listaso-ease-standard);
+}
+
+.marker {
+  transition:
+    background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+    color var(--listaso-duration-standard) var(--listaso-ease-standard);
+}
+
+.story[data-story-ready="true"] .title {
+  color: var(--listaso-text-muted);
+}
+
+.story[data-story-ready="true"] .media:first-child {
+  opacity: 0;
+}
+
+.story[data-active="0"] .step:nth-child(1) .title,
+.story[data-active="1"] .step:nth-child(2) .title,
+.story[data-active="2"] .step:nth-child(3) .title,
+.story[data-active="3"] .step:nth-child(4) .title,
+.story[data-active="4"] .step:nth-child(5) .title,
+.story[data-active="5"] .step:nth-child(6) .title {
+  color: var(--listaso-text-heading);
+}
+
+.story[data-active="0"] .step:nth-child(1) .marker,
+.story[data-active="1"] .step:nth-child(2) .marker,
+.story[data-active="2"] .step:nth-child(3) .marker,
+.story[data-active="3"] .step:nth-child(4) .marker,
+.story[data-active="4"] .step:nth-child(5) .marker,
+.story[data-active="5"] .step:nth-child(6) .marker {
+  background-color: var(--listaso-action-primary);
+  color: var(--listaso-text-on-action);
+}
+
+.story[data-active="0"] .media:nth-child(1),
+.story[data-active="1"] .media:nth-child(2),
+.story[data-active="2"] .media:nth-child(3),
+.story[data-active="3"] .media:nth-child(4),
+.story[data-active="4"] .media:nth-child(5),
+.story[data-active="5"] .media:nth-child(6) {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .media,
+  .title,
+  .marker {
+    transition: none;
+  }
+}

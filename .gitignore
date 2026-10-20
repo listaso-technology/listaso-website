@@ -1,0 +1,17 @@
+node_modules/
+.pnpm-store/
+.next/
+out/
+coverage/
+playwright-report/
+test-results/
+.env*
+!.env.example
+.DS_Store
+*.swp
+*.log
+*.tsbuildinfo
+next-env.d.ts
+.coverage
+__pycache__/
+*.pyc

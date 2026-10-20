@@ -1,0 +1,62 @@
+@layer components {
+  .section {
+    overflow: hidden;
+  }
+
+  .planCard {
+    min-height: 18rem;
+    transition:
+      transform var(--listaso-duration-standard) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-fast) var(--listaso-ease-standard),
+      box-shadow var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .planCard::before {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 0.25rem;
+    background: linear-gradient(90deg, var(--listaso-action-primary), var(--listaso-text-accent));
+    content: "";
+    opacity: 0;
+    transform: scaleX(0.35);
+    transform-origin: left;
+    transition:
+      opacity var(--listaso-duration-fast) var(--listaso-ease-standard),
+      transform var(--listaso-duration-standard) var(--listaso-ease-enter);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .planCard:hover,
+    .planCard:focus-within {
+      border-color: color-mix(in srgb, var(--listaso-action-primary) 48%, var(--listaso-border-subtle));
+      box-shadow: var(--listaso-shadow-e2);
+      transform: translateY(-0.375rem);
+    }
+
+    .planCard:hover::before,
+    .planCard:focus-within::before {
+      opacity: 1;
+      transform: scaleX(1);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .planCard,
+    .planCard::before {
+      transition: none;
+    }
+
+    .planCard:hover,
+    .planCard:focus-within {
+      transform: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .planCard::before {
+      background: CanvasText;
+    }
+  }
+}

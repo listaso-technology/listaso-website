@@ -1,0 +1,156 @@
+/*
+ * Shared section effects for the product and integration pages.
+ *
+ * Performance and accessibility rules:
+ * - Scroll-linked effects use CSS scroll-driven animations (compositor only:
+ *   `scale`, `translate`, `opacity`). Browsers without support, and visitors
+ *   who prefer reduced motion, get the static final state. No JavaScript.
+ * - Nothing here hides content; every effect starts from a visible state.
+ * - backdrop-filter is never animated (DEC-008).
+ */
+
+/* Full-bleed media that grows from an inset card to the full width. */
+.expand {
+  transform-origin: center top;
+}
+
+/* Photo that drifts slightly inside its frame while it crosses the viewport. */
+.parallaxFrame {
+  overflow: hidden;
+}
+
+.parallaxMedia {
+  scale: 1.12;
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .expand {
+      animation: expand linear both;
+      animation-timeline: view();
+      animation-range: entry 0% cover 42%;
+    }
+
+    .parallaxMedia {
+      animation: drift linear both;
+      animation-timeline: view();
+      animation-range: cover 0% cover 100%;
+    }
+  }
+}
+
+@keyframes expand {
+  from {
+    scale: 0.88;
+    opacity: 0.6;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+@keyframes drift {
+  from {
+    translate: 0 -5%;
+  }
+  to {
+    translate: 0 5%;
+  }
+}
+
+/*
+ * Halftone screen over a photograph (Good Fella's dithered art, rendered in
+ * Listaso navy). Static and decorative.
+ */
+.halftone {
+  position: relative;
+  isolation: isolate;
+}
+
+.halftone::after {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  content: "";
+  background-image: radial-gradient(circle, rgb(0 30 52 / 0.55) 1px, transparent 1.6px);
+  background-size: 5px 5px;
+  mix-blend-mode: multiply;
+}
+
+.halftone::before {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  content: "";
+  background: linear-gradient(200deg, rgb(0 189 169 / 0.18), transparent 45%, rgb(0 30 52 / 0.55));
+}
+
+/* Typing caret after a headline; blinks a few times, then stays. */
+.caret::after {
+  display: inline-block;
+  width: 0.06em;
+  height: 0.82em;
+  margin-left: 0.08em;
+  vertical-align: -0.04em;
+  content: "";
+  background: var(--listaso-text-accent);
+  animation: blink 1s steps(1) 6;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/*
+ * Text roll on hover or focus: the label slides up and a copy slides in.
+ * The copy is aria-hidden; only one label is read.
+ */
+.roll {
+  position: relative;
+  display: inline-grid;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.roll > * {
+  grid-area: 1 / 1;
+  transition: translate var(--listaso-duration-slow) var(--listaso-ease-standard);
+}
+
+.roll > :last-child {
+  translate: 0 105%;
+}
+
+:is(a, button, [data-roll-trigger]):is(:hover, :focus-visible) .roll > :first-child {
+  translate: 0 -105%;
+}
+
+:is(a, button, [data-roll-trigger]):is(:hover, :focus-visible) .roll > :last-child {
+  translate: 0 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caret::after {
+    animation: none;
+  }
+
+  .roll > :last-child {
+    display: none;
+  }
+
+  .roll > :first-child {
+    translate: none !important;
+  }
+}
+
+@media (forced-colors: active) {
+  .halftone::before,
+  .halftone::after {
+    display: none;
+  }
+}

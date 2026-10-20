@@ -1,0 +1,38 @@
+@layer base {
+  *,
+  *::before,
+  *::after { box-sizing: border-box; }
+
+  html {
+    background: var(--listaso-surface-page);
+    color: var(--listaso-text-default);
+    font-family: var(--listaso-font-sans);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    font-size: 1rem;
+    line-height: 1.5;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Theme overrides keep their own text color so nested previews stay correct. */
+  [data-theme] {
+    color: var(--listaso-text-default);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 2px;
+  }
+
+  /* Theme-specific assets, e.g. navy logo in light and white logo in dark. */
+  .theme-light-only { display: var(--listaso-display-light); }
+  .theme-dark-only { display: var(--listaso-display-dark); }
+
+  @media (forced-colors: active) {
+    :focus-visible { outline-color: Highlight; }
+  }
+}

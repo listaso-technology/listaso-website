@@ -1,0 +1,136 @@
+/*
+ * Billing switch with the Sami logo as the knob, and rolling prices.
+ * CSS only: the native radios #plans-monthly / #plans-yearly drive every
+ * state through :has(). The ids differ from the Homepage switch
+ * (#billing-*) so both can never collide.
+ */
+@layer components {
+  /* Decorative track between the two text options. */
+  .track {
+    position: relative;
+    display: block;
+    width: 6rem;
+    height: 3.25rem;
+    flex: 0 0 auto;
+    border: 1px solid var(--listaso-border-control);
+    border-radius: 999px;
+    background: var(--listaso-surface-soft);
+    transition: background-color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  /*
+   * Two invisible hit areas cover the track; only the one pointing at the
+   * option that is not selected is active, so a click on the track toggles.
+   */
+  .hit {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    cursor: pointer;
+    border-radius: inherit;
+  }
+
+  .board:has(:global(#plans-monthly):checked) .hitMonthly,
+  .board:has(:global(#plans-yearly):checked) .hitYearly {
+    display: none;
+  }
+
+  /* The knob: the Sami logo rolls (translate + one full turn) to the other side. */
+  .knob {
+    position: absolute;
+    top: 0.25rem;
+    left: 0.25rem;
+    z-index: 1;
+    display: grid;
+    width: 2.625rem;
+    height: 2.625rem;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--listaso-surface-page);
+    box-shadow: var(--listaso-shadow-e1);
+    transition:
+      translate 640ms cubic-bezier(0.34, 1.4, 0.64, 1),
+      rotate 640ms cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+
+  .knob img {
+    width: 2.25rem;
+    height: 2.25rem;
+  }
+
+  .board:has(:global(#plans-yearly):checked) .track {
+    background: var(--listaso-action-primary);
+    border-color: var(--listaso-action-primary);
+  }
+
+  .board:has(:global(#plans-yearly):checked) .knob {
+    translate: 2.625rem 0;
+    rotate: 360deg;
+  }
+
+  /* Focus ring on the track while either radio has keyboard focus. */
+  .board:has(:global(#plans-monthly):focus-visible) .track,
+  .board:has(:global(#plans-yearly):focus-visible) .track {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 3px;
+  }
+
+  /* Prices roll up to the yearly value. */
+  .roll {
+    display: inline-grid;
+    height: 1em;
+    overflow: hidden;
+    line-height: 1;
+  }
+
+  .rollInner {
+    display: flex;
+    flex-direction: column;
+    transition: translate 520ms var(--listaso-ease-enter);
+  }
+
+  .board:has(:global(#plans-yearly):checked) .rollInner {
+    translate: 0 -50%;
+  }
+
+  /* The featured plan's accent bar. */
+  .plan {
+    position: relative;
+  }
+
+  .featured::before {
+    position: absolute;
+    top: -2px;
+    right: -2px;
+    left: -2px;
+    height: 6px;
+    background: var(--listaso-action-primary);
+    content: "";
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .track,
+    .knob,
+    .rollInner {
+      transition: none;
+    }
+
+    .board:has(:global(#plans-yearly):checked) .knob {
+      rotate: 0deg;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .track {
+      border-color: CanvasText;
+    }
+
+    .board:has(:global(#plans-yearly):checked) .track {
+      background: Highlight;
+    }
+
+    .featured::before {
+      background: Highlight;
+    }
+  }
+}

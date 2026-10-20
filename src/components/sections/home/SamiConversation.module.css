@@ -1,0 +1,333 @@
+@layer components {
+  .frame {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    max-width: 600px;
+    min-width: 0;
+    justify-self: end;
+  }
+
+  .frame::before {
+    position: absolute;
+    z-index: 2;
+    inset: -1px;
+    padding: 1px;
+    pointer-events: none;
+    background: conic-gradient(
+      from 215deg,
+      transparent 0 22%,
+      rgb(0 189 169 / 0.78) 38%,
+      rgb(9 96 255 / 0.68) 54%,
+      rgb(255 58 106 / 0.48) 66%,
+      transparent 78% 100%
+    );
+    border-radius: 23px;
+    content: "";
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+  }
+
+  .frame::after {
+    position: absolute;
+    z-index: -1;
+    inset: 10% -5% -8% 18%;
+    pointer-events: none;
+    background: radial-gradient(ellipse, rgb(0 189 169 / 0.2), transparent 68%);
+    border-radius: 50%;
+    content: "";
+  }
+
+  .conversation {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    padding: 24px;
+    border-color: rgb(102 220 212 / 0.38);
+    border-radius: 22px;
+    box-shadow:
+      0 24px 80px rgb(0 0 0 / 0.32),
+      inset 0 1px 0 rgb(255 255 255 / 0.08),
+      0 0 36px rgb(0 189 169 / 0.08);
+  }
+
+  .heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--listaso-border-subtle);
+  }
+
+  .heading > span {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    font-size: 1.125rem;
+    font-weight: 700;
+  }
+
+  .heading small {
+    color: var(--listaso-text-muted);
+    font-size: 0.8125rem;
+  }
+
+  .controls {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .pause {
+    min-height: 36px;
+    padding: 7px 11px;
+    color: #d9e9f3;
+    background: rgb(5 35 55 / 0.72);
+    border: 1px solid rgb(102 220 212 / 0.34);
+    border-radius: 999px;
+    font: inherit;
+    font-size: 0.75rem;
+    cursor: pointer;
+    transition:
+      color var(--listaso-duration-fast) var(--listaso-ease-standard),
+      background-color var(--listaso-duration-fast) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-fast) var(--listaso-ease-standard);
+  }
+
+  .pause:hover {
+    color: #fff;
+    background: rgb(12 63 82 / 0.9);
+    border-color: rgb(102 220 212 / 0.66);
+  }
+
+  .pause:focus-visible {
+    outline: 2px solid #66dcd4;
+    outline-offset: 3px;
+  }
+
+  .sequence {
+    opacity: 1;
+    transform: translateY(0);
+    transition:
+      opacity 520ms var(--listaso-ease-exit),
+      transform 520ms var(--listaso-ease-exit);
+  }
+
+  .sequence[data-outro="true"] {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  .messages {
+    display: flex;
+    min-height: 380px;
+    flex-direction: column;
+    gap: 14px;
+    padding-top: 18px;
+  }
+
+  .message {
+    max-width: 94%;
+    padding: 14px 16px;
+    overflow-wrap: anywhere;
+    border-radius: 17px;
+    font-size: 0.9375rem;
+    line-height: 1.55;
+    animation: message-enter 450ms var(--listaso-ease-enter) both;
+  }
+
+  .outgoing {
+    min-height: 47px;
+    align-self: flex-end;
+    color: #081c30;
+    background: #f5f8ff;
+    border-bottom-right-radius: 4px;
+  }
+
+  .outgoing:not(.sent):empty {
+    visibility: hidden;
+  }
+
+  .incoming {
+    align-self: flex-start;
+    color: #e6eef5;
+    background: #214662;
+    border-bottom-left-radius: 4px;
+    animation-duration: 600ms;
+  }
+
+  .incoming p {
+    margin-bottom: 12px;
+  }
+
+  .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 8px 0;
+    border-top: 1px solid #567085;
+  }
+
+  .row strong {
+    white-space: nowrap;
+  }
+
+  .export {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 14px;
+    padding: 9px 12px;
+    color: #057440;
+    background: #f5fffa;
+    border-radius: 10px;
+    font-size: 0.8125rem;
+    font-weight: 650;
+  }
+
+  .input {
+    display: flex;
+    min-height: 60px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 16px;
+    padding: 12px 14px;
+    color: var(--listaso-text-muted);
+    border: 1px solid rgb(102 220 212 / 0.26);
+    border-radius: 16px;
+    font-size: 0.875rem;
+  }
+
+  .send {
+    display: grid;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    place-items: center;
+    color: #041e2b;
+    background: #0abaa9;
+    border-radius: 50%;
+  }
+
+  .sending {
+    animation: send-message 400ms var(--listaso-ease-enter) both;
+  }
+
+  .caret {
+    display: inline-block;
+    width: 1px;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: middle;
+    background: #acd6ec;
+    animation: caret-blink 1s steps(1, end) infinite;
+  }
+
+  .typing {
+    display: flex;
+    width: 82px;
+    gap: 6px;
+    padding: 18px;
+    background: #214662;
+    border-radius: 15px;
+  }
+
+  .typing i {
+    width: 8px;
+    height: 8px;
+    background: #b4d9e8;
+    border-radius: 50%;
+    animation: typing-bounce 750ms var(--listaso-ease-enter) infinite alternate;
+  }
+
+  .typing i:nth-child(2) { animation-delay: 150ms; }
+  .typing i:nth-child(3) { animation-delay: 300ms; }
+
+  @keyframes message-enter {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes typing-bounce {
+    to { opacity: 0.4; transform: translateY(-4px); }
+  }
+
+  @keyframes caret-blink {
+    50% { opacity: 0; }
+  }
+
+  @keyframes send-message {
+    50% { transform: scale(0.9); }
+    to { transform: scale(1); }
+  }
+
+  @media (max-width: 1023px) {
+    .frame {
+      max-width: none;
+      justify-self: start;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .conversation {
+      padding: 18px;
+      border-radius: 16px;
+    }
+
+    .messages { min-height: 390px; }
+    .message { max-width: 100%; }
+
+    .heading {
+      align-items: flex-start;
+    }
+
+    .controls {
+      align-items: flex-end;
+      flex-direction: column;
+      gap: 6px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sequence {
+      opacity: 1;
+      transform: none;
+      transition: none;
+    }
+
+    .message,
+    .sending,
+    .typing i {
+      animation: none;
+    }
+
+    .caret { display: none; }
+  }
+
+  @media (forced-colors: active) {
+    .frame::before,
+    .frame::after {
+      display: none;
+    }
+
+    .outgoing,
+    .incoming,
+    .export,
+    .typing,
+    .send {
+      color: CanvasText;
+      background: Canvas;
+      border: 1px solid CanvasText;
+    }
+
+    .pause {
+      color: ButtonText;
+      background: ButtonFace;
+      border-color: ButtonText;
+    }
+  }
+}
