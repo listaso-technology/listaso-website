@@ -1,6 +1,19 @@
 # Estado de trabajo
 
-**Actualizado:** 19 de octubre de 2026
+**Actualizado:** 20 de octubre de 2026
+
+## Tarea cerrada
+
+- Inventario de despliegue y operación (Codex, 20 de octubre de 2026): se
+  amplió el Google Sheet nativo de recursos con cinco pestañas para Development:
+  resumen de publicación, inventario DevOps de dominio/DNS/hosting/CI/SEO/
+  observabilidad, comparación Cloudflare Pages vs. Vercel + Supabase vs.
+  servidor propio, contexto técnico del repositorio y runbook ordenado de
+  lanzamiento/rollback. La recomendación para la foundation actual es
+  conservar el static export y publicar con Cloudflare Pages + GitHub; Supabase
+  queda para un caso de datos/Auth/Storage/endpoints aprobado. No se cambió
+  DNS, dominio, hosting ni producción. Entregable:
+  https://docs.google.com/spreadsheets/d/1Sr86cTZOxr3Ggn423lbtqTxjInzPGV2mBdHcGq_BVIk/edit
 
 ## Tarea activa
 
