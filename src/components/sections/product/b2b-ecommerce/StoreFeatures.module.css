@@ -1,0 +1,738 @@
+/*
+ * B2B store features. A navy stage: editorial accordion of the three
+ * spotlight features beside the store photo, which pans per feature and
+ * carries a small light storefront mock for the active one. Then the other
+ * six as a hairline spec grid.
+ */
+
+@layer components {
+  .section {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .layout {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  /* --- Stage ------------------------------------------------------------- */
+
+  .stage {
+    position: relative;
+    display: grid;
+    overflow: hidden;
+    border-radius: var(--listaso-radius-xl);
+    box-shadow: var(--listaso-shadow-e3);
+  }
+
+  /* Faint grid + accent glow behind the accordion. */
+  .stage::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(55% 60% at 0% 100%, rgb(0 189 169 / 0.16), transparent 70%),
+      linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px) 0 0 / 48px 48px,
+      linear-gradient(90deg, rgb(255 255 255 / 0.035) 1px, transparent 1px) 0 0 / 48px 48px;
+    mask-image: linear-gradient(90deg, #000 30%, transparent 75%);
+  }
+
+  /* --- Accordion --------------------------------------------------------- */
+
+  .accordion {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    order: 2;
+  }
+
+  .counter {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin: 0 0 1.5rem;
+    color: var(--listaso-text-muted);
+    font-size: var(--text-small);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .counterNow {
+    color: var(--listaso-text-accent);
+  }
+
+  .counterTrack {
+    position: relative;
+    width: 4rem;
+    height: 2px;
+    overflow: hidden;
+    border-radius: 2px;
+    background: rgb(255 255 255 / 0.16);
+  }
+
+  .counterFill {
+    position: absolute;
+    inset: 0;
+    background: var(--listaso-text-accent);
+    transform: scaleX(var(--step));
+    transform-origin: left;
+    transition: transform 600ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .item {
+    position: relative;
+  }
+
+  .item:last-child {
+    border-bottom: 1px solid var(--listaso-border-subtle);
+  }
+
+  /* Top hairline; the active item's fills as its progress bar. */
+  .itemLine {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 1px;
+    background: var(--listaso-border-subtle);
+  }
+
+  .itemLineFill {
+    position: absolute;
+    inset: -1px 0;
+    background: var(--listaso-text-accent);
+  }
+
+  .itemLineTimed {
+    transform: scaleX(0);
+    transform-origin: left;
+    animation-name: store-progress;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+  }
+
+  .itemLineTimed[data-playing] {
+    animation-play-state: running;
+  }
+
+  @keyframes store-progress {
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  .itemHeading {
+    margin: 0;
+  }
+
+  .itemButton {
+    display: grid;
+    width: 100%;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+  }
+
+  .itemButton:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 2px;
+    border-radius: var(--listaso-radius-sm);
+  }
+
+  .itemIcon {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-md);
+    color: var(--listaso-text-muted);
+    transition:
+      background-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      color var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .itemActive .itemIcon {
+    border-color: transparent;
+    background: var(--listaso-text-accent);
+    color: #00375b;
+  }
+
+  .itemTitle {
+    color: rgb(255 255 255 / 0.62);
+    font-size: var(--text-h4);
+    font-weight: 700;
+    line-height: var(--text-h4--line-height);
+    transition: color var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .itemButton:hover .itemTitle,
+  .itemActive .itemTitle {
+    color: #ffffff;
+  }
+
+  .itemChevron {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border-radius: 50%;
+    color: var(--listaso-text-muted);
+    transition:
+      transform 450ms cubic-bezier(0.32, 0.72, 0, 1),
+      color var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .itemActive .itemChevron {
+    color: var(--listaso-text-accent);
+    transform: rotate(45deg);
+  }
+
+  /* Collapsible panel (grid rows 0fr → 1fr). */
+  .itemPanel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 500ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .itemActive .itemPanel {
+    grid-template-rows: 1fr;
+  }
+
+  .itemText {
+    min-height: 0;
+    margin: 0;
+    overflow: hidden;
+    padding-left: 3.5rem;
+    color: var(--listaso-text-muted);
+    font-size: var(--text-body-lg);
+    line-height: var(--text-body-lg--line-height);
+    opacity: 0;
+    transform: translateY(-6px);
+    transition:
+      opacity 350ms var(--listaso-ease-standard),
+      transform 450ms var(--listaso-ease-standard);
+  }
+
+  .itemActive .itemText {
+    padding-bottom: 1.5rem;
+    opacity: 1;
+    transform: none;
+    transition-delay: 120ms;
+  }
+
+  /* --- Photo + mocks ----------------------------------------------------- */
+
+  .visual {
+    position: relative;
+    z-index: 1;
+    min-height: 22rem;
+    overflow: hidden;
+    aspect-ratio: 4 / 5;
+    order: 1;
+  }
+
+  .photo {
+    object-position: 50% 20%;
+    transform: scale(1.08);
+    transition: transform 1600ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  /* A slow pan per feature. */
+  .visual[data-active="1"] .photo {
+    transform: scale(1.14) translate(-2.5%, 1%);
+  }
+
+  .visual[data-active="2"] .photo {
+    transform: scale(1.12) translate(2.5%, -1%);
+  }
+
+  .visualShade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(0deg, rgb(4 22 42 / 0.7) 0%, transparent 55%),
+      linear-gradient(90deg, rgb(4 22 42 / 0.35) 0%, transparent 30%);
+  }
+
+  .mocks {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    left: 1rem;
+    display: grid;
+  }
+
+  .mock {
+    display: flex;
+    max-width: 17rem;
+    flex-direction: column;
+    gap: 0.625rem;
+    grid-area: 1 / 1;
+    align-self: end;
+    padding: 1rem;
+    border: 1px solid rgb(255 255 255 / 0.5);
+    border-radius: var(--listaso-radius-lg);
+    background: rgb(255 255 255 / 0.94);
+    box-shadow: 0 24px 60px rgb(0 0 0 / 0.35);
+    color: var(--listaso-text-default);
+    opacity: 0;
+    transform: translateY(16px) scale(0.97);
+    visibility: hidden;
+    transition:
+      opacity 400ms var(--listaso-ease-standard),
+      transform 600ms cubic-bezier(0.32, 0.72, 0, 1),
+      visibility 0s linear 600ms;
+  }
+
+  .mockActive {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    transition-delay: 150ms, 150ms, 0s;
+  }
+
+  /* Rows enter in turn once their mock is active. */
+  .row {
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 350ms var(--listaso-ease-standard),
+      transform 450ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .mockActive .row {
+    opacity: 1;
+    transform: none;
+    transition-delay: calc(300ms + var(--r) * 110ms);
+  }
+
+  .mockHead {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mockLabel {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-caption);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .mockCustomer {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-small);
+    font-weight: 700;
+  }
+
+  .mockList {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .mockRow {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.375rem 0.5rem;
+    border-radius: var(--listaso-radius-sm);
+    background: var(--listaso-surface-alt);
+  }
+
+  .mockThumb,
+  .mockCheck {
+    display: grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: var(--listaso-radius-sm);
+    background: var(--listaso-surface-page);
+    color: var(--listaso-icon-accent);
+  }
+
+  .mockCheck {
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    background: var(--listaso-text-accent);
+    color: #ffffff;
+  }
+
+  .mockProduct {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .mockName {
+    min-width: 0;
+    flex: 1;
+    overflow: hidden;
+    color: var(--listaso-text-default);
+    font-size: var(--text-caption);
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .mockPrice {
+    color: var(--listaso-text-muted);
+    font-size: 0.6875rem;
+  }
+
+  .mockAmount,
+  .mockQty {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-small);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .mockQty {
+    color: var(--listaso-text-accent);
+    font-size: var(--text-caption);
+  }
+
+  .mockAction {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    border-radius: 999px;
+    background: var(--listaso-text-heading);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--listaso-text-heading) 14%, transparent);
+    color: var(--listaso-text-on-action);
+    font-size: var(--text-caption);
+    font-weight: 700;
+  }
+
+  .mockFoot {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .mockPill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.375rem 0.75rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--listaso-text-accent) 14%, transparent);
+    color: var(--listaso-text-accent);
+    font-size: var(--text-caption);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Card (decorative). */
+  .mockCard {
+    position: relative;
+    display: flex;
+    height: 6.5rem;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.875rem 1rem;
+    border-radius: var(--listaso-radius-md);
+    background:
+      radial-gradient(80% 120% at 100% 0%, rgb(0 189 169 / 0.55), transparent 60%),
+      linear-gradient(135deg, #00375b, #04162a);
+    color: #ffffff;
+  }
+
+  .mockChip {
+    width: 1.75rem;
+    height: 1.25rem;
+    border-radius: 0.25rem;
+    background: linear-gradient(135deg, #e9d9a6, #b89a52);
+  }
+
+  .mockCardIcon {
+    position: absolute;
+    top: 0.875rem;
+    right: 1rem;
+    opacity: 0.8;
+  }
+
+  .mockDots {
+    font-size: var(--text-small);
+    letter-spacing: 0.12em;
+    opacity: 0.8;
+  }
+
+  .mockTotal {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .mockTotalValue {
+    color: var(--listaso-text-heading);
+    font-size: 1.5rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .mockPaid {
+    display: grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--listaso-text-accent);
+    color: #ffffff;
+    transform: scale(0);
+    transition: transform 450ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .mockActive .mockPaid {
+    transform: none;
+    transition-delay: 1500ms;
+  }
+
+  /* Paid in part, then in full. */
+  .mockMeter {
+    height: 0.375rem;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--listaso-surface-alt);
+  }
+
+  .mockMeterFill {
+    display: block;
+    height: 100%;
+    border-radius: inherit;
+    background: var(--listaso-text-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  .mockActive .mockMeterFill {
+    animation: store-paid 1300ms cubic-bezier(0.32, 0.72, 0, 1) 500ms forwards;
+  }
+
+  @keyframes store-paid {
+    45%,
+    60% {
+      transform: scaleX(0.45);
+    }
+
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  /* --- Spec grid ----------------------------------------------------------- */
+
+  .specs {
+    display: grid;
+    gap: 1px;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-xl);
+    background: var(--listaso-border-subtle);
+    list-style: none;
+  }
+
+  .specItem {
+    display: flex;
+    background: var(--listaso-surface-page);
+  }
+
+  .spec {
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.75rem 1.5rem;
+    transition: background-color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  /* Accent rule that draws in on hover. */
+  .spec::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: var(--listaso-text-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 500ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .spec:hover {
+    background: color-mix(in srgb, var(--listaso-text-accent) 4%, var(--listaso-surface-page));
+  }
+
+  .spec:hover::before {
+    transform: scaleX(1);
+  }
+
+  .specTop {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .specIcon {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border-radius: var(--listaso-radius-md);
+    background: var(--listaso-surface-alt);
+    color: var(--listaso-icon-accent);
+    transition:
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      transform 450ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .spec:hover .specIcon {
+    background: var(--listaso-text-accent);
+    color: var(--listaso-surface-page);
+    transform: rotate(-6deg) scale(1.06);
+  }
+
+  .specIndex {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-small);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    font-variant-numeric: tabular-nums;
+    opacity: 0.6;
+    transition: opacity var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .spec:hover .specIndex {
+    opacity: 1;
+  }
+
+  .specTitle {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-body-lg);
+    font-weight: 700;
+    line-height: var(--text-body-lg--line-height);
+  }
+
+  .specText {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  /* --- Wider screens ------------------------------------------------------- */
+
+  @media (min-width: 40rem) {
+    .specs {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .visual {
+      aspect-ratio: 4 / 3;
+    }
+
+    .mocks {
+      right: auto;
+      bottom: 1.5rem;
+      left: 1.5rem;
+    }
+
+    .mock {
+      width: 17rem;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .stage {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      min-height: 34rem;
+    }
+
+    .accordion {
+      order: 0;
+      padding: 3rem;
+    }
+
+    .visual {
+      aspect-ratio: auto;
+      order: 0;
+    }
+
+    .mocks {
+      bottom: 2rem;
+      left: 2rem;
+    }
+
+    .specs {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .spec {
+      padding: 2rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .photo,
+    .itemPanel,
+    .itemText,
+    .counterFill,
+    .mock,
+    .row,
+    .mockPaid,
+    .spec::before,
+    .specIcon {
+      transition: none;
+    }
+
+    .photo,
+    .visual[data-active] .photo {
+      transform: none;
+    }
+
+    .mockActive .mockMeterFill {
+      animation: none;
+      transform: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .stage,
+    .mock,
+    .specs {
+      border: 1px solid CanvasText;
+    }
+
+    .itemLineFill {
+      background: Highlight;
+    }
+  }
+}

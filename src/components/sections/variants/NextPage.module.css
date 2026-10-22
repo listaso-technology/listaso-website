@@ -1,0 +1,342 @@
+/*
+ * "Next page" card (shared by product, integration and company pages).
+ *
+ * - Stepper: every page in the group as a numbered dot + name, joined by a
+ *   line; each step is a link. Visited, current (aria-current) and next
+ *   pages have distinct states; hovering a step fills and grows its dot.
+ * - Main link: next page title, description and arrow. Its hover/focus
+ *   sweeps a tint across the card, highlights the next step, rolls the title
+ *   (TextRoll) and moves the arrow. No lift, no glow.
+ */
+
+@layer components {
+  .section {
+    padding-block: 4rem;
+    border-top: 1px solid var(--listaso-border-subtle);
+  }
+
+  .card {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.75rem 1.5rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-xl);
+    background: var(--listaso-surface-raised);
+    transition:
+      border-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      box-shadow var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  /* Tint that sweeps in from the left while the main link is hovered. */
+  .card::before {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: linear-gradient(
+      90deg,
+      color-mix(in srgb, var(--listaso-text-accent) 8%, transparent),
+      color-mix(in srgb, var(--listaso-text-accent) 3%, transparent)
+    );
+    content: "";
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 650ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--listaso-text-accent);
+    font-size: var(--text-eyebrow);
+    font-weight: 700;
+    line-height: var(--text-eyebrow--line-height);
+    letter-spacing: var(--text-eyebrow--letter-spacing);
+    text-transform: uppercase;
+  }
+
+  .position {
+    color: var(--listaso-text-muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* --- Stepper (group index) -------------------------------------------- */
+
+  /* Bleeds to the card edges on narrow screens so the row can scroll. */
+  .steps {
+    --dot: 2.25rem;
+
+    display: flex;
+    margin: 0.25rem -1.5rem 0;
+    padding: 0.25rem 1.5rem 0.5rem;
+    overflow-x: auto;
+    list-style: none;
+    scroll-padding-inline: 1.5rem;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+  }
+
+  .steps::-webkit-scrollbar {
+    display: none;
+  }
+
+  .step {
+    position: relative;
+    display: flex;
+    flex: 1 0 6.5rem;
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+  /* Connector from the previous step's dot to this one. */
+  .step + .step::before {
+    position: absolute;
+    top: calc(var(--dot) / 2 + 0.25rem);
+    right: calc(50% + var(--dot) / 2 + 0.25rem);
+    left: calc(-50% + var(--dot) / 2 + 0.25rem);
+    height: 2px;
+    border-radius: 2px;
+    background: var(--listaso-border-subtle);
+    content: "";
+  }
+
+  .step.visited + .step::before,
+  .step.visited + .current::before {
+    background: color-mix(in srgb, var(--listaso-text-muted) 50%, transparent);
+  }
+
+  .current + .next::before {
+    background: linear-gradient(90deg, var(--listaso-text-heading), var(--listaso-text-accent));
+  }
+
+  .stepLink {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.25rem 0.25rem 0.375rem;
+    border-radius: var(--listaso-radius-md);
+    color: var(--listaso-text-muted);
+    text-align: center;
+    text-decoration: none;
+    transition: color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .dot {
+    display: grid;
+    width: var(--dot);
+    height: var(--dot);
+    place-items: center;
+    border: 1.5px solid var(--listaso-border-control);
+    border-radius: 50%;
+    background: var(--listaso-surface-raised);
+    color: var(--listaso-text-muted);
+    font-size: 0.75rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    transition:
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      box-shadow var(--listaso-duration-standard) var(--listaso-ease-standard),
+      transform var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .stepLabel {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.125rem;
+    text-wrap: balance;
+  }
+
+  .visited .dot {
+    border-color: transparent;
+    background: color-mix(in srgb, var(--listaso-text-muted) 22%, transparent);
+    color: var(--listaso-text-default);
+  }
+
+  .current .stepLink {
+    color: var(--listaso-text-heading);
+  }
+
+  .current .dot {
+    border-color: var(--listaso-text-heading);
+    background: var(--listaso-text-heading);
+    color: var(--listaso-surface-raised);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--listaso-text-heading) 15%, transparent);
+  }
+
+  .next .stepLink {
+    color: var(--listaso-text-heading);
+  }
+
+  .next .dot {
+    border-color: var(--listaso-text-accent);
+    color: var(--listaso-text-accent);
+  }
+
+  .stepLink:hover,
+  .stepLink:focus-visible {
+    color: var(--listaso-text-heading);
+  }
+
+  .stepLink:hover .dot,
+  .stepLink:focus-visible .dot {
+    border-color: var(--listaso-text-accent);
+    background: var(--listaso-text-accent);
+    color: var(--listaso-surface-raised);
+  }
+
+  .stepLink:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 2px;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .stepLink:hover .dot,
+    .stepLink:focus-visible .dot {
+      transform: scale(1.12);
+    }
+  }
+
+  /* --- Main link -------------------------------------------------------- */
+
+  .mainLink {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+    border-radius: var(--listaso-radius-md);
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .mainLink:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 6px;
+  }
+
+  .copy {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .title {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-h1);
+    font-weight: 700;
+    line-height: var(--text-h1--line-height);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    overflow-wrap: break-word;
+  }
+
+  .description {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-lead);
+    line-height: var(--text-lead--line-height);
+  }
+
+  .arrow {
+    display: grid;
+    width: 3.5rem;
+    height: 3.5rem;
+    flex-shrink: 0;
+    place-items: center;
+    border: 1px solid var(--listaso-border-control);
+    border-radius: 50%;
+    color: var(--listaso-text-heading);
+    transition:
+      background-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      transform 450ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  /* --- Main link hover / focus ------------------------------------------ */
+
+  .card:has(.mainLink:is(:hover, :focus-visible)) {
+    border-color: color-mix(in srgb, var(--listaso-text-accent) 40%, var(--listaso-border-subtle));
+    box-shadow: var(--listaso-shadow-e2);
+  }
+
+  .card:has(.mainLink:is(:hover, :focus-visible))::before {
+    transform: scaleX(1);
+  }
+
+  .card:has(.mainLink:is(:hover, :focus-visible)) .next .dot {
+    border-color: var(--listaso-text-accent);
+    background: var(--listaso-text-accent);
+    color: var(--listaso-surface-raised);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--listaso-text-accent) 22%, transparent);
+  }
+
+  .mainLink:is(:hover, :focus-visible) .arrow {
+    border-color: var(--listaso-action-primary);
+    background: var(--listaso-action-primary);
+    color: var(--listaso-text-on-action);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .mainLink:is(:hover, :focus-visible) .arrow {
+      transform: translateX(6px);
+    }
+  }
+
+  /* --- Wider screens ---------------------------------------------------- */
+
+  @media (min-width: 40rem) {
+    .title {
+      font-size: var(--text-display);
+      line-height: var(--text-display--line-height);
+    }
+
+    .arrow {
+      width: 4.5rem;
+      height: 4.5rem;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .section {
+      padding-block: 5rem;
+    }
+
+    .card {
+      gap: 1.75rem;
+      padding: 2.5rem 3rem;
+    }
+
+    .steps {
+      margin-inline: -1rem;
+      padding-inline: 0;
+      overflow: visible;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .card {
+      border: 1px solid CanvasText;
+    }
+
+    .card::before {
+      display: none;
+    }
+
+    .dot {
+      border-color: CanvasText;
+    }
+
+    .current .dot {
+      background: Highlight;
+    }
+  }
+}

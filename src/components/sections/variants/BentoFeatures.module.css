@@ -1,0 +1,402 @@
+/*
+ * Feature bento (shared). Keeps the mixed-size grid; each cell is a layered
+ * card with its own tone (proofTones) and pointer-driven depth:
+ * - tilt toward the pointer (perspective, max ~4deg) and a lift;
+ * - spotlight + border glow at the pointer (ProofGrid sets --mx/--my/--px/--py);
+ * - text cells: a large icon watermark that drifts against the pointer;
+ * - photo cells: the photo zooms and drifts with the pointer.
+ * Mouse only (hover: hover); static for touch, keyboard and reduced motion.
+ * Hover styles live on the inner card so the reveal rules on the item don't
+ * override their transitions.
+ */
+
+@layer components {
+  .section {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .pattern {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background:
+      radial-gradient(40% 50% at 0% 0%, color-mix(in srgb, var(--listaso-text-accent) 8%, transparent), transparent 70%),
+      radial-gradient(35% 45% at 100% 100%, color-mix(in srgb, var(--listaso-link) 7%, transparent), transparent 70%);
+  }
+
+  .pattern::before {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(color-mix(in srgb, var(--listaso-text-heading) 6%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in srgb, var(--listaso-text-heading) 6%, transparent) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(ellipse 60% 70% at 50% 40%, #000 20%, transparent 75%);
+    content: "";
+  }
+
+  .grid {
+    perspective: 1400px;
+  }
+
+  .item {
+    display: flex;
+    min-width: 0;
+  }
+
+  /* --- Card ------------------------------------------------------------ */
+
+  .card {
+    --tone: var(--listaso-text-accent);
+    --mx: 50%;
+    --my: 0%;
+    --px: 0.5;
+    --py: 0.5;
+
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    width: 100%;
+    min-height: 15rem;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    overflow: hidden;
+    padding: 1.5rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-lg);
+    background:
+      radial-gradient(120% 90% at 100% 0%, color-mix(in srgb, var(--tone) 12%, transparent), transparent 60%),
+      linear-gradient(170deg, color-mix(in srgb, var(--tone) 5%, var(--listaso-surface-raised)), var(--listaso-surface-raised) 65%);
+    box-shadow: var(--listaso-shadow-e1);
+    transition:
+      transform 450ms cubic-bezier(0.32, 0.72, 0, 1),
+      box-shadow var(--listaso-duration-slow) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .card[data-tone="link"] {
+    --tone: var(--listaso-link);
+  }
+
+  .card[data-tone="heading"] {
+    --tone: var(--listaso-text-heading);
+  }
+
+  .card[data-tone="action"] {
+    --tone: var(--listaso-action-primary);
+  }
+
+  /* Spotlight (fill) and border glow at the pointer. */
+  .spotlight,
+  .card::after {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .spotlight {
+    z-index: 0;
+    background: radial-gradient(
+      20rem circle at var(--mx) var(--my),
+      color-mix(in srgb, var(--tone) 16%, transparent),
+      transparent 65%
+    );
+  }
+
+  .card::after {
+    z-index: 3;
+    padding: 1px;
+    background: radial-gradient(
+      14rem circle at var(--mx) var(--my),
+      color-mix(in srgb, var(--tone) 90%, transparent),
+      transparent 70%
+    );
+    content: "";
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box exclude,
+      linear-gradient(#000 0 0);
+  }
+
+  /* Large icon watermark, drifting against the pointer. */
+  .watermark {
+    position: absolute;
+    right: -1.25rem;
+    bottom: -1.5rem;
+    z-index: 0;
+    color: var(--tone);
+    opacity: 0.07;
+    transform: translate(calc((var(--px) - 0.5) * -24px), calc((var(--py) - 0.5) * -24px)) rotate(-8deg);
+    transition:
+      transform 600ms cubic-bezier(0.32, 0.72, 0, 1),
+      opacity var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .watermark svg {
+    width: 9rem;
+    height: 9rem;
+  }
+
+  .cardTop {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .chip {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border: 1px solid color-mix(in srgb, var(--tone) 30%, transparent);
+    border-radius: var(--listaso-radius-md);
+    background: color-mix(in srgb, var(--tone) 12%, transparent);
+    color: var(--tone);
+    transition:
+      background-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      transform var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .card[data-tone="heading"] .chip {
+    color: var(--listaso-text-heading);
+  }
+
+  .number {
+    padding: 0.25rem 0.625rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-full);
+    color: var(--listaso-text-muted);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    font-variant-numeric: tabular-nums;
+    transition:
+      border-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      color var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .cardCopy {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .title {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-h4);
+    font-weight: 700;
+    line-height: var(--text-h4--line-height);
+  }
+
+  .text {
+    max-width: 28rem;
+    color: var(--listaso-text-muted);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  /* --- Photo cells ----------------------------------------------------- */
+
+  .photoCard {
+    min-height: 20rem;
+    justify-content: flex-end;
+    padding: 1.75rem;
+    border-color: rgb(255 255 255 / 0.08);
+    background: var(--listaso-surface-band);
+    box-shadow: var(--listaso-shadow-e2);
+  }
+
+  .photoLayer {
+    position: absolute;
+    inset: -4%;
+    z-index: 0;
+    transform: translate(calc((var(--px) - 0.5) * 18px), calc((var(--py) - 0.5) * 18px)) scale(1);
+    transition: transform 900ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  /* Solid navy under the copy keeps AA over any photo. */
+  .photoScrim {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background:
+      linear-gradient(to top, var(--listaso-surface-band) 30%, rgb(0 55 91 / 0.82) 55%, rgb(0 55 91 / 0.15) 100%),
+      radial-gradient(60% 50% at 100% 0%, rgb(0 189 169 / 0.22), transparent 70%);
+  }
+
+  .photoCard .spotlight {
+    background: radial-gradient(22rem circle at var(--mx) var(--my), rgb(95 230 214 / 0.14), transparent 65%);
+  }
+
+  .photoCard::after {
+    background: radial-gradient(16rem circle at var(--mx) var(--my), rgb(95 230 214 / 0.9), transparent 70%);
+  }
+
+  .numberPill {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    z-index: 1;
+    padding: 0.25rem 0.625rem;
+    border: 1px solid rgb(255 255 255 / 0.22);
+    border-radius: var(--listaso-radius-full);
+    background: rgb(6 14 32 / 0.45);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .photoCopy {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    max-width: 30rem;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .photoChip {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border: 1px solid rgb(255 255 255 / 0.2);
+    border-radius: var(--listaso-radius-md);
+    background: rgb(255 255 255 / 0.1);
+    color: var(--listaso-link-on-band);
+    transition: transform var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .photoTitle {
+    color: #ffffff;
+    font-size: var(--text-h3);
+    font-weight: 700;
+    line-height: var(--text-h3--line-height);
+  }
+
+  .photoText {
+    color: var(--listaso-text-on-band-muted);
+    font-size: var(--text-body-lg);
+    line-height: var(--text-body-lg--line-height);
+  }
+
+  /* --- Hover (mouse) --------------------------------------------------- */
+
+  @media (hover: hover) {
+    .card:hover {
+      border-color: color-mix(in srgb, var(--tone) 40%, var(--listaso-border-subtle));
+      box-shadow: var(--listaso-shadow-e3);
+    }
+
+    .card:hover .spotlight,
+    .card:hover::after {
+      opacity: 1;
+    }
+
+    .card:hover .watermark {
+      opacity: 0.16;
+    }
+
+    .card:hover .chip {
+      background: var(--tone);
+      color: var(--listaso-surface-page);
+    }
+
+    .card:hover .number {
+      border-color: color-mix(in srgb, var(--tone) 50%, transparent);
+      color: var(--listaso-text-heading);
+    }
+
+    .photoCard:hover {
+      border-color: rgb(95 230 214 / 0.4);
+    }
+  }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .card:hover {
+      transform: translateY(-4px) rotateX(calc((0.5 - var(--py)) * 6deg)) rotateY(calc((var(--px) - 0.5) * 6deg));
+    }
+
+    .card:hover .chip,
+    .photoCard:hover .photoChip {
+      transform: scale(1.06) rotate(-6deg);
+    }
+
+    .photoCard:hover .photoLayer {
+      transform: translate(calc((var(--px) - 0.5) * 18px), calc((var(--py) - 0.5) * 18px)) scale(1.06);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .watermark,
+    .photoLayer {
+      transform: none;
+    }
+  }
+
+  /* One column: compact cells so the list stays a reasonable scroll. */
+  @media (max-width: 39.99rem) {
+    .card {
+      min-height: 0;
+      gap: 1.25rem;
+      padding: 1.25rem;
+    }
+
+    .photoCard {
+      min-height: 17rem;
+    }
+
+    .watermark svg {
+      width: 6.5rem;
+      height: 6.5rem;
+    }
+  }
+
+  /* --- Wider screens --------------------------------------------------- */
+
+  @media (min-width: 64rem) {
+    .card {
+      padding: 1.75rem;
+    }
+
+    .photoCard {
+      padding: 2.25rem;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .card {
+      border: 1px solid CanvasText;
+    }
+
+    .spotlight,
+    .card::after,
+    .watermark,
+    .pattern {
+      display: none;
+    }
+
+    .chip,
+    .photoChip {
+      border-color: CanvasText;
+      color: CanvasText;
+    }
+  }
+}

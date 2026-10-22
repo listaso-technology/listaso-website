@@ -1,6 +1,9 @@
 import { Icon } from "@/components/icons/Icon";
 import { Container } from "@/components/layout/Container";
 import { mainNav, type NavGroup, type NavLink } from "@/content/site/navigation";
+import { cx } from "@/lib/utils/cx";
+import styles from "./NextPage.module.css";
+import { NextPageSteps } from "./NextPageSteps";
 import { TextRoll } from "./TextRoll";
 
 /* Company pages built in this app. The blog stays on WordPress (DEC-011/019). */
@@ -24,7 +27,10 @@ type NextPageProps = {
 /**
  * Link to the next page of the same menu group (Thomas Thorstensson's
  * "Explore archive"). Labels and descriptions come from the site navigation.
- * Wraps around at the end of the group.
+ * Wraps around at the end of the group. Above the main link, a stepper lists
+ * every page of the group with its number and name (visited, current, next);
+ * each step is a link. Hovering the main link highlights the next step, rolls
+ * the title and moves the arrow.
  */
 export function NextPage({ group, current }: NextPageProps) {
   const links = (mainNav.find((entry): entry is NavGroup => "links" in entry && entry.label === group)?.links ?? []).filter(
@@ -33,32 +39,64 @@ export function NextPage({ group, current }: NextPageProps) {
   const index = links.findIndex((link) => link.href === current);
   if (index < 0 || links.length < 2) return null;
 
-  const next = links[(index + 1) % links.length];
-  const position = `${String(((index + 1) % links.length) + 1).padStart(2, "0")} / ${String(links.length).padStart(2, "0")}`;
+  const nextIndex = (index + 1) % links.length;
+  const next = links[nextIndex];
+  const position = `${String(nextIndex + 1).padStart(2, "0")} / ${String(links.length).padStart(2, "0")}`;
 
   return (
-    <nav aria-label={group} data-story-section className="border-t border-line-subtle py-16 lg:py-20">
+    <nav aria-label={group} data-story-section className={styles.section}>
       <Container width="wide">
-        <a href={next.href} className="group flex flex-col gap-6" data-analytics-event="next_page_click" data-analytics-label={next.label}>
-          <span className="flex items-center justify-between text-eyebrow font-bold uppercase text-fg-accent">
+        <div className={styles.card}>
+          <span className={styles.meta}>
             <span>{group}</span>
-            <span aria-hidden="true">{position}</span>
+            <span aria-hidden="true" className={styles.position}>
+              {position}
+            </span>
           </span>
-          <span className="flex items-end justify-between gap-6 border-b border-line-subtle pb-8">
-            <span className="flex min-w-0 flex-col gap-3">
-              <span className="text-h1 font-bold text-balance break-words text-fg-heading sm:text-display">
+
+          {/* Group index as a stepper: every step links to its page, names always visible. */}
+          <NextPageSteps className={styles.steps}>
+            {links.map((link, linkIndex) => (
+              <li
+                key={link.href}
+                className={cx(
+                  styles.step,
+                  linkIndex < index && nextIndex !== 0 && styles.visited,
+                  linkIndex === index && styles.current,
+                  linkIndex === nextIndex && styles.next,
+                )}
+              >
+                <a
+                  href={link.href}
+                  aria-current={linkIndex === index ? "page" : undefined}
+                  className={styles.stepLink}
+                >
+                  <span aria-hidden="true" className={styles.dot}>
+                    {String(linkIndex + 1).padStart(2, "0")}
+                  </span>
+                  <span className={styles.stepLabel}>{link.label}</span>
+                </a>
+              </li>
+            ))}
+          </NextPageSteps>
+
+          <a
+            href={next.href}
+            className={styles.mainLink}
+            data-analytics-event="next_page_click"
+            data-analytics-label={next.label}
+          >
+            <span className={styles.copy}>
+              <span className={styles.title}>
                 <TextRoll>{next.label}</TextRoll>
               </span>
-              {next.description ? <span className="text-lead text-fg-muted">{next.description}</span> : null}
+              {next.description ? <span className={styles.description}>{next.description}</span> : null}
             </span>
-            <span
-              aria-hidden="true"
-              className="flex size-12 shrink-0 items-center justify-center rounded-full bg-action-primary sm:size-16 text-fg-on-action transition-transform duration-(--listaso-duration-standard) motion-safe:group-hover:translate-x-2"
-            >
+            <span aria-hidden="true" className={styles.arrow}>
               <Icon name="arrow-right" size={24} />
             </span>
-          </span>
-        </a>
+          </a>
+        </div>
       </Container>
     </nav>
   );

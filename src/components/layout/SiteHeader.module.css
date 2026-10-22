@@ -42,20 +42,20 @@
     text-decoration: none;
   }
 
+  /*
+   * Menus are solid surfaces: the header's backdrop blur cannot reach a
+   * nested panel, so any transparency would let the page show through the
+   * links.
+   */
   .dropdownPanel,
   .mobilePanel {
     isolation: isolate;
     color: var(--listaso-text-default);
     background: var(--listaso-surface-raised);
-    background: linear-gradient(
-      145deg,
-      color-mix(in srgb, var(--listaso-surface-raised) 94%, transparent),
-      color-mix(in srgb, var(--listaso-surface-soft) 84%, transparent)
-    );
-    -webkit-backdrop-filter: blur(16px) saturate(140%);
-    backdrop-filter: blur(16px) saturate(140%);
-    border: 1px solid color-mix(in srgb, var(--listaso-border-control) 52%, transparent);
-    box-shadow: var(--listaso-shadow-e3);
+    border: 1px solid var(--listaso-border-subtle);
+    box-shadow:
+      var(--listaso-shadow-e3),
+      0 0 0 1px color-mix(in srgb, var(--listaso-text-heading) 4%, transparent);
   }
 
   .dropdownPanel {
@@ -118,8 +118,42 @@
 
   .panelLink:hover,
   .panelLink:focus-visible {
-    background: color-mix(in srgb, var(--listaso-surface-soft) 84%, transparent);
-    transform: translateX(2px);
+    background: color-mix(in srgb, var(--listaso-text-accent) 8%, var(--listaso-surface-raised));
+  }
+
+  /* Accent rule and arrow that appear on the hovered link. */
+  .panelLink::before {
+    position: absolute;
+    top: 0.625rem;
+    bottom: 0.625rem;
+    left: 0;
+    width: 2px;
+    border-radius: 2px;
+    background: var(--listaso-text-accent);
+    content: "";
+    transform: scaleY(0);
+    transition: transform var(--listaso-duration-fast) var(--listaso-ease-standard);
+  }
+
+  .panelLink:hover::before,
+  .panelLink:focus-visible::before {
+    transform: none;
+  }
+
+  .panelArrow {
+    flex-shrink: 0;
+    color: var(--listaso-icon-accent);
+    opacity: 0;
+    transform: translateX(-4px);
+    transition:
+      opacity var(--listaso-duration-fast) var(--listaso-ease-standard),
+      transform var(--listaso-duration-fast) var(--listaso-ease-standard);
+  }
+
+  .panelLink:hover .panelArrow,
+  .panelLink:focus-visible .panelArrow {
+    opacity: 1;
+    transform: none;
   }
 
   .menuButton {
@@ -141,18 +175,71 @@
       0 0 18px color-mix(in srgb, var(--listaso-icon-accent) 16%, transparent);
   }
 
+  /*
+   * Mobile sheet: fills the viewport under the header bar (4.5rem; it
+   * covers the 1px border). The links scroll inside it; the actions stay
+   * pinned at the bottom. The page scroll lock lives in globals.css.
+   */
   .mobilePanel {
+    display: flex;
+    height: calc(100dvh - 4.5rem);
+    flex-direction: column;
+    overflow: hidden;
+    background: var(--listaso-surface-page);
+    border-width: 1px 0 0;
+    border-radius: 0;
+    box-shadow: none;
+    animation: mobile-menu-enter 260ms var(--listaso-ease-enter) both;
+  }
+
+  .mobilePanel::before {
+    display: none;
+  }
+
+  .mobileInner {
+    display: flex;
+    width: 100%;
+    min-height: 0;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .mobileNav {
+    min-height: 0;
+    flex: 1;
+    margin-inline: -0.5rem;
+    padding: 1rem 0.5rem;
     overflow-y: auto;
-    background: var(--listaso-surface-raised);
-    background: linear-gradient(
-      145deg,
-      color-mix(in srgb, var(--listaso-surface-raised) 98%, transparent),
-      color-mix(in srgb, var(--listaso-surface-soft) 98%, transparent)
-    );
-    border-right: 0;
-    border-left: 0;
-    border-radius: 0 0 var(--listaso-radius-md) var(--listaso-radius-md);
-    animation: mobile-menu-enter 220ms var(--listaso-ease-enter) both;
+    overscroll-behavior: contain;
+  }
+
+  .mobileNav > ul > li {
+    border-bottom: 1px solid var(--listaso-border-subtle);
+    padding-block: 0.25rem;
+  }
+
+  .mobileNav .navTrigger {
+    font-size: var(--text-body-lg);
+  }
+
+  .mobileLinks {
+    margin: 0.25rem 0 0.75rem 0.75rem;
+    padding-left: 0.75rem;
+    border-left: 2px solid color-mix(in srgb, var(--listaso-text-accent) 45%, var(--listaso-border-subtle));
+    animation: mobile-links-enter 240ms var(--listaso-ease-enter) both;
+  }
+
+  .mobileActions {
+    flex-shrink: 0;
+    padding-block: 1rem max(1rem, env(safe-area-inset-bottom));
+    background: var(--listaso-surface-page);
+  }
+
+  @keyframes mobile-links-enter {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
   }
 
   @keyframes menu-enter {
@@ -175,31 +262,28 @@
 
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
     .header { background: var(--listaso-surface-page); }
-    .dropdownPanel,
-    .mobilePanel { background: var(--listaso-surface-raised); }
   }
 
   @media (prefers-reduced-transparency: reduce) {
-    .header,
-    .dropdownPanel,
-    .mobilePanel {
+    .header {
       -webkit-backdrop-filter: none;
       backdrop-filter: none;
-      background: var(--listaso-surface-raised);
+      background: var(--listaso-surface-page);
     }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .dropdownPanel,
-    .mobilePanel {
+    .mobilePanel,
+    .mobileLinks {
       filter: none;
       transform: none;
       animation: none;
     }
 
-    .panelLink:hover,
-    .panelLink:focus-visible {
-      transform: none;
+    .panelLink::before,
+    .panelArrow {
+      transition: none;
     }
   }
 

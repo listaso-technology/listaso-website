@@ -1,0 +1,75 @@
+/*
+ * Immersive hero: full-bleed photo with a navy wash (strong on the copy
+ * side), copy and panel on top.
+ */
+
+@layer components {
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .media {
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+  }
+
+  .shade {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(0deg, rgb(4 22 42 / 0.92) 0%, rgb(4 22 42 / 0.55) 55%, rgb(4 22 42 / 0.35) 100%);
+  }
+
+  .layout {
+    display: grid;
+    gap: 3rem;
+    padding-block: 3rem 3.5rem;
+  }
+
+  .copy {
+    display: flex;
+    max-width: 44rem;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .title {
+    overflow: hidden;
+    color: var(--listaso-text-heading);
+    font-size: clamp(2.75rem, 6vw + 1rem, 5.5rem);
+    line-height: 1.02;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .lead {
+    max-width: 36rem;
+    color: rgb(255 255 255 / 0.85);
+    font-size: var(--text-lead);
+    line-height: var(--text-lead--line-height);
+  }
+
+  .panel {
+    min-width: 0;
+  }
+
+  @media (min-width: 64rem) {
+    .shade {
+      background:
+        linear-gradient(90deg, rgb(4 22 42 / 0.94) 0%, rgb(4 22 42 / 0.75) 40%, rgb(4 22 42 / 0.2) 75%),
+        linear-gradient(0deg, rgb(4 22 42 / 0.6), transparent 40%);
+    }
+
+    .layout {
+      min-height: calc(88svh - 4.5rem);
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+      align-items: end;
+      gap: 4rem;
+      padding-block: 4rem 5rem;
+    }
+  }
+}

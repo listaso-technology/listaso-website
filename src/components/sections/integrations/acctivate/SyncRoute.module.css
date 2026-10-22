@@ -1,0 +1,251 @@
+/*
+ * Acctivate sync route: a dashed road with stops. Narrow: road on the left,
+ * cards on the right. Wide: road centred, cards alternating sides. The
+ * truck drives the road with the scroll where supported.
+ */
+
+@layer components {
+  .layout {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  .head {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  .summary {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    color: var(--listaso-text-heading);
+    font-size: var(--text-h4);
+    font-weight: 700;
+    line-height: var(--text-h4--line-height);
+  }
+
+  .summaryLabel {
+    color: var(--listaso-text-accent);
+    font-size: var(--text-eyebrow);
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .route {
+    position: relative;
+    view-timeline: --sync-route block;
+  }
+
+  .road {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 1.25rem;
+    width: 6px;
+    margin-left: -3px;
+    border-radius: 999px;
+    background:
+      linear-gradient(var(--listaso-surface-alt) 50%, transparent 50%) center / 2px 18px repeat-y,
+      var(--listaso-text-heading);
+  }
+
+  .truck {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    z-index: 2;
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--listaso-action-primary);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--listaso-action-primary) 22%, transparent);
+    color: #ffffff;
+    translate: -50% -100%;
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .truck {
+        animation: drive linear both;
+        animation-timeline: --sync-route;
+        animation-range: entry 40% exit 40%;
+      }
+    }
+  }
+
+  @keyframes drive {
+    from {
+      top: 0%;
+      translate: -50% 0;
+    }
+
+    to {
+      top: 100%;
+      translate: -50% -100%;
+    }
+  }
+
+  .stops {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .stop {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .pin {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-shrink: 0;
+    place-items: center;
+    border: 3px solid var(--listaso-text-heading);
+    border-radius: 50%;
+    background: var(--listaso-surface-page);
+    color: var(--listaso-icon-accent);
+  }
+
+  .card {
+    display: grid;
+    flex: 1;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0.125rem 0.875rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-lg);
+    background: var(--listaso-surface-raised);
+    box-shadow: var(--listaso-shadow-e1);
+    transition:
+      border-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      transform var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .stop:hover .card {
+    border-color: var(--listaso-text-accent);
+    transform: translateX(4px);
+  }
+
+  .stopNumber {
+    grid-row: span 2;
+    color: transparent;
+    font-size: 2rem;
+    font-weight: 800;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    -webkit-text-stroke: 1px var(--listaso-text-accent);
+  }
+
+  .stopItem {
+    color: var(--listaso-text-heading);
+    font-weight: 700;
+  }
+
+  .stopDirection {
+    font-size: var(--text-small);
+  }
+
+  @media (min-width: 48rem) {
+    .road {
+      left: 50%;
+    }
+
+    .stops {
+      gap: 0.5rem;
+    }
+
+    /* Each stop spans half the route plus half a pin, so the pin sits on the road. */
+    .stop {
+      width: calc(50% + 1.25rem);
+      flex-direction: row-reverse;
+      gap: 1.25rem;
+    }
+
+    .stop .card {
+      text-align: right;
+      grid-template-columns: minmax(0, 1fr) auto;
+    }
+
+    .stop .stopNumber {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+    }
+
+    .stop .stopItem,
+    .stop .stopDirection {
+      grid-column: 1;
+    }
+
+    .stopRight {
+      align-self: flex-end;
+      flex-direction: row;
+    }
+
+    .stopRight .card {
+      text-align: left;
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .stopRight .stopNumber {
+      grid-column: 1;
+    }
+
+    .stopRight .stopItem,
+    .stopRight .stopDirection {
+      grid-column: 2;
+    }
+
+    .stop:hover .card {
+      transform: translateX(-4px);
+    }
+
+    .stopRight:hover .card {
+      transform: translateX(4px);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .head {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      align-items: end;
+      gap: 3rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card {
+      transition: none;
+    }
+
+    .stop:hover .card,
+    .stopRight:hover .card {
+      transform: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .road,
+    .truck {
+      background: CanvasText;
+    }
+
+    .card {
+      border: 1px solid CanvasText;
+    }
+  }
+}

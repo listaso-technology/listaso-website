@@ -1,0 +1,216 @@
+/*
+ * Zoho sync filter: proportion bar, direction toggles and the rows. Rows of
+ * other directions collapse (grid rows 0fr) and leave the accessibility tree
+ * (visibility) while a filter is on.
+ */
+
+@layer components {
+  .filter {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-xl);
+    background: var(--listaso-surface-raised);
+    box-shadow: var(--listaso-shadow-e2);
+  }
+
+  .in {
+    --tone: var(--listaso-text-accent);
+  }
+
+  .both {
+    --tone: var(--listaso-link);
+  }
+
+  .out {
+    --tone: var(--listaso-action-primary);
+  }
+
+  /* Proportion bar. */
+  .bar {
+    display: flex;
+    height: 0.625rem;
+    gap: 3px;
+    overflow: hidden;
+    border-radius: 999px;
+  }
+
+  .segment {
+    flex: var(--share) 1 0;
+    background: var(--tone);
+    transition:
+      opacity var(--listaso-duration-standard) var(--listaso-ease-standard),
+      flex-grow 500ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .segment[data-off] {
+    opacity: 0.2;
+  }
+
+  /* Toggles. */
+  .toggles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .toggle {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.5rem 0.375rem 0.375rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: 999px;
+    background: var(--listaso-surface-page);
+    color: var(--listaso-text-heading);
+    cursor: pointer;
+    font: inherit;
+    font-size: var(--text-small);
+    font-weight: 600;
+    transition:
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .toggle:hover {
+    border-color: var(--tone);
+  }
+
+  .toggle:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .togglePressed {
+    border-color: var(--tone);
+    background: color-mix(in srgb, var(--tone) 16%, var(--listaso-surface-page));
+  }
+
+  .toggleIcon {
+    display: grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--tone);
+    color: #ffffff;
+  }
+
+  .toggleCount {
+    display: grid;
+    min-width: 1.75rem;
+    height: 1.75rem;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--listaso-surface-alt);
+    color: var(--listaso-text-heading);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Rows. */
+  .rows {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .row {
+    display: grid;
+    grid-template-rows: 1fr;
+    transition:
+      grid-template-rows 450ms cubic-bezier(0.32, 0.72, 0, 1),
+      opacity 300ms var(--listaso-ease-standard),
+      visibility 0s linear 0s;
+  }
+
+  .row[data-off] {
+    grid-template-rows: 0fr;
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      grid-template-rows 450ms cubic-bezier(0.32, 0.72, 0, 1),
+      opacity 300ms var(--listaso-ease-standard),
+      visibility 0s linear 450ms;
+  }
+
+  .rowInner {
+    display: grid;
+    min-height: 0;
+    grid-template-columns: auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0.25rem 0.875rem;
+    overflow: hidden;
+    padding: 0.875rem 0.25rem;
+    border-bottom: 1px solid var(--listaso-border-subtle);
+  }
+
+  .row[data-off] .rowInner {
+    padding-block: 0;
+    border-bottom-width: 0;
+  }
+
+  .rowIcon {
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    grid-row: span 2;
+    place-items: center;
+    border-radius: var(--listaso-radius-md);
+    background: color-mix(in srgb, var(--tone) 16%, transparent);
+    color: var(--tone);
+  }
+
+  .rowItem {
+    color: var(--listaso-text-heading);
+    font-weight: 600;
+  }
+
+  .rowDirection {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-small);
+  }
+
+  @media (min-width: 40rem) {
+    .rowInner {
+      grid-template-columns: auto minmax(0, 1fr) auto;
+    }
+
+    .rowIcon {
+      grid-row: auto;
+    }
+
+    .rowDirection {
+      font-weight: 600;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .filter {
+      padding: 2rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .segment,
+    .toggle,
+    .row,
+    .row[data-off] {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .togglePressed {
+      border: 2px solid Highlight;
+    }
+
+    .segment {
+      background: CanvasText;
+    }
+  }
+}

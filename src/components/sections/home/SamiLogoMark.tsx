@@ -23,12 +23,10 @@ export function SamiLogoMark({ alt }: { alt: string }) {
     let last = 0;
     let inView = false;
     let hovered = false;
-    let userPaused = false;
     let returning: { start: number; angle: number; velocity: number; target: number } | null = null;
 
     const shouldLoop = () =>
       !reducedMotion.matches &&
-      !userPaused &&
       !document.hidden &&
       inView &&
       (coarsePointer.matches || compactViewport.matches || hovered);
@@ -111,11 +109,6 @@ export function SamiLogoMark({ alt }: { alt: string }) {
       startIfNeeded();
     };
 
-    const onMotionControl = (event: Event) => {
-      userPaused = Boolean((event as CustomEvent<{ paused?: boolean }>).detail?.paused);
-      updateMotion();
-    };
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         inView = entry.isIntersecting;
@@ -128,7 +121,6 @@ export function SamiLogoMark({ alt }: { alt: string }) {
     scope.addEventListener("pointerenter", onPointerEnter);
     scope.addEventListener("pointerleave", onPointerLeave);
     document.addEventListener("visibilitychange", updateMotion);
-    window.addEventListener("listaso:sami-motion", onMotionControl);
     reducedMotion.addEventListener("change", updateMotion);
     coarsePointer.addEventListener("change", updateMotion);
     compactViewport.addEventListener("change", updateMotion);
@@ -139,7 +131,6 @@ export function SamiLogoMark({ alt }: { alt: string }) {
       scope.removeEventListener("pointerenter", onPointerEnter);
       scope.removeEventListener("pointerleave", onPointerLeave);
       document.removeEventListener("visibilitychange", updateMotion);
-      window.removeEventListener("listaso:sami-motion", onMotionControl);
       reducedMotion.removeEventListener("change", updateMotion);
       coarsePointer.removeEventListener("change", updateMotion);
       compactViewport.removeEventListener("change", updateMotion);

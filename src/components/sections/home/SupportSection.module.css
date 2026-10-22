@@ -1,122 +1,179 @@
+/*
+ * Homepage support section.
+ *
+ * Layout: header across the top; below it the response console (main path) and
+ * an aside with ratings, the review, hours and the CTA. From 1024px the ladder
+ * and aside sit side by side (8 + 4 columns); below, they stack in reading
+ * order.
+ *
+ * Motion: the console fades in with HomeMotion; its own transitions live in
+ * SupportTriage.module.css.
+ */
+
 @layer components {
-  .responseCard {
+  .section {
     position: relative;
     isolation: isolate;
-    display: grid;
-    min-height: 20rem;
     overflow: hidden;
-    grid-template-columns: auto 1fr;
-    border: 1px solid var(--listaso-border-subtle);
-    border-radius: var(--listaso-radius-lg);
-    background: var(--listaso-surface-raised);
-    box-shadow: var(--listaso-shadow-e2);
+    padding-block: 4rem;
+    border-block: 1px solid var(--listaso-border-subtle);
+    background:
+      radial-gradient(45% 60% at 100% 0%, color-mix(in srgb, var(--listaso-text-accent) 9%, transparent), transparent 70%),
+      var(--listaso-surface-alt);
   }
 
-  .responseCard::after {
-    position: absolute;
-    z-index: -1;
-    right: -5rem;
-    bottom: -6rem;
-    width: 14rem;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgb(0 189 169 / 0.18), transparent 68%);
-    content: "";
-    transition: transform var(--listaso-duration-slow) var(--listaso-ease-standard);
-  }
-
-  .responseCard:hover::after,
-  .responseCard:focus-within::after {
-    transform: translate3d(-1.25rem, -1rem, 0) scale(1.12);
-  }
-
-  /*
-   * The index reads horizontally: at ~36px, vertical digits were hard to
-   * read, so the side column keeps the number upright at the top.
-   */
-  .cardIndex {
+  .layout {
     display: grid;
-    width: 4rem;
-    place-items: start center;
-    padding-top: 1.5rem;
-    border-right: 1px solid var(--listaso-border-subtle);
-    background: var(--listaso-surface-alt);
-    color: var(--listaso-text-accent);
-    font-size: var(--text-h2-compact);
-    font-variant-numeric: tabular-nums;
-    font-weight: 700;
-    line-height: 1;
-    letter-spacing: -0.02em;
+    gap: 2.5rem;
   }
 
-  .cardContent {
+  .header {
+    max-width: 48rem;
+  }
+
+  .console {
+    display: flex;
+    min-width: 0;
+  }
+
+  .console > * {
+    width: 100%;
+  }
+
+  /* --- Aside ----------------------------------------------------------- */
+
+  .aside {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .proof {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.25rem;
     padding: 1.5rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-xl);
+    background:
+      radial-gradient(80% 60% at 100% 0%, color-mix(in srgb, var(--listaso-status-warning) 10%, transparent), transparent 70%),
+      var(--listaso-surface-raised);
   }
 
-  /* Label above the value on narrow cards, side by side from 48rem. */
-  .responseTime {
+  .scores {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
+    margin: 0;
+    padding: 0 0 1.25rem;
+    border-bottom: 1px solid var(--listaso-border-subtle);
+    list-style: none;
+  }
+
+  .score {
     display: flex;
-    margin-top: auto;
     flex-direction: column;
-    gap: 0.25rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--listaso-border-subtle);
+    gap: 0.375rem;
   }
 
-  .responseTime dt {
-    max-width: 8rem;
-    color: var(--listaso-text-muted);
-    font-size: var(--text-body);
-    font-weight: 600;
-    line-height: var(--text-body--line-height);
+  .score + .score {
+    padding-left: 1rem;
+    border-left: 1px solid var(--listaso-border-subtle);
   }
 
-  .responseTime dd {
+  .scoreValue {
     color: var(--listaso-text-heading);
-    font-size: clamp(1.5rem, 6vw, 2.25rem);
+    font-size: 2.5rem;
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.04em;
+  }
+
+  .scoreLabel {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+
+  .quote {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .quote blockquote {
+    color: var(--listaso-text-default);
+    font-size: 1.0625rem;
+    font-weight: 500;
+    line-height: 1.625rem;
+  }
+
+  .quote figcaption {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+
+  .hours {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .hour {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+    color: var(--listaso-text-default);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  .hourIcon {
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: var(--listaso-radius-sm);
+    background: color-mix(in srgb, var(--listaso-text-accent) 12%, transparent);
+    color: var(--listaso-icon-accent);
+  }
+
+  .hourLabel {
+    display: block;
+    color: var(--listaso-text-heading);
+    font-weight: 600;
+  }
+
+  .hourValue {
+    color: var(--listaso-text-muted);
     overflow-wrap: anywhere;
   }
 
-  @media (min-width: 48rem) {
-    .responseCard {
-      min-height: 18rem;
+  /* --- Wider screens --------------------------------------------------- */
+
+  @media (min-width: 64rem) {
+    .section {
+      padding-block: 6rem;
     }
 
-    .cardContent {
-      padding: 2rem;
+    .layout {
+      grid-template-columns: minmax(0, 8fr) minmax(0, 4fr);
+      column-gap: 2rem;
+      row-gap: 3rem;
     }
 
-    .cardIndex {
-      width: 5rem;
+    .header {
+      grid-column: 1 / -1;
     }
 
-    .responseTime {
-      flex-direction: row;
-      align-items: flex-end;
+    .aside {
       justify-content: space-between;
-      gap: 1rem;
-    }
-
-    .responseTime dd {
-      text-align: right;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .responseCard::after {
-      transition: none;
-    }
-  }
-
-  @media (forced-colors: active) {
-    .responseCard::after {
-      display: none;
     }
   }
 }

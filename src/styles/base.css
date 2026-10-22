@@ -35,4 +35,9 @@
   @media (forced-colors: active) {
     :focus-visible { outline-color: Highlight; }
   }
+
+  /* The page does not scroll behind the open mobile menu (SiteHeader). */
+  @media (max-width: 79.99rem) {
+    html:has(details[data-mobile-menu][open]) { overflow: hidden; }
+  }
 }

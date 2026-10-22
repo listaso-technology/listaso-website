@@ -1,0 +1,166 @@
+/*
+ * Zoho feature mosaic: two wide tiles then compact ones. A hovered tile
+ * fills from its top-right corner with a soft accent and the icon turns.
+ */
+
+@layer components {
+  .mosaic {
+    display: grid;
+    gap: 0.875rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .item {
+    display: flex;
+  }
+
+  .tile {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    overflow: hidden;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-lg);
+    background: var(--listaso-surface-raised);
+    transition: border-color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .tile::before {
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    z-index: -1;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 75% 25%, color-mix(in srgb, var(--listaso-text-accent) 18%, transparent), transparent 45%);
+    content: "";
+    opacity: 0;
+    scale: 0.4;
+    transform-origin: 75% 25%;
+    transition:
+      opacity 500ms var(--listaso-ease-standard),
+      scale 700ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .tile:hover {
+    border-color: color-mix(in srgb, var(--listaso-text-accent) 50%, var(--listaso-border-subtle));
+  }
+
+  .tile:hover::before {
+    opacity: 1;
+    scale: 1;
+  }
+
+  .watermark {
+    position: absolute;
+    right: -0.5rem;
+    bottom: -0.75rem;
+    z-index: -1;
+    display: none;
+    color: var(--listaso-border-subtle);
+    scale: 2.4;
+    transform-origin: bottom right;
+  }
+
+  .icon {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-bottom: 0.75rem;
+    place-items: center;
+    border-radius: var(--listaso-radius-md);
+    background: color-mix(in srgb, var(--listaso-text-accent) 14%, transparent);
+    color: var(--listaso-icon-accent);
+    transition:
+      rotate 500ms cubic-bezier(0.34, 1.56, 0.64, 1),
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .tile:hover .icon {
+    background: var(--listaso-text-accent);
+    color: var(--listaso-surface-page);
+    rotate: -10deg;
+  }
+
+  .title {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-body-lg);
+    font-weight: 700;
+    line-height: var(--text-body-lg--line-height);
+  }
+
+  .text {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  .wide .tile {
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--listaso-text-accent) 8%, transparent), transparent 60%),
+      var(--listaso-surface-raised);
+  }
+
+  .wide .watermark {
+    display: block;
+  }
+
+  .wide .title {
+    font-size: var(--text-h4);
+    line-height: var(--text-h4--line-height);
+  }
+
+  @media (min-width: 40rem) {
+    .mosaic {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .mosaic {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1rem;
+    }
+
+    .wide {
+      grid-column: span 2;
+    }
+
+    /* After the two wide tiles, a last row of two compact tiles spans the full width. */
+    .item:nth-child(4n + 7):nth-last-child(2),
+    .item:nth-child(4n + 8):last-child {
+      grid-column: span 2;
+    }
+
+    .wide .tile {
+      min-height: 13rem;
+      justify-content: flex-end;
+      padding: 2rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .tile,
+    .tile::before,
+    .icon {
+      transition: none;
+    }
+
+    .tile:hover .icon {
+      rotate: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .tile {
+      border: 1px solid CanvasText;
+    }
+  }
+}

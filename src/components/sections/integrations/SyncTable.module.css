@@ -1,0 +1,397 @@
+/*
+ * Sync details (integration pages). Sticky aside with the header and a
+ * per-direction legend; the table on the right, where each direction cell
+ * draws a lane: left node = the system, right node = Listaso (as labelled in
+ * the header). The pulse travels the data's way twice when the table reveals
+ * (staggered by row) and loops while the row is hovered. No other loops.
+ */
+
+@layer components {
+  .layout {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .aside {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* --- Legend ----------------------------------------------------------- */
+
+  .legend {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-xl);
+    background:
+      radial-gradient(80% 90% at 0% 0%, color-mix(in srgb, var(--listaso-text-accent) 12%, transparent), transparent 70%),
+      var(--listaso-surface-raised);
+  }
+
+  .legendEnds {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .legendSystem {
+    display: flex;
+    height: 2.5rem;
+    align-items: center;
+    padding-inline: 0.875rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-md);
+    background: var(--listaso-surface-page);
+    color: var(--listaso-text-heading);
+    font-size: var(--text-small);
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .legendWire {
+    position: relative;
+    display: grid;
+    height: 2.5rem;
+    flex: 1;
+    place-items: center;
+    color: var(--listaso-surface-page);
+  }
+
+  .legendWire::before {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: 0;
+    height: 2px;
+    background-image: linear-gradient(90deg, var(--listaso-text-accent) 50%, transparent 50%);
+    background-size: 8px 2px;
+    content: "";
+  }
+
+  .legendWire svg {
+    position: relative;
+    box-sizing: content-box;
+    padding: 0.5rem;
+    border-radius: 50%;
+    background: var(--listaso-text-heading);
+  }
+
+  .legendList {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .legendItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.75rem 0;
+    border-top: 1px solid var(--listaso-border-subtle);
+    font-size: var(--text-small);
+  }
+
+  .legendCount {
+    display: grid;
+    min-width: 2rem;
+    height: 2rem;
+    place-items: center;
+    padding-inline: 0.5rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--listaso-text-accent) 14%, transparent);
+    color: var(--listaso-text-accent);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* --- Table ------------------------------------------------------------ */
+
+  .frame {
+    overflow-x: auto;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-xl);
+    background: var(--listaso-surface-raised);
+    box-shadow: var(--listaso-shadow-e2);
+  }
+
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+
+  .headItem,
+  .headDirection {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--listaso-border-subtle);
+    background: var(--listaso-surface-alt);
+    color: var(--listaso-text-muted);
+    font-size: var(--text-caption);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .headDirection {
+    width: 42%;
+  }
+
+  .headEnds {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.375rem;
+    color: var(--listaso-text-heading);
+    letter-spacing: 0.02em;
+    text-transform: none;
+  }
+
+  .row {
+    border-top: 1px solid var(--listaso-border-subtle);
+    transition: background-color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .row:first-child {
+    border-top: 0;
+  }
+
+  .row:hover {
+    background: color-mix(in srgb, var(--listaso-text-accent) 5%, transparent);
+  }
+
+  .item {
+    padding: 1rem 1.25rem;
+    font-weight: 400;
+    vertical-align: middle;
+  }
+
+  .itemInner {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .index {
+    padding-top: 0.125rem;
+    color: var(--listaso-text-muted);
+    font-size: var(--text-small);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    transition: color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .row:hover .index {
+    color: var(--listaso-text-accent);
+  }
+
+  .itemCopy {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .itemMain {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-body);
+    font-weight: 600;
+  }
+
+  .itemDetail {
+    max-width: 36rem;
+    color: var(--listaso-text-muted);
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+
+  .direction {
+    padding: 1rem 1.25rem;
+    vertical-align: middle;
+  }
+
+  .directionText {
+    display: block;
+    margin-top: 0.375rem;
+    font-size: var(--text-small);
+  }
+
+  /* --- Lane -------------------------------------------------------------- */
+
+  .lane {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .node {
+    width: 0.625rem;
+    height: 0.625rem;
+    flex-shrink: 0;
+    border: 2px solid var(--listaso-text-accent);
+    border-radius: 50%;
+    background: var(--listaso-surface-raised);
+  }
+
+  .track {
+    position: relative;
+    height: 2px;
+    flex: 1;
+    background: color-mix(in srgb, var(--listaso-text-accent) 30%, var(--listaso-border-subtle));
+  }
+
+  .arrow {
+    position: absolute;
+    top: 50%;
+    display: none;
+    color: var(--listaso-text-accent);
+    translate: 0 -50%;
+  }
+
+  .arrowRight {
+    right: 0.125rem;
+  }
+
+  .arrowLeft {
+    left: 0.125rem;
+  }
+
+  .in .arrowRight,
+  .out .arrowLeft,
+  .both .arrowRight,
+  .both .arrowLeft {
+    display: grid;
+  }
+
+  .pulse {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: var(--listaso-text-accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--listaso-text-accent) 25%, transparent);
+    opacity: 0;
+    translate: -50% -50%;
+  }
+
+  @keyframes lane-forward {
+    0% {
+      left: 0;
+      opacity: 0;
+    }
+
+    15%,
+    85% {
+      opacity: 1;
+    }
+
+    100% {
+      left: 100%;
+      opacity: 0;
+    }
+  }
+
+  @keyframes lane-back {
+    0% {
+      left: 100%;
+      opacity: 0;
+    }
+
+    15%,
+    85% {
+      opacity: 1;
+    }
+
+    100% {
+      left: 0;
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    /* Twice when the table reveals, staggered by row. */
+    :global([data-revealed="true"]) .in .pulse {
+      animation: lane-forward 1.4s ease-in-out calc(var(--i) * 120ms) 2;
+    }
+
+    :global([data-revealed="true"]) .out .pulse {
+      animation: lane-back 1.4s ease-in-out calc(var(--i) * 120ms) 2;
+    }
+
+    :global([data-revealed="true"]) .both .pulse {
+      animation: lane-forward 1.4s ease-in-out calc(var(--i) * 120ms) 2 alternate;
+    }
+
+    /* Looping only while the row is hovered. */
+    .row:hover .in .pulse {
+      animation: lane-forward 1.2s ease-in-out infinite;
+    }
+
+    .row:hover .out .pulse {
+      animation: lane-back 1.2s ease-in-out infinite;
+    }
+
+    .row:hover .both .pulse {
+      animation: lane-forward 1.2s ease-in-out infinite alternate;
+    }
+  }
+
+  /* --- Wider screens ------------------------------------------------------- */
+
+  /* Narrow: tighter cells, no index, so both columns fit without scrolling. */
+  @media (max-width: 39.99rem) {
+    .headItem,
+    .headDirection,
+    .item,
+    .direction {
+      padding: 0.875rem 0.75rem;
+    }
+
+    .index {
+      display: none;
+    }
+
+    .itemMain {
+      font-size: var(--text-small);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .layout {
+      grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+      align-items: start;
+      gap: 4rem;
+    }
+
+    .aside {
+      position: sticky;
+      top: 7rem;
+    }
+
+    .headItem,
+    .headDirection,
+    .item,
+    .direction {
+      padding-inline: 1.5rem;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .frame,
+    .legend {
+      border: 1px solid CanvasText;
+    }
+
+    .pulse,
+    .track {
+      background: CanvasText;
+    }
+  }
+}

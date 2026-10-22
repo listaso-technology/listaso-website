@@ -1,78 +1,207 @@
 /*
- * Scroll-linked marquee. Rows move only while the visitor scrolls (CSS
- * scroll-driven animation, transform only), so there is no autoplay to pause
- * (WCAG 2.2.2). Without support or with reduced motion, the first row wraps
- * as a static list and the decorative copies are hidden.
+ * Continuous marquee (shared). User instruction, 20 Oct 2026 (DEC-022
+ * extended): rows always move; two identical halves per row move -50% for a
+ * seamless loop, spacing lives in item padding (not gaps). Rows are capped
+ * at 100rem and centered, so the loop always covers them at any zoom.
+ * Reduced motion: the first row wraps as a static list; copies and the
+ * second row are hidden.
  */
-.marquee {
-  overflow: hidden;
-}
 
-.track {
-  display: flex;
-  flex-shrink: 0;
-  align-items: center;
-  width: max-content;
-  gap: 0.75rem;
-}
+@layer components {
+  .section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding-block: 3rem;
+  }
 
-.copy,
-.secondRow {
-  display: none;
-}
+  .alt {
+    border-block: 1px solid var(--listaso-border-subtle);
+    background: var(--listaso-surface-alt);
+  }
 
-@supports (animation-timeline: view()) {
+  .band {
+    background: var(--listaso-surface-band);
+  }
+
+  .rows {
+    display: flex;
+    width: 100%;
+    max-width: 100rem;
+    flex-direction: column;
+    gap: 0.875rem;
+    margin-inline: auto;
+  }
+
+  .row {
+    overflow: hidden;
+    mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+  }
+
+  .track {
+    display: flex;
+    width: max-content;
+  }
+
+  .half,
+  .extra,
+  .list,
+  .copy {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .item {
+    display: flex;
+    padding-right: 0.75rem;
+  }
+
+  /* --- Pill ------------------------------------------------------------- */
+
+  .pill {
+    display: inline-flex;
+    min-height: 3rem;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0 1.25rem 0 0.625rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-full);
+    background: var(--listaso-surface-raised);
+    color: var(--listaso-text-heading);
+    font-size: var(--text-body);
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: var(--listaso-shadow-e1);
+    transition:
+      border-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .pillIcon {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--listaso-text-accent) 12%, transparent);
+    color: var(--listaso-icon-accent);
+  }
+
+  .pillDot {
+    width: 0.5rem;
+    height: 0.5rem;
+    margin-left: 0.625rem;
+    border-radius: 50%;
+    background: var(--listaso-icon-accent);
+  }
+
+  .pill:hover {
+    border-color: color-mix(in srgb, var(--listaso-text-accent) 50%, var(--listaso-border-subtle));
+  }
+
+  /* --- Display words ---------------------------------------------------- */
+
+  .isDisplay .rows {
+    gap: 0.25rem;
+  }
+
+  .word {
+    display: inline-flex;
+    align-items: center;
+    gap: 2rem;
+    padding-right: 1.25rem;
+    color: var(--listaso-text-heading);
+    font-size: var(--text-h1);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+  }
+
+  /* Second row in outline for contrast between the two directions. */
+  .secondRow .word {
+    color: transparent;
+    -webkit-text-stroke: 1.5px color-mix(in srgb, var(--listaso-text-heading) 55%, transparent);
+  }
+
+  .wordDot {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: var(--listaso-icon-accent);
+  }
+
+  /* --- Motion ----------------------------------------------------------- */
+
   @media (prefers-reduced-motion: no-preference) {
-    .copy {
-      display: flex;
-      align-items: center;
-    }
-
-    .secondRow {
-      display: block;
-    }
-
     .track {
-      flex-wrap: nowrap;
-      animation: slide linear both;
-      animation-timeline: view();
-      animation-range: cover 0% cover 100%;
+      animation: marquee var(--marquee-duration, 36s) linear infinite;
     }
 
     .reverse {
-      animation-name: slide-reverse;
+      animation-direction: reverse;
     }
   }
-}
 
-@supports not (animation-timeline: view()) {
-  .track {
-    width: auto;
-    flex-wrap: wrap;
+  @keyframes marquee {
+    to {
+      translate: -50% 0;
+    }
   }
-}
 
-@media (prefers-reduced-motion: reduce) {
-  .track {
-    width: auto;
-    flex-wrap: wrap;
-  }
-}
+  /* --- Wider screens ---------------------------------------------------- */
 
-@keyframes slide {
-  from {
-    translate: 0 0;
+  @media (min-width: 48rem) {
+    .section {
+      padding-block: 3.5rem;
+    }
   }
-  to {
-    translate: -35% 0;
-  }
-}
 
-@keyframes slide-reverse {
-  from {
-    translate: -35% 0;
+  @media (min-width: 64rem) {
+    .word {
+      font-size: var(--text-display);
+    }
   }
-  to {
-    translate: 0 0;
+
+  /* --- Reduced motion: static list -------------------------------------- */
+
+  @media (prefers-reduced-motion: reduce) {
+    .row {
+      mask-image: none;
+    }
+
+    .track {
+      width: auto;
+      padding-inline: 1rem;
+    }
+
+    .list {
+      flex-wrap: wrap;
+      row-gap: 0.75rem;
+    }
+
+    .copy,
+    .extra,
+    .secondRow {
+      display: none;
+    }
+
+    .half {
+      width: 100%;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .pill {
+      border: 1px solid CanvasText;
+    }
+
+    .row {
+      mask-image: none;
+    }
   }
 }

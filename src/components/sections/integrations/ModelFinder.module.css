@@ -1,0 +1,343 @@
+/*
+ * Compatible models: "Works with" filter bar and a styled data table grouped
+ * by brand. App pills sit in fixed slots so the columns line up; filtered
+ * rows dim and the chosen app's pills light up; a hovered brand group is
+ * highlighted.
+ */
+
+@layer components {
+  .finder {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  /* --- Filters ------------------------------------------------------------ */
+
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+    max-width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: 999px;
+    background: var(--listaso-surface-raised);
+  }
+
+  .filterLabel {
+    padding-inline: 0.75rem 0.25rem;
+    color: var(--listaso-text-muted);
+    font-size: var(--text-small);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .filter {
+    display: inline-flex;
+    min-height: 2.75rem;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.375rem 0.5rem 0.375rem 0.375rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--listaso-text-heading);
+    cursor: pointer;
+    font: inherit;
+    font-size: var(--text-small);
+    font-weight: 600;
+    transition:
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .filter:hover {
+    border-color: var(--listaso-border-subtle);
+    background: var(--listaso-surface-alt);
+  }
+
+  .filter:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .filterOn,
+  .filterOn:hover {
+    border-color: transparent;
+    background: var(--listaso-text-heading);
+    color: var(--listaso-surface-page);
+  }
+
+  .filterIcon {
+    display: grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    place-items: center;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--listaso-text-accent) 16%, transparent);
+    color: var(--listaso-icon-accent);
+  }
+
+  .filterOn .filterIcon {
+    background: var(--listaso-text-accent);
+    color: var(--listaso-surface-band);
+  }
+
+  .filterCount {
+    display: grid;
+    min-width: 1.5rem;
+    height: 1.5rem;
+    place-items: center;
+    padding-inline: 0.375rem;
+    border-radius: 999px;
+    background: var(--listaso-surface-alt);
+    color: var(--listaso-text-muted);
+    font-size: var(--text-caption);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .filterOn .filterCount {
+    background: color-mix(in srgb, var(--listaso-surface-page) 18%, transparent);
+    color: var(--listaso-surface-page);
+  }
+
+  /* --- Table -------------------------------------------------------------- */
+
+  .frame {
+    overflow-x: auto;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-xl);
+    background: var(--listaso-surface-raised);
+    box-shadow: var(--listaso-shadow-e2);
+  }
+
+  .table {
+    width: 100%;
+    min-width: 36rem;
+    border-collapse: collapse;
+    text-align: left;
+  }
+
+  .head {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid var(--listaso-border-subtle);
+    background: var(--listaso-surface-alt);
+    color: var(--listaso-text-muted);
+    font-size: var(--text-caption);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .group {
+    border-top: 1px solid var(--listaso-border-subtle);
+    transition: background-color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .group:first-of-type {
+    border-top: 0;
+  }
+
+  .group:hover {
+    background: color-mix(in srgb, var(--listaso-text-accent) 4%, transparent);
+  }
+
+  .row > * {
+    transition: opacity 350ms var(--listaso-ease-standard);
+  }
+
+  .row + .row > td {
+    border-top: 1px dashed var(--listaso-border-subtle);
+  }
+
+  .rowOff > td {
+    opacity: 0.28;
+  }
+
+  .groupOff .brand {
+    opacity: 0.35;
+  }
+
+  .brand {
+    width: 30%;
+    padding: 1rem 1.5rem;
+    vertical-align: top;
+    transition: opacity 350ms var(--listaso-ease-standard);
+  }
+
+  .brandInner {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .brandMark {
+    display: grid;
+    width: 2.25rem;
+    height: 2.25rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: var(--listaso-radius-md);
+    background: var(--listaso-text-heading);
+    color: var(--listaso-surface-page);
+    font-weight: 800;
+    transition:
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .group:hover .brandMark {
+    background: var(--listaso-text-accent);
+    transform: rotate(-6deg);
+  }
+
+  .brandName {
+    color: var(--listaso-text-heading);
+    font-weight: 700;
+  }
+
+  .model {
+    padding: 1rem 1.5rem;
+    color: var(--listaso-text-heading);
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .apps {
+    padding: 0.75rem 1.5rem;
+  }
+
+  .pills {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(6.5rem, max-content));
+    gap: 0.375rem;
+  }
+
+  .pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.3rem 0.75rem 0.3rem 0.5rem;
+    border: 1px solid color-mix(in srgb, var(--listaso-text-accent) 30%, var(--listaso-border-subtle));
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--listaso-text-accent) 10%, transparent);
+    color: var(--listaso-text-heading);
+    font-size: var(--text-small);
+    font-weight: 600;
+    transition:
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .pill svg {
+    color: var(--listaso-icon-accent);
+  }
+
+  .pillHit {
+    border-color: transparent;
+    background: var(--listaso-text-accent);
+    color: var(--listaso-surface-band);
+    transform: scale(1.05);
+  }
+
+  .pillHit svg {
+    color: currentColor;
+  }
+
+  .slot {
+    border: 1px dashed var(--listaso-border-subtle);
+    border-radius: 999px;
+    opacity: 0.6;
+  }
+
+  /* Narrow: the filter bar wraps, so it becomes a rounded box. */
+  @media (max-width: 39.99rem) {
+    .filters {
+      width: 100%;
+      border-radius: var(--listaso-radius-xl);
+    }
+
+    .filterLabel {
+      flex-basis: 100%;
+      padding: 0.25rem 0.5rem 0;
+    }
+
+    /* The table fits without sideways scroll: pills wrap, empty slots hide. */
+    .table {
+      min-width: 0;
+    }
+
+    .brand,
+    .model,
+    .apps,
+    .head {
+      padding-inline: 0.625rem;
+    }
+
+    .brand {
+      width: auto;
+    }
+
+    .brandMark {
+      display: none;
+    }
+
+    .brandName,
+    .model {
+      font-size: var(--text-small);
+    }
+
+    .model {
+      white-space: normal;
+    }
+
+    .pills {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .slot {
+      display: none;
+    }
+
+    .pill {
+      padding: 0.25rem 0.5rem 0.25rem 0.375rem;
+      font-size: var(--text-caption);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .filter,
+    .group,
+    .row > *,
+    .brand,
+    .brandMark,
+    .pill {
+      transition: none;
+    }
+
+    .group:hover .brandMark,
+    .pillHit {
+      transform: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .filterOn {
+      border: 2px solid Highlight;
+    }
+
+    .frame,
+    .pill {
+      border: 1px solid CanvasText;
+    }
+  }
+}

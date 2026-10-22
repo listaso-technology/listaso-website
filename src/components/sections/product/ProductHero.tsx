@@ -32,8 +32,9 @@ export function ProductHero({ content, icon, media, location, trail, ctas = true
       aria-labelledby="hero-title"
       data-surface="band"
       data-story-section
-      className={`${backdrops.brandMesh} overflow-hidden`}
+      className={`${backdrops.brandMesh} relative isolate overflow-hidden`}
     >
+      <span aria-hidden="true" className={backdrops.heroGrid} />
       <Container
         width="wide"
         className="grid items-center gap-16 py-16 lg:min-h-[calc(88svh-4.5rem)] lg:grid-cols-[0.95fr_1.05fr] lg:py-24"

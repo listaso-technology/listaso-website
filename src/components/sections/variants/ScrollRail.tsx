@@ -31,7 +31,7 @@ export function ScrollRail({ id, copy, cards, linkLabel, analyticsEvent, tone }:
         role="region"
         aria-labelledby={id}
         tabIndex={0}
-        className="mt-12 snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-px-4 pb-6 [scrollbar-width:thin] md:scroll-px-6 lg:scroll-px-8"
+        className="mt-10 snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-px-4 pt-2 pb-6 [scrollbar-width:thin] md:scroll-px-6 lg:scroll-px-8"
       >
         <ul data-reveal="group" className="flex w-max gap-6 px-4 md:px-6 lg:px-[max(2rem,calc((100vw-75rem)/2+2rem))]">
           {cards.map((card) => (

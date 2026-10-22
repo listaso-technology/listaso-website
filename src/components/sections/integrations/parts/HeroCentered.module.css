@@ -1,0 +1,146 @@
+/*
+ * Centred integration hero on the band: copy on the axis, a wide photo with
+ * two end labels and the example panel centred over its lower edge.
+ */
+
+@layer components {
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-block: 3rem 4rem;
+  }
+
+  .glow {
+    position: absolute;
+    top: -20%;
+    left: 50%;
+    z-index: -1;
+    width: 70rem;
+    height: 40rem;
+    background: radial-gradient(closest-side, rgb(0 189 169 / 0.22), transparent);
+    pointer-events: none;
+    translate: -50% 0;
+  }
+
+  .layout {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .crumbs {
+    display: flex;
+    justify-content: center;
+  }
+
+  .copy {
+    display: flex;
+    max-width: 52rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    margin-inline: auto;
+    text-align: center;
+  }
+
+  .title {
+    overflow: hidden;
+    color: var(--listaso-text-heading);
+    font-size: var(--text-display);
+    line-height: var(--text-display--line-height);
+    text-wrap: balance;
+  }
+
+  .lead {
+    max-width: 40rem;
+    color: var(--listaso-text-muted);
+    font-size: var(--text-lead);
+    line-height: var(--text-lead--line-height);
+  }
+
+  .stage {
+    position: relative;
+    margin-top: 1rem;
+  }
+
+  .frame {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-xl);
+    background: var(--listaso-surface-soft);
+  }
+
+  .shade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(0deg, rgb(4 22 42 / 0.7) 0%, transparent 50%),
+      linear-gradient(90deg, rgb(4 22 42 / 0.5), transparent 25%, transparent 75%, rgb(4 22 42 / 0.5));
+  }
+
+  .end {
+    position: absolute;
+    top: 1.25rem;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .endLeft {
+    left: 1.25rem;
+  }
+
+  .endRight {
+    right: 1.25rem;
+  }
+
+  .overlay {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    margin-top: -3rem;
+    padding-inline: 0.75rem;
+  }
+
+  @media (min-width: 40rem) {
+    .frame {
+      aspect-ratio: 16 / 9;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .hero {
+      padding-block: 4rem 6rem;
+    }
+
+    .frame {
+      aspect-ratio: 21 / 9;
+    }
+
+    .end {
+      top: 50%;
+      translate: 0 -50%;
+    }
+
+    .endLeft {
+      left: 2rem;
+    }
+
+    .endRight {
+      right: 2rem;
+    }
+
+    .overlay {
+      position: absolute;
+      bottom: -2.5rem;
+      left: 50%;
+      width: min(32rem, 50%);
+      margin: 0;
+      padding: 0;
+      translate: -50% 0;
+    }
+  }
+}

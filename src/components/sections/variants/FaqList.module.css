@@ -1,0 +1,155 @@
+/*
+ * FAQ disclosures. Native <details>; where ::details-content is supported
+ * the answer slides open (interpolate-size), elsewhere it simply appears.
+ * The open item shows an accent rule on the left and a filled toggle.
+ */
+
+@layer components {
+  .item {
+    position: relative;
+    border-bottom: 1px solid var(--listaso-border-subtle);
+    interpolate-size: allow-keywords;
+  }
+
+  /* Accent rule: grows on hover, stays while open. */
+  .item::before {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 3px;
+    background: var(--listaso-text-accent);
+    content: "";
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 450ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .item:hover::before {
+    transform: scaleY(0.5);
+  }
+
+  .item[open]::before {
+    transform: none;
+  }
+
+  .item::details-content {
+    height: 0;
+    overflow: clip;
+    opacity: 0;
+    transition:
+      height 450ms cubic-bezier(0.32, 0.72, 0, 1),
+      opacity 300ms var(--listaso-ease-standard),
+      content-visibility 450ms allow-discrete;
+  }
+
+  .item[open]::details-content {
+    height: auto;
+    opacity: 1;
+  }
+
+  .summary {
+    display: grid;
+    min-height: 4rem;
+    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.25rem 0 1.25rem 1rem;
+    cursor: pointer;
+    list-style: none;
+    transition: padding-left 350ms var(--listaso-ease-standard);
+  }
+
+  .summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .summary:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .item:hover .summary,
+  .item[open] .summary {
+    padding-left: 1.5rem;
+  }
+
+  .number {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-small);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+    transition: color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .item[open] .number,
+  .item:hover .number {
+    color: var(--listaso-text-accent);
+  }
+
+  .question {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-body);
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+  }
+
+  .toggle {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+    place-items: center;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: 50%;
+    color: var(--listaso-icon-accent);
+    transition:
+      transform var(--listaso-duration-standard) var(--listaso-ease-standard),
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .item[open] .toggle {
+    border-color: transparent;
+    background: var(--listaso-text-accent);
+    color: var(--listaso-surface-page);
+    transform: rotate(45deg);
+  }
+
+  .answer {
+    max-width: 42rem;
+    padding: 0 0 1.5rem calc(1.5rem + 2.5rem + 1rem);
+    color: var(--listaso-text-muted);
+    font-size: var(--text-body-lg);
+    line-height: var(--text-body-lg--line-height);
+  }
+
+  @media (max-width: 39.99rem) {
+    .summary {
+      grid-template-columns: 2rem minmax(0, 1fr) auto;
+      gap: 0.75rem;
+    }
+
+    .answer {
+      padding-left: calc(1.5rem + 2rem + 0.75rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .item::before,
+    .item::details-content,
+    .summary,
+    .number,
+    .toggle {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .item::before {
+      background: Highlight;
+    }
+  }
+}

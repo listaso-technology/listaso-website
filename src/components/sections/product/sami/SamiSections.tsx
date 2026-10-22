@@ -2,16 +2,19 @@ import Image from "next/image";
 import { Icon } from "@/components/icons/Icon";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
+import { SmoothDisclosures } from "@/components/ui/SmoothDisclosures";
 import { examples, faq, included, pricing } from "@/content/products/sami";
 import { cx } from "@/lib/utils/cx";
 import { SectionHeader } from "../../SectionHeader";
 import { SamiConversation } from "../../home/SamiConversation";
 import { BentoFeatures } from "../../variants/BentoFeatures";
 import { ProductSection } from "../ProductSection";
+import examplesStyles from "./SamiExamples.module.css";
 
 /**
  * "Questions you can ask today", still inside the SAMI space: the animated
- * conversation from the Homepage beside the example questions as large rows.
+ * conversation from the Homepage (sticky, with a soft halo) beside the
+ * example questions as prompt cards.
  */
 export function SamiExamples() {
   return (
@@ -19,28 +22,37 @@ export function SamiExamples() {
       aria-labelledby="examples-title"
       data-surface="sami"
       data-story-section
-      className="overflow-x-clip border-t border-line-subtle bg-surface-alt py-16 lg:py-24"
+      className={cx(examplesStyles.section, "border-t border-line-subtle bg-surface-alt py-16 lg:py-24")}
     >
+      <span aria-hidden="true" className={examplesStyles.atmosphere}>
+        <span className={examplesStyles.dots} />
+      </span>
       <Container width="wide" className="grid gap-12 lg:grid-cols-2 lg:gap-16">
-        <div className="min-w-0 lg:sticky lg:top-28 lg:h-fit">
+        <div className={cx(examplesStyles.stage, "min-w-0 lg:sticky lg:top-28 lg:h-fit")}>
           <SamiConversation />
         </div>
         <div className="flex min-w-0 flex-col gap-10">
           <SectionHeader id="examples-title" eyebrow={examples.eyebrow} title={examples.title} lead={examples.lead} />
-          <ol data-reveal="group" className="border-t border-line-subtle">
+          <ol data-reveal="group" className={examplesStyles.prompts}>
             {examples.questions.map((question, index) => (
-              <li
-                data-reveal-item
-                key={question}
-                className="grid grid-cols-[2.5rem_1fr_auto] items-center gap-x-4 border-b border-line-subtle py-6"
-              >
-                <span aria-hidden="true" className="text-small font-bold text-fg-accent">
-                  {String(index + 1).padStart(2, "0")}
-                </span>
-                <p className="text-h4 font-semibold text-fg-heading">“{question}”</p>
-                <span aria-hidden="true" className="flex size-10 items-center justify-center rounded-full bg-surface-soft text-icon-accent">
-                  <Icon name="ai" size={20} />
-                </span>
+              <li data-reveal-item key={question} className={examplesStyles.promptItem}>
+                <div className={examplesStyles.prompt}>
+                  <span aria-hidden="true" className={examplesStyles.index}>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <p className={examplesStyles.question}>
+                    “{question}”
+                    <span aria-hidden="true" className={examplesStyles.caret} />
+                  </p>
+                  <span aria-hidden="true" className={examplesStyles.action}>
+                    <span className={examplesStyles.sparkle}>
+                      <Icon name="ai" size={20} />
+                    </span>
+                    <span className={examplesStyles.send}>
+                      <Icon name="arrow-right" size={20} className="-rotate-90" />
+                    </span>
+                  </span>
+                </div>
               </li>
             ))}
           </ol>
@@ -124,21 +136,23 @@ export function SamiFaq() {
     <ProductSection labelledBy="faq-title">
       <Container className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
         <SectionHeader id="faq-title" eyebrow={faq.eyebrow} title={faq.title} className="lg:sticky lg:top-28 lg:h-fit" />
-        <div data-reveal="group" className="flex flex-col border-t border-line-subtle">
-          {faq.items.map((item) => (
-            <details data-reveal-item key={item.question} className="group border-b border-line-subtle">
-              <summary className="cursor-pointer list-none py-6 marker:hidden [&::-webkit-details-marker]:hidden">
-                <span className="flex items-center justify-between gap-6 text-h4 font-semibold text-fg-heading">
-                  {item.question}
-                  <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-line-subtle text-icon-accent transition-transform duration-(--listaso-duration-standard) group-open:rotate-45">
-                    <Icon name="plus" size={20} />
+        <SmoothDisclosures className="border-t border-line-subtle">
+          <div data-reveal="group" className="flex flex-col">
+            {faq.items.map((item) => (
+              <details data-reveal-item key={item.question} className="group border-b border-line-subtle">
+                <summary className="cursor-pointer list-none py-6 marker:hidden [&::-webkit-details-marker]:hidden">
+                  <span className="flex items-center justify-between gap-6 text-h4 font-semibold text-fg-heading">
+                    {item.question}
+                    <span className="flex size-10 shrink-0 items-center justify-center rounded-full border border-line-subtle text-icon-accent transition-transform duration-(--listaso-duration-standard) group-[[open]:not([data-closing])]:rotate-45">
+                      <Icon name="plus" size={20} />
+                    </span>
                   </span>
-                </span>
-              </summary>
-              <p className="max-w-2xl pb-6 text-body-lg text-fg-muted">{item.answer}</p>
-            </details>
-          ))}
-        </div>
+                </summary>
+                <p className="max-w-2xl pb-6 text-body-lg text-fg-muted">{item.answer}</p>
+              </details>
+            ))}
+          </div>
+        </SmoothDisclosures>
       </Container>
     </ProductSection>
   );

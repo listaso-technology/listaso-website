@@ -81,33 +81,6 @@
     gap: 10px;
   }
 
-  .pause {
-    min-height: 36px;
-    padding: 7px 11px;
-    color: #d9e9f3;
-    background: rgb(5 35 55 / 0.72);
-    border: 1px solid rgb(102 220 212 / 0.34);
-    border-radius: 999px;
-    font: inherit;
-    font-size: 0.75rem;
-    cursor: pointer;
-    transition:
-      color var(--listaso-duration-fast) var(--listaso-ease-standard),
-      background-color var(--listaso-duration-fast) var(--listaso-ease-standard),
-      border-color var(--listaso-duration-fast) var(--listaso-ease-standard);
-  }
-
-  .pause:hover {
-    color: #fff;
-    background: rgb(12 63 82 / 0.9);
-    border-color: rgb(102 220 212 / 0.66);
-  }
-
-  .pause:focus-visible {
-    outline: 2px solid #66dcd4;
-    outline-offset: 3px;
-  }
-
   .sequence {
     opacity: 1;
     transform: translateY(0);
@@ -322,12 +295,6 @@
       color: CanvasText;
       background: Canvas;
       border: 1px solid CanvasText;
-    }
-
-    .pause {
-      color: ButtonText;
-      background: ButtonFace;
-      border-color: ButtonText;
     }
   }
 }
