@@ -1,0 +1,141 @@
+/*
+ * Link card (shared: related products and integrations hub). One stretched
+ * link (the title). Flat icon band on top, copy, and a footer cue. Hover and
+ * focus change border, band tint and title color, and move the arrow;
+ * nothing lifts, so cards are never clipped inside scrollers.
+ */
+
+@layer components {
+  .card {
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-lg);
+    background: var(--listaso-surface-raised);
+    transition:
+      border-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      box-shadow var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .band {
+    display: flex;
+    height: 6.5rem;
+    align-items: flex-end;
+    padding: 0 1.5rem 1.25rem;
+    border-bottom: 1px solid var(--listaso-border-subtle);
+    background: var(--listaso-surface-soft);
+    transition: background-color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .icon {
+    color: var(--listaso-icon-accent);
+    transition: transform var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem;
+  }
+
+  .title {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-h4);
+    font-weight: 700;
+    line-height: var(--text-h4--line-height);
+    transition: color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  /* The title link covers the whole card. */
+  .link {
+    color: inherit;
+  }
+
+  .link::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+  }
+
+  .link:focus-visible {
+    outline: none;
+  }
+
+  .card:has(.link:focus-visible) {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 3px;
+  }
+
+  .text {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  .cue {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    margin-top: auto;
+    padding-top: 1.25rem;
+    color: var(--listaso-link);
+    font-size: var(--text-body);
+    font-weight: 600;
+  }
+
+  .arrow {
+    transition: transform var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .card:hover,
+  .card:has(.link:focus-visible) {
+    border-color: color-mix(in srgb, var(--listaso-text-accent) 45%, var(--listaso-border-subtle));
+    box-shadow: var(--listaso-shadow-e2);
+  }
+
+  .card:hover .band,
+  .card:has(.link:focus-visible) .band {
+    background: color-mix(in srgb, var(--listaso-text-accent) 12%, var(--listaso-surface-soft));
+  }
+
+  .card:hover .title {
+    color: var(--listaso-text-accent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .card:hover .arrow,
+    .card:has(.link:focus-visible) .arrow {
+      transform: translateX(4px);
+    }
+
+    .card:hover .icon,
+    .card:has(.link:focus-visible) .icon {
+      transform: translateY(-3px);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .band {
+      padding-inline: 1.75rem;
+    }
+
+    .body {
+      padding: 1.75rem;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .card {
+      border: 1px solid CanvasText;
+    }
+
+    .icon {
+      color: CanvasText;
+    }
+  }
+}

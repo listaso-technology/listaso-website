@@ -1,84 +1,163 @@
+"use client";
+
+import { type CSSProperties, useCallback, useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/icons/Icon";
-import { GlassPanel } from "@/components/ui/GlassPanel";
+import { hero as homeHero } from "@/content/home/en";
 import { storefrontExample } from "@/content/products/b2b-ecommerce";
+import { cx } from "@/lib/utils/cx";
+import styles from "./StorefrontExample.module.css";
+
+const STEP = 650;
+
+/** Quantities and line totals of the same example order (Homepage hero). */
+const lines = homeHero.example.order.lines.map((line) => ({
+  qty: line.detail.split(" ×")[0],
+  total: line.total,
+  amount: Number(line.total.replace(/[^0-9.]/g, "")),
+}));
+
+const money = (value: number) => `$${value.toFixed(2)}`;
 
 /**
- * Illustrative storefront in a browser frame. It renders as product UI in
- * light (data-theme) over the brand band, with one glass notice. The whole
- * composition is a single image to assistive technology.
+ * Illustrative storefront (light product UI over the brand band) that plays a
+ * reorder once when it scrolls into view: "Repeat last order" lights up, each
+ * product gets its quantity and line total, the cart counts up to the order
+ * total, and a phone shows the order placed online. Clicking "Repeat last
+ * order" replays it (pointer only; the whole composition is one image to
+ * assistive technology). Reduced motion and no-JS: the final state.
  */
 export function StorefrontExample() {
   const example = storefrontExample;
+  const rootRef = useRef<HTMLDivElement>(null);
+  const timers = useRef<number[]>([]);
+  // -1 idle (button highlighted), 0..n-1 lines added, n = order placed.
+  const [step, setStep] = useState(lines.length);
+  const [cart, setCart] = useState(lines.reduce((sum, line) => sum + line.amount, 0));
+
+  const clear = () => {
+    timers.current.forEach((timer) => window.clearTimeout(timer));
+    timers.current = [];
+  };
+
+  const play = useCallback(() => {
+    clear();
+    setStep(-1);
+    setCart(0);
+    let running = 0;
+    lines.forEach((line, index) => {
+      timers.current.push(
+        window.setTimeout(() => {
+          running += line.amount;
+          setStep(index);
+          setCart(running);
+        }, 700 + index * STEP),
+      );
+    });
+    timers.current.push(window.setTimeout(() => setStep(lines.length), 700 + lines.length * STEP + 200));
+  }, []);
+
+  useEffect(() => {
+    const root = rootRef.current;
+    if (!root || window.matchMedia("(prefers-reduced-motion: reduce)").matches || !("IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        observer.disconnect();
+        play();
+      },
+      { threshold: 0.4 },
+    );
+    observer.observe(root);
+    return () => {
+      observer.disconnect();
+      clear();
+    };
+  }, [play]);
+
+  const placed = step >= lines.length;
 
   return (
-    <div data-reveal="media" className="relative mx-auto w-full max-w-xl pb-12 lg:mr-0">
-      <div
-        role="img"
-        aria-label={example.label}
-        data-theme="light"
-        className="overflow-hidden rounded-lg border border-line-subtle bg-surface-page shadow-e3"
-      >
+    <div ref={rootRef} data-reveal="media" className={styles.stage}>
+      <div role="img" aria-label={example.label} data-theme="light" className={styles.browser}>
         <div aria-hidden="true">
-          {/* Browser chrome */}
-          <div className="flex items-center gap-2 border-b border-line-subtle bg-surface-alt px-4 py-3">
-            <span className="size-3 rounded-full bg-line-control" />
-            <span className="size-3 rounded-full bg-line-control" />
-            <span className="size-3 rounded-full bg-line-control" />
-            <span className="ml-4 h-6 flex-1 rounded-full bg-surface-page" />
+          <div className={styles.chrome}>
+            <span />
+            <span />
+            <span />
+            <span className={styles.address} />
           </div>
-          {/* Store header */}
-          <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line-subtle px-4 py-4 sm:px-6">
-            <span className="flex flex-col">
-              <span className="text-caption font-semibold uppercase text-fg-muted">{example.store}</span>
-              <span className="text-body font-bold text-fg-heading">{example.customer}</span>
+
+          <div className={styles.storeHead}>
+            <span className={styles.storeName}>
+              <span className={styles.storeLabel}>{example.store}</span>
+              <span className={styles.customer}>{example.customer}</span>
             </span>
-            <span className="flex items-center gap-2 rounded-full bg-fg-heading px-4 py-2 text-small font-semibold text-fg-on-action">
+            <span className={cx(styles.cart, step >= 0 && !placed && styles.cartBusy)}>
               <Icon name="cart" size={16} />
-              {example.cart.label} · {example.cart.total}
+              {example.cart.label} · <span className={styles.cartTotal}>{money(cart)}</span>
             </span>
           </div>
-          <div className="flex flex-col gap-4 p-4 sm:p-6">
-            <span className="flex items-center gap-2 rounded-full border border-line-control px-4 py-2 text-small text-fg-muted">
+
+          <div className={styles.body}>
+            <span className={styles.search}>
               <Icon name="search" size={16} />
               {example.search}
             </span>
-            <span className="flex w-fit items-center gap-2 rounded-full bg-surface-soft px-4 py-2 text-small font-semibold text-fg-heading">
-              <Icon name="reorder" size={16} className="text-icon-accent" />
+            <button
+              type="button"
+              tabIndex={-1}
+              className={cx(styles.reorder, step === -1 && styles.reorderActive)}
+              onClick={play}
+            >
+              <Icon name="reorder" size={16} />
               {example.reorder}
-            </span>
-            <span className="flex flex-col divide-y divide-line-subtle rounded-md border border-line-subtle">
-              {example.products.map((product) => (
-                <span key={product.name} className="flex items-center gap-3 p-3">
-                  <span className="flex size-12 shrink-0 items-center justify-center rounded-sm bg-surface-alt text-icon-accent">
-                    <Icon name="box" size={24} />
+            </button>
+
+            <span className={styles.products}>
+              {example.products.map((product, index) => {
+                const added = index <= step;
+                return (
+                  <span
+                    key={product.name}
+                    className={cx(styles.product, added && styles.productAdded)}
+                    style={{ "--i": index } as CSSProperties}
+                  >
+                    <span className={styles.productIcon}>
+                      <Icon name="box" size={24} />
+                    </span>
+                    <span className={styles.productText}>
+                      <span className={styles.productName}>{product.name}</span>
+                      <span className={styles.productMeta}>
+                        {example.priceLabel} · {product.price}
+                      </span>
+                    </span>
+                    <span className={styles.productRight}>
+                      <span className={styles.lineTotal}>{lines[index]?.total}</span>
+                      <span className={styles.qty}>
+                        <span className={styles.qtyPlus}>
+                          <Icon name="plus" size={16} />
+                        </span>
+                        <span className={styles.qtyCount}>× {lines[index]?.qty}</span>
+                      </span>
+                    </span>
                   </span>
-                  <span className="flex flex-1 flex-col">
-                    <span className="text-small font-semibold text-fg-default">{product.name}</span>
-                    <span className="text-caption text-fg-muted">{example.priceLabel}</span>
-                  </span>
-                  <span className="text-body font-bold text-fg-heading">{product.price}</span>
-                  <span className="flex size-8 shrink-0 items-center justify-center rounded-full bg-action-primary text-fg-on-action">
-                    <Icon name="plus" size={16} />
-                  </span>
-                </span>
-              ))}
+                );
+              })}
             </span>
           </div>
         </div>
       </div>
 
-      <GlassPanel
-        aria-hidden="true"
-        className="absolute bottom-0 left-4 flex items-center gap-3 rounded-full px-5 py-3 sm:left-8 lg:-left-12"
-      >
-        <span className="flex size-8 items-center justify-center rounded-full bg-fg-heading text-fg-on-action">
-          <Icon name="check" size={16} />
+      {/* Phone: the same order, placed online. */}
+      <div aria-hidden="true" data-theme="light" className={cx(styles.phone, placed && styles.phoneShown)}>
+        <span className={styles.phoneNotch} />
+        <span className={styles.phoneCheck}>
+          <Icon name="check" size={20} />
         </span>
-        <span className="flex flex-col">
-          <span className="text-small font-semibold text-fg-heading">{example.placed}</span>
-          <span className="text-caption text-fg-default">{example.customer}</span>
-        </span>
-      </GlassPanel>
+        <span className={styles.phoneTitle}>{example.placed}</span>
+        <span className={styles.phoneCustomer}>{example.customer}</span>
+        <span className={styles.phoneTotal}>{example.cart.total}</span>
+      </div>
     </div>
   );
 }

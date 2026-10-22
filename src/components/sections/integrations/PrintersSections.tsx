@@ -1,73 +1,39 @@
+import { Icon } from "@/components/icons/Icon";
 import { Container } from "@/components/layout/Container";
-import { Card } from "@/components/ui/Card";
 import { devices, models } from "@/content/integrations/printers";
 import { SectionHeader } from "../SectionHeader";
-import { CheckList } from "../product/CheckList";
 import { ProductSection } from "../product/ProductSection";
+import { DeviceSpecs } from "./DeviceSpecs";
+import { ModelFinder } from "./ModelFinder";
 
-/** Compatible printer and scanner models (data table). */
+/**
+ * Compatible printer and scanner models: a styled data table grouped by
+ * brand, with a "Works with" filter; the note follows.
+ */
 export function PrinterModels() {
   return (
     <ProductSection labelledBy="models-title" tone="alt">
-      <Container className="flex flex-col gap-12">
+      <Container className="flex flex-col gap-10">
         <SectionHeader id="models-title" eyebrow={models.eyebrow} title={models.title} />
-        <div data-reveal="fade" className="flex flex-col gap-4">
-          <div className="overflow-x-auto rounded-md border border-line-subtle bg-surface-raised">
-            <table aria-labelledby="models-title" className="w-full border-collapse text-left">
-              <thead>
-                <tr className="border-b border-line-subtle">
-                  {models.columns.map((column) => (
-                    <th key={column} scope="col" className="p-4 text-small font-semibold text-fg-heading lg:px-6">
-                      {column}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-line-subtle">
-                {models.rows.map((row) => (
-                  <tr key={`${row.brand}-${row.model}`}>
-                    <th scope="row" className="p-4 align-top text-body font-bold text-fg-heading lg:px-6">
-                      {row.brand}
-                    </th>
-                    <td className="p-4 align-top text-body text-fg-default lg:px-6">{row.model}</td>
-                    <td className="p-4 align-top lg:px-6">
-                      <ul className="flex flex-wrap gap-2">
-                        {row.apps.map((app) => (
-                          <li
-                            key={app}
-                            className="rounded-full border border-line-subtle bg-surface-soft px-3 py-1 text-small text-fg-default"
-                          >
-                            {app}
-                          </li>
-                        ))}
-                      </ul>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p className="text-body text-fg-muted">{models.note}</p>
+        <div data-reveal="fade" className="flex flex-col gap-6">
+          <ModelFinder rows={models.rows} columns={models.columns} labelledBy="models-title" />
+          <p className="flex items-center gap-2 text-body text-fg-muted">
+            <Icon name="info" size={20} className="shrink-0 text-icon-accent" />
+            {models.note}
+          </p>
         </div>
       </Container>
     </ProductSection>
   );
 }
 
-/** Phones and tablets that run Listaso. */
+/** Phones and tablets that run Listaso: platform switch with a device illustration. */
 export function SupportedDevices() {
   return (
     <ProductSection labelledBy="devices-title">
       <Container className="flex flex-col gap-12">
         <SectionHeader id="devices-title" eyebrow={devices.eyebrow} title={devices.title} />
-        <div className="grid gap-6 md:grid-cols-2">
-          {devices.groups.map((group) => (
-            <Card key={group.title} data-reveal="fade" className="flex flex-col gap-6 p-6 lg:p-8">
-              <h3 className="text-h4 font-semibold text-fg-heading">{group.title}</h3>
-              <CheckList items={group.items} />
-            </Card>
-          ))}
-        </div>
+        <DeviceSpecs groups={devices.groups} label={devices.eyebrow} />
       </Container>
     </ProductSection>
   );

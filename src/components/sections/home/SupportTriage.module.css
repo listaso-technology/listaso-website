@@ -1,0 +1,488 @@
+/*
+ * Support triage console (Homepage): level tabs + response gauge.
+ *
+ * The active tone (data-tone on the root) drives the indicator, gauge arc,
+ * glow and readout accents, and transitions between levels. The indicator
+ * slides under the active tab (fixed tab height); the arc animates its dash;
+ * the readout and copy re-enter on change. Reduced motion: instant states.
+ */
+
+@layer components {
+  .triage {
+    --tone: var(--listaso-action-primary);
+    --tab-h: 4rem;
+    --tab-gap: 0.25rem;
+
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    min-width: 0;
+    overflow: hidden;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-xl);
+    background: var(--listaso-surface-raised);
+    box-shadow: var(--listaso-shadow-e2);
+  }
+
+  .triage[data-tone="warning"],
+  .tab[data-tone="warning"] {
+    --tone: var(--listaso-status-warning);
+  }
+
+  .triage[data-tone="link"],
+  .tab[data-tone="link"] {
+    --tone: var(--listaso-link);
+  }
+
+  .triage[data-tone="accent"],
+  .tab[data-tone="accent"] {
+    --tone: var(--listaso-text-accent);
+  }
+
+  .triage[data-tone="success"],
+  .tab[data-tone="success"] {
+    --tone: var(--listaso-status-success);
+  }
+
+  .tab[data-tone="action"] {
+    --tone: var(--listaso-action-primary);
+  }
+
+  /* --- Tabs ------------------------------------------------------------ */
+
+  .tabsWrap {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    border-bottom: 1px solid var(--listaso-border-subtle);
+    background: color-mix(in srgb, var(--listaso-surface-alt) 60%, transparent);
+  }
+
+  .caption {
+    padding-inline: 0.75rem;
+    color: var(--listaso-text-muted);
+    font-size: var(--text-caption);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .tabs {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: var(--tab-gap);
+  }
+
+  /* Sliding highlight under the active tab. */
+  .indicator {
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: var(--tab-h);
+    border: 1px solid color-mix(in srgb, var(--tone) 35%, transparent);
+    border-radius: var(--listaso-radius-md);
+    background: color-mix(in srgb, var(--tone) 12%, var(--listaso-surface-raised));
+    box-shadow: var(--listaso-shadow-e1);
+    transform: translateY(calc(var(--active) * (var(--tab-h) + var(--tab-gap))));
+    transition:
+      transform 450ms cubic-bezier(0.32, 0.72, 0, 1),
+      background-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .indicator::before {
+    position: absolute;
+    top: 0.875rem;
+    bottom: 0.875rem;
+    left: -1px;
+    width: 3px;
+    border-radius: 0 3px 3px 0;
+    background: var(--tone);
+    content: "";
+    transition: background-color var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .tab {
+    position: relative;
+    display: grid;
+    height: var(--tab-h);
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 0 1rem;
+    border: 0;
+    border-radius: var(--listaso-radius-md);
+    background: none;
+    color: var(--listaso-text-muted);
+    cursor: pointer;
+    text-align: left;
+    transition: color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .tab:hover,
+  .tabActive {
+    color: var(--listaso-text-heading);
+  }
+
+  .tab:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .dot {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    background: var(--tone);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--tone) 30%, transparent);
+    transition: box-shadow var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .tabActive .dot {
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--tone) 22%, transparent);
+  }
+
+  /* Level over its time: no awkward wraps for long names. */
+  .tabText {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .tabLevel {
+    overflow: hidden;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.375rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .tabTime {
+    color: var(--listaso-text-muted);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.125rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    transition: color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .tabActive .tabTime {
+    color: var(--listaso-text-default);
+  }
+
+  .tabRank {
+    color: var(--listaso-text-muted);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    font-variant-numeric: tabular-nums;
+    opacity: 0.6;
+    transition: opacity var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .tabActive .tabRank {
+    opacity: 1;
+  }
+
+  /* --- Panel ----------------------------------------------------------- */
+
+  .panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.75rem 1.5rem 2rem;
+    text-align: center;
+  }
+
+  /* Tone glow behind the gauge. */
+  .panel::before {
+    position: absolute;
+    top: -4rem;
+    left: 50%;
+    z-index: -1;
+    width: 22rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--tone) 18%, transparent), transparent 65%);
+    content: "";
+    translate: -50% 0;
+    transition: background var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .gauge {
+    position: relative;
+    width: min(100%, 13rem);
+    aspect-ratio: 1;
+  }
+
+  .dial {
+    display: block;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .track,
+  .glow,
+  .fill,
+  .range {
+    fill: none;
+    stroke-linecap: round;
+    stroke-width: 10;
+  }
+
+  /* Soft halo under the arc (static blur; only the dash animates). */
+  .glow {
+    stroke: var(--tone);
+    stroke-width: 18;
+    opacity: 0.28;
+    filter: blur(7px);
+    transition:
+      stroke-dasharray 800ms cubic-bezier(0.32, 0.72, 0, 1),
+      stroke var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .bezel {
+    stroke: var(--listaso-border-subtle);
+    stroke-linecap: round;
+    stroke-width: 1.25;
+  }
+
+  .bezelMajor {
+    stroke: var(--listaso-border-control);
+    stroke-width: 1.5;
+    opacity: 0.7;
+  }
+
+  /* Hand: rotates around the dial center to the current time. */
+  .hand {
+    transform-box: view-box;
+    transform-origin: 120px 120px;
+    transition:
+      transform 800ms cubic-bezier(0.32, 0.72, 0, 1),
+      opacity var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .hand[data-hidden] {
+    opacity: 0;
+  }
+
+  .needle {
+    stroke: var(--tone);
+    stroke-linecap: round;
+    stroke-width: 3;
+    opacity: 0.85;
+    transition: stroke var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .handDot {
+    fill: var(--listaso-surface-raised);
+    stroke: var(--tone);
+    stroke-width: 4;
+    transition: stroke var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .startDot {
+    fill: var(--tone);
+    stroke: var(--listaso-surface-raised);
+    stroke-width: 2;
+  }
+
+  .track {
+    stroke: var(--listaso-border-subtle);
+  }
+
+  .fill {
+    stroke: color-mix(in srgb, var(--tone) 55%, transparent);
+    transition:
+      stroke-dasharray 800ms cubic-bezier(0.32, 0.72, 0, 1),
+      stroke var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  /* The published range (24–48 hours) draws brighter on top of the fill. */
+  .range {
+    stroke: var(--tone);
+    transition: stroke-dasharray 800ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .tick {
+    stroke: var(--listaso-border-control);
+    stroke-linecap: round;
+    stroke-width: 2;
+    opacity: 0.6;
+    transition:
+      stroke var(--listaso-duration-slow) var(--listaso-ease-standard),
+      opacity var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .tickActive {
+    stroke: var(--tone);
+    stroke-width: 3.5;
+    opacity: 1;
+  }
+
+  .readout {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.25rem;
+    padding-bottom: 0.5rem;
+  }
+
+  .readoutLabel {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-caption);
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .readoutValue {
+    color: var(--listaso-text-heading);
+    font-size: 3.5rem;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
+    animation: triage-in 420ms cubic-bezier(0.32, 0.72, 0, 1) both;
+  }
+
+  /* Ranges such as "24–48" need room inside the ring. */
+  .readoutValue[data-long] {
+    font-size: 2.625rem;
+  }
+
+  .readoutUnit {
+    color: var(--listaso-text-default);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .panelCopy {
+    display: flex;
+    max-width: 24rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: triage-in 420ms cubic-bezier(0.32, 0.72, 0, 1) 60ms both;
+  }
+
+  .level {
+    color: var(--listaso-text-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.75rem;
+  }
+
+  .detail {
+    color: var(--listaso-text-muted);
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .resolved {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding: 0.5rem 0.875rem;
+    border: 1px solid color-mix(in srgb, var(--tone) 35%, transparent);
+    border-radius: var(--listaso-radius-full);
+    background: color-mix(in srgb, var(--tone) 10%, transparent);
+    color: var(--listaso-text-muted);
+    font-size: var(--text-small);
+  }
+
+  .resolved strong {
+    color: var(--listaso-text-heading);
+    font-weight: 700;
+  }
+
+  @keyframes triage-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+
+  /* --- Wider screens --------------------------------------------------- */
+
+  @media (min-width: 48rem) {
+    .triage {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+
+    .tabsWrap {
+      justify-content: center;
+      padding: 1.5rem;
+      border-right: 1px solid var(--listaso-border-subtle);
+      border-bottom: 0;
+    }
+
+    .panel {
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .gauge {
+      width: 15rem;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .triage {
+      --tab-h: 4.5rem;
+
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+      min-height: 100%;
+    }
+
+    .gauge {
+      width: 16rem;
+    }
+  }
+
+  /* --- Preferences ----------------------------------------------------- */
+
+  @media (forced-colors: active) {
+    .indicator {
+      border: 2px solid Highlight;
+    }
+
+    .indicator::before,
+    .dot {
+      background: CanvasText;
+    }
+
+    .fill,
+    .range,
+    .needle,
+    .handDot {
+      stroke: Highlight;
+    }
+
+    .glow {
+      display: none;
+    }
+
+    .tick,
+    .tickActive {
+      stroke: CanvasText;
+    }
+
+    .panel::before {
+      display: none;
+    }
+  }
+}

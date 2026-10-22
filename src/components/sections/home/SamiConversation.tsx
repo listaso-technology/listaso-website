@@ -22,7 +22,6 @@ export function SamiConversation() {
   const [documentVisible, setDocumentVisible] = useState(true);
   const [phase, setPhase] = useState(0);
   const [letters, setLetters] = useState(0);
-  const [paused, setPaused] = useState(false);
   const [reduceMotion, setReduceMotion] = useState(false);
   const { example } = sami;
 
@@ -69,7 +68,7 @@ export function SamiConversation() {
       return () => window.clearTimeout(timer);
     }
 
-    if (!inView || !documentVisible || paused) {
+    if (!inView || !documentVisible) {
       return;
     }
 
@@ -103,15 +102,7 @@ export function SamiConversation() {
 
     const timer = window.setTimeout(advance, delay);
     return () => window.clearTimeout(timer);
-  }, [documentVisible, example.question.length, inView, letters, paused, phase, reduceMotion]);
-
-  useEffect(() => {
-    window.dispatchEvent(
-      new CustomEvent("listaso:sami-motion", {
-        detail: { paused },
-      }),
-    );
-  }, [paused]);
+  }, [documentVisible, example.question.length, inView, letters, phase, reduceMotion]);
 
   return (
     <div ref={rootRef} data-reveal="media" className={styles.frame}>
@@ -123,16 +114,6 @@ export function SamiConversation() {
           </span>
           <span className={styles.controls}>
             <small>{example.tag}</small>
-            {!reduceMotion ? (
-              <button
-                type="button"
-                className={styles.pause}
-                aria-pressed={paused}
-                onClick={() => setPaused((current) => !current)}
-              >
-                {paused ? "Play animation" : "Pause animation"}
-              </button>
-            ) : null}
           </span>
         </div>
 
@@ -180,7 +161,7 @@ export function SamiConversation() {
           <div className={styles.input}>
             <span>
               {phase === 0 ? example.question.slice(0, letters) : example.inputPlaceholder}
-              {phase === 0 && inView && documentVisible && !paused ? (
+              {phase === 0 && inView && documentVisible ? (
                 <i className={styles.caret} />
               ) : null}
             </span>

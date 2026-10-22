@@ -474,3 +474,63 @@ conectar `listaso.com`, cambiar DNS ni sustituir producción.
 
 **Cloudflare.** Los previews automáticos se limitan a `dev` y `qa`; revisar en
 Branch control que ya no dependan de los patrones `feat/*`, `ux/*`, etc.
+
+## DEC-022 Carrusel infinito de logos en la Homepage
+
+**Estado:** Instrucción del usuario (Henry) — 20 de octubre de 2026.
+Implementación de Claude, sin commit; pendiente de revisión de Erick.
+
+**Decisión.** El riel de logos de clientes de la Homepage (`CustomerProof`)
+es un carrusel infinito que se mueve de forma continua aunque el visitante no
+haga scroll. Es una excepción, sólo para este riel, a la restricción de
+DEC-016 ("sin autoplay de contenido en movimiento").
+
+**Condiciones (WCAG 2.2.2).** Se pausa con hover, con foco dentro del riel y
+con el control nativo "Pause autoplay" (checkbox, funciona sin JavaScript).
+Con `prefers-reduced-motion` no se mueve: cuadrícula estática de 2/4
+columnas, sin copia decorativa ni control. La segunda mitad del riel es
+decorativa (`aria-hidden`, imágenes con `alt=""`, sin enlaces). Logos, alts y
+enlaces sin cambios.
+
+**Ampliación (20 de octubre de 2026, instrucción del usuario).** La misma
+excepción aplica al componente compartido `Marquee` (Direct sales, B2B
+e-Commerce, Integrations y Forms), que deja de depender del scroll y se
+mueve de forma continua; estático con `prefers-reduced-motion`; copias
+decorativas `aria-hidden` y una sola lista accesible. Por instrucción
+posterior del usuario, en `Marquee` se retiraron el control "Pause
+autoplay" y la pausa por hover/foco: siempre se mueve. **Riesgo
+registrado:** sin mecanismo de pausa, este riel no cumple WCAG 2.2.2 para
+quien no active "reducir movimiento"; Erick debe confirmarlo o pedir que se
+restituya el control. El riel de logos de la Homepage conserva su pausa.
+
+**Ampliación (22 de octubre de 2026, instrucción del usuario).** Se retiran
+todos los botones visibles de pausa/reproducción de animaciones del sitio por
+estética: riel de logos de `CustomerProof` (checkbox "Pause autoplay"),
+`CapabilityRail`, `TestimonialSpotlight`, `SamiConversation` (y su evento
+hacia `SamiLogoMark`) y `SnapCarousel`. Se conservan las pausas automáticas
+(hover, foco, fuera de pantalla, pestaña oculta) y el estado estático con
+`prefers-reduced-motion`. **Riesgo registrado:** el riel de logos y la
+conversación de SAMI se mueven sin un control visible de pausa, lo que no
+cumple WCAG 2.2.2 para quien no active "reducir movimiento"; Erick debe
+confirmarlo.
+
+## DEC-023 Identidad propia por página de integración
+
+**Estado:** Instrucción del usuario (Henry) — 21 de octubre de 2026.
+Implementación de Claude, sin commit; pendiente de revisión de Erick.
+
+**Decisión.** Las 8 páginas de sistemas contables (QuickBooks, Sage 100,
+Acumatica, SAP, NetSuite, Zoho, Acctivate, AccountMate) dejan de compartir
+una sola composición. `SystemPage` elige por slug una composición propia
+(hero, vista de la sync y formato de funciones distintos en cada una) y
+mantiene compartidos sólo los cierres: otros sistemas, siguiente página y
+CTA final. Printers and scanners y el hub de Integrations no cambian.
+
+**Reglas.** No se cambia ni se elimina información: cada página muestra el
+hero (título, lead, línea de plan, CTAs), su foto, el panel de sync o su
+equivalente ("No double entry"), el resumen, todas las filas de sync con su
+dirección y todas las funciones; los extras de QuickBooks (certificado,
+rating) y Sage (reseña) siguen en su página. Los componentes nuevos son
+exclusivos de estas páginas; los compartidos se usan sin modificarlos.
+Movimiento finito o ligado al scroll/hover (sin bucles autónomos salvo la
+marquesina ya aprobada en DEC-022), con estado final en movimiento reducido.

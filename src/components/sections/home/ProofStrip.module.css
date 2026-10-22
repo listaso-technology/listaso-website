@@ -1,30 +1,196 @@
+/*
+ * Key figures bento (Homepage). Each card takes one tone from the semantic
+ * roles (proofTones.ts), so contrast holds in light and dark themes: the tone
+ * only tints gradients, the icon chip, the affixes and the decorative visual.
+ *
+ * Motion:
+ * - Reveal: HomeMotion marks the grid `data-revealed`; visuals draw in once
+ *   (finite, staggered). Without HomeMotion (reduced motion, no JS) they are
+ *   shown in their final state.
+ * - Hover (mouse only): the card lifts, a spotlight and border glow follow the
+ *   pointer (ProofGrid) and each visual reacts. Nothing loops (QA-006).
+ */
+
 .section {
   position: relative;
+  isolation: isolate;
   overflow: hidden;
   border-bottom: 1px solid var(--listaso-border-subtle);
   background:
-    radial-gradient(40% 120% at 0% 0%, color-mix(in srgb, var(--listaso-text-accent) 10%, transparent), transparent 70%),
-    radial-gradient(35% 120% at 100% 100%, color-mix(in srgb, var(--listaso-action-primary) 7%, transparent), transparent 70%),
+    radial-gradient(40% 120% at 0% 0%, color-mix(in srgb, var(--listaso-text-accent) 12%, transparent), transparent 70%),
+    radial-gradient(35% 120% at 100% 100%, color-mix(in srgb, var(--listaso-action-primary) 9%, transparent), transparent 70%),
     var(--listaso-surface-alt);
+}
+
+/* 72px grid, the same rhythm as the footer and Pricing patterns. */
+.pattern {
+  --grid-line: color-mix(in srgb, var(--listaso-text-heading) 7%, transparent);
+
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 72px 72px;
+  background-position: center top;
+  mask-image: radial-gradient(ellipse 70% 80% at 50% 50%, #000 30%, transparent 78%);
 }
 
 .container {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
   padding-block: 3rem;
 }
 
-.item {
+.heading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: var(--listaso-text-accent);
+  font-size: var(--text-eyebrow);
+  font-weight: 700;
+  line-height: var(--text-eyebrow--line-height);
+  letter-spacing: var(--text-eyebrow--letter-spacing);
+  text-transform: uppercase;
+}
+
+.heading::after {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--listaso-border-subtle), transparent);
+  content: "";
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cell {
   display: flex;
   min-width: 0;
-  min-height: 14rem;
-  flex-direction: column;
-  gap: 0.75rem;
+}
+
+/* --- Card ---------------------------------------------------------------- */
+
+.card {
+  --proof-tone: var(--listaso-text-accent);
+  --mx: 50%;
+  --my: 0%;
+
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  width: 100%;
+  min-height: 17rem;
+  grid-template-areas:
+    "top"
+    "visual"
+    "copy";
+  grid-template-rows: auto 1fr auto;
+  gap: 1.25rem;
+  overflow: hidden;
   padding: 1.5rem;
+  border: 1px solid var(--listaso-border-subtle);
+  border-radius: var(--listaso-radius-lg);
+  background:
+    radial-gradient(110% 80% at 100% 0%, color-mix(in srgb, var(--proof-tone) 15%, transparent), transparent 62%),
+    linear-gradient(
+      165deg,
+      color-mix(in srgb, var(--proof-tone) 7%, var(--listaso-surface-raised)),
+      var(--listaso-surface-raised) 70%
+    );
+  box-shadow: var(--listaso-shadow-e1);
+  transition:
+    transform var(--listaso-duration-slow) var(--listaso-ease-standard),
+    box-shadow var(--listaso-duration-slow) var(--listaso-ease-standard),
+    border-color var(--listaso-duration-standard) var(--listaso-ease-standard);
+}
+
+.card[data-tone="link"] {
+  --proof-tone: var(--listaso-link);
+}
+
+.card[data-tone="heading"] {
+  --proof-tone: var(--listaso-text-heading);
+}
+
+.card[data-tone="action"] {
+  --proof-tone: var(--listaso-action-primary);
+}
+
+/* Pointer spotlight (fill) and border glow; both fade in on hover. */
+.card::before,
+.card::after {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity var(--listaso-duration-slow) var(--listaso-ease-standard);
+  content: "";
+}
+
+.card::before {
+  background: radial-gradient(
+    22rem circle at var(--mx) var(--my),
+    color-mix(in srgb, var(--proof-tone) 14%, transparent),
+    transparent 65%
+  );
+}
+
+.card::after {
+  z-index: 1;
+  padding: 1px;
+  background: radial-gradient(
+    16rem circle at var(--mx) var(--my),
+    color-mix(in srgb, var(--proof-tone) 85%, transparent),
+    transparent 70%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+}
+
+@media (hover: hover) {
+  .card:hover::before,
+  .card:hover::after {
+    opacity: 1;
+  }
+
+  .card:hover {
+    border-color: color-mix(in srgb, var(--proof-tone) 35%, var(--listaso-border-subtle));
+    box-shadow: var(--listaso-shadow-e3);
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.top {
+  display: flex;
+  grid-area: top;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .index {
-  margin-bottom: auto;
-  padding-bottom: 1.5rem;
   color: var(--listaso-text-muted);
   font-size: 0.75rem;
   font-weight: 700;
@@ -32,67 +198,508 @@
   font-variant-numeric: tabular-nums;
 }
 
+.chip {
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--proof-tone) 30%, transparent);
+  border-radius: var(--listaso-radius-sm);
+  background: color-mix(in srgb, var(--proof-tone) 12%, transparent);
+  color: var(--proof-tone);
+  transition: transform var(--listaso-duration-slow) var(--listaso-ease-standard);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .card:hover .chip {
+    transform: rotate(-8deg) scale(1.08);
+  }
+}
+
+.visual {
+  display: flex;
+  grid-area: visual;
+  min-height: 4.5rem;
+  align-items: flex-end;
+}
+
+.copy {
+  display: flex;
+  grid-area: copy;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .value {
   max-width: 100%;
-  font-size: clamp(2.4rem, 10vw, 4.25rem);
+  color: var(--listaso-text-heading);
+  font-size: clamp(2.5rem, 9vw, 3.5rem);
   font-weight: 700;
   line-height: 0.95;
-  letter-spacing: -0.05em;
-  color: var(--listaso-text-heading);
+  letter-spacing: -0.04em;
   font-variant-numeric: tabular-nums;
   /* "Since 2015" must wrap at its space; the other figures have no space. */
   overflow-wrap: normal;
 }
 
-.label {
-  max-width: 16rem;
+.affix {
+  color: var(--proof-tone);
 }
 
-/*
- * From 1024px the five figures share one frame: the cards lose their own
- * radius and shadow and become cells separated by hairlines.
+.label {
+  max-width: 18rem;
+  color: var(--listaso-text-default);
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.5rem;
+}
+
+/* --- Visuals --------------------------------------------------------------
+ * Final state by default. Inside .home-motion-ready, an unrevealed grid holds
+ * the start state; transitions use the per-part `--i` stagger.
  */
+
+.visual * {
+  --reveal-delay: calc(240ms + var(--i, 0) * 45ms);
+}
+
+/* Timeline: one tick per year since 2015. */
+.timeline {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.timelineTrack {
+  position: relative;
+  display: flex;
+  height: 2.5rem;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.timelineTrack::before {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--listaso-border-subtle);
+  content: "";
+}
+
+.timelineFill {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, color-mix(in srgb, var(--proof-tone) 30%, transparent), var(--proof-tone));
+  transform-origin: left;
+  transition: transform 1100ms var(--listaso-ease-enter) 240ms;
+}
+
+.timelineTick {
+  width: 2px;
+  height: 0.75rem;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--proof-tone) 55%, transparent);
+  transform-origin: bottom;
+  transition:
+    transform 500ms var(--listaso-ease-enter) var(--reveal-delay),
+    opacity 500ms var(--listaso-ease-enter) var(--reveal-delay),
+    height var(--listaso-duration-standard) var(--listaso-ease-standard);
+}
+
+.milestone {
+  height: 1.5rem;
+  background: var(--proof-tone);
+}
+
+.timelineDot {
+  position: absolute;
+  right: -5px;
+  bottom: -5px;
+  z-index: 2;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--proof-tone);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--proof-tone) 22%, transparent);
+  transition:
+    transform 500ms var(--listaso-ease-enter) 1250ms,
+    box-shadow var(--listaso-duration-slow) var(--listaso-ease-standard);
+}
+
+.timelineYears {
+  display: flex;
+  justify-content: space-between;
+  color: var(--listaso-text-muted);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (hover: hover) {
+  .card:hover .timelineTick {
+    height: 1.125rem;
+  }
+
+  .card:hover .milestone {
+    height: 2rem;
+  }
+
+  .card:hover .timelineDot {
+    box-shadow: 0 0 0 8px color-mix(in srgb, var(--proof-tone) 18%, transparent);
+  }
+}
+
+:global(.home-motion-ready) .grid:not([data-revealed="true"]) .timelineFill {
+  transform: scaleX(0);
+}
+
+:global(.home-motion-ready) .grid:not([data-revealed="true"]) .timelineTick {
+  opacity: 0;
+  transform: scaleY(0);
+}
+
+:global(.home-motion-ready) .grid:not([data-revealed="true"]) .timelineDot {
+  transform: scale(0);
+}
+
+/* Network: a field of nodes; hubs are larger. */
+.network {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 0.625rem;
+  justify-items: center;
+}
+
+.node {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--proof-tone) 38%, transparent);
+  transition:
+    opacity 500ms var(--listaso-ease-enter) var(--reveal-delay),
+    scale 300ms var(--listaso-ease-standard) calc(var(--i, 0) * 30ms),
+    background-color var(--listaso-duration-standard) var(--listaso-ease-standard);
+}
+
+.hub {
+  background: var(--proof-tone);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--proof-tone) 18%, transparent);
+}
+
+@media (hover: hover) {
+  .card:hover .node {
+    scale: 1.35;
+    background-color: color-mix(in srgb, var(--proof-tone) 70%, transparent);
+  }
+
+  .card:hover .hub {
+    scale: 1.6;
+    background-color: var(--proof-tone);
+  }
+}
+
+:global(.home-motion-ready) .grid:not([data-revealed="true"]) .node {
+  opacity: 0;
+}
+
+/* Team: overlapping role avatars that fan out on hover. */
+.team {
+  display: flex;
+  align-items: center;
+  padding-left: 0.75rem;
+}
+
+.avatar {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  margin-left: -0.75rem;
+  place-items: center;
+  border: 2px solid var(--listaso-surface-raised);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--proof-tone) 16%, var(--listaso-surface-raised));
+  color: var(--proof-tone);
+  transition:
+    opacity 500ms var(--listaso-ease-enter) var(--reveal-delay),
+    scale 500ms var(--listaso-ease-enter) var(--reveal-delay),
+    translate var(--listaso-duration-slow) var(--listaso-ease-standard);
+}
+
+.avatar:nth-child(2) {
+  background: color-mix(in srgb, var(--proof-tone) 26%, var(--listaso-surface-raised));
+}
+
+.avatar:nth-child(3) {
+  background: color-mix(in srgb, var(--proof-tone) 36%, var(--listaso-surface-raised));
+}
+
+.avatarMore {
+  background: var(--proof-tone);
+  color: var(--listaso-surface-raised);
+}
+
+@media (hover: hover) {
+  .card:hover .avatar:nth-child(2) {
+    translate: 0.5rem -0.25rem;
+  }
+
+  .card:hover .avatar:nth-child(3) {
+    translate: 1rem 0;
+  }
+
+  .card:hover .avatar:nth-child(4) {
+    translate: 1.5rem -0.25rem;
+  }
+}
+
+:global(.home-motion-ready) .grid:not([data-revealed="true"]) .avatar {
+  opacity: 0;
+  scale: 0.6;
+}
+
+/* Orders: rising columns. */
+.bars {
+  display: flex;
+  width: 100%;
+  height: 4.5rem;
+  align-items: flex-end;
+  gap: 0.3rem;
+}
+
+.bar {
+  flex: 1;
+  height: var(--h);
+  border-radius: 3px 3px 1px 1px;
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--proof-tone) 70%, transparent),
+    color-mix(in srgb, var(--proof-tone) 18%, transparent)
+  );
+  transform-origin: bottom;
+  transition:
+    transform 700ms var(--listaso-ease-enter) var(--reveal-delay),
+    scale 300ms var(--listaso-ease-standard) calc(var(--i, 0) * 20ms);
+}
+
+@media (hover: hover) {
+  .card:hover .bar {
+    scale: 1 1.12;
+  }
+}
+
+:global(.home-motion-ready) .grid:not([data-revealed="true"]) .bar {
+  transform: scaleY(0.05);
+}
+
+/* Growth: an upward line that draws itself, ending on a dot. */
+.growthStage {
+  position: relative;
+  width: 100%;
+}
+
+/* Sits on the line's end point (400, 8 of the 400 x 120 viewBox). */
+.growthDot {
+  position: absolute;
+  top: calc(8 / 120 * 100%);
+  right: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--proof-tone);
+  box-shadow: 0 0 0 5px color-mix(in srgb, var(--proof-tone) 22%, transparent);
+  translate: 50% -50%;
+  transition:
+    scale 500ms var(--listaso-ease-enter) 1500ms,
+    box-shadow var(--listaso-duration-slow) var(--listaso-ease-standard);
+}
+
+@media (hover: hover) {
+  .card:hover .growthDot {
+    box-shadow: 0 0 0 10px color-mix(in srgb, var(--proof-tone) 16%, transparent);
+  }
+}
+
+:global(.home-motion-ready) .grid:not([data-revealed="true"]) .growthDot {
+  scale: 0;
+}
+
+.growth {
+  display: block;
+  width: 100%;
+  height: 5.5rem;
+  overflow: visible;
+}
+
+.growthLine {
+  fill: none;
+  stroke: var(--proof-tone);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+  vector-effect: non-scaling-stroke;
+  transition: stroke-dashoffset 1400ms var(--listaso-ease-enter) 300ms;
+}
+
+.growthStop {
+  stop-color: var(--proof-tone);
+}
+
+.growthArea {
+  transition: opacity 900ms var(--listaso-ease-enter) 900ms;
+}
+
+:global(.home-motion-ready) .grid:not([data-revealed="true"]) .growthLine {
+  stroke-dashoffset: 1;
+}
+
+:global(.home-motion-ready) .grid:not([data-revealed="true"]) .growthArea {
+  opacity: 0;
+}
+
+/* --- Layout ------------------------------------------------------------- */
+
+/* One column: compact cards so the five figures stay a short scroll. */
+@media (max-width: 39.99rem) {
+  .card {
+    min-height: 0;
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .visual {
+    min-height: 0;
+  }
+
+  .bars {
+    height: 3.5rem;
+  }
+
+  .growth {
+    height: 4rem;
+  }
+}
+
+@media (min-width: 40rem) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .featuredCell {
+    grid-column: 1 / -1;
+  }
+}
+
 @media (min-width: 64rem) {
   .container {
-    padding-block: 4rem;
+    gap: 2rem;
+    padding-block: 5rem;
   }
 
-  .frame {
-    overflow: hidden;
-    border: 1px solid var(--listaso-border-subtle);
-    border-radius: var(--listaso-radius-xl);
-    background: var(--listaso-surface-raised);
-    box-shadow: var(--listaso-shadow-e2);
+  .grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 1.25rem;
   }
 
-  .frame ul {
-    gap: 0;
+  .cell {
+    grid-column: span 4;
   }
 
-  .item {
-    min-height: 16rem;
-    padding: 2rem 1.75rem;
-    border: 0;
-    border-radius: 0;
-    box-shadow: none;
+  .cell:nth-child(4) {
+    grid-column: span 5;
   }
 
-  .frame li + li .item {
-    border-left: 1px solid var(--listaso-border-subtle);
+  .featuredCell {
+    grid-column: span 7;
   }
 
-  .item::before {
-    left: 1.75rem;
+  .card {
+    padding: 1.75rem;
   }
 
   .value {
-    font-size: clamp(2rem, 2.8vw, 3.25rem);
-    letter-spacing: -0.04em;
+    font-size: clamp(2.5rem, 3.6vw, 3.25rem);
+  }
+
+  /* Featured: copy on the left, the growth line across the right. */
+  .featured {
+    grid-template-areas:
+      "top visual"
+      "copy visual";
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    grid-template-rows: auto 1fr;
+    column-gap: 2rem;
+  }
+
+  .featured .copy {
+    align-self: end;
+  }
+
+  .featured .visual {
+    align-items: center;
+  }
+
+  .featured .growth {
+    height: 9rem;
+  }
+
+  .featured .value {
+    font-size: clamp(3.25rem, 5vw, 4.5rem);
+  }
+}
+
+/* --- Preferences -------------------------------------------------------- */
+
+@media (prefers-reduced-transparency: reduce) {
+  .card {
+    background: var(--listaso-surface-raised);
+  }
+
+  .card::before {
+    display: none;
   }
 }
 
 @media (forced-colors: active) {
-  .frame {
+  .card {
     border: 1px solid CanvasText;
+    background: Canvas;
+    box-shadow: none;
+  }
+
+  .card::before,
+  .card::after {
+    display: none;
+  }
+
+  .chip,
+  .avatar {
+    border-color: CanvasText;
+    color: CanvasText;
+  }
+
+  .node,
+  .bar,
+  .timelineTick,
+  .timelineFill,
+  .timelineDot,
+  .growthDot,
+  .avatarMore {
+    background: CanvasText;
+  }
+
+  .growthLine {
+    stroke: CanvasText;
   }
 }

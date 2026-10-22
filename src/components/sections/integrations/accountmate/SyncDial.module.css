@@ -1,0 +1,242 @@
+/*
+ * AccountMate sync dial: donut segments per direction drawing in once
+ * revealed (stroke-dasharray from 0), and grouped rows; hovering a group
+ * thickens its segment and dims the others.
+ */
+
+@layer components {
+  .layout {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .aside {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .summary {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+    color: var(--listaso-text-heading);
+    font-size: var(--text-h4);
+    font-weight: 700;
+    line-height: var(--text-h4--line-height);
+  }
+
+  .summaryLabel {
+    color: var(--listaso-text-accent);
+    font-size: var(--text-eyebrow);
+    letter-spacing: 0.08em;
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .in {
+    --tone: var(--listaso-text-accent);
+  }
+
+  .both {
+    --tone: var(--listaso-link);
+  }
+
+  .out {
+    --tone: var(--listaso-action-primary);
+  }
+
+  .dialWrap {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .dial {
+    position: relative;
+    width: min(100%, 20rem);
+    aspect-ratio: 1;
+    margin-inline: auto;
+  }
+
+  .donut {
+    width: 100%;
+    height: 100%;
+    rotate: -90deg;
+  }
+
+  .track {
+    fill: none;
+    stroke: var(--listaso-border-subtle);
+    stroke-width: 10;
+  }
+
+  .segment {
+    fill: none;
+    stroke: var(--tone);
+    stroke-width: 10;
+    transition:
+      stroke-width 300ms var(--listaso-ease-standard),
+      opacity 300ms var(--listaso-ease-standard);
+  }
+
+  @keyframes segment-draw {
+    from {
+      stroke-dasharray: 0 999;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.home-motion-ready) .dialWrap:not([data-revealed="true"]) .segment {
+      stroke-dasharray: 0 999;
+    }
+
+    :global([data-revealed="true"]) .segment {
+      animation: segment-draw 900ms cubic-bezier(0.32, 0.72, 0, 1) calc(var(--i) * 250ms) both;
+    }
+  }
+
+  /* Hovered group: its segment thickens, the rest dim (and the reverse). */
+  .dialWrap:has(.group[data-direction="in"]:hover) .segment:not([data-direction="in"]),
+  .dialWrap:has(.group[data-direction="out"]:hover) .segment:not([data-direction="out"]),
+  .dialWrap:has(.group[data-direction="both"]:hover) .segment:not([data-direction="both"]) {
+    opacity: 0.25;
+  }
+
+  .dialWrap:has(.group[data-direction="in"]:hover) .segment[data-direction="in"],
+  .dialWrap:has(.group[data-direction="out"]:hover) .segment[data-direction="out"],
+  .dialWrap:has(.group[data-direction="both"]:hover) .segment[data-direction="both"] {
+    stroke-width: 14;
+  }
+
+  .center {
+    position: absolute;
+    inset: 22%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    border-radius: 50%;
+    background: var(--listaso-surface-raised);
+    box-shadow: var(--listaso-shadow-e2);
+    color: var(--listaso-text-accent);
+  }
+
+  .centerName {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-small);
+    font-weight: 700;
+  }
+
+  .groups {
+    display: grid;
+    gap: 0.75rem;
+  }
+
+  .group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 1.25rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-left: 4px solid var(--tone);
+    border-radius: var(--listaso-radius-lg);
+    background: var(--listaso-surface-raised);
+    transition:
+      opacity var(--listaso-duration-standard) var(--listaso-ease-standard),
+      box-shadow var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .group:hover {
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--tone) 22%, transparent);
+  }
+
+  .groups:has(.group:hover) .group:not(:hover) {
+    opacity: 0.55;
+  }
+
+  .groupTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    color: var(--listaso-text-heading);
+    font-size: var(--text-small);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .groupIcon {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--tone) 16%, transparent);
+    color: var(--tone);
+  }
+
+  .groupCount {
+    display: grid;
+    min-width: 1.75rem;
+    height: 1.75rem;
+    margin-left: auto;
+    place-items: center;
+    border-radius: 999px;
+    background: var(--tone);
+    color: #ffffff;
+    font-size: var(--text-caption);
+    letter-spacing: 0;
+  }
+
+  .rows {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .row {
+    padding: 0.375rem 0.75rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--tone) 10%, var(--listaso-surface-page));
+    color: var(--listaso-text-heading);
+    font-size: var(--text-small);
+    font-weight: 600;
+  }
+
+  @media (min-width: 48rem) {
+    .dialWrap {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      align-items: center;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .layout {
+      grid-template-columns: minmax(0, 0.7fr) minmax(0, 1.3fr);
+      align-items: center;
+      gap: 4rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .segment,
+    .group {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .segment {
+      stroke: CanvasText;
+    }
+
+    .group {
+      border: 1px solid CanvasText;
+    }
+  }
+}

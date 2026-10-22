@@ -1,0 +1,92 @@
+/*
+ * Mirrored hero: arched photo frame on the left with the panel over its
+ * right edge, copy on the right; a strip may follow.
+ */
+
+@layer components {
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-top: 3rem;
+    background:
+      radial-gradient(60% 70% at 0% 30%, color-mix(in srgb, var(--listaso-text-accent) 12%, transparent), transparent 70%),
+      var(--listaso-surface-page);
+  }
+
+  .layout {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .title {
+    overflow: hidden;
+    color: var(--listaso-text-heading);
+    font-size: var(--text-display);
+    line-height: var(--text-display--line-height);
+    text-wrap: balance;
+  }
+
+  .lead {
+    max-width: 36rem;
+    color: var(--listaso-text-muted);
+    font-size: var(--text-lead);
+    line-height: var(--text-lead--line-height);
+  }
+
+  .visual {
+    position: relative;
+  }
+
+  .frame {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    border-radius: 12rem 12rem var(--listaso-radius-xl) var(--listaso-radius-xl);
+    background: var(--listaso-surface-soft);
+    box-shadow: var(--listaso-shadow-e3);
+  }
+
+  .panel {
+    position: relative;
+    z-index: 1;
+    margin-top: -3rem;
+    padding-inline: 0.75rem;
+  }
+
+  @media (min-width: 64rem) {
+    .hero {
+      padding-top: 4rem;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      align-items: center;
+      gap: 5rem;
+      padding-bottom: 4rem;
+    }
+
+    .frame {
+      aspect-ratio: 4 / 5;
+      border-radius: 20rem 20rem var(--listaso-radius-xl) var(--listaso-radius-xl);
+    }
+
+    .panel {
+      position: absolute;
+      right: -4rem;
+      bottom: 2rem;
+      width: min(28rem, 85%);
+      margin: 0;
+      padding: 0;
+    }
+  }
+}

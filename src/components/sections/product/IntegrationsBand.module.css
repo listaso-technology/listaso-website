@@ -1,0 +1,305 @@
+/*
+ * Integrations hub (shared by product and integration pages).
+ *
+ * ≥768px: the Listaso symbol at the center, systems around an ellipse. Each
+ * system <li> is anchored at the center and rotated to its angle (--angle);
+ * its spoke runs outward and the node sits at the end, counter-rotated so the
+ * label stays level. Spokes draw in once on reveal (HomeMotion). Hover/focus
+ * on a system lights its spoke and runs a pulse from the core to the node
+ * while the pointer stays (interaction feedback, no idle loops).
+ * <768px: a two-column grid of system links; spokes and rings hidden.
+ */
+
+@layer components {
+  .section {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .layout {
+    display: grid;
+    align-items: center;
+    gap: 3rem;
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  /* --- Narrow: grid ---------------------------------------------------- */
+
+  .hubWrap {
+    min-width: 0;
+  }
+
+  .hub {
+    position: relative;
+  }
+
+  .rings,
+  .spoke,
+  .core {
+    display: none;
+  }
+
+  .systems {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .system {
+    display: flex;
+  }
+
+  /* Odd counts (integration pages leave one out): the last spans the row. */
+  .system:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+
+  .nodeWrap {
+    display: flex;
+    width: 100%;
+  }
+
+  .node {
+    display: flex;
+    width: 100%;
+    min-height: 3.5rem;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-full);
+    background: var(--listaso-surface-raised);
+    color: var(--listaso-text-heading);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: var(--listaso-shadow-e1);
+    transition:
+      border-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      box-shadow var(--listaso-duration-standard) var(--listaso-ease-standard),
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .nodeDot {
+    width: 0.5rem;
+    height: 0.5rem;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--listaso-border-control);
+    transition:
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      box-shadow var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .node:hover,
+  .node:focus-visible {
+    border-color: color-mix(in srgb, var(--listaso-text-accent) 60%, var(--listaso-border-subtle));
+    background: color-mix(in srgb, var(--listaso-text-accent) 6%, var(--listaso-surface-raised));
+    box-shadow: var(--listaso-shadow-e2);
+  }
+
+  .node:hover .nodeDot,
+  .node:focus-visible .nodeDot {
+    background: var(--listaso-text-accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--listaso-text-accent) 22%, transparent);
+  }
+
+  .node:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 3px;
+  }
+
+  /* --- Hub (≥768px) ------------------------------------------------------ */
+
+  @media (min-width: 48rem) {
+    .hub {
+      container-type: inline-size;
+      width: 100%;
+      max-width: 34rem;
+      aspect-ratio: 1;
+      margin-inline: auto;
+    }
+
+    /* Concentric guides and a soft glow behind the core. */
+    .rings {
+      position: absolute;
+      inset: 0;
+      display: block;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 50% 50%, color-mix(in srgb, var(--listaso-text-accent) 16%, transparent) 0, transparent 22%),
+        radial-gradient(circle at 50% 50%, transparent 0 32%, var(--listaso-border-subtle) 32% calc(32% + 1px), transparent calc(32% + 1px)),
+        radial-gradient(circle at 50% 50%, transparent 0 49%, color-mix(in srgb, var(--listaso-border-subtle) 70%, transparent) 49% calc(49% + 1px), transparent calc(49% + 1px));
+      pointer-events: none;
+    }
+
+    .systems {
+      position: absolute;
+      inset: 0;
+      display: block;
+    }
+
+    /* Anchored at the center, rotated toward its node. */
+    .system {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: block;
+      width: var(--length);
+      height: 0;
+      transform: rotate(var(--angle));
+      transform-origin: 0 0;
+    }
+
+    .spoke {
+      position: absolute;
+      top: -1px;
+      left: 13cqi;
+      right: 0;
+      display: block;
+      height: 2px;
+      overflow: hidden;
+      border-radius: 2px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--listaso-border-subtle) 0 6px,
+        transparent 6px 11px
+      );
+      transform-origin: left;
+      transition:
+        background-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+        transform 900ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    :global(.home-motion-ready) .systems:not([data-revealed="true"]) .spoke {
+      transform: scaleX(0);
+    }
+
+    .pulse {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 2.5rem;
+      height: 100%;
+      border-radius: 2px;
+      background: linear-gradient(90deg, transparent, var(--listaso-text-accent));
+      opacity: 0;
+    }
+
+    /* Node at the end of the spoke, kept level. */
+    .nodeWrap {
+      position: absolute;
+      top: 0;
+      left: 100%;
+      width: auto;
+      transform: translate(-50%, -50%) rotate(calc(-1 * var(--angle)));
+    }
+
+    .node {
+      width: auto;
+      min-height: 2.75rem;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+
+    .system:has(.node:hover) .spoke,
+    .system:has(.node:focus-visible) .spoke {
+      background: color-mix(in srgb, var(--listaso-text-accent) 45%, transparent);
+    }
+
+    .system:has(.node:hover) .pulse,
+    .system:has(.node:focus-visible) .pulse {
+      opacity: 1;
+      animation: integration-pulse 1100ms cubic-bezier(0.45, 0, 0.55, 1) infinite;
+    }
+
+    @keyframes integration-pulse {
+      from {
+        transform: translateX(-2.5rem);
+      }
+
+      to {
+        transform: translateX(calc(100cqi));
+      }
+    }
+
+    /* Listaso symbol at the center. */
+    .core {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      display: grid;
+      width: 22cqi;
+      max-width: 7.5rem;
+      aspect-ratio: 1;
+      place-items: center;
+      padding: 0.75rem;
+      border: 1px solid var(--listaso-border-subtle);
+      border-radius: 28%;
+      background: #ffffff;
+      box-shadow:
+        0 0 0 10px color-mix(in srgb, var(--listaso-text-accent) 8%, transparent),
+        var(--listaso-shadow-e3);
+      transform: translate(-50%, -50%);
+      transition: box-shadow var(--listaso-duration-slow) var(--listaso-ease-standard);
+    }
+
+    .hub:has(.node:hover) .core,
+    .hub:has(.node:focus-visible) .core {
+      box-shadow:
+        0 0 0 14px color-mix(in srgb, var(--listaso-text-accent) 14%, transparent),
+        var(--listaso-shadow-e3);
+    }
+
+    .coreLogo {
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: 4rem;
+    }
+  }
+
+  /* --- Preferences ------------------------------------------------------- */
+
+  @media (prefers-reduced-motion: reduce) {
+    .spoke {
+      transition: none;
+    }
+
+    .system:has(.node:hover) .pulse,
+    .system:has(.node:focus-visible) .pulse {
+      animation: none;
+      opacity: 0;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .spoke,
+    .rings {
+      display: none;
+    }
+
+    .node {
+      border: 1px solid CanvasText;
+    }
+
+    .nodeDot {
+      background: CanvasText;
+    }
+  }
+}

@@ -6,7 +6,6 @@ import { IntegrationsBand } from "@/components/sections/product/IntegrationsBand
 import { RelatedProducts } from "@/components/sections/product/RelatedProducts";
 import { FeatureIndex } from "@/components/sections/variants/FeatureIndex";
 import { HeroEditorial } from "@/components/sections/variants/HeroEditorial";
-import { ImageBand } from "@/components/sections/variants/ImageBand";
 import { NextPage } from "@/components/sections/variants/NextPage";
 import { productMedia } from "@/content/media/products";
 import { sectionMedia } from "@/content/media/sections";
@@ -26,8 +25,7 @@ export default function DeliveryPage() {
         photo={productMedia.deliveryHandTruck}
         overlay={<StopPanel />}
       />
-      <FeatureIndex id="features-title" section={features} />
-      <ImageBand photo={sectionMedia.highwayAerial} />
+      <FeatureIndex id="features-title" section={features} photo={sectionMedia.highwayAerial} />
       <WhyItMatters />
       <RelatedProducts products={related} />
       <IntegrationsBand />

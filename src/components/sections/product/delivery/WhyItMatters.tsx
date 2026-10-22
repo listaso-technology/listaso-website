@@ -1,74 +1,44 @@
 import Image from "next/image";
-import { Icon } from "@/components/icons/Icon";
+import { Container } from "@/components/layout/Container";
 import { productMedia } from "@/content/media/products";
 import { routeExample, whyItMatters } from "@/content/products/delivery";
-import { cx } from "@/lib/utils/cx";
-import { CheckList } from "../CheckList";
-import { ColorBand } from "../../variants/ColorBand";
+import backdrops from "../../backdrops.module.css";
+import { SectionHeader } from "../../SectionHeader";
+import { RouteStory } from "./RouteStory";
+import styles from "./WhyItMatters.module.css";
 
 /**
- * Illustrative route: every stop keeps its own record. Product UI, so it
- * renders in light on the brand band.
+ * Benefit index → route stop it illustrates: signed proof → "Signed",
+ * returns → "1 return logged", routes → "Next stop", payments → "Paid at the
+ * door". Presentation only; copy comes from content/products/delivery.ts.
  */
-function RouteTimeline() {
-  const example = routeExample;
+const benefitStops = [0, 1, 3, 2] as const;
 
-  return (
-    <div
-      role="img"
-      aria-label={example.label}
-      data-theme="light"
-      className="flex w-full max-w-sm flex-col gap-4 rounded-lg border border-line-subtle bg-surface-raised p-6 shadow-e3"
-    >
-      <span aria-hidden="true" className="flex items-center gap-2 text-caption font-semibold uppercase text-fg-muted">
-        <Icon name="route" size={16} className="text-icon-accent" />
-        {example.title}
-      </span>
-      <span aria-hidden="true" className="relative flex flex-col gap-4">
-        <span className="absolute top-3 bottom-3 left-3 w-px -translate-x-1/2 bg-line-subtle" />
-        {example.stops.map((stop) => (
-          <span key={stop.customer} className="relative grid grid-cols-[1.5rem_1fr] items-start gap-x-4">
-            <span
-              className={cx(
-                "relative flex size-6 items-center justify-center rounded-full",
-                stop.state === "done" ? "bg-fg-heading text-fg-on-action" : "border-2 border-fg-heading bg-surface-raised",
-              )}
-            >
-              {stop.state === "done" ? <Icon name="check" size={16} /> : null}
-            </span>
-            <span className="flex flex-col">
-              <span className="text-body font-semibold text-fg-heading">{stop.customer}</span>
-              <span className="text-small text-fg-muted">{stop.status}</span>
-            </span>
-          </span>
-        ))}
-      </span>
-    </div>
-  );
-}
-
-/** "Why it matters" as a brand band: benefits, a driver photo and the day's route. */
+/** "Why it matters" on the brand band: benefits linked to an animated day's route over the driver photo. */
 export function WhyItMatters() {
   const photo = productMedia.deliveryDriver;
 
   return (
-    <ColorBand
-      id="why-title"
-      copy={whyItMatters}
-      aside={<CheckList items={whyItMatters.checks} />}
-      pair={[
-        <figure key="photo" className="w-full max-w-sm overflow-hidden rounded-lg shadow-e3">
-          <Image
-            src={photo.src}
-            alt={photo.alt}
-            width={photo.width}
-            height={photo.height}
-            sizes="(min-width: 1024px) 28vw, (min-width: 640px) 44vw, 92vw"
-            className="aspect-[4/5] w-full object-cover"
-          />
-        </figure>,
-        <RouteTimeline key="route" />,
-      ]}
-    />
+    <section aria-labelledby="why-title" data-surface="band" data-story-section className={`${backdrops.brandMesh} ${styles.section}`}>
+      <span aria-hidden="true" className={styles.grid} />
+      <Container width="wide" className={styles.layout}>
+        <SectionHeader id="why-title" eyebrow={whyItMatters.eyebrow} title={whyItMatters.title} lead={whyItMatters.lead} />
+        <RouteStory
+          checks={whyItMatters.checks}
+          route={routeExample}
+          links={benefitStops}
+          photo={
+            <Image
+              src={photo.src}
+              alt={photo.alt}
+              width={photo.width}
+              height={photo.height}
+              sizes="(min-width: 1024px) 34vw, 92vw"
+              className={styles.photoImage}
+            />
+          }
+        />
+      </Container>
+    </section>
   );
 }

@@ -1,74 +1,77 @@
+import { Icon, type IconName } from "@/components/icons/Icon";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
-import { Card } from "@/components/ui/Card";
-import { SnapCarousel } from "@/components/ui/SnapCarousel";
 import { support } from "@/content/home/en";
 import { SectionHeader } from "../SectionHeader";
 import { Stars } from "./Stars";
+import { SupportTriage } from "./SupportTriage";
 import styles from "./SupportSection.module.css";
 
-/** Published support response times, hours and support proof. */
+/**
+ * Published support response times, hours and support proof.
+ *
+ * Reading order: header, then the response console (SupportTriage: all five
+ * levels with their first-response times, most urgent first, plus a gauge for
+ * the selected one), then the aside with ratings, the review and hours.
+ */
+
+const hourIcons: IconName[] = ["calendar", "warning", "support"];
+
 export function SupportSection() {
   return (
-    <section aria-labelledby="support-title" data-story-section className="border-y border-line-subtle bg-surface-alt py-16 lg:py-24">
-      <Container className="flex flex-col gap-12">
-        <SectionHeader id="support-title" eyebrow={support.eyebrow} title={support.title} lead={support.lead} />
+    <section aria-labelledby="support-title" data-story-section className={styles.section}>
+      <Container className={styles.layout}>
+        <SectionHeader
+          id="support-title"
+          eyebrow={support.eyebrow}
+          title={support.title}
+          lead={support.lead}
+          className={styles.header}
+        />
 
-        <div data-reveal="group" className="grid gap-12 lg:grid-cols-[1.3fr_1fr]">
-          <div data-reveal-item className="min-w-0 flex flex-col gap-6">
-            <SnapCarousel
-              label={support.table.columns.join(": ")}
-              variant="support"
-              autoPlay
-            >
-              {support.table.rows.map((row, index) => (
-                <article className={styles.responseCard} key={row.level}>
-                  <div className={styles.cardIndex} aria-hidden="true">
-                    {String(index + 1).padStart(2, "0")}
-                  </div>
-                  <div className={styles.cardContent}>
-                    <h3 className="text-h3 font-bold text-fg-heading">{row.level}</h3>
-                    <p className="text-body text-fg-muted">{row.detail}</p>
-                    <dl className={styles.responseTime}>
-                      <dt>{support.table.columns[1]}</dt>
-                      <dd>{row.response}</dd>
-                    </dl>
-                  </div>
-                </article>
-              ))}
-            </SnapCarousel>
+        {/* 1. Response console: the main reading path. */}
+        <div data-reveal="fade" className={styles.console}>
+          <SupportTriage rows={support.table.rows} columns={support.table.columns} />
+        </div>
 
-            <ul className="flex flex-col gap-2 text-body text-fg-default">
-              {support.hours.map((item) => (
-                <li key={item.label}>
-                  <strong className="font-semibold">{item.label}</strong> {item.value}
+        {/* 2. Aside: proof first, then when and how to reach the team. */}
+        <div data-reveal="group" className={styles.aside}>
+          <div data-reveal-item className={styles.proof}>
+            <ul className={styles.scores}>
+              {support.scores.map((score) => (
+                <li key={score.label} className={styles.score}>
+                  <span className={styles.scoreValue}>{score.score}</span>
+                  <Stars />
+                  <span className={styles.scoreLabel}>{score.label}</span>
                 </li>
               ))}
             </ul>
-
-            <Button href={support.cta.href} variant="secondary" className="w-fit">
-              {support.cta.label}
-            </Button>
+            <figure className={styles.quote}>
+              <blockquote>
+                <p>{support.quote.text}</p>
+              </blockquote>
+              <figcaption>{support.quote.cite}</figcaption>
+            </figure>
           </div>
 
-          <div data-reveal-item className="flex flex-col gap-6">
-            <Card as="div" className="flex flex-col gap-4">
-              <figure className="flex flex-col gap-4">
-                <blockquote className="text-body-lg text-fg-default">
-                  <p>{support.quote.text}</p>
-                </blockquote>
-                <figcaption className="text-small text-fg-muted">{support.quote.cite}</figcaption>
-              </figure>
-            </Card>
-            <ul className="grid grid-cols-2 gap-4">
-              {support.scores.map((score) => (
-                <li key={score.label} className="flex flex-col gap-2 rounded-md border border-line-subtle bg-surface-raised p-6">
-                  <span className="text-h2 font-bold text-fg-heading">{score.score}</span>
-                  <Stars />
-                  <span className="text-small text-fg-muted">{score.label}</span>
-                </li>
-              ))}
-            </ul>
+          <ul data-reveal-item className={styles.hours}>
+            {support.hours.map((item, index) => (
+              <li key={item.label} className={styles.hour}>
+                <span className={styles.hourIcon}>
+                  <Icon name={hourIcons[index % hourIcons.length]} size={20} />
+                </span>
+                <span>
+                  <strong className={styles.hourLabel}>{item.label}</strong>{" "}
+                  <span className={styles.hourValue}>{item.value}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+
+          <div data-reveal-item>
+            <Button href={support.cta.href} variant="secondary" className="w-full sm:w-fit lg:w-full">
+              {support.cta.label}
+            </Button>
           </div>
         </div>
       </Container>

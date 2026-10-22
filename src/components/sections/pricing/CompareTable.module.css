@@ -1,0 +1,100 @@
+/*
+ * Comparison table states. Tints use background-image so they layer over
+ * the cells' background-color utilities: the featured plan column (third
+ * cell, Professional) stays tinted; hovering a cell tints its row and its
+ * plan column. App meters fill as their row scrolls in (scroll-driven, where
+ * supported; otherwise shown full).
+ */
+
+@layer components {
+  .table {
+    --tint: color-mix(in srgb, var(--listaso-text-accent) 7%, transparent);
+    --tint-strong: color-mix(in srgb, var(--listaso-text-accent) 13%, transparent);
+  }
+
+  .table td,
+  .table th {
+    transition: background-image var(--listaso-duration-fast) var(--listaso-ease-standard);
+  }
+
+  /* Featured plan column. */
+  .row > :nth-child(3) {
+    background-image: linear-gradient(var(--tint), var(--tint));
+  }
+
+  /* Row under the pointer. */
+  .row:hover > * {
+    background-image: linear-gradient(var(--tint), var(--tint));
+  }
+
+  /* Plan column under the pointer (header included). */
+  .table:has(.row > td:nth-child(2):hover) :is(.row, thead tr) > :nth-child(2),
+  .table:has(.row > td:nth-child(3):hover) :is(.row, thead tr) > :nth-child(3),
+  .table:has(.row > td:nth-child(4):hover) :is(.row, thead tr) > :nth-child(4) {
+    background-image: linear-gradient(var(--tint-strong), var(--tint-strong));
+  }
+
+  .row svg {
+    transition: transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .row:hover svg {
+    transform: scale(1.2);
+  }
+
+  /* --- App meters -------------------------------------------------------- */
+
+  .groupMeter {
+    position: relative;
+    display: block;
+    width: min(100%, 6rem);
+    height: 6px;
+    margin-inline: auto;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--listaso-border-subtle);
+  }
+
+  .groupMeterFill {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--listaso-text-accent), var(--listaso-action-primary));
+    transform: scaleX(var(--cover));
+    transform-origin: left;
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .groupMeterFill {
+        animation: meter-fill linear both;
+        animation-timeline: view();
+        animation-range: entry 20% cover 35%;
+      }
+    }
+  }
+
+  @keyframes meter-fill {
+    from {
+      transform: scaleX(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .table td,
+    .table th,
+    .row svg {
+      transition: none;
+    }
+
+    .row:hover svg {
+      transform: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .groupMeterFill {
+      background: Highlight;
+    }
+  }
+}

@@ -41,7 +41,6 @@ export function SnapCarousel({
   const [documentVisible, setDocumentVisible] = useState(true);
   const [reduceMotion, setReduceMotion] = useState(false);
   const [interactionPaused, setInteractionPaused] = useState(false);
-  const [userPaused, setUserPaused] = useState(false);
   const [lastReachableIndex, setLastReachableIndex] = useState(Math.max(0, items.length - 1));
 
   const getLastReachableIndex = useCallback(() => {
@@ -157,7 +156,6 @@ export function SnapCarousel({
   useEffect(() => {
     if (
       !autoPlay ||
-      userPaused ||
       interactionPaused ||
       reduceMotion ||
       !inView ||
@@ -179,7 +177,6 @@ export function SnapCarousel({
     interactionPaused,
     items.length,
     reduceMotion,
-    userPaused,
   ]);
 
   const onScroll = () => {
@@ -231,16 +228,6 @@ export function SnapCarousel({
 
       {items.length > 1 ? (
         <div className={styles.controls}>
-          {autoPlay && !reduceMotion ? (
-            <button
-              type="button"
-              className={styles.autoplayControl}
-              aria-pressed={userPaused}
-              onClick={() => setUserPaused((current) => !current)}
-            >
-              {userPaused ? "Play autoplay" : "Pause autoplay"}
-            </button>
-          ) : null}
           <button
             type="button"
             className={styles.control}
@@ -252,7 +239,7 @@ export function SnapCarousel({
           </button>
           <p
             className={styles.position}
-            aria-live={autoPlay && !userPaused ? "off" : "polite"}
+            aria-live={autoPlay ? "off" : "polite"}
             aria-atomic="true"
           >
             <span>{String(activeIndex + 1).padStart(2, "0")}</span>

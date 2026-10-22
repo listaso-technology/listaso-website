@@ -1,0 +1,143 @@
+/*
+ * Split hero (shared). Navy band in both themes with the 72px grid and a
+ * soft aqua glow; copy left, a large rounded photo frame right, and the
+ * example panel anchored over the frame's lower-left corner. The frame only
+ * spans about half the viewport, so the 1920px source stays sharp.
+ */
+
+@layer components {
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    background:
+      radial-gradient(45% 60% at 85% 40%, rgb(0 189 169 / 0.16), transparent 70%),
+      radial-gradient(40% 55% at 0% 100%, rgb(9 96 255 / 0.18), transparent 70%),
+      linear-gradient(160deg, #071e3a, var(--listaso-surface-band) 60%, #0a2a4a);
+  }
+
+  .grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(ellipse 60% 80% at 25% 50%, #000 20%, transparent 75%);
+  }
+
+  .layout {
+    display: grid;
+    align-items: center;
+    gap: 3rem;
+    padding-block: 3.5rem 4rem;
+  }
+
+  .copy {
+    display: flex;
+    max-width: 38rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.5rem;
+  }
+
+  .title {
+    overflow: hidden;
+    color: #ffffff;
+    font-size: var(--text-display);
+    line-height: var(--text-display--line-height);
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .lead {
+    max-width: 34rem;
+    color: var(--listaso-text-on-band-muted);
+    font-size: var(--text-lead);
+    line-height: var(--text-lead--line-height);
+  }
+
+  /* --- Photo frame + anchored panel -------------------------------------- */
+
+  .visual {
+    position: relative;
+  }
+
+  .frame {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    border: 1px solid rgb(255 255 255 / 0.12);
+    border-radius: var(--listaso-radius-xl);
+    background: rgb(255 255 255 / 0.04);
+    box-shadow: 0 30px 80px rgb(0 0 0 / 0.35);
+  }
+
+  .photo {
+    object-fit: cover;
+  }
+
+  /* Gentle depth so the panel sits on a calmer area. */
+  .frameShade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(20deg, rgb(4 22 42 / 0.55) 0%, rgb(4 22 42 / 0.1) 45%, transparent 70%);
+  }
+
+  /* Mobile: the panel overlaps the bottom of the frame. */
+  .overlay {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    margin-top: -3.5rem;
+    padding-inline: 1rem;
+  }
+
+  @media (min-width: 40rem) {
+    .frame {
+      aspect-ratio: 16 / 10;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .layout {
+      grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr);
+      gap: 4.5rem;
+      min-height: clamp(34rem, 78svh, 46rem);
+      padding-block: 4.5rem 5rem;
+    }
+
+    /* Close to the 3:2 photos so cover-cropping barely enlarges them. */
+    .frame {
+      aspect-ratio: 6 / 5;
+    }
+
+    /* Leave room for the panel to break out to the left of the frame. */
+    .withOverlay {
+      padding-left: 3rem;
+    }
+
+    .overlay {
+      position: absolute;
+      bottom: 2.5rem;
+      left: 0;
+      display: block;
+      margin: 0;
+      padding: 0;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .grid,
+    .frameShade {
+      display: none;
+    }
+
+    .frame {
+      border: 1px solid CanvasText;
+    }
+  }
+}

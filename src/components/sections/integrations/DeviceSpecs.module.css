@@ -1,0 +1,304 @@
+/*
+ * Supported devices: device illustration on a soft glow (no boxes), a
+ * segmented platform switch and ruled requirement rows that enter in turn.
+ * Devices rise in on each switch; hover straightens them.
+ */
+
+@layer components {
+  .layout {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  /* --- Stage --------------------------------------------------------------- */
+
+  .stage {
+    position: relative;
+    display: grid;
+    min-height: 20rem;
+    place-items: center;
+  }
+
+  .glow {
+    position: absolute;
+    width: min(100%, 26rem);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(closest-side, color-mix(in srgb, var(--listaso-text-accent) 22%, transparent), transparent);
+  }
+
+  .devices {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    animation: devices-in 600ms cubic-bezier(0.32, 0.72, 0, 1) both;
+  }
+
+  @keyframes devices-in {
+    from {
+      opacity: 0;
+      transform: translateY(20px) scale(0.96);
+    }
+  }
+
+  .devicesPair .phone {
+    margin-left: -3.5rem;
+    rotate: 6deg;
+  }
+
+  .devicesPair .tablet {
+    rotate: -4deg;
+  }
+
+  .phone,
+  .tablet {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: 7px solid #0d1222;
+    background: #ffffff;
+    box-shadow: 0 30px 60px rgb(0 20 40 / 0.35);
+    transition: rotate 600ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .phone {
+    z-index: 1;
+    width: 8.5rem;
+    aspect-ratio: 9 / 18.5;
+    padding: 1.5rem 0.75rem 1rem;
+    border-radius: 1.75rem;
+  }
+
+  .tablet {
+    width: 15rem;
+    aspect-ratio: 3 / 4;
+    padding: 1.25rem 1rem;
+    border-width: 9px;
+    border-radius: 1.5rem;
+  }
+
+  .stage:hover .phone,
+  .stage:hover .tablet {
+    rotate: 0deg;
+  }
+
+  .notch {
+    position: absolute;
+    top: 0.4rem;
+    left: 50%;
+    width: 2.5rem;
+    height: 0.35rem;
+    border-radius: 999px;
+    background: #0d1222;
+    translate: -50% 0;
+  }
+
+  .screen {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.875rem;
+  }
+
+  .lines {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .lines span {
+    height: 0.45rem;
+    border-radius: 999px;
+    background: #e3edf3;
+  }
+
+  .lines span:nth-child(2) {
+    width: 75%;
+  }
+
+  .lines span:nth-child(3) {
+    width: 55%;
+  }
+
+  /* --- Switch + specs -------------------------------------------------- */
+
+  .side {
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+  }
+
+  .tabs {
+    position: relative;
+    display: grid;
+    width: fit-content;
+    max-width: 100%;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    padding: 0.25rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: 999px;
+    background: var(--listaso-surface-raised);
+  }
+
+  .thumb {
+    position: absolute;
+    top: 0.25rem;
+    bottom: 0.25rem;
+    left: 0.25rem;
+    border-radius: 999px;
+    background: var(--listaso-text-heading);
+    transition: translate 450ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .tab {
+    position: relative;
+    z-index: 1;
+    min-height: 2.75rem;
+    padding: 0.5rem 1.25rem;
+    border: 0;
+    border-radius: 999px;
+    background: none;
+    color: var(--listaso-text-muted);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 700;
+    white-space: nowrap;
+    transition: color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .tab:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .tabActive {
+    color: var(--listaso-surface-page);
+  }
+
+  .specs {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--listaso-border-subtle);
+    list-style: none;
+  }
+
+  .spec {
+    display: grid;
+    grid-template-columns: 2.5rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.125rem 0.5rem;
+    border-bottom: 1px solid var(--listaso-border-subtle);
+    animation: spec-in 450ms cubic-bezier(0.32, 0.72, 0, 1) both;
+    animation-delay: calc(var(--i) * 70ms);
+    transition: background-color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .spec:hover {
+    background: color-mix(in srgb, var(--listaso-text-accent) 6%, transparent);
+  }
+
+  @keyframes spec-in {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+  }
+
+  .specIndex {
+    color: var(--listaso-text-accent);
+    font-size: var(--text-small);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .specText {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-body-lg);
+    font-weight: 600;
+  }
+
+  .specCheck {
+    display: grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    place-items: center;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--listaso-text-accent) 16%, transparent);
+    color: var(--listaso-icon-accent);
+    transition:
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .spec:hover .specCheck {
+    background: var(--listaso-text-accent);
+    color: var(--listaso-surface-band);
+  }
+
+  @media (max-width: 39.99rem) {
+    .tabs {
+      width: 100%;
+    }
+
+    .tab {
+      padding-inline: 0.75rem;
+      white-space: normal;
+    }
+
+    .tablet {
+      width: 12rem;
+    }
+
+    .phone {
+      width: 7rem;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .layout {
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .stage {
+      min-height: 26rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .devices,
+    .spec {
+      animation: none;
+    }
+
+    .thumb,
+    .tab,
+    .phone,
+    .tablet,
+    .spec,
+    .specCheck {
+      transition: none;
+    }
+
+    .devicesPair .phone,
+    .devicesPair .tablet {
+      rotate: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .thumb {
+      background: Highlight;
+    }
+
+    .glow {
+      display: none;
+    }
+  }
+}

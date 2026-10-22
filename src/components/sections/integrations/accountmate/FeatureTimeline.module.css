@@ -1,0 +1,144 @@
+/*
+ * AccountMate feature timeline: a left rail whose fill follows the scroll,
+ * numbered markers and entries that highlight on hover.
+ */
+
+@layer components {
+  .timeline {
+    position: relative;
+    view-timeline: --feature-timeline block;
+  }
+
+  .rail {
+    position: absolute;
+    top: 1.5rem;
+    bottom: 1.5rem;
+    left: 1.5rem;
+    width: 2px;
+    margin-left: -1px;
+    overflow: hidden;
+    background: var(--listaso-border-subtle);
+  }
+
+  .railFill {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(var(--listaso-text-accent), var(--listaso-action-primary));
+    transform-origin: top;
+  }
+
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .railFill {
+        animation: rail-fill linear both;
+        animation-timeline: --feature-timeline;
+        animation-range: entry 30% exit 60%;
+      }
+    }
+  }
+
+  @keyframes rail-fill {
+    from {
+      transform: scaleY(0);
+    }
+  }
+
+  .entries {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .entry {
+    position: relative;
+    display: flex;
+    gap: 1.25rem;
+  }
+
+  .marker {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    flex-shrink: 0;
+    place-items: center;
+    border: 2px solid var(--listaso-text-accent);
+    border-radius: 50%;
+    background: var(--listaso-surface-page);
+    color: var(--listaso-text-accent);
+    font-size: var(--text-small);
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+    transition:
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .entry:hover .marker {
+    background: var(--listaso-text-accent);
+    color: var(--listaso-surface-page);
+  }
+
+  .body {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.375rem;
+    padding: 0.75rem 1.25rem 1.25rem;
+    border-radius: var(--listaso-radius-lg);
+    transition: background-color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .entry:hover .body {
+    background: color-mix(in srgb, var(--listaso-text-accent) 6%, transparent);
+  }
+
+  .title {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    color: var(--listaso-text-heading);
+    font-size: var(--text-h4);
+    font-weight: 700;
+    line-height: var(--text-h4--line-height);
+  }
+
+  .icon {
+    color: var(--listaso-icon-accent);
+  }
+
+  .text {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-body-lg);
+    line-height: var(--text-body-lg--line-height);
+  }
+
+  @media (min-width: 64rem) {
+    .body {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      align-items: center;
+      gap: 2rem;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--listaso-border-subtle);
+      border-radius: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .marker,
+    .body {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .railFill {
+      background: CanvasText;
+    }
+  }
+}
