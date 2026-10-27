@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/Button";
 import { board, compare, hero } from "@/content/pricing/plans";
 import { cx } from "@/lib/utils/cx";
 import { Signature } from "../Signature";
+import { SamiBrandText } from "../product/sami/SamiBrandText";
 import { Breadcrumbs } from "../product/Breadcrumbs";
 import dossier from "../variants/dossier.module.css";
 import { GridPattern } from "./GridPattern";
@@ -246,9 +247,9 @@ export function PlanBoard() {
               <Image src="/brand/sami/sami-logo.webp" alt="" width={64} height={64} className="size-16" />
             </span>
             <p className="text-body text-fg-muted">
-              <strong className="block text-h4 font-bold text-fg-heading">{board.samiAddon.title}</strong>
+              <strong className="block text-h4 font-bold text-fg-heading"><SamiBrandText text={board.samiAddon.title} /></strong>
               <span className="sr-only">{samiTiers.map((tier) => `${tier.name}: ${tier.detail}`).join(" · ")}. </span>
-              {samiNote}
+              <SamiBrandText text={samiNote} />
             </p>
           </div>
           <ul aria-hidden="true" className={styles.samiTiers}>
@@ -261,7 +262,7 @@ export function PlanBoard() {
           </ul>
           <div className="flex flex-wrap gap-4">
             <Button href={board.samiAddon.cta.href} variant="secondary" className="w-fit">
-              {board.samiAddon.cta.label}
+              <SamiBrandText text={board.samiAddon.cta.label} />
             </Button>
             <Button href="#compare" variant="tertiary" icon="arrow-right" className="w-fit">
               {board.compareCta.label}

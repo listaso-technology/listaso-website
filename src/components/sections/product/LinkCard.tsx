@@ -1,5 +1,6 @@
 import { Icon, type IconName } from "@/components/icons/Icon";
 import { cx } from "@/lib/utils/cx";
+import { SamiBrandText } from "./sami/SamiBrandText";
 import styles from "./LinkCard.module.css";
 
 type LinkCardProps = {
@@ -35,10 +36,10 @@ export function LinkCard({ href, title, text, linkLabel, icon, analyticsEvent, c
             className={styles.link}
             {...(analyticsEvent ? { "data-analytics-event": analyticsEvent, "data-analytics-label": title } : null)}
           >
-            {title}
+            <SamiBrandText text={title} />
           </a>
         </h3>
-        <p className={styles.text}>{text}</p>
+        <p className={styles.text}><SamiBrandText text={text} /></p>
         <span aria-hidden="true" className={styles.cue}>
           {linkLabel}
           <Icon name="arrow-right" size={16} className={styles.arrow} />

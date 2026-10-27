@@ -23,8 +23,8 @@ type ButtonAsLink = BaseProps &
 export type ButtonProps = ButtonAsButton | ButtonAsLink;
 
 const base =
-  "inline-flex items-center justify-center gap-2 rounded-full font-semibold " +
-  "transition-[background-color,border-color,color,translate] " +
+  "inline-flex items-center justify-center gap-2 rounded-full " +
+  "transition-[background-color,border-color,color,filter,translate] " +
   "duration-(--listaso-duration-fast) ease-(--listaso-ease-standard) " +
   "motion-safe:active:translate-y-px " +
   "disabled:cursor-not-allowed disabled:opacity-50 " +
@@ -32,13 +32,15 @@ const base =
 
 const variants: Record<ButtonVariant, string> = {
   primary:
-    "bg-action-primary text-fg-on-action hover:bg-action-primary-hover " +
-    "disabled:hover:bg-action-primary",
+    "border-2 border-[var(--listaso-cta-border)] bg-[linear-gradient(90deg,var(--listaso-cta-start),var(--listaso-cta-end))] " +
+    "font-extrabold italic text-[var(--listaso-cta-text)] shadow-[var(--listaso-cta-shadow)] " +
+    "hover:brightness-95 disabled:hover:brightness-100 " +
+    "forced-colors:border-[ButtonText] forced-colors:bg-[ButtonFace] forced-colors:text-[ButtonText] forced-colors:shadow-none",
   secondary:
-    "border border-fg-heading text-fg-heading hover:bg-surface-soft " +
+    "border border-fg-heading font-semibold text-fg-heading hover:bg-surface-soft " +
     "disabled:hover:bg-transparent",
   tertiary:
-    "text-fg-heading underline-offset-4 hover:underline disabled:hover:no-underline",
+    "font-semibold text-fg-heading underline-offset-4 hover:underline disabled:hover:no-underline",
 };
 
 // Both sizes keep a hit area of at least 44px (min-h-12 = 48px).

@@ -69,6 +69,15 @@ Status column keeps their provenance.
 | status.error text | `#B8243F` + icon + message | APPROVED | 6.25 white |
 | text.on-error | `#FFFFFF` on `#B8243F` | APPROVED (Chat 5) | 6.25 |
 
+**CTA principal (APPROVED, 23 October 2026; DEC-026).** Erick supplied a new
+official style: horizontal `#DBE9FE` → `#41F9FF` gradient, navy `#00375B`
+text, white border and pill shape. Navy text has at least 9.55:1 contrast at
+the two gradient endpoints. The shared `Button` primary variant uses this in
+all themes, including SAMI; secondary and tertiary variants keep their roles.
+The older red `action.primary` values above remain accent/control tokens and
+no longer set the primary CTA fill. The image's 15-day wording is not part of
+this approval; SAMI's current offer remains 14 days under DEC-025.
+
 60-30-10 (PROPOSED, pending Marketing audit):
 - 60%: neutral surfaces.
 - 30%: navy/ink (text, headings, bands, footer).

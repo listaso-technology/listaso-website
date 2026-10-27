@@ -9,6 +9,7 @@ import { proofTone } from "../proofTones";
 import { SectionHeader } from "../SectionHeader";
 import styles from "./BentoFeatures.module.css";
 import { FillPhoto, type AnyPhoto } from "./HeroParts";
+import { SamiBrandText } from "../product/sami/SamiBrandText";
 
 /*
  * Cell spans on a 6-column desktop grid, per item count, so every row is
@@ -74,8 +75,8 @@ function Cell({ item, photo, span, index }: CellProps) {
             <span className={styles.photoChip}>
               <Icon name={item.icon} size={24} />
             </span>
-            <h3 className={styles.photoTitle}>{item.title}</h3>
-            <p className={styles.photoText}>{item.text}</p>
+            <h3 className={styles.photoTitle}><SamiBrandText text={item.title} /></h3>
+            <p className={styles.photoText}><SamiBrandText text={item.text} /></p>
           </div>
         </article>
       </li>
@@ -98,8 +99,8 @@ function Cell({ item, photo, span, index }: CellProps) {
           </span>
         </span>
         <span className={styles.cardCopy}>
-          <h3 className={styles.title}>{item.title}</h3>
-          <p className={styles.text}>{item.text}</p>
+            <h3 className={styles.title}><SamiBrandText text={item.title} /></h3>
+            <p className={styles.text}><SamiBrandText text={item.text} /></p>
         </span>
       </article>
     </li>

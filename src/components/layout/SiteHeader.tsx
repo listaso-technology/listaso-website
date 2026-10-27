@@ -11,6 +11,7 @@ import {
   type NavLink,
 } from "@/content/site/navigation";
 import { cx } from "@/lib/utils/cx";
+import { SamiBrandText } from "@/components/sections/product/sami/SamiBrandText";
 import { Container } from "./Container";
 import { NavDisclosures } from "./NavDisclosures";
 import styles from "./SiteHeader.module.css";
@@ -38,7 +39,7 @@ function PanelLink({ link }: { link: NavLink }) {
       data-analytics-label={link.label}
     >
       <span className="flex min-w-0 flex-1 flex-col">
-        <span className="text-body font-semibold text-fg-heading">{link.label}</span>
+        <span className="text-body font-semibold text-fg-heading"><SamiBrandText text={link.label} /></span>
         {link.description ? <span className="text-small text-fg-muted">{link.description}</span> : null}
       </span>
       <Icon name="arrow-right" size={16} className={styles.panelArrow} />

@@ -5,10 +5,14 @@ import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/icons/Icon";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { sami } from "@/content/home/en";
+import type { SamiConversationExample } from "@/content/products/sami";
+import { SamiBrandText } from "../product/sami/SamiBrandText";
 import styles from "./SamiConversation.module.css";
 
 const FINAL_PHASE = 4;
 const OUTRO_PHASE = 5;
+const INTERACTIVE_REPORT_PHASE = 9;
+const INTERACTIVE_OUTRO_PHASE = 10;
 
 /**
  * Adapted from `Guide Sami Listaso AI/components/sami-conversation.tsx`.
@@ -16,14 +20,33 @@ const OUTRO_PHASE = 5;
  * in view, pauses outside the viewport or in a hidden tab, and exposes one
  * stable description to assistive tech instead of announcing every character.
  */
-export function SamiConversation() {
+export function SamiConversation({
+  example = sami.example,
+  mode = "loop",
+}: {
+  example?: SamiConversationExample;
+  mode?: "loop" | "interactive";
+}) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const [documentVisible, setDocumentVisible] = useState(true);
   const [phase, setPhase] = useState(0);
+  const [interactivePhase, setInteractivePhase] = useState(1);
+  const [hovered, setHovered] = useState(false);
   const [letters, setLetters] = useState(0);
   const [reduceMotion, setReduceMotion] = useState(false);
-  const { example } = sami;
+  const interactive = mode === "interactive";
+  const visiblePhase = interactive ? (reduceMotion ? INTERACTIVE_REPORT_PHASE : interactivePhase) : phase;
+  const showFollowUp = interactive ? visiblePhase >= 7 : visiblePhase >= FINAL_PHASE;
+  const showFile = interactive ? visiblePhase >= INTERACTIVE_REPORT_PHASE : visiblePhase >= 3;
+  const visibleRows = interactive
+    ? visiblePhase < 4 ? 0 : Math.min(visiblePhase - 3, example.rows.length)
+    : example.rows.length;
+  const accessibleRows = example.rows.map((row) => {
+    const label = "customer" in row ? row.customer : row.label;
+    const value = "amount" in row ? row.amount : row.value;
+    return `${label}: ${value}`;
+  }).join(". ");
 
   useEffect(() => {
     const root = rootRef.current;
@@ -60,6 +83,19 @@ export function SamiConversation() {
   }, []);
 
   useEffect(() => {
+    if (!interactive || reduceMotion || !inView || !documentVisible || hovered) return;
+
+    // A full example is one question, its answer, an export request and a
+    // sample report. Pausing keeps the current step instead of restarting it.
+    const delays = [0, 1_200, 750, 850, 550, 550, 900, 950, 700, 4_200, 560];
+    const timer = window.setTimeout(() => {
+      setInteractivePhase((current) => current === INTERACTIVE_OUTRO_PHASE ? 1 : current + 1);
+    }, delays[interactivePhase]);
+    return () => window.clearTimeout(timer);
+  }, [documentVisible, hovered, inView, interactive, interactivePhase, reduceMotion]);
+
+  useEffect(() => {
+    if (interactive) return;
     if (reduceMotion) {
       const timer = window.setTimeout(() => {
         setLetters(example.question.length);
@@ -102,34 +138,48 @@ export function SamiConversation() {
 
     const timer = window.setTimeout(advance, delay);
     return () => window.clearTimeout(timer);
-  }, [documentVisible, example.question.length, inView, letters, phase, reduceMotion]);
+  }, [documentVisible, example.question.length, inView, interactive, letters, phase, reduceMotion]);
 
   return (
-    <div ref={rootRef} data-reveal="media" className={styles.frame}>
+    <div
+      ref={rootRef}
+      data-mode={mode}
+      data-reveal={interactive ? undefined : "media"}
+      className={styles.frame}
+      onPointerEnter={(event) => {
+        if (interactive && event.pointerType === "mouse") setHovered(true);
+      }}
+      onPointerLeave={() => setHovered(false)}
+    >
       <GlassPanel tone="sami" className={styles.conversation}>
         <div className={styles.heading}>
           <span>
             <Image src="/brand/sami/sami-logo.webp" alt="" width={30} height={30} />
-            {example.name}
+            <SamiBrandText text={example.name} />
           </span>
-          <span className={styles.controls}>
-            <small>{example.tag}</small>
-          </span>
+          {!interactive ? (
+            <span className={styles.controls}>
+              <small>{example.tag}</small>
+            </span>
+          ) : null}
         </div>
 
-        <p className="sr-only">{example.label}</p>
+        <p className="sr-only" aria-live="polite" aria-atomic="true">
+          {example.label}: {example.question} {example.answer} {accessibleRows}
+          {interactive && example.file ? ` ${example.followUp} Sample file: ${example.file}. Preview only.` : ""}
+        </p>
 
         <div
           aria-hidden="true"
           className={styles.sequence}
-          data-outro={phase === OUTRO_PHASE ? "true" : undefined}
+          data-outro={visiblePhase === (interactive ? INTERACTIVE_OUTRO_PHASE : OUTRO_PHASE) ? "true" : undefined}
         >
           <div className={styles.messages}>
-            <div className={`${styles.message} ${styles.outgoing} ${phase >= 1 ? styles.sent : ""}`}>
-              {phase >= 1 ? example.question : ""}
+            <div className={`${styles.message} ${styles.outgoing} ${visiblePhase >= 1 ? styles.sent : ""}`}>
+              {visiblePhase >= 1 ? example.question : ""}
             </div>
 
-            {phase === 2 ? (
+            {visiblePhase === 2 ? (
               <div className={styles.typing}>
                 <i />
                 <i />
@@ -137,36 +187,73 @@ export function SamiConversation() {
               </div>
             ) : null}
 
-            {phase >= 3 ? (
+            {visiblePhase >= 3 ? (
               <div className={`${styles.message} ${styles.incoming}`}>
                 <p>{example.answer}</p>
-                {example.rows.map((row) => (
-                  <div className={styles.row} key={row.customer}>
-                    <span>{row.customer}</span>
-                    <strong>{row.amount}</strong>
-                  </div>
-                ))}
-                <span className={styles.export}>
-                  <Icon name="download" size={16} />
-                  {example.file}
-                </span>
+                {example.rows.slice(0, visibleRows).map((row) => {
+                  const label = "customer" in row ? row.customer : row.label;
+                  const value = "amount" in row ? row.amount : row.value;
+                  return (
+                    <div className={styles.row} key={label}>
+                      <span>{label}</span>
+                      <strong>{value}</strong>
+                    </div>
+                  );
+                })}
+                {!interactive && example.file ? (
+                  <span className={styles.export}>
+                    <Icon name="download" size={16} />
+                    {example.file}
+                  </span>
+                ) : null}
               </div>
             ) : null}
 
-            {phase >= FINAL_PHASE ? (
+            {showFollowUp && example.followUp ? (
               <div className={`${styles.message} ${styles.outgoing}`}>{example.followUp}</div>
+            ) : null}
+
+            {interactive && visiblePhase === 8 ? (
+              <div className={styles.typing}>
+                <i />
+                <i />
+                <i />
+              </div>
+            ) : null}
+
+            {interactive && showFile && example.file ? (
+              <div className={`${styles.message} ${styles.incoming} ${styles.reportMessage}`}>
+                <p>{example.file.endsWith(".pdf") ? "Your sample PDF report is ready." : "Your sample Excel report is ready."}</p>
+                <span className={styles.report}>
+                  <span aria-hidden="true" className={styles.reportIcon}><Icon name="report" size={20} /></span>
+                  <span className={styles.reportDetails}>
+                    <strong>{example.file}</strong>
+                    <small>Illustrative preview · no download</small>
+                  </span>
+                  <span aria-hidden="true" className={styles.reportType}>{example.file.endsWith(".pdf") ? "PDF" : "XLSX"}</span>
+                </span>
+              </div>
             ) : null}
           </div>
 
           <div className={styles.input}>
             <span>
-              {phase === 0 ? example.question.slice(0, letters) : example.inputPlaceholder}
-              {phase === 0 && inView && documentVisible ? (
+              {visiblePhase === 0 ? example.question.slice(0, letters) : example.inputPlaceholder}
+              {visiblePhase === 0 && inView && documentVisible ? (
                 <i className={styles.caret} />
               ) : null}
             </span>
-            <span className={`${styles.send} ${phase === 1 ? styles.sending : ""}`}>
-              <Icon name="arrow-right" size={16} className="-rotate-90" />
+            <span className={styles.inputActions}>
+              <svg className={styles.inputTool} viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l8.57-8.57a4 4 0 0 1 5.66 5.66l-8.58 8.57a2 2 0 0 1-2.83-2.83l8.49-8.48" />
+              </svg>
+              <svg className={styles.inputTool} viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <rect x="9" y="2" width="6" height="12" rx="3" />
+                <path d="M5 11a7 7 0 0 0 14 0M12 18v4" />
+              </svg>
+              <span className={`${styles.send} ${visiblePhase === 1 ? styles.sending : ""}`}>
+                <Icon name="arrow-right" size={16} className="-rotate-90" />
+              </span>
             </span>
           </div>
         </div>

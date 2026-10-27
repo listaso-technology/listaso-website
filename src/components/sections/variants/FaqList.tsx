@@ -2,6 +2,7 @@ import { Icon } from "@/components/icons/Icon";
 import { Container } from "@/components/layout/Container";
 import type { SectionCopy } from "@/content/products/types";
 import { ProductSection } from "../product/ProductSection";
+import { SamiBrandText } from "../product/sami/SamiBrandText";
 import { DossierHeader } from "./DossierHeader";
 import styles from "./FaqList.module.css";
 
@@ -31,12 +32,12 @@ export function FaqList({ id, copy, items, tone }: FaqListProps) {
                   <span aria-hidden="true" className={styles.number}>
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <span className={styles.question}>{item.question}</span>
+                  <span className={styles.question}><SamiBrandText text={item.question} /></span>
                   <span aria-hidden="true" className={styles.toggle}>
                     <Icon name="plus" size={20} />
                   </span>
                 </summary>
-                <p className={styles.answer}>{item.answer}</p>
+                <p className={styles.answer}><SamiBrandText text={item.answer} /></p>
               </details>
             </div>
           ))}
