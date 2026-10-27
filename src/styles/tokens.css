@@ -31,6 +31,14 @@
     --listaso-neutral: #dfdfdf;
     --listaso-white: #ffffff;
 
+    /* Primary CTA: red site-wide (Erick, 23 October 2026). The SAMI AI page
+       and SAMI surfaces keep the light-blue gradient; see the override below. */
+    --listaso-cta-start: #d83553;
+    --listaso-cta-end: #d83553;
+    --listaso-cta-text: #ffffff;
+    --listaso-cta-border: transparent;
+    --listaso-cta-shadow: 0 4px 0 rgb(122 20 42 / 0.28);
+
     /* Typography. Montserrat is not self-hosted yet; see the visual-foundation handoff. */
     --listaso-font-sans: "Montserrat", "Avenir Next", "Segoe UI", Arial, sans-serif;
 
@@ -209,6 +217,15 @@
    * with the AA corrections from brand-foundations.md (no lighter #347cff
    * hover; #4d8dff for blue text).
    */
+  [data-surface="sami"],
+  :root:has([data-cta-scope="sami"]) {
+    --listaso-cta-start: #dbe9fe;
+    --listaso-cta-end: #41f9ff;
+    --listaso-cta-text: #00375b;
+    --listaso-cta-border: #ffffff;
+    --listaso-cta-shadow: 0 4px 0 rgb(0 55 91 / 0.22);
+  }
+
   [data-surface="sami"] {
     color-scheme: dark;
     background-color: var(--listaso-surface-page);

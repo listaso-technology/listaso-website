@@ -2,10 +2,10 @@
  * "Next page" card (shared by product, integration and company pages).
  *
  * - Stepper: every page in the group as a numbered dot + name, joined by a
- *   line; each step is a link. Visited, current (aria-current) and next
- *   pages have distinct states; hovering a step fills and grows its dot.
- * - Main link: next page title, description and arrow. Its hover/focus
- *   sweeps a tint across the card, highlights the next step, rolls the title
+ *   line; each step previews that page. Visited, current (aria-current) and
+ *   selected pages have distinct states.
+ * - Main link: selected page title, description and arrow. Its hover/focus
+ *   sweeps a tint across the card, highlights the selected step, rolls the title
  *   (TextRoll) and moves the arrow. No lift, no glow.
  */
 
@@ -109,7 +109,7 @@
     background: color-mix(in srgb, var(--listaso-text-muted) 50%, transparent);
   }
 
-  .current + .next::before {
+  .current + .selected::before {
     background: linear-gradient(90deg, var(--listaso-text-heading), var(--listaso-text-accent));
   }
 
@@ -120,10 +120,14 @@
     align-items: center;
     gap: 0.625rem;
     padding: 0.25rem 0.25rem 0.375rem;
+    border: 0;
     border-radius: var(--listaso-radius-md);
+    background: transparent;
     color: var(--listaso-text-muted);
+    font: inherit;
     text-align: center;
     text-decoration: none;
+    cursor: pointer;
     transition: color var(--listaso-duration-standard) var(--listaso-ease-standard);
   }
 
@@ -171,13 +175,19 @@
     box-shadow: 0 0 0 4px color-mix(in srgb, var(--listaso-text-heading) 15%, transparent);
   }
 
-  .next .stepLink {
+  .selected .stepLink {
     color: var(--listaso-text-heading);
   }
 
-  .next .dot {
+  .selected .dot {
     border-color: var(--listaso-text-accent);
-    color: var(--listaso-text-accent);
+    background: var(--listaso-text-accent);
+    color: var(--listaso-surface-raised);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--listaso-text-accent) 18%, transparent);
+  }
+
+  .selected .stepLabel {
+    font-weight: 700;
   }
 
   .stepLink:hover,
@@ -208,9 +218,11 @@
 
   .mainLink {
     display: flex;
-    align-items: flex-end;
+    min-width: 0;
+    flex-direction: column;
+    align-items: stretch;
     justify-content: space-between;
-    gap: 1.5rem;
+    gap: 1rem;
     margin-top: 0.5rem;
     border-radius: var(--listaso-radius-md);
     color: inherit;
@@ -236,7 +248,19 @@
     line-height: var(--text-h1--line-height);
     letter-spacing: -0.02em;
     text-wrap: balance;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  .title > span {
+    display: grid;
+    min-width: 0;
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .title > span > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
   }
 
   .description {
@@ -250,6 +274,7 @@
     width: 3.5rem;
     height: 3.5rem;
     flex-shrink: 0;
+    align-self: flex-end;
     place-items: center;
     border: 1px solid var(--listaso-border-control);
     border-radius: 50%;
@@ -272,7 +297,7 @@
     transform: scaleX(1);
   }
 
-  .card:has(.mainLink:is(:hover, :focus-visible)) .next .dot {
+  .card:has(.mainLink:is(:hover, :focus-visible)) .selected .dot {
     border-color: var(--listaso-text-accent);
     background: var(--listaso-text-accent);
     color: var(--listaso-surface-raised);
@@ -294,6 +319,12 @@
   /* --- Wider screens ---------------------------------------------------- */
 
   @media (min-width: 40rem) {
+    .mainLink {
+      flex-direction: row;
+      align-items: flex-end;
+      gap: 1.5rem;
+    }
+
     .title {
       font-size: var(--text-display);
       line-height: var(--text-display--line-height);
@@ -336,6 +367,11 @@
     }
 
     .current .dot {
+      background: Highlight;
+    }
+
+    .selected .dot {
+      color: HighlightText;
       background: Highlight;
     }
   }

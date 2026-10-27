@@ -1,8 +1,278 @@
 # Estado de trabajo
 
-**Actualizado:** 20 de octubre de 2026
+**Actualizado:** 26 de octubre de 2026
 
 ## Tarea cerrada
+
+### SAMI: corrección visual del chip de precio y lead del hero (Codex, `dev`, sin commit, 26 de octubre de 2026)
+
+La captura de Erick mostró el chip casi invisible: `bg-white` y
+`border-white` no existen en el Tailwind del proyecto porque la paleta por
+defecto está desactivada. El chip ahora tiene CSS aislado con fondo blanco y
+texto navy `#00375b`, independientemente del contexto oscuro SAMI. El lead
+mantiene el copy aprobado, deja de alinearse a la derecha y usa un ancho más
+contenido y `text-wrap: balance` para que las líneas queden parejas. El H1,
+CTA, precio y resto del hero no cambian.
+
+Validaciones: lint, TypeScript y `git diff --check` pasan. Pendiente revisar
+el resultado visual en una sesión nueva; no se ejecutó build para no mezclar
+artefactos con el servidor Turbopack que el usuario pueda tener abierto.
+
+### SAMI: jerarquía del hero y copy de idiomas (Codex, `dev`, sin commit, 26 de octubre de 2026)
+
+El chip “From $59 a month per team” usa fondo blanco y texto navy. El H1
+separa sus dos frases: “Ask your business anything.” queda más pequeña y
+“SAMI has the answers” gana tamaño; la marca conserva su tipografía. El lead
+usa el texto exacto aprobado por Erick con “Available in +30 languages”. La
+fila inferior da al párrafo anchura para formar aproximadamente dos líneas en
+escritorio; en móvil conserva saltos naturales para no reducir la letra.
+Se actualizó el contrato de contenido. No se modificaron precio, oferta,
+destinos de CTA ni metadata.
+
+Validaciones: lint, TypeScript y `git diff --check` pasan. No se ejecutó
+`next build` mientras la sesión Turbopack del usuario puede estar activa en
+`.next`; pendiente revisión visual en móvil y escritorio.
+
+### NextPage: advertencias de hidratación en desarrollo (Codex, `dev`, sin commit, 26 de octubre de 2026)
+
+El error compartido por Erick muestra bundles de dos revisiones en la misma
+hidratación: el servidor renderizó el `useId()` y el estado seleccionado nuevos,
+mientras el cliente aún enviaba `selectedIndex` al `<ol>` y usaba el ID fijo
+anterior. Se eliminó el wrapper `NextPageSteps` y su prop de presentación;
+el scroll del carril vive ahora en `NextPageNavigator`, que renderiza el `<ol>`
+directamente. El estado inicial es determinista y los cálculos de tamaño se
+ejecutan solo en `useEffect`, después de hidratar. Ya no hay ningún
+`selectedIndex` ni ID fijo pasado al DOM desde el código fuente.
+
+Validaciones: `pnpm lint`, `pnpm exec tsc --noEmit` y `git diff --check` pasan.
+No se ejecutó otro build en el directorio `.next` mientras el servidor
+Turbopack del usuario pudiera seguir abierto; la sesión del navegador necesita
+recarga completa o reinicio de `next dev` para descartar el bundle cliente
+antiguo. Pendiente: confirmar en la consola de una sesión fresca que no
+reaparecen ambas advertencias.
+
+### Navegación final: selección previa de páginas (Codex, `dev`, sin commit, 26 de octubre de 2026)
+
+La captura móvil de `/sami/` mostró el índice de Products comenzando por 01
+mientras la tarjeta presentaba Custom development (09/09). `NextPage` conserva
+los datos filtrados en servidor y pasa la interacción a `NextPageNavigator`:
+cada número/etiqueta es ahora un botón que cambia título, descripción, posición
+y destino de la vista previa; sólo el enlace grande de esa vista navega. El
+número seleccionado se destaca y el carril horizontal lo centra al iniciar,
+al cambiar la selección y al cambiar el ancho. Los botones usan `aria-pressed`,
+la ruta actual conserva `aria-current` y el preview anuncia su contenido al
+cambiar. El enlace mantiene `next_page_click` con la etiqueta de la ruta
+efectivamente seleccionada. El patrón se aplica a las páginas que comparten
+`NextPage`; sin JavaScript queda disponible el enlace inicial a la siguiente
+página.
+
+Validaciones: lint, typecheck, build webpack y `git diff --check` pasan. El
+HTML exportado de `/sami/` muestra nueve botones, una selección inicial y el
+enlace a `/custom-development/`. Pendiente: QA táctil/teclado y visual en
+navegador real; el control automático local sigue sin créditos.
+
+### SAMI: ajuste responsive de la página (Codex, `dev`, sin commit, 26 de octubre de 2026)
+
+Se auditó el CSS y la estructura de reflow de `/sami/` desde 320 px en hero, ejemplos/chat, Features,
+Pricing, contacto Zoho, FAQ, navegación final, CTA final y header. Los CTA del
+hero ocupan el ancho del contenedor en móvil y pueden partir su texto; el chat
+permite partir etiquetas largas y el texto del campo ilustrativo sin empujar
+el importe ni el botón de envío. Las tarjetas de Pricing y el panel del
+formulario usan menos padding por debajo de 640 px; las columnas de Sales y
+FAQ usan `minmax(0, …)` para admitir contenido flexible. En la tarjeta
+compartida de navegación final, el título animado puede partirse y la flecha
+se sitúa debajo del texto en pantallas estrechas. No se alteraron copy,
+destinos ni lógica del embed.
+
+Validaciones: `pnpm lint`, `pnpm typecheck`, `pnpm build --webpack` y
+`git diff --check` pasan; el CSS compilado contiene las columnas `minmax`.
+Pendiente: QA visual y táctil en 320/375/390/768/1024 px y en el dominio
+permitido por Zoho. El control automático del navegador local rechazó el
+acceso en esta sesión por falta de créditos; no se intentó un acceso alterno.
+
+### Páginas de error y advertencia (Claude, `dev`, sin commit, 26 de octubre de 2026)
+
+Nuevas páginas de estado con el shell del sitio y `noindex`: `not-found.tsx` (404.html con
+destinos sugeridos), rutas `/401/`, `/403/`, `/429/`, `/500/` y `/503/`, el límite de error
+`(site)/error.tsx` (con reintento) y `global-error.tsx` (sin header/footer). Componente
+`StatePage`, copy genérico en `src/content/site/error-pages.ts` y `SiteShell` extraído del
+layout de `(site)`. Lint y typecheck pasan; el export genera `out/404.html` y las rutas.
+Pendiente: mapear en Cloudflare los códigos 401/403/429/500/503 a estas rutas y revisión
+visual en navegador. El copy es interfaz genérica; Erick debe aprobarlo.
+
+
+### SAMI: widget de WordPress sincronizado de nuevo (Claude, `dev`, sin commit, 26 de octubre de 2026)
+
+Regenerado desde `/sami/` con el copy actual, la marca animada (SamiLogoMark: poster
+embebido a 560 px y JS de rotación portado; el WebM de 1.2 MB queda opcional vía
+`SAMI_VIDEO_URL`) y la etiqueta bajo el chat del selector. Alturas idénticas a la página
+a 1440 px salvo el hero (breadcrumb omitido). Sin cambios en `src/`.
+
+### SAMI: aviso bajo el chat de ejemplos (Codex, `dev`, sin commit, 26 de octubre de 2026)
+
+El aviso “Illustrative data” salió de la cabecera del chat interactivo en
+`/sami/`. Ahora aparece una sola vez debajo del panel, fuera de la transición
+entre preguntas, con el copy exacto “Illustrative purposes only”. El chat de
+Home conserva su etiqueta propia. Lint, typecheck, build webpack y
+`git diff --check` pasan; el HTML exportado contiene el aviso fuera del panel
+y no contiene el texto anterior. El widget temporal de WordPress requiere
+regeneración separada para reflejarlo.
+
+### SAMI: animación de entrada del logo (Codex, `dev`, sin commit, 26 de octubre de 2026)
+
+Se revisó el paquete entregado por Diseño en `~/Downloads/sami animacion html/`.
+El WebM VP9 con transparencia (1.1 MB, 2 s) permite controlar reproducción y
+final; el WebP animado (7.5 MB, loop infinito) no permite detener y repetir el
+bucle de forma fiable. `SamiLogoMark` usa el WebM sobre el PNG del último
+fotograma: reproduce una vez al entrar en pantalla y otra vez al entrar con
+puntero fino en la sección de SAMI del hero o Home. Tras la corrección de
+Erick, ambas capas comparten una caja fija y recortada para que el video no
+aparezca debajo del póster ni invada el titular. Al terminar la entrada, el
+póster gira una vuelta tras cada entrada; en escritorio continúa mientras
+la sección tenga hover y en móvil mientras esté visible. Al salir del hover
+vuelve suavemente a su orientación inicial. El resplandor azul y aqua que
+acompaña la entrada permanece visible durante todo el giro y se desvanece
+al detenerse.
+Pausa fuera de pantalla o con pestaña oculta. Con movimiento reducido queda
+el PNG sin giro; sin VP9 o ante error de reproducción se usa el PNG con giro. El logo
+mantiene su tamaño aparente al compensar el margen transparente de los medios.
+Los archivos copiados a `public/brand/sami/` conservan sus bytes originales.
+Lint, typecheck, build webpack y `git diff --check` pasan. Pendiente: revisar
+la transición y el canal alpha en Safari, Chrome y móvil reales. La revisión
+visual local en navegador sigue bloqueada por el control automático sin
+créditos; el widget temporal de WordPress necesita regeneración para reflejar
+esta interacción.
+
+### SAMI: ajustes de copy y espacio superior de Pricing (Codex, `dev`, sin commit, 26 de octubre de 2026)
+
+Por instrucción de Erick, el hero conserva el precio desde $59 por equipo/mes
+sin repetir la promoción junto al precio y presenta a “SAMI, your Listaso AI
+Assistant”. La sección de ejemplos ya no lleva el lead redundante. Features,
+FAQ y el chip SAMI de Home nombran Claude antes que ChatGPT. Pricing muestra
+el nuevo texto de conexión y la frase de prueba de 14 días; se añadieron 24 px
+de espacio **encima** de Pricing, de 64 a 88 px en móvil y de 96 a 120 px en
+escritorio. Sales usa el título, descripción, audiencia y nombre de formulario
+solicitados. El enlace alternativo del embed ahora habla de completar el
+formulario. Se actualizó el contrato de contenido; el widget temporal de
+WordPress requiere regeneración separada para reflejar estos cambios. El
+generador depende de un servidor local que este sandbox no permite iniciar;
+al probar la exportación estática, Lightning CSS rechazó su CSS compilado.
+Validaciones: lint, typecheck, build webpack y `git diff --check` pasan; el
+HTML exportado contiene el nuevo copy y la hoja CSS generada sitúa el nuevo
+padding superior después del padding base. No se pudo hacer la revisión visual
+en el navegador: el control automático de aprobación del navegador rechazó
+abrir localhost porque el workspace no tiene créditos para esa revisión.
+
+### CTA oficial en degradado (Codex, `dev`, sin commit, 23 de octubre de 2026)
+
+La variante primaria de `Button` usa el degradado aprobado `#DBE9FE` →
+`#41F9FF`, texto navy, borde blanco y forma de píldora. Se aplica a SAMI,
+Home, productos, planes y otros CTA principales que consumen el componente
+compartido. Las variantes secundaria/terciaria y otros acentos no se cambiaron.
+El CTA final ya no añade una sombra roja. Contraste de texto navy: 10.07:1 en
+el inicio y 9.55:1 en el final del degradado. Lint, typecheck, build webpack
+y `git diff --check` pasaron. La vista previa en navegador quedó pendiente por
+la misma limitación de aprobación automática descrita arriba.
+
+### SAMI: widget de WordPress actualizado a la página actual (Claude, `dev`, sin commit, 23 de octubre de 2026)
+
+`wordpress-widget/sami/` regenerado desde `/sami/` con el hero nuevo (fondo y espiral
+en base64, logo actualizado, nuevo titular), pricing actual, sección de contacto de
+ventas (iframe Zoho con su listener de altura) y FAQ. El generador ahora elige las
+secciones por `aria-labelledby`. Alturas idénticas a la página a 1440 y 375 px salvo el
+hero (breadcrumb omitido). Sin cambios en `src/`.
+
+### SAMI: promoción de 14 días y formulario Zoho (Codex, `dev`, sin commit, 23 de octubre de 2026)
+
+Erick confirmó que la promoción vigente es de 14 días. Se actualizó el copy
+visible de `/sami/`, Home y la FAQ de `/plans/`, junto con metadata, contratos,
+DEC-025 y el widget HTML temporal de SAMI. Los CTA de la prueba dirigen a
+`/sami/#sami-sales-contact` o al ancla local. El snippet compartido por Erick
+es un iframe con mensajes de ajuste de altura, así que el componente usa la URL
+`/formperma/` exacta y valida origen, ventana emisora e ID antes de redimensionar.
+El slug de Zoho conserva `15Day` porque es parte de su identificador público.
+Pendiente: QA real del embed en preview y los envíos de ambas rutas; no se
+modificó la configuración de Zoho ni se enviaron respuestas de prueba.
+En un preview estático local (`127.0.0.1:4173`), el CTA llevó al ancla y el
+iframe se montó, pero Zoho mostró “refused to connect” dentro del frame. El
+formulario sí abre de forma directa. La respuesta HTTP pública confirmó la
+causa: Zoho envía `Content-Security-Policy: frame-ancestors www.listaso.com`
+y `X-Frame-Options: ALLOW-FROM www.listaso.com`. El preview local y los
+subdominios `*.listaso-website.pages.dev` quedan fuera de esa lista; la
+página no puede cambiar esa política desde React. En Zoho, revisar `Share >
+Embed > Embed Settings > Embed Location > Allowed Domains` y añadir los
+dominios concretos donde se mostrará el formulario (máximo cinco según Zoho),
+incluido el preview elegido; se añadió un enlace alternativo visible encima
+del iframe. Después, verificar que los encabezados incluyan cada origen y
+repetir la revisión visual del formulario cargado.
+
+### Fondo Aurora reutilizable (Claude, `dev`, sin commit, 23 de octubre de 2026)
+
+Componente `src/components/ui/AuroraBackdrop.tsx` + módulo CSS: fondo tipo aurora
+boreal con tres cortinas SVG editables (cresta luminosa, cuerpo con estrías
+verticales que se desvanece) sobre navy profundo, en aqua, azul, violeta y magenta de
+Listaso. Props `side`, `intensity`, `animated`; colores por variables `--aurora-*`;
+sólo anima transform y opacity; estático con movimiento reducido; oculto en
+forced-colors. Muestra en `/foundation/#aurora`. Aún no se usa en páginas
+(SamiHero y HeroDisplay están reservados por Codex). Lint y typecheck OK. La skill
+`image-illustrator` (RogueRope/docs) no se instaló: genera rasters con la API de
+OpenAI y está pensada para Hugo.
+
+### SAMI: promoción de 15 días (Codex, `dev`, sin commit, 23 de octubre de 2026)
+
+Erick corrigió la duración comercial: la prueba gratuita de SAMI es de
+15 días. Se unificaron hero, CTA, nota de precios, FAQ y metadata de `/sami/`,
+además de Home y la FAQ de `/plans/`. DEC-025 y los contratos de contenido
+registran que esta instrucción sustituye los 14 días de la imagen del 22 de
+octubre y las menciones históricas anteriores de este worklog. Se actualizó
+el HTML del widget temporal de Elementor con las mismas frases. El destino de los
+CTA continúa pendiente de Development/Producto; no se alteraron los precios
+ni el onboarding. Validaciones: lint, typecheck, build webpack y
+`git diff --check`.
+
+### SAMI: widget HTML temporal para Elementor (Claude, `dev`, sin commit, 22 de octubre de 2026)
+
+Carpeta nueva `wordpress-widget/sami/` con `sami-widget.html` (CSS, HTML y JS
+embebidos, aislados bajo `#listaso-sami` con prefijo `lsm-`) para un widget HTML
+de Elementor Pro en el WordPress actual. Incluye hero, ejemplos con chat, features,
+pricing y FAQ; sin header, footer ni breadcrumb. Generado desde `/sami/` con
+`build/build-widget.mjs`; no toca `src/`. Pendiente: prueba real en WordPress y
+confirmar el enlace de los CTA. Ver `wordpress-widget/sami/README.md`.
+
+### SAMI: escala del hero y puntos de fondo (Codex, `dev`, sin commit, 22 de octubre de 2026)
+
+El título del hero de `/sami/` bajó de `clamp(2.75rem, 9vw, 8.5rem)` a
+`clamp(2.5rem, 8.25vw, 7.5rem)`. El patrón de puntos usa opacidad 35% y
+una máscara radial gradual hasta transparencia en el borde para integrarse
+con el fondo. Alcance: `HeroDisplay.module.css`, exclusivo del hero SAMI.
+Sin cambios de copy, estructura o movimiento. Validaciones: lint,
+typecheck, build webpack y `git diff --check`.
+
+### SAMI: espaciado de la marca en FAQ (Codex, `dev`, sin commit, 22 de octubre de 2026)
+
+Se agrupó el texto de cada pregunta del FAQ en un solo elemento flex dentro
+del botón. Antes, `SamiBrandText` devolvía texto y la marca como nodos
+independientes que `justify-between` separaba por todo el ancho. El nuevo
+contenedor mantiene el flujo natural de la frase y conserva Montserrat 800
+italic para SAMI. Alcance: `SamiFaqAccordion.tsx`; sin cambios de copy o
+comportamiento del acordeón. Validaciones: lint, typecheck, build webpack y
+`git diff --check`.
+
+### SAMI: secuencias de chat por pregunta (Codex, `dev`, sin commit, 22 de octubre de 2026)
+
+Las seis preguntas de `/sami/` ahora muestran conversaciones distintas en
+loop: pregunta, indicador de respuesta, resumen, tres datos que entran en
+orden, solicitud de exportación y una tarjeta de muestra XLSX o PDF. Los
+ejemplos de clientes inactivos, inventario, mejores clientes, ventas por
+representante, facturas vencidas y backorders tienen datos y archivos
+propios. Se identifican como datos ilustrativos y las tarjetas de archivo
+aclaran que son vistas sin descarga. El panel reserva altura para evitar
+saltos al aparecer el archivo. El loop se pausa fuera de pantalla, en
+pestañas ocultas y al posar el cursor sobre el chat; con movimiento reducido
+se muestra el estado final estático. La Homepage conserva su secuencia.
+Reservas: `SamiConversation`, estilos del chat, datos de `/sami/` y contrato
+de producto. Pendiente: revisión visual de Erick. Validaciones: lint,
+typecheck, build webpack y `git diff --check`.
 
 - Inventario de despliegue y operación (Codex, 20 de octubre de 2026): se
   amplió el Google Sheet nativo de recursos con cinco pestañas para Development:
@@ -15,9 +285,117 @@
   DNS, dominio, hosting ni producción. Entregable:
   https://docs.google.com/spreadsheets/d/1Sr86cTZOxr3Ggn423lbtqTxjInzPGV2mBdHcGq_BVIk/edit
 
+### SAMI AI: aclaración de precios y mejoras de página (Codex, `dev`, sin commit, 22 de octubre de 2026)
+
+Se actualizó `/sami/` con los términos de precios compartidos por Erick:
+Starter $59, Professional $129 y Business $299 por equipo/mes; 14 días de
+prueba; onboarding de $199/$499 (gratis hasta 31 dic 2026 o con pago anual);
+SAMI usage incluido, conexión ChatGPT/Claude sin cargo extra, crédito SAMI
+de $10 y cotización aparte para archivos múltiples/limpieza. Se conservaron
+los límites, soporte e historial mostrados en la referencia. Homepage y FAQ
+de `/plans/` se sincronizaron; contratos y DEC-025 registran la fuente.
+
+La página `/sami/` también incorpora ejemplos interactivos, FAQ exclusivo con
+rotación accesible, identidad tipográfica SAMI AI y copy revisado. Reservas:
+contrato de producto/Homepage, DEC-025, datos de SAMI y componentes de SAMI;
+sin cambios a `start-version/`, infraestructura ni ruta de activación. Riesgo
+pendiente: el CTA de prueba todavía enlaza al Calendly de demo según DEC-020,
+hasta que se confirme un destino de activación. Pruebas: `pnpm lint`,
+`pnpm typecheck`, `pnpm exec next build --webpack` y `git diff --check`
+pasaron. Navegador (dev): `/sami/` 1440 y 390 px; sin overflow, los precios,
+CTA, trial y crédito aparecen, y la consola no registra errores (React
+DevTools/HMR informativos). Montserrat no está autohospedada, así que SAMI AI
+usa la fuente de respaldo si el sistema no tiene Montserrat.
+
+### SAMI: marca, chat interactivo y tarjetas de precios (Codex, `dev`, sin commit, 22 de octubre de 2026)
+
+Se normalizaron las referencias visibles a SAMI como nombre corto y a
+"SAMI AI Assistant" en descripciones largas. `SamiBrandText` aplica Montserrat
+800 italic sin márgenes ni padding laterales; se reutiliza en las superficies
+que mencionan la marca. El chat de ejemplos usa el índice inicial 0 y muestra
+pregunta/respuesta desde el primer render. El remount dejaba la tarjeta nueva
+invisible porque `HomeMotion` sólo observa los nodos iniciales con
+`data-reveal="media"`; el modo interactivo omite ese atributo y cruza el
+ejemplo previo con el nuevo en 300 ms. La animación de la Homepage conserva el
+modo anterior. Las tarjetas de precios reservan una fila uniforme para la
+insignia, título, precio, límites y onboarding; el CTA queda al fondo. La
+geometría a 1440 px confirmó alturas iguales (706 px) y filas/CTA alineados.
+
+El CTA de los tres planes de SAMI dice exactamente "Start your 15-day free
+trial" por instrucción posterior de Erick. La oferta y el hero conservan los
+14 días de DEC-025; confirmar la duración comercial antes de publicar. Los CTA
+siguen enlazando al Calendly de demo (DEC-020). Validaciones: `pnpm lint`,
+`pnpm typecheck`, build webpack y `git diff --check` pasan. Navegador:
+`/sami/` 1440 claro y 390 oscuro sin overflow; primer chat visible,
+selección cambia respuesta/`aria-pressed`, botones con texto exacto, consola
+sin errores; Homepage 390 sin overflow ni errores.
+
 ## Tarea activa
 
-No hay una tarea activa reservando archivos.
+### SAMI: sección de contacto de ventas con Zoho Forms (Codex + subagentes, `dev`, en curso, 23 de octubre de 2026)
+
+Alcance activo: crear una sección de contacto en `/sami/` con ruta cliente
+actual → Alejandra (`alejandra@listaso.com`) y cliente nuevo → Enrique
+(`ernesto.henriquez@listaso.com`); preservar el formulario de prueba gratuita.
+Arquitectura static export: usar solo embed de Zoho aprobado; no crear API ni
+backend. La sección está después de Pricing y antes de FAQ, con las dos
+audiencias informativas y el iframe del formulario público compartido por Erick.
+No simula envío ni éxito y no expone emails de representantes. La auditoría de
+UI recomendó no solicitar una selección adicional antes de tener un control;
+el copy se ajustó a informativo. Zoho está abierto en
+Chrome con sesión de `jafeth.guardado@viasql.com`; por la regla de no usar
+credenciales humanas compartidas no se modificó nada allí. El snippet público
+del formulario ya llegó; faltan validación de copy legal, CRM y autorespuestas.
+
+Actualización 23 de octubre: el código oficial compartido por Erick usa un
+iframe con `zf_rszfm=1`, no el endpoint `/jsperma/` inferido previamente. La
+sección utiliza la URL exacta `/formperma/` y maneja los mensajes de altura
+únicamente del origen y ventana de ese iframe. La promoción es de 14 días en
+el sitio por decisión actual de Erick; el título público de Zoho ya dice
+“14-Day”, pero la descripción aún decía “15-day” en la lectura previa. La
+casilla “I am currently a Listaso customer” sigue siendo opcional y hay un
+campo obligatorio de fecha de demo. Al marcar la casilla aparece “# of Users
+Needed”; no se envió ninguna respuesta. El servidor dev local no pudo abrir
+el puerto 3000 por `EPERM` del sandbox. El preview estático sí abrió en
+`127.0.0.1:4173`; el iframe montado recibió “refused to connect”, por lo que
+su contenido sigue pendiente de revisión en un dominio permitido por Zoho.
+La causa quedó confirmada en la respuesta pública de Zoho: HTTP 200 con
+`Content-Security-Policy: frame-ancestors www.listaso.com` y
+`X-Frame-Options: ALLOW-FROM www.listaso.com`. La página carga el iframe,
+pero el navegador bloquea su contenido en localhost y previews de Pages.
+Pendiente en Zoho: añadir los hosts concretos de preview y publicación a
+`Allowed Domains`; después verificar los encabezados y el embed visible.
+
+Revisión visual del formulario público (23 de octubre): Zoho ya muestra el
+logo de Listaso, fondo oscuro degradado e inputs redondeados. El título dice
+14 días, pero la descripción aún ofrece 15. Hay mucho espacio entre campos
+y aparecen dos botones del mismo ancho (`Save` y `Send information`); el
+primero proviene de Save & Resume. Recomendación de diseño para configurar en
+`Themes > Customize Theme` de Zoho: formulario SAMI con fondo sólido
+`#071B29`, contenedor `#092332`, inputs `#193848`, texto blanco, secundario
+`#A4BDCB`, foco `#70D4FF`, borde `#7A8BA6` y CTA `#0960FF` con texto blanco;
+Montserrat si está disponible. Usar layout Plain, ancho adaptable, scroll
+externo y espacio entre campos de 24 px. El iframe impide que el CSS de la
+página modifique los campos; el sitio sólo puede estilizar el marco exterior.
+No se cambió el tema ni el contenido en Zoho.
+
+Esfuerzo estimado: UI estática 4–7 h; configuración de Zoho 4–8 h; embed y
+medición 2–4 h; QA de integración 2–4 h (dependientes del formulario y cuenta
+administradora correcta). Archivos reservados para implementación: `src/app/(site)/sami/page.tsx`,
+`src/components/sections/product/sami/SamiSalesContact.tsx`,
+`src/components/sections/product/sami/SamiZohoEmbed.tsx` y
+`src/content/products/sami.ts`. Responsable de esta edición: Codex; subagentes:
+implementación UI (`gpt-6.1-sol`, esfuerzo alto), revisión independiente
+(`gpt-6-astra`, esfuerzo alto), y auditorías de página y embed (solo lectura).
+Lint, typecheck, export webpack y `git diff --check` pasan. Preview local visto
+en escritorio/tema oscuro; faltan móvil, tema claro y recorrido real de teclado
+con el formulario cargado.
+Riesgo/next step: el snippet exacto reemplazó al script inferido y el formulario
+se integró como iframe. Verificar en preview autorizado el tamaño del embed,
+el texto visible y los dos ruteos. Revisar en Zoho la descripción pública,
+que todavía mencionaba 15 días en la lectura previa, además de correos,
+privacidad/CRM y la casilla opcional de cliente actual. No publicar como flujo
+final hasta completar esas comprobaciones.
 
 Últimas tareas cerradas:
 
@@ -979,6 +1357,11 @@ No hay una tarea activa reservando archivos.
 
 ## Completado
 
+- 2026-10-23 (Claude): nuevo logo de SAMI IA entregado por Erick en chat
+  (espiral de tres cintas con destellos, fondo transparente). Reemplaza
+  `public/brand/sami/sami-logo.webp` (384 px, 36 KB) y `sami.svg`; todos los
+  usos en Home, /sami, Pricing y el widget WordPress lo toman de esos archivos.
+  Registro en `src/content/brand/assets.ts` actualizado. Falta versión vectorial.
 - Repositorio clonado y referencia movida a `start-version/`.
 - Inventario read-only de la implementación heredada.
 - Mapa inicial de 89 URLs públicas y rutas estáticas preservado.
@@ -1125,3 +1508,45 @@ No hay una tarea activa reservando archivos.
 - Regla de uso del wordmark sin símbolo, tamaño mínimo y espacio libre del logo.
 - Auditoría de marca de Marketing: magenta definitivo, 60-30-10, taglines y
   trato tú/usted en español.
+
+## Formulario nativo de prueba gratuita de SAMI (Claude, 2026-10-23, `dev`, sin commit)
+
+- Reemplaza el iframe de Zoho por `SamiTrialForm.tsx` (componentes FormField, Button, StatusMessage), integrado en `SamiSalesContact.tsx`. Se eliminaron `SamiZohoEmbed.tsx` e `isZohoFormUrl.ts`.
+- Envía por `fetch` `no-cors` a `htmlRecords/submit` con los nombres de campo del HTML de Zoho (`Name1_First`, `Email1`, `DateTime_*`, `Radio`, `TermsConditions`...). La respuesta es opaca: la validación se replica en el cliente.
+- Verificado: typecheck, lint, validación de 7 campos obligatorios, 375 px sin scroll horizontal. NO se probó un envío real para no crear un lead.
+- Pendientes de Erick: (1) confirmar que el `formperma` del zip (`_Q0lNE5g…`) es el vigente (el iframe usaba `Am_TolIi2…`; se conserva como enlace de respaldo); (2) enviar una prueba real y confirmar el registro en Zoho; (3) decidir 14 o 15 días (el copy de Zoho mezcla ambos); (4) definir si se quiere página de gracias (`zf_redirect_url`).
+
+- Actualización (2026-10-23): el POST nativo a `htmlRecords/submit` fue rechazado por Zoho (redirect a `/showerror`) con los dos `formperma`, tanto con curl como desde el navegador; no se crearon registros. Se restauró el iframe (`SamiZohoEmbed.tsx`, `src/lib/zoho/isZohoFormUrl.ts`) con la URL original y se dejó sin uso `SamiTrialForm.tsx` y `src/app/sami-trial-received/` (página noindex que confirma la aceptación de Zoho). Pendiente de Erick: ajustar colores/fuentes en el Theme de Zoho Forms; si se quiere retomar el formulario nativo, revisar en Zoho por qué rechaza `htmlRecords` (¿endpoint habilitado?, ¿validación de teléfono o fecha/hora?). Las reglas de correo por `DecisionBox` solo se pueden probar con el iframe.
+
+## Lockup del hero de SAMI (Claude, 2026-10-26, `dev`, sin commit)
+
+- `/sami`: el lockup queda con el logo a la izquierda y, a su lado, MEET / SAMI /
+  “Your Listaso AI Assistant” alineados a la izquierda (`SamiHero.tsx`,
+  `SamiHero.module.css`).
+- `SamiLogoMark.tsx` marca `data-intro="pending|complete"`; el texto aparece
+  (fade + desplazamiento) cuando termina el video de entrada del logo, con
+  respaldo a los 6 s y sin animación con `prefers-reduced-motion`. Reemplaza el
+  `data-intro-state` que Codex dejó sin conectar.
+- Verificado en el navegador (desktop); falta revisar móvil real.
+
+- Ajuste de Codex (2026-10-27, `dev`, sin commit): subtítulo en la columna de
+  “SAMI”, alineado con el inicio de la palabra y separado 4 px; margen negativo
+  del logo eliminado para evitar contacto con la “S”. Se revirtió el cambio
+  reciente de la lógica de reproducción y hover de `SamiLogoMark.tsx`, que el
+  usuario reportó como una regresión. El logo del lockup escala con el texto en
+  móvil. Pendiente: validación visual y de interacción en navegador y móvil real.
+- Ajuste de Codex (2026-10-27, `dev`, sin commit): separación horizontal entre
+  logo y “SAMI” reducida 2 px. El botón de cada pregunta frecuente ahora cierra
+  su propia respuesta al pulsarlo de nuevo, incluida la X del estado abierto;
+  la pausa de la rotación automática tras interacción manual se conserva.
+
+## SAMI: hero, ejemplos y precio (Claude, 2026-10-26, `dev`, sin commit)
+
+- Hero `/sami`: sin la imagen de ondas (`hero-swirl.webp`, ya sin uso en `src`), sin
+  “MEET”, y nota “Customer Only” bajo “Start Your 14-Day Free Trial”.
+- Ejemplos: clientes como Customer 1/2/3 en `src/content/products/sami.ts` y en
+  el ejemplo de `src/content/home/en.ts`; clip y nota de voz junto al envío en
+  `SamiConversation`; mensaje “+100 prompts available to use” bajo la lista.
+- Precio: onboarding del plan Professional de $499 a $299 (`sami.ts`).
+- Pendiente de Erick: `Mercado La Esperanza` sigue en `en.ts` (pedido del mock de
+  teléfono) y `docs/PRODUCT_CONTENT_CONTRACT.md` aún lista los nombres anteriores.

@@ -26,7 +26,7 @@ distintas.
   with Smart B2B Technology!". Grid de 7 productos, FIFOX, testimonios y blog.
 - **`start-version`.** Otro H1, "Sell more. Deliver on time. Get paid faster.".
   Añade métricas (400+ distribuidores, $1.8B+ procesados, 2M+ órdenes),
-  precios ($57.99/mes para SAMI y planes), tiempos de soporte y "1 de cada 3
+  precios (SAMI: $59/$129/$299 por equipo), tiempos de soporte y "1 de cada 3
   clientes lleva más de 5 años". Ninguno de esos datos aparece en el sitio
   publicado ni tiene fuente aprobada.
 
@@ -66,7 +66,7 @@ requiere una decisión (D1).
 | --- | --- | --- |
 | Franja de métricas | Since 2015; 400+ distributors; 2,000+ users; 2M+ orders/year; $1.8B+ processed in 2025 | DESCARTADO hasta que haya fuente aprobada (D1) |
 | "From order to payment" | Flujo de 4 pasos (rep, almacén, chofer, oficina) y 4 extras | Copy sin claims numéricos. Reutilizable sólo si se aprueba `start-version` como fuente (D1) |
-| SAMI | "Meet Sami", precio desde $57.99 | DESCARTADO en esta etapa: precio no aprobado y SAMI funcional fuera de alcance |
+| SAMI | "Meet Sami", precio desde $59 | Actualizado: precio SAMI aclarado por Erick en DEC-025; activación de SAMI funcional sigue fuera de alcance |
 | Soporte | Tiempos de respuesta publicados, `sos@listaso.com` | DESCARTADO hasta aprobación |
 | Precios | Planes Growth, Professional y Enterprise 360; precios de SAMI | DESCARTADO: precios no aprobados; `/plans/` sigue siendo el destino |
 | Banda final | "See it working with your own products" + demo + teléfono | Reutilizable si D1 lo permite; el teléfono y `sales@` coinciden con el footer de WP |
@@ -145,9 +145,9 @@ FinalCta, HomeMotion.
 | SAMI | Badge | NEW · Meet SAMI, Your Listaso AI Assistant |
 | SAMI | H2 | Your business has questions. SAMI has the answers. (`text-h2-compact`, ~36 px) |
 | SAMI | Descripción | Sin cambios ("Ask Sami about your sales…") |
-| SAMI | Chips | Ask questions in English or Spanish · Generate Excel and PDF reports · Works with ChatGPT and Claude · Get answers from your Listaso data |
-| SAMI | CTA | Start your 15-day free trial → `/sami/` (destino informativo; `sami_cta_click`) |
-| SAMI | Precio | From $57.99 a month |
+| SAMI | Chips | Ask questions in English or Spanish · Generate Excel and PDF reports · Works with Claude and ChatGPT · Get answers from your Listaso data |
+| SAMI | CTA | Start Your 14-Day Free Trial → `/sami/#sami-sales-contact` (`sami_cta_click`) |
+| SAMI | Precio | From $59 a month per team |
 | Support | Eyebrow | Customer Support (H2 sin cambios) |
 | Support | Descripción | When your distribution operation depends on technology, reliable support matters. Our bilingual team is here to help you resolve issues, answer questions, and keep your business moving, with clear response times based on your needs. |
 | Support | Horario | Monday to Friday: 8:00 a.m. to 8:00 p.m. ET (sólo Homepage; `/support/` conserva su redacción) |
@@ -160,11 +160,10 @@ tiempos de respuesta, precios de Pricing, banda final.
 
 **Inconsistencias abiertas (no resueltas en esta tarea):**
 - **Resuelta (19 de octubre de 2026, instrucción de Erick):** todo el copy de
-  prueba de SAMI AI dice "15-day free trial" (Home, add-on de Pricing, `/plans/`
-  y `/sami/`); los CTA de `/sami/` se llaman "Start Your 15-Day Free Trial".
-  Destinos sin cambio: Home → `/sami/`; los CTA dentro de `/sami/` siguen
-  apuntando a Calendly hasta que Development/Producto confirmen el destino real
-  de activación.
+  Erick aclaró el 22 de octubre de 2026 los precios de SAMI ($59/$129/$299
+  por equipo/mes) y los términos de onboarding. El 23 de octubre confirmó
+  que la prueba es de 14 días. Home y los CTA de prueba de `/sami/` apuntan al
+  formulario de Zoho dentro de `/sami/#sami-sales-contact`, compartido por Erick.
 - CTA de demo fuera del alcance: Pricing "Book a demo", banda final "Book a free
   demo", Products y Contact "Book a free demo".
 
@@ -261,10 +260,10 @@ Las fotografías por paso del workflow se mapean en `HowItWorks` a
 | 1 | Hero | `HomeHero` | Eyebrow, H1 "Sell more. Deliver on time. Get paid faster.", lead, calificaciones (4.7 Google, 5.0 QuickBooks App Store) | Book a free demo → Calendly; Learn more about Listaso Technology → `/join-us/` | Fotografía Unsplash temporal; ejemplos de pedido y Sami en vidrio; SAMI WebP | CONFIRMADO |
 | 2 | Cifras | `ProofStrip` | 5 cifras (Since 2015, 400+, 2,000+, 2M+, $1.8B+) | — | — | CONFIRMADO (D1) |
 | 3 | Cómo funciona | `HowItWorks` | 4 pasos + 4 capacidades | `/pre-sales/`, `/inventory/`, `/delivery/`, `/back-office/`, `/b2b-ecommerce/`, `/forms/`, `/integrations/`, `/industries/` | 4 fotografías Unsplash temporales; iconos Listaso | CONFIRMADO |
-| 4 | SAMI | `SamiSpotlight` + `SamiConversation` | Badge, H2 orientado a respuestas desde los datos del negocio, lead, 4 chips, precio "From $57.99" | Meet Sami → `/sami/` | SAMI WebP; conversación animada reutilizada de Guide Sami | CONFIRMADO (D1) |
+| 4 | SAMI | `SamiSpotlight` + `SamiConversation` | Badge, H2 orientado a respuestas desde los datos del negocio, lead, 4 chips, precio "From $59" | Start Your 14-Day Free Trial → `/sami/#sami-sales-contact` | SAMI WebP; conversación animada reutilizada de Guide Sami | Copy/precio actualizado por Erick (22–23 oct 2026) |
 | 5 | Soporte | `SupportSection` | Lenguaje no confrontativo, tabla de tiempos de respuesta, horario, cita AH/Quickchoice y puntuaciones | How support works → `/support/` | — | CONFIRMADO (D1) |
 | 6 | Clientes | `CustomerProof` | 6 testimonios + 8 logos de clientes; 5 logos enlazan a los destinos entregados con `nofollow` | — | `public/customers/` (los tres recursos nuevos fueron entregados por Erick y optimizados localmente) | CONFIRMADO (D1, D8) |
-| 7 | Precios | `PricingPlans` | Growth $57.99, Professional $67.99, Enterprise 360 $77.99 (anual $48.33 / $56.66 / $64.99), notas, add-on de Sami | Book a demo → Calendly; Compare every feature → `/plans/`; Meet Sami → `/sami/` | SAMI WebP | CONFIRMADO (D1) |
+| 7 | Precios | `PricingPlans` | Growth $59, Professional $69, Enterprise 360 $79 (anual $49.17 / $57.50 / $65.83), notas, add-on de Sami | Book a demo → Calendly; Compare every feature → `/plans/`; Meet Sami → `/sami/` | SAMI WebP | Actualizado por instrucción de Erick (22 oct 2026) |
 | 8 | Banda final | `FinalCta` | H2 "See Listaso with your products and workflow", lead, teléfono (opción 2), `sales@` | Book a free demo → Calendly; `tel:+13059127770,2`; `mailto:sales@listaso.com` | — | CONFIRMADO |
 | — | Footer | `SiteFooter` | Oficinas Miami y El Salvador; Products, Integrations y Company; contacto; redes; legales; accesos externos de IA basados en `/llms.txt`; "© 2026 Listaso Inc." | Rutas del footer; ChatGPT, Gemini, Perplexity y Claude | Logo oficial de Listaso y marcas identificadoras de los asistentes | CONFIRMADO para contenido Listaso; enlaces de asistentes sujetos a cambios de terceros |
 

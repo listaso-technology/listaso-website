@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { BrandAsset, ThemedLogo } from "@/components/brand/BrandAsset";
 import { Icon, iconSizes } from "@/components/icons/Icon";
 import { iconData, type IconName } from "@/components/icons/icon-data";
+import { AuroraBackdrop } from "@/components/ui/AuroraBackdrop";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { FormField } from "@/components/ui/FormField";
@@ -38,6 +39,7 @@ const contents = [
   ["estados", "Estados"],
   ["temas", "Tema claro y oscuro"],
   ["vidrio", "Vidrio"],
+  ["aurora", "Fondo Aurora"],
   ["logos", "Logos oficiales"],
   ["productos", "Logos de producto"],
   ["iconos", "Iconos"],
@@ -296,6 +298,28 @@ export default function FoundationPage() {
             <BrandAsset id="sami" height={56} alt="SAMI" />
             <p className="text-body">Vidrio SAMI: sólo en espacios de SAMI e IA.</p>
           </GlassPanel>
+        </div>
+      </Section>
+
+      <Section
+        id="aurora"
+        title="Fondo Aurora"
+        intro="Componente AuroraBackdrop: cortinas de aurora boreal en aqua, azul y magenta de Listaso, hechas con paths SVG editables, sin rasters. Se colorea con las variables --aurora-*, respeta movimiento reducido y sólo anima transform y opacidad."
+      >
+        <div data-surface="sami" className="relative isolate min-h-[30rem] overflow-hidden rounded-lg px-6 py-24 sm:px-12">
+          <AuroraBackdrop />
+          <p className="text-eyebrow font-bold uppercase text-fg-accent">aurora · side right</p>
+          <p className="mt-2 max-w-md text-h3 font-bold text-fg-heading">Aurora para cualquier sección oscura.</p>
+        </div>
+        <div className="grid gap-6 md:grid-cols-2">
+          <div data-surface="sami" className="relative isolate overflow-hidden rounded-lg px-6 py-16">
+            <AuroraBackdrop side="left" intensity="soft" />
+            <p className="text-body font-bold text-fg-heading">left · soft</p>
+          </div>
+          <div data-surface="sami" className="relative isolate overflow-hidden rounded-lg px-6 py-16">
+            <AuroraBackdrop animated={false} />
+            <p className="text-body font-bold text-fg-heading">estático</p>
+          </div>
         </div>
       </Section>
 

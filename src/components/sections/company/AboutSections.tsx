@@ -1,6 +1,7 @@
 import { Container } from "@/components/layout/Container";
 import { purpose, story, values } from "@/content/company/about";
 import { ProductSection } from "../product/ProductSection";
+import { SamiBrandText } from "../product/sami/SamiBrandText";
 import { DossierBox } from "../variants/DossierBox";
 import { DossierHeader } from "../variants/DossierHeader";
 import { KineticWords } from "../variants/KineticWords";
@@ -31,7 +32,7 @@ export function AboutStory() {
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
             {purpose.map((item) => (
               <DossierBox key={item.label} title={item.label}>
-                <p className="py-5 text-body-lg font-medium text-fg-heading">{item.text}</p>
+                <p className="py-5 text-body-lg font-medium text-fg-heading"><SamiBrandText text={item.text} /></p>
               </DossierBox>
             ))}
           </div>

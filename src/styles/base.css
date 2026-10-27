@@ -41,3 +41,15 @@
     html:has(details[data-mobile-menu][open]) { overflow: hidden; }
   }
 }
+/* SAMI wordmark styling. Montserrat remains the first-choice family; the
+   project fallback applies until the approved font is self-hosted. */
+.samiBrandName {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", var(--listaso-font-sans);
+  font-style: italic;
+  font-weight: 800;
+  letter-spacing: normal;
+  word-spacing: normal;
+}

@@ -2,6 +2,7 @@ import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { dashboardExample, decisions, pipelineExample } from "@/content/products/back-office";
 import { SectionHeader } from "../../SectionHeader";
+import { SamiBrandText } from "../sami/SamiBrandText";
 import { ProductSection } from "../ProductSection";
 import { BackOfficeConsole } from "./BackOfficeConsole";
 import styles from "./BetterDecisions.module.css";
@@ -35,7 +36,7 @@ export function BetterDecisions() {
             data-analytics-event="sami_cta_click"
             data-analytics-location="back-office"
           >
-            {decisions.cta.label}
+            <SamiBrandText text={decisions.cta.label} />
           </Button>
         </div>
       </Container>

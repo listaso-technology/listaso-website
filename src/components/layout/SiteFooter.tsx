@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { BrandAsset, ThemedLogo } from "@/components/brand/BrandAsset";
 import { aiAssistants } from "@/content/site/ai-assistants";
+import { SamiBrandText } from "@/components/sections/product/sami/SamiBrandText";
 import {
   contact,
   copyright,
@@ -54,7 +55,7 @@ export function SiteFooter() {
                     {group.links.map((link) => (
                       <li key={link.href}>
                         <a href={link.href} className={styles.panelLink}>
-                          {link.label}
+                          <SamiBrandText text={link.label} />
                         </a>
                       </li>
                     ))}

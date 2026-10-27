@@ -18,7 +18,7 @@ export const hero: ProductHeroContent = {
   eyebrow: "Pre-sales app",
   title: { emphasis: "Take orders faster", rest: "with every customer's prices in hand" },
   lead: "Your reps visit the store, open the catalog and send the order in minutes. The office and the warehouse get it right away, with no paper and no typing it in again.",
-  plan: "Included in every plan, from Growth at $57.99 per user a month",
+  plan: "Included in every plan, from Growth at $59 per user a month",
 };
 
 /** Illustrative order shown over the hero photo. */

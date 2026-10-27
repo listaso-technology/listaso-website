@@ -18,7 +18,7 @@ export const hero: ProductHeroContent = {
   eyebrow: "Direct store delivery (DSD)",
   title: { emphasis: "Sell, invoice and collect", rest: "right from the truck" },
   lead: "Your drivers carry the stock, print the invoice at the store and collect on the spot. Every sale updates the truck's inventory and your books.",
-  plan: "Included from Professional, $67.99 per user a month",
+  plan: "Included from Professional, $69 per user a month",
 };
 
 /** Illustrative truck stock and printed invoice shown in the hero. */

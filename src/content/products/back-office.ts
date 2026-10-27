@@ -55,8 +55,8 @@ export const features: FeatureSection = {
 export const decisions: SectionCopy & { checks: readonly string[]; cta: { href: string; label: string } } = {
   eyebrow: "Better decisions",
   title: { emphasis: "Your numbers,", rest: "when you need them" },
-  lead: "Reports in the Back Office show what's selling, who's buying and what's owed. Add SAMI AI to ask in plain words and get an Excel file back.",
-  cta: { href: "/sami/", label: "Meet SAMI AI" },
+  lead: "Reports in the Back Office show what's selling, who's buying and what's owed. Add SAMI to ask in plain words and get an Excel file back.",
+  cta: { href: "/sami/", label: "Meet SAMI" },
   checks: [
     "Sales by day, week and month",
     "Orders waiting to be picked, loaded or delivered",

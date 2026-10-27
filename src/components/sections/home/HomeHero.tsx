@@ -7,6 +7,7 @@ import { hero } from "@/content/home/en";
 import { homeMedia } from "@/content/media/placeholders";
 import backdrops from "../backdrops.module.css";
 import { Signature } from "../Signature";
+import { SamiBrandText } from "../product/sami/SamiBrandText";
 import { Stars } from "./Stars";
 
 /**
@@ -66,7 +67,7 @@ function HeroExample() {
       >
         <span aria-hidden="true" className="flex items-center gap-2 text-small font-semibold">
           <Image src="/brand/sami/sami-logo.webp" alt="" width={24} height={24} />
-          {example.sami.name}
+          <SamiBrandText text={example.sami.name} />
         </span>
         <span aria-hidden="true" className="w-fit rounded-md bg-surface-soft px-3 py-2 text-small">
           {example.sami.question}

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Fragment, type HTMLAttributes } from "react";
 import { breadcrumbLabels } from "@/content/products/shared";
 import { cx } from "@/lib/utils/cx";
+import { SamiBrandText } from "./sami/SamiBrandText";
 
 export type BreadcrumbLink = { href: string; label: string };
 
@@ -34,7 +35,7 @@ export function Breadcrumbs({ current, trail = [], className, ...rest }: Breadcr
           </Fragment>
         ))}
         <li aria-current="page" className="font-semibold text-fg-default">
-          {current}
+          <SamiBrandText text={current} />
         </li>
       </ol>
     </nav>
