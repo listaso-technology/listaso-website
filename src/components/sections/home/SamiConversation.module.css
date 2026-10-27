@@ -81,33 +81,6 @@
     gap: 10px;
   }
 
-  .pause {
-    min-height: 36px;
-    padding: 7px 11px;
-    color: #d9e9f3;
-    background: rgb(5 35 55 / 0.72);
-    border: 1px solid rgb(102 220 212 / 0.34);
-    border-radius: 999px;
-    font: inherit;
-    font-size: 0.75rem;
-    cursor: pointer;
-    transition:
-      color var(--listaso-duration-fast) var(--listaso-ease-standard),
-      background-color var(--listaso-duration-fast) var(--listaso-ease-standard),
-      border-color var(--listaso-duration-fast) var(--listaso-ease-standard);
-  }
-
-  .pause:hover {
-    color: #fff;
-    background: rgb(12 63 82 / 0.9);
-    border-color: rgb(102 220 212 / 0.66);
-  }
-
-  .pause:focus-visible {
-    outline: 2px solid #66dcd4;
-    outline-offset: 3px;
-  }
-
   .sequence {
     opacity: 1;
     transform: translateY(0);
@@ -127,6 +100,10 @@
     flex-direction: column;
     gap: 14px;
     padding-top: 18px;
+  }
+
+  .frame[data-mode="interactive"] .messages {
+    min-height: 540px;
   }
 
   .message {
@@ -171,8 +148,18 @@
     border-top: 1px solid #567085;
   }
 
+  .row > span {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
   .row strong {
+    flex-shrink: 0;
     white-space: nowrap;
+  }
+
+  .frame[data-mode="interactive"] .row {
+    animation: message-enter 300ms var(--listaso-ease-enter) both;
   }
 
   .export {
@@ -186,6 +173,67 @@
     border-radius: 10px;
     font-size: 0.8125rem;
     font-weight: 650;
+  }
+
+  .reportMessage {
+    width: min(100%, 390px);
+  }
+
+  .reportMessage p {
+    margin-bottom: 10px;
+  }
+
+  .report {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    color: #092838;
+    background: #f5fffa;
+    border-radius: 12px;
+  }
+
+  .reportIcon {
+    display: grid;
+    width: 38px;
+    height: 38px;
+    flex: none;
+    place-items: center;
+    color: #006d64;
+    background: #d9f5ed;
+    border-radius: 9px;
+  }
+
+  .reportDetails {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .reportDetails strong {
+    overflow-wrap: anywhere;
+    font-size: 0.8125rem;
+    line-height: 1.3;
+  }
+
+  .reportDetails small {
+    color: #36575a;
+    font-size: 0.6875rem;
+    line-height: 1.3;
+  }
+
+  .reportType {
+    flex: none;
+    padding: 4px 6px;
+    color: #005e55;
+    border: 1px solid #99d6c6;
+    border-radius: 5px;
+    font-size: 0.625rem;
+    font-weight: 800;
+    letter-spacing: 0.04em;
   }
 
   .input {
@@ -202,6 +250,11 @@
     font-size: 0.875rem;
   }
 
+  .input > span:first-child {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+
   .send {
     display: grid;
     width: 32px;
@@ -211,6 +264,18 @@
     color: #041e2b;
     background: #0abaa9;
     border-radius: 50%;
+  }
+
+  .inputActions {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .inputTool {
+    flex-shrink: 0;
+    color: var(--listaso-text-muted);
   }
 
   .sending {
@@ -279,6 +344,7 @@
     }
 
     .messages { min-height: 390px; }
+    .frame[data-mode="interactive"] .messages { min-height: 620px; }
     .message { max-width: 100%; }
 
     .heading {
@@ -300,6 +366,7 @@
     }
 
     .message,
+    .frame[data-mode="interactive"] .row,
     .sending,
     .typing i {
       animation: none;
@@ -317,17 +384,14 @@
     .outgoing,
     .incoming,
     .export,
+    .report,
+    .reportIcon,
+    .reportType,
     .typing,
     .send {
       color: CanvasText;
       background: Canvas;
       border: 1px solid CanvasText;
-    }
-
-    .pause {
-      color: ButtonText;
-      background: ButtonFace;
-      border-color: ButtonText;
     }
   }
 }

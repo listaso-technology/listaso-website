@@ -1,0 +1,368 @@
+/*
+ * Delivery "Why it matters": brand band with the 72px grid; header and
+ * benefits on the left, the driver photo with the day's route anchored over
+ * it on the right. The route plays once (truck travels, stops get marked,
+ * linked benefits light up); hover on a benefit highlights its stop.
+ */
+
+@layer components {
+  .section {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-block: 4rem;
+  }
+
+  .grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(ellipse 50% 70% at 20% 50%, #000 20%, transparent 75%);
+  }
+
+  .layout {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  /* RouteStory spans the second row on mobile; on desktop it splits in two. */
+  .story {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  /* --- Benefits --------------------------------------------------------- */
+
+  .checks {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .check {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid rgb(255 255 255 / 0.08);
+    border-radius: var(--listaso-radius-md);
+    background: rgb(255 255 255 / 0.03);
+    color: var(--listaso-text-on-band-muted);
+    font-size: var(--text-body);
+    font-weight: 500;
+    line-height: var(--text-body--line-height);
+    transition:
+      background-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      transform var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .checkIcon {
+    display: grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+    place-items: center;
+    border: 1px solid rgb(255 255 255 / 0.18);
+    border-radius: 50%;
+    color: rgb(255 255 255 / 0.55);
+    transition:
+      background-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      color var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .checkLit {
+    border-color: rgb(95 230 214 / 0.3);
+    background: rgb(95 230 214 / 0.08);
+    color: #ffffff;
+  }
+
+  .checkLit .checkIcon {
+    border-color: transparent;
+    background: var(--listaso-link-on-band);
+    color: #00375b;
+  }
+
+  .checkFocus {
+    border-color: rgb(95 230 214 / 0.6);
+    background: rgb(95 230 214 / 0.14);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .checkFocus {
+      transform: translateX(4px);
+    }
+  }
+
+  /* --- Photo + route ---------------------------------------------------- */
+
+  .visual {
+    position: relative;
+    display: grid;
+    gap: 0;
+  }
+
+  .photo {
+    position: relative;
+    margin: 0;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    border: 1px solid rgb(255 255 255 / 0.12);
+    border-radius: var(--listaso-radius-xl);
+    box-shadow: 0 30px 80px rgb(0 0 0 / 0.35);
+  }
+
+  .photoImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Route card (product UI, light in both themes). Mobile: overlaps the photo bottom. */
+  .route {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    width: calc(100% - 2rem);
+    max-width: 22rem;
+    flex-direction: column;
+    gap: 1rem;
+    justify-self: center;
+    margin-top: -4rem;
+    padding: 1.5rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-lg);
+    background: var(--listaso-surface-raised);
+    box-shadow: var(--listaso-shadow-e3);
+  }
+
+  .routeTitle {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--listaso-text-muted);
+    font-size: var(--text-caption);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .routeTitle svg {
+    color: var(--listaso-icon-accent);
+  }
+
+  .stops {
+    --dot: 1.5rem;
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* Timeline track with a fill and a truck that move with --progress. */
+  .track {
+    position: absolute;
+    top: calc(var(--dot) / 2);
+    bottom: calc(var(--dot) / 2 + 1.25rem);
+    left: calc(var(--dot) / 2);
+    width: 2px;
+    border-radius: 2px;
+    background: var(--listaso-border-subtle);
+    transform: translateX(-50%);
+  }
+
+  .trackFill {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--listaso-text-heading);
+    transform: scaleY(var(--progress));
+    transform-origin: top;
+    transition: transform 850ms cubic-bezier(0.45, 0, 0.2, 1);
+  }
+
+  .truck {
+    position: absolute;
+    top: calc(var(--progress) * 100%);
+    left: 50%;
+    z-index: 2;
+    display: grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--listaso-action-primary);
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgb(216 53 83 / 0.4);
+    transform: translate(-50%, -50%);
+    transition: top 850ms cubic-bezier(0.45, 0, 0.2, 1);
+  }
+
+  .stop {
+    position: relative;
+    display: grid;
+    grid-template-columns: var(--dot) minmax(0, 1fr);
+    align-items: start;
+    column-gap: 1rem;
+    padding: 0.25rem 0.5rem 0.25rem 0;
+    border-radius: var(--listaso-radius-sm);
+    transition: background-color var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .stopDot {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    width: var(--dot);
+    height: var(--dot);
+    place-items: center;
+    border: 2px solid var(--listaso-border-control);
+    border-radius: 50%;
+    background: var(--listaso-surface-raised);
+    color: var(--listaso-text-on-action);
+    transition:
+      background-color 400ms var(--listaso-ease-standard),
+      border-color 400ms var(--listaso-ease-standard),
+      transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .stopDot svg {
+    opacity: 0;
+    transform: scale(0.5);
+    transition:
+      opacity 300ms var(--listaso-ease-standard) 150ms,
+      transform 300ms var(--listaso-ease-standard) 150ms;
+  }
+
+  .stopText {
+    display: flex;
+    flex-direction: column;
+    opacity: 0.55;
+    transition: opacity 400ms var(--listaso-ease-standard);
+  }
+
+  .stopName {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-body);
+    font-weight: 600;
+    line-height: var(--text-body--line-height);
+  }
+
+  .stopStatus {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+
+  .stopReached .stopText {
+    opacity: 1;
+  }
+
+  .stopReached:not(.stopNext) .stopDot {
+    border-color: var(--listaso-text-heading);
+    background: var(--listaso-text-heading);
+  }
+
+  .stopReached .stopDot svg {
+    opacity: 1;
+    transform: none;
+  }
+
+  .stopReached.stopNext .stopDot {
+    border-color: var(--listaso-action-primary);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--listaso-action-primary) 20%, transparent);
+  }
+
+  .stopFocus {
+    background: color-mix(in srgb, var(--listaso-text-accent) 8%, transparent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .stopFocus .stopDot {
+      transform: scale(1.12);
+    }
+  }
+
+  /* --- Wider screens ---------------------------------------------------- */
+
+  @media (min-width: 64rem) {
+    .section {
+      padding-block: 6rem;
+    }
+
+    /* Header + benefits | photo with the route anchored over its corner. */
+    .layout {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      grid-template-rows: auto 1fr;
+      column-gap: 4rem;
+      row-gap: 2rem;
+    }
+
+    .story {
+      display: contents;
+    }
+
+    .checks {
+      grid-column: 1;
+    }
+
+    .visual {
+      grid-column: 2;
+      grid-row: 1 / span 2;
+      align-self: center;
+      padding-bottom: 3rem;
+      padding-left: 4rem;
+    }
+
+    .photo {
+      aspect-ratio: 5 / 4;
+    }
+
+    .route {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 20rem;
+      margin: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .trackFill,
+    .truck,
+    .stopDot,
+    .stopDot svg,
+    .stopText,
+    .check {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .grid {
+      display: none;
+    }
+
+    .check,
+    .route,
+    .photo {
+      border: 1px solid CanvasText;
+    }
+
+    .trackFill,
+    .truck {
+      background: Highlight;
+    }
+  }
+}

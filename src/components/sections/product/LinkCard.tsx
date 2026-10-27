@@ -1,6 +1,7 @@
 import { Icon, type IconName } from "@/components/icons/Icon";
-import { Card } from "@/components/ui/Card";
 import { cx } from "@/lib/utils/cx";
+import { SamiBrandText } from "./sami/SamiBrandText";
+import styles from "./LinkCard.module.css";
 
 type LinkCardProps = {
   href: string;
@@ -14,38 +15,36 @@ type LinkCardProps = {
 };
 
 /**
- * Card with one link stretched over it. The title is the accessible name;
- * the "Learn more" cue is hidden from assistive technology.
+ * Card with one link stretched over it (related products, integrations hub).
+ * The title is the accessible name; the "Learn more" cue is hidden from
+ * assistive technology. Quiet by design: a flat icon band, the copy and a
+ * footer cue; hover and keyboard focus only shift colors and the arrow.
  */
 export function LinkCard({ href, title, text, linkLabel, icon, analyticsEvent, className }: LinkCardProps) {
   return (
-    <Card
-      elevation="raised"
-      className={cx(
-        "relative flex w-full flex-col gap-4",
-        "has-[a:focus-visible]:outline-2 has-[a:focus-visible]:outline-offset-2 has-[a:focus-visible]:outline-focus",
-        className,
-      )}
-    >
+    <article className={cx(styles.card, className)}>
       {icon ? (
-        <span className="flex size-12 items-center justify-center rounded-md bg-surface-soft text-icon-accent">
-          <Icon name={icon} size={24} />
+        <span aria-hidden="true" className={styles.band}>
+          <Icon name={icon} size={32} className={styles.icon} />
         </span>
       ) : null}
-      <h3 className="text-h4 font-semibold text-fg-heading">
-        <a
-          href={href}
-          className="after:absolute after:inset-0 after:rounded-md focus-visible:outline-none"
-          {...(analyticsEvent ? { "data-analytics-event": analyticsEvent, "data-analytics-label": title } : null)}
-        >
-          {title}
-        </a>
-      </h3>
-      <p className="text-body text-fg-muted">{text}</p>
-      <span aria-hidden="true" className="mt-auto flex items-center gap-1 text-body font-semibold text-link">
-        {linkLabel}
-        <Icon name="arrow-right" size={16} />
+
+      <span className={styles.body}>
+        <h3 className={styles.title}>
+          <a
+            href={href}
+            className={styles.link}
+            {...(analyticsEvent ? { "data-analytics-event": analyticsEvent, "data-analytics-label": title } : null)}
+          >
+            <SamiBrandText text={title} />
+          </a>
+        </h3>
+        <p className={styles.text}><SamiBrandText text={text} /></p>
+        <span aria-hidden="true" className={styles.cue}>
+          {linkLabel}
+          <Icon name="arrow-right" size={16} className={styles.arrow} />
+        </span>
       </span>
-    </Card>
+    </article>
   );
 }

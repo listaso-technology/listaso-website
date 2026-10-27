@@ -110,9 +110,16 @@
  * Text roll on hover or focus: the label slides up and a copy slides in.
  * The copy is aria-hidden; only one label is read.
  */
+/*
+ * The clip box is padded vertically (and the padding cancelled by negative
+ * margins) so ascenders and descenders of tight display type (line-height
+ * around 1) are not cut; layout is unchanged.
+ */
 .roll {
   position: relative;
   display: inline-grid;
+  margin-block: -0.15em;
+  padding-block: 0.15em;
   overflow: hidden;
   vertical-align: top;
 }
@@ -123,11 +130,12 @@
 }
 
 .roll > :last-child {
-  translate: 0 105%;
+  translate: 0 125%;
 }
 
+/* 125%: far enough that descenders (g, y, p) leave the clipped box too. */
 :is(a, button, [data-roll-trigger]):is(:hover, :focus-visible) .roll > :first-child {
-  translate: 0 -105%;
+  translate: 0 -125%;
 }
 
 :is(a, button, [data-roll-trigger]):is(:hover, :focus-visible) .roll > :last-child {

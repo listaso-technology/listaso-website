@@ -3,6 +3,12 @@
  * CSS only: the native radios #plans-monthly / #plans-yearly drive every
  * state through :has(). The ids differ from the Homepage switch
  * (#billing-*) so both can never collide.
+ *
+ * Plans: a ruled frame of three cards (the featured one on the navy band,
+ * raised past the frame on desktop). Each card's apps, coverage meter and
+ * benefits enter in turn once the plans reveal (HomeMotion data-revealed);
+ * hover draws the accent bar and lights the checks. Then the notes as icon
+ * cards and the SAMI add-on with its tiers.
  */
 @layer components {
   /* Decorative track between the two text options. */
@@ -75,6 +81,17 @@
     outline-offset: 3px;
   }
 
+  /* "2 months free" pops once when yearly is chosen. */
+  .board:has(:global(#plans-yearly):checked) .saving {
+    animation: saving-pop 520ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  @keyframes saving-pop {
+    40% {
+      transform: scale(1.18);
+    }
+  }
+
   /* Prices roll up to the yearly value. */
   .roll {
     display: inline-grid;
@@ -93,12 +110,61 @@
     translate: 0 -50%;
   }
 
-  /* The featured plan's accent bar. */
-  .plan {
-    position: relative;
+  /* The monthly price, struck through, only with yearly billing. */
+  .was {
+    display: none;
+    color: var(--listaso-text-muted);
+    font-size: var(--text-small);
+    font-weight: 600;
+    text-decoration-color: var(--listaso-action-primary);
+    text-decoration-thickness: 2px;
   }
 
-  .featured::before {
+  .board:has(:global(#plans-yearly):checked) .was {
+    display: block;
+    animation: was-in 420ms var(--listaso-ease-enter);
+  }
+
+  @keyframes was-in {
+    from {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+  }
+
+  /* --- Plans ------------------------------------------------------------- */
+
+  .plans {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    border: 2px solid var(--listaso-text-heading);
+    background: var(--listaso-surface-page);
+    list-style: none;
+  }
+
+  .planItem {
+    display: flex;
+  }
+
+  .planItem + .planItem {
+    border-top: 1px solid var(--listaso-border-subtle);
+  }
+
+  .plan {
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    transition:
+      background-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      box-shadow var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  /* Accent bar along the top: drawn on hover, always on the featured plan. */
+  .plan::before {
     position: absolute;
     top: -2px;
     right: -2px;
@@ -106,17 +172,383 @@
     height: 6px;
     background: var(--listaso-action-primary);
     content: "";
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 600ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .plan:hover::before,
+  .featured::before {
+    transform: none;
+  }
+
+  .plan:not(.featured):hover {
+    background: color-mix(in srgb, var(--listaso-text-accent) 4%, var(--listaso-surface-page));
+  }
+
+  .featured {
+    z-index: 1;
+    background:
+      radial-gradient(70% 45% at 100% 0%, rgb(0 189 169 / 0.22), transparent 70%),
+      var(--listaso-surface-band);
+    box-shadow: 0 30px 80px rgb(0 20 40 / 0.35);
+  }
+
+  .tag {
+    font-size: var(--text-small);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--listaso-text-accent);
+    text-transform: uppercase;
+  }
+
+  /* Apps + coverage meter. */
+  .appsBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--listaso-border-subtle);
+  }
+
+  .meter {
+    position: relative;
+    display: block;
+    height: 4px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: var(--listaso-border-subtle);
+  }
+
+  .meterFill {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--listaso-text-accent), var(--listaso-action-primary));
+    transform: scaleX(var(--cover));
+    transform-origin: left;
+    transition: transform 1100ms cubic-bezier(0.32, 0.72, 0, 1) 350ms;
+  }
+
+  .apps {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .app {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.625rem 0.25rem 0.5rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--listaso-text-accent) 14%, transparent);
+    color: var(--listaso-text-heading);
+    font-size: var(--text-caption);
+    font-weight: 600;
+    transition:
+      opacity 400ms var(--listaso-ease-standard),
+      transform 450ms cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition-delay: calc(250ms + var(--i) * 60ms);
+  }
+
+  .app svg {
+    color: var(--listaso-icon-accent);
+  }
+
+  .appOff {
+    border-color: var(--listaso-border-subtle);
+    border-style: dashed;
+    background: transparent;
+    color: var(--listaso-text-muted);
+    text-decoration: line-through;
+    text-decoration-color: color-mix(in srgb, var(--listaso-text-muted) 60%, transparent);
+  }
+
+  .appOff svg {
+    color: var(--listaso-text-muted);
+    opacity: 0.6;
+  }
+
+  /* Benefits. */
+  .features {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 1.5rem 0 0;
+    border-top: 1px solid var(--listaso-border-subtle);
+    list-style: none;
+  }
+
+  .featureLead {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--listaso-text-heading);
+    font-size: var(--text-small);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .featureLead svg {
+    color: var(--listaso-icon-accent);
+  }
+
+  .featureLead,
+  .feature {
+    transition:
+      opacity 400ms var(--listaso-ease-standard),
+      transform 500ms cubic-bezier(0.32, 0.72, 0, 1);
+    transition-delay: calc(450ms + var(--i) * 70ms);
+  }
+
+  .feature {
+    display: flex;
+    gap: 0.75rem;
+    color: var(--listaso-text-default);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  .check {
+    display: grid;
+    width: 1.5rem;
+    height: 1.5rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--listaso-text-accent) 14%, transparent);
+    color: var(--listaso-icon-accent);
+    transition:
+      background-color 300ms var(--listaso-ease-standard),
+      color 300ms var(--listaso-ease-standard);
+    transition-delay: calc(var(--i) * 40ms);
+  }
+
+  .plan:hover .check,
+  .featured .check {
+    background: var(--listaso-text-accent);
+    color: var(--listaso-surface-band);
+  }
+
+  /* Before the plans reveal: meters empty, apps and benefits waiting. */
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.home-motion-ready) .plans:not([data-revealed="true"]) .meterFill {
+      transform: scaleX(0);
+    }
+
+    :global(.home-motion-ready) .plans:not([data-revealed="true"]) .app {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+
+    :global(.home-motion-ready) .plans:not([data-revealed="true"]) .feature,
+    :global(.home-motion-ready) .plans:not([data-revealed="true"]) .featureLead {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+  }
+
+  /* --- Notes -------------------------------------------------------------- */
+
+  .notes {
+    display: grid;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .noteItem {
+    display: flex;
+  }
+
+  .note {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    gap: 0.625rem;
+    padding: 1.5rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-lg);
+    background: var(--listaso-surface-page);
+    transition:
+      border-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      transform var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .note:hover {
+    border-color: color-mix(in srgb, var(--listaso-text-accent) 45%, var(--listaso-border-subtle));
+    transform: translateY(-3px);
+  }
+
+  .noteIcon {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-bottom: 0.375rem;
+    place-items: center;
+    border-radius: var(--listaso-radius-md);
+    background: color-mix(in srgb, var(--listaso-text-accent) 12%, transparent);
+    color: var(--listaso-icon-accent);
+    transition:
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .note:hover .noteIcon {
+    background: var(--listaso-text-accent);
+    color: var(--listaso-surface-page);
+  }
+
+  /* --- SAMI add-on ------------------------------------------------------ */
+
+  .sami {
+    display: grid;
+    gap: 1.5rem;
+    padding: 1.5rem;
+    overflow: hidden;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-xl);
+    background:
+      radial-gradient(50% 120% at 0% 50%, rgb(102 220 212 / 0.16), transparent 70%),
+      radial-gradient(40% 100% at 100% 0%, rgb(9 96 255 / 0.18), transparent 70%),
+      var(--listaso-surface-page);
+  }
+
+  .samiHead {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+  }
+
+  .samiLogo {
+    display: grid;
+    flex-shrink: 0;
+    transition: rotate 900ms cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+
+  .sami:hover .samiLogo {
+    rotate: 360deg;
+  }
+
+  .samiTiers {
+    display: grid;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .samiTier {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-md);
+    background: var(--listaso-surface-alt);
+    transition: border-color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .samiTier:hover {
+    border-color: var(--listaso-text-accent);
+  }
+
+  .samiTierName {
+    color: var(--listaso-text-accent);
+    font-size: var(--text-small);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  .samiTierDetail {
+    color: var(--listaso-text-default);
+    font-size: var(--text-small);
+  }
+
+  /* --- Wider screens ------------------------------------------------------- */
+
+  @media (min-width: 40rem) {
+    .plan {
+      padding: 2rem;
+    }
+
+    .samiTiers {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .sami {
+      padding: 2rem;
+    }
+  }
+
+  @media (min-width: 48rem) {
+    .notes {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .plans {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .planItem + .planItem {
+      border-top: 0;
+      border-left: 1px solid var(--listaso-border-subtle);
+    }
+
+    /* The featured plan stands past the frame. */
+    .featured {
+      margin-block: -1.25rem;
+      padding-block: 3.25rem;
+      border-radius: 2px;
+    }
+
+    .sami {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr) auto;
+      align-items: center;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
     .track,
     .knob,
-    .rollInner {
+    .rollInner,
+    .plan,
+    .plan::before,
+    .meterFill,
+    .app,
+    .feature,
+    .featureLead,
+    .check,
+    .note,
+    .noteIcon,
+    .samiLogo {
       transition: none;
     }
 
     .board:has(:global(#plans-yearly):checked) .knob {
       rotate: 0deg;
+    }
+
+    .board:has(:global(#plans-yearly):checked) .saving,
+    .board:has(:global(#plans-yearly):checked) .was {
+      animation: none;
+    }
+
+    .note:hover,
+    .sami:hover .samiLogo {
+      transform: none;
+      rotate: none;
     }
   }
 
@@ -129,8 +561,15 @@
       background: Highlight;
     }
 
-    .featured::before {
+    .plan::before,
+    .meterFill {
       background: Highlight;
+    }
+
+    .note,
+    .sami,
+    .app {
+      border: 1px solid CanvasText;
     }
   }
 }

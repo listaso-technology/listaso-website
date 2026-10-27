@@ -11,6 +11,7 @@ import {
   type NavLink,
 } from "@/content/site/navigation";
 import { cx } from "@/lib/utils/cx";
+import { SamiBrandText } from "@/components/sections/product/sami/SamiBrandText";
 import { Container } from "./Container";
 import { NavDisclosures } from "./NavDisclosures";
 import styles from "./SiteHeader.module.css";
@@ -19,6 +20,8 @@ const isGroup = (entry: NavEntry): entry is NavGroup => "links" in entry;
 
 // Desktop navigation starts at xl (1280px), as in start-version: below that
 // the full menu does not fit and the mobile disclosure is used.
+// The mobile menu is a full-height sheet under the header; while it is open
+// the page behind it does not scroll (CSS :has, see the module).
 // <summary> keeps its native display (some engines drop its button semantics
 // when it becomes flex); the flex layout lives on an inner span.
 const summaryReset = "cursor-pointer list-none rounded-full [&::-webkit-details-marker]:hidden";
@@ -31,12 +34,15 @@ function PanelLink({ link }: { link: NavLink }) {
   return (
     <a
       href={link.href}
-      className={cx(styles.panelLink, "flex min-h-12 flex-col justify-center rounded-sm px-3 py-2")}
+      className={cx(styles.panelLink, "flex min-h-12 items-center gap-3 rounded-sm px-3 py-2")}
       data-analytics-event="nav_click"
       data-analytics-label={link.label}
     >
-      <span className="text-body font-semibold text-fg-heading">{link.label}</span>
-      {link.description ? <span className="text-small text-fg-muted">{link.description}</span> : null}
+      <span className="flex min-w-0 flex-1 flex-col">
+        <span className="text-body font-semibold text-fg-heading"><SamiBrandText text={link.label} /></span>
+        {link.description ? <span className="text-small text-fg-muted">{link.description}</span> : null}
+      </span>
+      <Icon name="arrow-right" size={16} className={styles.panelArrow} />
     </a>
   );
 }
@@ -81,7 +87,7 @@ function DesktopGroup({ group, align }: { group: NavGroup; align: "left" | "righ
 
 function MobileMenu() {
   return (
-    <details data-nav-disclosure className="group/menu xl:hidden">
+    <details data-nav-disclosure data-mobile-menu className="group/menu xl:hidden">
       <summary aria-label={headerLabels.menu} className={summaryReset}>
         <span
           className={cx(
@@ -93,9 +99,9 @@ function MobileMenu() {
           <Icon name="close" className="hidden group-open/menu:block" />
         </span>
       </summary>
-      <div className={cx(styles.mobilePanel, "absolute inset-x-0 top-full max-h-[calc(100dvh-4.5rem)]")}>
-        <Container className="flex flex-col gap-2 py-4">
-          <nav aria-label={headerLabels.mainNav}>
+      <div className={cx(styles.mobilePanel, "absolute inset-x-0 top-full")}>
+        <Container className={styles.mobileInner}>
+          <nav aria-label={headerLabels.mainNav} className={styles.mobileNav}>
             <ul className="flex flex-col gap-1">
               {mainNav.map((entry) =>
                 isGroup(entry) ? (
@@ -111,7 +117,7 @@ function MobileMenu() {
                           />
                         </span>
                       </summary>
-                      <ul className="flex flex-col gap-1 pb-2 pl-2">
+                      <ul className={cx(styles.mobileLinks, "flex flex-col gap-1")}>
                         {entry.links.map((link) => (
                           <li key={link.href}>
                             <PanelLink link={link} />
@@ -130,7 +136,7 @@ function MobileMenu() {
               )}
             </ul>
           </nav>
-          <div className="flex flex-col gap-4 border-t border-line-subtle pt-4">
+          <div className={cx(styles.mobileActions, "flex flex-col gap-3 border-t border-line-subtle")}>
             <a
               href={externalLinks.login}
               className={cx(summaryBase, styles.navTrigger, "px-3")}

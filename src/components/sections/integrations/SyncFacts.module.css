@@ -1,0 +1,166 @@
+/*
+ * Integration fact sheet values (SystemPage → SpecSheet): the summary with
+ * the Listaso ⇄ system link, and the sync lists as icon rows that enter in
+ * turn when the sheet reveals (HomeMotion data-revealed).
+ */
+
+@layer components {
+  /* --- Summary ----------------------------------------------------------- */
+
+  .link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .wire {
+    height: 2px;
+    flex: 1;
+    min-width: 1rem;
+    background-image: linear-gradient(90deg, var(--listaso-text-accent) 50%, transparent 50%);
+    background-size: 8px 2px;
+    animation: wire-flow 1.2s linear 3;
+  }
+
+  @keyframes wire-flow {
+    to {
+      background-position: 16px 0;
+    }
+  }
+
+  .hub {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--listaso-text-heading);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--listaso-text-accent) 14%, transparent);
+    color: var(--listaso-surface-page);
+  }
+
+  .system {
+    display: flex;
+    height: 2.5rem;
+    flex-shrink: 0;
+    align-items: center;
+    padding-inline: 0.875rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-md);
+    background: var(--listaso-surface-page);
+    color: var(--listaso-text-heading);
+    font-size: var(--text-small);
+    font-weight: 700;
+  }
+
+  .summaryBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .summaryLabel {
+    color: var(--listaso-text-accent);
+    font-size: var(--text-eyebrow);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .summary {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-h4);
+    font-weight: 700;
+    line-height: var(--text-h4--line-height);
+    text-wrap: balance;
+  }
+
+  /* --- Lists ------------------------------------------------------------ */
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .row {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--listaso-border-subtle);
+    break-inside: avoid;
+    transition:
+      opacity 400ms var(--listaso-ease-standard),
+      transform 500ms cubic-bezier(0.32, 0.72, 0, 1);
+    transition-delay: calc(200ms + var(--i) * 60ms);
+  }
+
+  .rowIcon {
+    display: grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: var(--listaso-radius-sm);
+    background: color-mix(in srgb, var(--listaso-text-accent) 12%, transparent);
+    color: var(--listaso-icon-accent);
+    transition:
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .row:hover .rowIcon {
+    background: var(--listaso-text-accent);
+    color: var(--listaso-surface-page);
+  }
+
+  .rowCopy {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 0.125rem;
+    padding-top: 0.125rem;
+  }
+
+  .rowMain {
+    color: var(--listaso-text-heading);
+    font-weight: 600;
+  }
+
+  .rowDetail {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+
+  @media (min-width: 48rem) {
+    .list[data-columns] {
+      display: block;
+      columns: 2;
+      column-gap: 2rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.home-motion-ready) [data-reveal]:not([data-revealed="true"]) .row {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .wire {
+      animation: none;
+    }
+
+    .row,
+    .rowIcon {
+      transition: none;
+    }
+  }
+}

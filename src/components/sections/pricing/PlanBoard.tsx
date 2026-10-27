@@ -1,10 +1,12 @@
 import Image from "next/image";
-import { Icon } from "@/components/icons/Icon";
+import type { CSSProperties } from "react";
+import { Icon, type IconName } from "@/components/icons/Icon";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
-import { board, hero } from "@/content/pricing/plans";
+import { board, compare, hero } from "@/content/pricing/plans";
 import { cx } from "@/lib/utils/cx";
 import { Signature } from "../Signature";
+import { SamiBrandText } from "../product/sami/SamiBrandText";
 import { Breadcrumbs } from "../product/Breadcrumbs";
 import dossier from "../variants/dossier.module.css";
 import { GridPattern } from "./GridPattern";
@@ -26,10 +28,53 @@ const optionClass = cx(
   "has-checked:text-fg-heading has-focus-visible:underline has-focus-visible:underline-offset-4",
 );
 
+/** Icon per app group of the comparison table. */
+const APP_ICONS: Record<string, IconName> = {
+  "Sales app": "orders",
+  "Warehouse app": "warehouse",
+  "Delivery app": "delivery",
+  "B2B e-Commerce": "store",
+  "Back Office": "dashboard",
+};
+
+/** Decorative icons for the three notes (setup, no contract, onboarding). */
+const NOTE_ICONS: IconName[] = ["sync", "calendar", "support"];
+
+/** An app counts as in a plan when any of its rows is included ("y"). */
+const apps = compare.groups.map((group) => ({
+  name: group.group,
+  icon: APP_ICONS[group.group] ?? "check",
+  plans: [0, 1, 2].map((plan) => group.rows.some((row) => row.plans[plan] === "y")),
+}));
+
+const allRows = compare.groups.flatMap((group) => group.rows);
+
+/** Share of comparison rows included in a plan (0–1), for the meter. */
+const coverageFor = (plan: number) =>
+  Number((allRows.filter((row) => row.plans[plan] === "y").length / allRows.length).toFixed(3));
+
+/*
+ * The SAMI add-on sentence, split for display only (same words): the three
+ * tiers ("Name: detail", separated by " · ") and the closing note.
+ */
+const samiText = board.samiAddon.text;
+const samiSplit = samiText.indexOf(". ", samiText.lastIndexOf(" · "));
+const samiNote = samiText.slice(samiSplit + 2);
+const samiTiers = samiText
+  .slice(0, samiSplit)
+  .split(" · ")
+  .map((tier) => {
+    const [name, ...detail] = tier.split(": ");
+    return { name, detail: detail.join(": ") };
+  });
+
 /**
  * Pricing stage (/plans/): hero, billing switch with the Sami logo as the
- * knob, the three plans in a ruled dossier frame, notes and the Sami add-on,
- * all over the footer's animated grid pattern (light and dark).
+ * knob, the three plans in a ruled dossier frame (the featured one on the
+ * navy band), notes and the Sami add-on, all over the footer's animated grid
+ * pattern (light and dark). Each plan shows the apps it includes (from the
+ * comparison table) with a coverage meter; with yearly billing the monthly
+ * price shows struck through. Benefits enter in turn when the plans reveal.
  */
 export function PlanBoard() {
   return (
@@ -74,115 +119,150 @@ export function PlanBoard() {
           <label className={optionClass}>
             <input id="plans-yearly" type="radio" name="plans-billing" value="yearly" className="sr-only" />
             {board.billing.yearly}
-            <span className="rounded-full bg-status-success px-2 text-caption tracking-normal text-fg-on-status normal-case">
+            <span className={cx(styles.saving, "rounded-full bg-status-success px-2 text-caption tracking-normal text-fg-on-status normal-case")}>
               {board.billing.yearlySaving}
             </span>
           </label>
         </fieldset>
 
-        <ol data-reveal="group" className="grid border-2 border-fg-heading bg-surface-page lg:grid-cols-3">
+        <ol data-reveal="group" className={styles.plans}>
           {board.plans.map((plan, index) => (
-            <li
-              data-reveal-item
-              key={plan.name.emphasis}
-              className={cx(
-                styles.plan,
-                plan.featured && styles.featured,
-                "flex flex-col gap-6 border-line-subtle p-6 sm:p-8",
-                index > 0 && "border-t lg:border-t-0 lg:border-l",
-              )}
-            >
-              <div className="flex min-h-6 items-center justify-between gap-4">
-                <span aria-hidden="true" className="text-small font-bold text-fg-accent">
-                  /{String(index + 1).padStart(2, "0")}
-                </span>
-                {"tag" in plan ? (
-                  <span className={cx(dossier.bracket, "text-small font-bold tracking-widest text-fg-accent uppercase")}>
-                    {plan.tag}
+            <li data-reveal-item key={plan.name.emphasis} className={styles.planItem}>
+              <div data-surface={plan.featured ? "band" : undefined} className={cx(styles.plan, plan.featured && styles.featured)}>
+                <div className="flex min-h-6 items-center justify-between gap-4">
+                  <span aria-hidden="true" className="text-small font-bold text-fg-accent">
+                    /{String(index + 1).padStart(2, "0")}
                   </span>
-                ) : null}
-              </div>
+                  {"tag" in plan ? <span className={cx(dossier.bracket, styles.tag)}>{plan.tag}</span> : null}
+                </div>
 
-              <div className="flex flex-col gap-2">
-                <h2 className="text-[clamp(1.5rem,1.6vw+0.75rem,2.5rem)] leading-tight font-bold break-words text-fg-heading uppercase">
-                  {plan.name.emphasis}
-                  {plan.name.rest ? ` ${plan.name.rest}` : null}
-                </h2>
-                <p className="text-body text-fg-muted">{plan.audience}</p>
-              </div>
+                <div className="flex flex-col gap-2">
+                  <h2 className="text-[clamp(1.5rem,1.6vw+0.75rem,2.5rem)] leading-tight font-bold break-words text-fg-heading uppercase">
+                    {plan.name.emphasis}
+                    {plan.name.rest ? ` ${plan.name.rest}` : null}
+                  </h2>
+                  <p className="text-body text-fg-muted">{plan.audience}</p>
+                </div>
 
-              <div className="flex flex-col gap-2">
-                <p className="flex flex-wrap items-end gap-x-3 gap-y-1">
-                  <span aria-hidden="true" className="flex items-start text-display font-bold text-fg-heading">
-                    <span className="text-h3">$</span>
-                    <span className={styles.roll}>
-                      <span className={styles.rollInner}>
-                        <span>{plan.monthly}</span>
-                        <span>{plan.yearly}</span>
+                <div className="flex flex-col gap-2">
+                  <p className="flex flex-wrap items-end gap-x-3 gap-y-1">
+                    <span aria-hidden="true" className="flex items-start text-display font-bold text-fg-heading">
+                      <span className="text-h3">$</span>
+                      <span className={styles.roll}>
+                        <span className={styles.rollInner}>
+                          <span>{plan.monthly}</span>
+                          <span>{plan.yearly}</span>
+                        </span>
                       </span>
                     </span>
+                    <span className="sr-only">
+                      <span className={showWhenMonthly}>${plan.monthly}</span>
+                      <span className={showWhenYearly}>${plan.yearly}</span>
+                    </span>
+                    <span className="flex flex-col pb-1">
+                      {/* With yearly billing, the monthly price it replaces, struck through. */}
+                      <s aria-hidden="true" className={styles.was}>
+                        ${plan.monthly}
+                      </s>
+                      <span className="text-small text-fg-muted">{board.perUser}</span>
+                    </span>
+                  </p>
+                  <p className="min-h-5 text-small text-fg-muted">
+                    <span className={showWhenYearly}>{board.yearlyNote(plan.yearlyTotal)}</span>
+                  </p>
+                </div>
+
+                <Button
+                  href={board.planCta.href}
+                  variant={plan.featured ? "primary" : "secondary"}
+                  className="w-full"
+                  data-analytics-event="cta_demo_click"
+                  data-analytics-location={`plans-${plan.name.emphasis.toLowerCase()}`}
+                >
+                  {board.planCta.label}
+                </Button>
+
+                {/* Apps in the plan, from the comparison table: lit when included. */}
+                <div className={styles.appsBlock}>
+                  <span aria-hidden="true" className={styles.meter}>
+                    <span className={styles.meterFill} style={{ "--cover": coverageFor(index) } as CSSProperties} />
                   </span>
-                  <span className="sr-only">
-                    <span className={showWhenMonthly}>${plan.monthly}</span>
-                    <span className={showWhenYearly}>${plan.yearly}</span>
-                  </span>
-                  <span className="pb-1 text-small text-fg-muted">{board.perUser}</span>
-                </p>
-                <p className="min-h-5 text-small text-fg-muted">
-                  <span className={showWhenYearly}>{board.yearlyNote(plan.yearlyTotal)}</span>
-                </p>
+                  <ul className={styles.apps}>
+                    {apps.map((app, appIndex) => {
+                      const included = app.plans[index];
+                      return (
+                        <li
+                          key={app.name}
+                          className={cx(styles.app, !included && styles.appOff)}
+                          style={{ "--i": appIndex } as CSSProperties}
+                        >
+                          <Icon name={app.icon} size={16} />
+                          {app.name}
+                          {included ? null : <span className="sr-only"> ({compare.notIncluded})</span>}
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+
+                <ul className={styles.features}>
+                  {plan.features.map((feature, featureIndex) =>
+                    feature.endsWith(":") ? (
+                      <li key={feature} className={styles.featureLead} style={{ "--i": featureIndex } as CSSProperties}>
+                        <Icon name="plus" size={16} />
+                        {feature}
+                      </li>
+                    ) : (
+                      <li key={feature} className={styles.feature} style={{ "--i": featureIndex } as CSSProperties}>
+                        <span className={styles.check}>
+                          <Icon name="check" size={16} />
+                        </span>
+                        {feature}
+                      </li>
+                    ),
+                  )}
+                </ul>
               </div>
-
-              <Button
-                href={board.planCta.href}
-                variant={plan.featured ? "primary" : "secondary"}
-                className="w-full"
-                data-analytics-event="cta_demo_click"
-                data-analytics-location={`plans-${plan.name.emphasis.toLowerCase()}`}
-              >
-                {board.planCta.label}
-              </Button>
-
-              <ul className="flex flex-col gap-3 border-t border-line-subtle pt-6">
-                {plan.features.map((feature) =>
-                  feature.endsWith(":") ? (
-                    <li key={feature} className="text-small font-bold tracking-wide text-fg-heading uppercase">
-                      {feature}
-                    </li>
-                  ) : (
-                    <li key={feature} className="flex gap-3 text-body text-fg-default">
-                      <span className="flex h-6 shrink-0 items-center text-icon-accent">
-                        <Icon name="check" size={20} />
-                      </span>
-                      {feature}
-                    </li>
-                  ),
-                )}
-              </ul>
             </li>
           ))}
         </ol>
 
-        <ul data-reveal="group" className="grid gap-x-8 border-t border-line-subtle md:grid-cols-3">
-          {board.notes.map((note) => (
-            <li data-reveal-item key={note.title} className="flex flex-col gap-2 border-b border-line-subtle py-6 md:border-b-0">
-              <strong className="text-small font-bold tracking-wide text-fg-heading uppercase">{note.title}</strong>
-              <span className="text-body text-fg-muted">{note.text}</span>
+        <ul data-reveal="group" className={styles.notes}>
+          {board.notes.map((note, index) => (
+            <li data-reveal-item key={note.title} className={styles.noteItem}>
+              <div className={styles.note}>
+                <span aria-hidden="true" className={styles.noteIcon}>
+                  <Icon name={NOTE_ICONS[index] ?? "check"} size={20} />
+                </span>
+                <strong className="text-small font-bold tracking-wide text-fg-heading uppercase">{note.title}</strong>
+                <span className="text-body text-fg-muted">{note.text}</span>
+              </div>
             </li>
           ))}
         </ul>
 
-        <div
-          data-reveal="fade"
-          className="grid gap-6 border-2 border-fg-heading bg-surface-page p-6 sm:p-8 md:grid-cols-[auto_minmax(0,1fr)_auto] md:items-center"
-        >
-          <Image src="/brand/sami/sami-logo.webp" alt="" width={64} height={64} className="size-16" />
-          <p className="text-body text-fg-muted">
-            <strong className="font-bold text-fg-heading">{board.samiAddon.title}</strong> {board.samiAddon.text}
-          </p>
+        <div data-reveal="fade" data-surface="sami" className={styles.sami}>
+          <div className={styles.samiHead}>
+            <span className={styles.samiLogo}>
+              <Image src="/brand/sami/sami-logo.webp" alt="" width={64} height={64} className="size-16" />
+            </span>
+            <p className="text-body text-fg-muted">
+              <strong className="block text-h4 font-bold text-fg-heading"><SamiBrandText text={board.samiAddon.title} /></strong>
+              <span className="sr-only">{samiTiers.map((tier) => `${tier.name}: ${tier.detail}`).join(" · ")}. </span>
+              <SamiBrandText text={samiNote} />
+            </p>
+          </div>
+          <ul aria-hidden="true" className={styles.samiTiers}>
+            {samiTiers.map((tier) => (
+              <li key={tier.name} className={styles.samiTier}>
+                <span className={styles.samiTierName}>{tier.name}</span>
+                <span className={styles.samiTierDetail}>{tier.detail}</span>
+              </li>
+            ))}
+          </ul>
           <div className="flex flex-wrap gap-4">
             <Button href={board.samiAddon.cta.href} variant="secondary" className="w-fit">
-              {board.samiAddon.cta.label}
+              <SamiBrandText text={board.samiAddon.cta.label} />
             </Button>
             <Button href="#compare" variant="tertiary" icon="arrow-right" className="w-fit">
               {board.compareCta.label}

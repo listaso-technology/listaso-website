@@ -40,7 +40,7 @@ export const hero = {
   ],
   /** Illustrative example shown in the hero composition. */
   example: {
-    label: "Example of a Listaso order sent to QuickBooks, with an inventory answer from SAMI AI",
+    label: "Example of a Listaso order sent to QuickBooks, with an inventory answer from SAMI",
     order: {
       title: "New order",
       customer: "Mercado La Esperanza",
@@ -56,7 +56,7 @@ export const hero = {
       sync: "Sent to QuickBooks",
     },
     sami: {
-      name: "SAMI AI",
+      name: "SAMI",
       question: "Which products are running low?",
       answer: "3 items below minimum: Queso fresco (8 cases), Horchata 1 gal (11) and Crema 32 oz (5).",
     },
@@ -153,29 +153,29 @@ export const capabilities = {
 } as const;
 
 export const sami = {
-  logoAlt: "SAMI AI, Listaso’s AI assistant",
-  badge: { primary: "Meet SAMI AI,", accent: "Your Listaso Assistant" },
-  title: { emphasis: "Your business has questions.", rest: "SAMI AI has the answers." },
-  lead: "Ask SAMI AI about your sales, customers, inventory or orders in everyday language. Get an answer in seconds, in English or Spanish, without learning a technical tool.",
+  logoAlt: "SAMI AI Assistant, Listaso’s assistant",
+  badge: { primary: "Meet SAMI,", accent: "Your Listaso Assistant" },
+  title: { emphasis: "Your business has questions.", rest: "SAMI has the answers." },
+  lead: "Ask SAMI AI Assistant about your sales, customers, inventory or orders in everyday language. Get an answer in seconds, in English or Spanish, without learning a technical tool.",
   chips: [
     "Ask questions in English or Spanish",
     "Generate Excel and PDF reports",
-    "Works with ChatGPT and Claude",
+    "Works with Claude and ChatGPT",
     "Get answers from your Listaso data",
   ],
   /** Informational destination until Development/Product confirm trial activation (DEC-020). */
-  cta: { href: "/sami/", label: "Start Your 15-Day Free Trial" },
-  price: { prefix: "From", amount: "$57.99", suffix: "a month" },
+  cta: { href: "/sami/#sami-sales-contact", label: "Start Your 14-Day Free Trial" },
+  price: { prefix: "From", amount: "$59", suffix: "a month per team" },
   example: {
-    label: "Example of SAMI AI identifying inactive customers and preparing an Excel report",
-    name: "SAMI AI",
+    label: "Example of SAMI identifying inactive customers and preparing an Excel report",
+    name: "SAMI",
     tag: "Example",
     question: "Which customers haven't ordered in 60 days?",
     answer: "14 customers. The 3 who bought the most last quarter:",
     rows: [
-      { customer: "Tienda El Sol", amount: "$4,210" },
-      { customer: "Carnicería Jalisco", amount: "$3,880" },
-      { customer: "Panadería La Fe", amount: "$2,940" },
+      { customer: "Customer 1", amount: "$4,210" },
+      { customer: "Customer 2", amount: "$3,880" },
+      { customer: "Customer 3", amount: "$2,940" },
     ],
     file: "inactive-customers.xlsx ready",
     followUp: "Who are my top 10 customers this quarter?",
@@ -319,9 +319,9 @@ export const pricing = {
     {
       name: { emphasis: "Growth", rest: "" },
       audience: "For teams taking orders in the field.",
-      monthly: "57.99",
-      yearly: "48.33",
-      yearlyTotal: "579.90",
+      monthly: "59",
+      yearly: "49.17",
+      yearlyTotal: "590.00",
       featured: false,
       features: [
         "Orders and credits on a tablet or phone",
@@ -337,9 +337,9 @@ export const pricing = {
       name: { emphasis: "Professional", rest: "" },
       tag: "Most chosen",
       audience: "For distributors who deliver and run a warehouse.",
-      monthly: "67.99",
-      yearly: "56.66",
-      yearlyTotal: "679.90",
+      monthly: "69",
+      yearly: "57.50",
+      yearlyTotal: "690.00",
       featured: true,
       features: [
         "Everything in Growth, plus:",
@@ -354,9 +354,9 @@ export const pricing = {
     {
       name: { emphasis: "Enterprise", rest: "360" },
       audience: "For larger operations that need full control.",
-      monthly: "77.99",
-      yearly: "64.99",
-      yearlyTotal: "779.90",
+      monthly: "79",
+      yearly: "65.83",
+      yearlyTotal: "790.00",
       featured: false,
       features: [
         "Everything in Professional, plus:",
@@ -383,9 +383,9 @@ export const pricing = {
   ],
   compareCta: { href: "/plans/", label: "Compare Every Feature" },
   samiAddon: {
-    title: "Add SAMI AI, your AI assistant.",
-    text: "Starter: $57.99 a month for 1 user · Professional: $127.99 a month for up to 3 users · Business: $297.99 a month for up to 10 users. SAMI AI is priced per team, not per user. Start with a 15-day free trial.",
-    cta: { href: "/sami/", label: "Meet SAMI AI" },
+    title: "Add SAMI, your AI assistant.",
+    text: "Starter: $59 a month for 1 user · Professional: $129 a month for up to 3 users · Business: $299 a month for up to 10 users. SAMI is priced per team, not per user, and includes AI usage. Try any plan free for 14 days.",
+    cta: { href: "/sami/", label: "Meet SAMI" },
   },
 } as const;
 

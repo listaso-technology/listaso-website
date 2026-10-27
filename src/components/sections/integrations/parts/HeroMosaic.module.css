@@ -1,0 +1,131 @@
+/*
+ * Mosaic hero (page surface, theme aware): copy and a tilted tile grid.
+ * Tiles rotate slightly and straighten on hover of the mosaic.
+ */
+
+@layer components {
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding-block: 3rem 4rem;
+    border-bottom: 1px solid var(--listaso-border-subtle);
+  }
+
+  .dots {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image: radial-gradient(var(--listaso-border-control) 1px, transparent 1.5px);
+    background-size: 22px 22px;
+    mask-image: radial-gradient(ellipse 50% 70% at 80% 40%, #000 10%, transparent 70%);
+    opacity: 0.45;
+  }
+
+  .layout {
+    display: grid;
+    gap: 3rem;
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .title {
+    overflow: hidden;
+    color: var(--listaso-text-heading);
+    font-size: var(--text-display);
+    line-height: var(--text-display--line-height);
+    text-wrap: balance;
+  }
+
+  .lead {
+    max-width: 38rem;
+    color: var(--listaso-text-muted);
+    font-size: var(--text-lead);
+    line-height: var(--text-lead--line-height);
+  }
+
+  .mosaic {
+    position: relative;
+    display: grid;
+    gap: 1rem;
+  }
+
+  .photoTile {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--listaso-radius-xl);
+    background: var(--listaso-surface-soft);
+    box-shadow: var(--listaso-shadow-e3);
+    transition: rotate 700ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .panelTile {
+    position: relative;
+    z-index: 1;
+    transition: rotate 700ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .accentTile {
+    display: none;
+  }
+
+  @media (min-width: 64rem) {
+    .hero {
+      padding-block: 4rem 5rem;
+    }
+
+    .layout {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 4rem;
+    }
+
+    .mosaic {
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      grid-template-rows: repeat(6, minmax(0, 4.5rem));
+      gap: 1rem;
+    }
+
+    .photoTile {
+      grid-area: 1 / 1 / 6 / 5;
+      aspect-ratio: auto;
+      rotate: -2deg;
+    }
+
+    .panelTile {
+      grid-area: 3 / 3 / 7 / 7;
+      align-self: end;
+      rotate: 2deg;
+    }
+
+    .accentTile {
+      display: block;
+      grid-area: 1 / 5 / 3 / 7;
+      border-radius: var(--listaso-radius-xl);
+      background:
+        radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--listaso-text-accent) 60%, transparent), transparent 60%),
+        var(--listaso-surface-band);
+      rotate: 4deg;
+      transition: rotate 700ms cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    .mosaic:hover .photoTile,
+    .mosaic:hover .panelTile,
+    .mosaic:hover .accentTile {
+      rotate: 0deg;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .photoTile,
+    .panelTile,
+    .accentTile {
+      transition: none;
+    }
+  }
+}

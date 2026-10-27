@@ -73,7 +73,7 @@ export const productCatalog = {
   },
   sami: {
     href: "/sami/",
-    name: "SAMI AI",
+    name: "SAMI",
     summary: "Ask your business anything and get answers in seconds.",
     icon: "ai",
   },

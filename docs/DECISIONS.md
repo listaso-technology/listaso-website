@@ -449,9 +449,9 @@ roles semánticos (aqua, azul, navy, magenta), sin vidrio ni animación nueva.
 
 **Pendientes registrados.**
 - **SAMI:** Development/Producto confirman el destino de activación del
-  trial (hoy `/sami/`) y la convivencia de "Start your 15-day free trial" con
-  "first month free", que sigue visible en la misma Homepage (add-on de
-  Pricing, compartido con `/plans/`) y en `/sami/`.
+  trial (hoy el formulario de Zoho integrado en `/sami/`). La duración vigente
+  quedó actualizada en DEC-025 a 14 días. El enrutamiento y la confirmación de
+  los correos del formulario aún requieren validación en Zoho.
 - **H2 de capacidades:** "More Listaso capabilities" es provisional y visualmente
   oculto; falta título editorial.
 - **ES/EN:** el selector queda bloqueado por falta de paridad
@@ -474,3 +474,107 @@ conectar `listaso.com`, cambiar DNS ni sustituir producción.
 
 **Cloudflare.** Los previews automáticos se limitan a `dev` y `qa`; revisar en
 Branch control que ya no dependan de los patrones `feat/*`, `ux/*`, etc.
+
+## DEC-022 Carrusel infinito de logos en la Homepage
+
+**Estado:** Instrucción del usuario (Henry) — 20 de octubre de 2026.
+Implementación de Claude, sin commit; pendiente de revisión de Erick.
+
+**Decisión.** El riel de logos de clientes de la Homepage (`CustomerProof`)
+es un carrusel infinito que se mueve de forma continua aunque el visitante no
+haga scroll. Es una excepción, sólo para este riel, a la restricción de
+DEC-016 ("sin autoplay de contenido en movimiento").
+
+**Condiciones (WCAG 2.2.2).** Se pausa con hover, con foco dentro del riel y
+con el control nativo "Pause autoplay" (checkbox, funciona sin JavaScript).
+Con `prefers-reduced-motion` no se mueve: cuadrícula estática de 2/4
+columnas, sin copia decorativa ni control. La segunda mitad del riel es
+decorativa (`aria-hidden`, imágenes con `alt=""`, sin enlaces). Logos, alts y
+enlaces sin cambios.
+
+**Ampliación (20 de octubre de 2026, instrucción del usuario).** La misma
+excepción aplica al componente compartido `Marquee` (Direct sales, B2B
+e-Commerce, Integrations y Forms), que deja de depender del scroll y se
+mueve de forma continua; estático con `prefers-reduced-motion`; copias
+decorativas `aria-hidden` y una sola lista accesible. Por instrucción
+posterior del usuario, en `Marquee` se retiraron el control "Pause
+autoplay" y la pausa por hover/foco: siempre se mueve. **Riesgo
+registrado:** sin mecanismo de pausa, este riel no cumple WCAG 2.2.2 para
+quien no active "reducir movimiento"; Erick debe confirmarlo o pedir que se
+restituya el control. El riel de logos de la Homepage conserva su pausa.
+
+**Ampliación (22 de octubre de 2026, instrucción del usuario).** Se retiran
+todos los botones visibles de pausa/reproducción de animaciones del sitio por
+estética: riel de logos de `CustomerProof` (checkbox "Pause autoplay"),
+`CapabilityRail`, `TestimonialSpotlight`, `SamiConversation` (y su evento
+hacia `SamiLogoMark`) y `SnapCarousel`. Se conservan las pausas automáticas
+(hover, foco, fuera de pantalla, pestaña oculta) y el estado estático con
+`prefers-reduced-motion`. **Riesgo registrado:** el riel de logos y la
+conversación de SAMI se mueven sin un control visible de pausa, lo que no
+cumple WCAG 2.2.2 para quien no active "reducir movimiento"; Erick debe
+confirmarlo.
+
+## DEC-023 Identidad propia por página de integración
+
+**Estado:** Instrucción del usuario (Henry) — 21 de octubre de 2026.
+Implementación de Claude, sin commit; pendiente de revisión de Erick.
+
+**Decisión.** Las 8 páginas de sistemas contables (QuickBooks, Sage 100,
+Acumatica, SAP, NetSuite, Zoho, Acctivate, AccountMate) dejan de compartir
+una sola composición. `SystemPage` elige por slug una composición propia
+(hero, vista de la sync y formato de funciones distintos en cada una) y
+mantiene compartidos sólo los cierres: otros sistemas, siguiente página y
+CTA final. Printers and scanners y el hub de Integrations no cambian.
+
+**Reglas.** No se cambia ni se elimina información: cada página muestra el
+hero (título, lead, línea de plan, CTAs), su foto, el panel de sync o su
+equivalente ("No double entry"), el resumen, todas las filas de sync con su
+dirección y todas las funciones; los extras de QuickBooks (certificado,
+rating) y Sage (reseña) siguen en su página. Los componentes nuevos son
+exclusivos de estas páginas; los compartidos se usan sin modificarlos.
+Movimiento finito o ligado al scroll/hover (sin bucles autónomos salvo la
+marquesina ya aprobada en DEC-022), con estado final en movimiento reducido.
+
+## DEC-024 Precios globales de Listaso
+
+**Estado:** Instrucción de Erick — 22 de octubre de 2026.
+
+Los precios mensuales por usuario de los planes globales de Listaso pasan a
+Growth $59, Professional $69 y Enterprise 360 $79. Al pagar el año completo,
+los equivalentes mensuales son $49.17, $57.50 y $65.83, con totales anuales
+de $590, $690 y $790 (diez meses pagados). Homepage, `/plans/` y referencias
+de precios de productos deben coincidir.
+
+Los planes SAMI se cobran por equipo y conservan importes separados; no se
+recalculan con los precios globales de Listaso.
+
+## DEC-025 Precios y onboarding de SAMI
+
+**Estado:** Aclaración de Erick en imagen — 22 de octubre de 2026.
+
+La página SAMI muestra Starter $59/mes (1 usuario; hasta 500 clientes y 250
+artículos), Professional $129/mes (hasta 3 usuarios; 1,000 clientes y
+artículos) y Business $299/mes (hasta 10 usuarios; 1,000+ clientes y
+artículos). Los precios son por equipo, SAMI AI usage is included y conectar
+ChatGPT o Claude no cuesta extra. Cada plan ofrece 14 días de prueba. Erick
+confirmó esta duración el 23 de octubre de 2026, sustituyendo la indicación
+anterior de 15 días.
+
+Onboarding: Starter $199; Professional y Business $499, una sola vez. Se
+ofrece gratis hasta el 31 de diciembre de 2026 o con pago anual. Incluye
+conexión a QuickBooks, importación de historial, revisión de datos y
+capacitación del equipo. Un crédito SAMI adicional cuesta $10; múltiples
+archivos de empresa o limpieza de datos se cotizan por separado.
+
+## DEC-026 CTA principal en degradado
+
+**Estado:** Instrucción de Erick con referencia visual — 23 de octubre de 2026.
+
+El CTA principal de SAMI y de las demás páginas usa el degradado horizontal
+`#DBE9FE` → `#41F9FF`, texto navy `#00375B`, forma de píldora y borde blanco.
+Se aplica en la variante primaria del componente compartido `Button`; las
+acciones secundarias y terciarias conservan su jerarquía. Esta decisión
+sustituye el fondo rojo de la variante primaria descrito en DEC-007 y en la
+foundation visual, sin cambiar los acentos de otras partes de la interfaz.
+La referencia visual menciona 15 días, pero DEC-025 mantiene vigente la
+promoción de 14 días; sólo se toma de la imagen el estilo del botón.

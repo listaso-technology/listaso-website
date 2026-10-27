@@ -26,7 +26,7 @@ export default function DirectSalesPage() {
         overlay={<TruckStockPanel />}
       />
       <Marquee
-        items={features.items.map((item) => ({ label: item.title }))}
+        items={features.items.map((item) => ({ label: item.title, icon: item.icon }))}
         label={features.eyebrow}
         rows={2}
         tone="alt"

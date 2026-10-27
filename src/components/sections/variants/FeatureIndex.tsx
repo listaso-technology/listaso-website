@@ -4,52 +4,71 @@ import type { FeatureSection, SectionCopy } from "@/content/products/types";
 import { cx } from "@/lib/utils/cx";
 import { ProductSection } from "../product/ProductSection";
 import { SectionHeader } from "../SectionHeader";
+import { FeatureArt } from "./FeatureArt";
+import { FeatureExplorer } from "./FeatureExplorer";
+import { FillPhoto, type AnyPhoto } from "./HeroParts";
+import styles from "./FeatureIndex.module.css";
 import { TextRoll } from "./TextRoll";
 
 type FeatureIndexProps = {
   id: string;
   section: FeatureSection;
   tone?: "page" | "alt";
+  /** Optional photo behind the spotlight (pans with the scroll); a banner on mobile. */
+  photo?: AnyPhoto;
 };
 
+/** Up to this many features, the list shows as illustrated cards instead. */
+const COMPACT_MAX = 4;
+
 /**
- * Features as an index of large numbered rows (Good Fella's case list). The
- * header stays beside the list on desktop.
+ * Features as an index of numbered rows (Good Fella's case list), now an
+ * explorer: on desktop the header sits in a sticky column above a spotlight
+ * of the active feature (FeatureExplorer). Shared by product pages; each
+ * passes its own copy, and may pass a photo for the spotlight background.
+ * Short lists (four or fewer) would leave the explorer half empty, so they
+ * render as a row of illustrated cards (FeatureArt) under the header.
  */
-export function FeatureIndex({ id, section, tone }: FeatureIndexProps) {
+export function FeatureIndex({ id, section, tone, photo }: FeatureIndexProps) {
+  if (section.items.length <= COMPACT_MAX) {
+    return (
+      <ProductSection labelledBy={id} tone={tone}>
+        <Container className={styles.compact}>
+          <SectionHeader id={id} eyebrow={section.eyebrow} title={section.title} lead={section.lead} />
+          <ol data-reveal="group" className={styles.cards}>
+            {section.items.map((feature, index) => (
+              <li key={feature.title} data-reveal-item className={styles.cardItem}>
+                <div data-art-host data-roll-trigger className={styles.card}>
+                  <FeatureArt icon={feature.icon} />
+                  <div className={styles.cardBody}>
+                    <span aria-hidden="true" className={styles.cardTop}>
+                      <span className={styles.cardNumber}>{String(index + 1).padStart(2, "0")}</span>
+                      <span className={styles.cardIcon}>
+                        <Icon name={feature.icon} size={20} />
+                      </span>
+                    </span>
+                    <h3 className={styles.cardTitle}>
+                      <TextRoll>{feature.title}</TextRoll>
+                    </h3>
+                    <p className={styles.cardText}>{feature.text}</p>
+                  </div>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </Container>
+      </ProductSection>
+    );
+  }
+
   return (
     <ProductSection labelledBy={id} tone={tone}>
-      <Container className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-        <SectionHeader
-          id={id}
-          eyebrow={section.eyebrow}
-          title={section.title}
-          lead={section.lead}
-          className="lg:sticky lg:top-28 lg:h-fit"
+      <Container className={styles.layout}>
+        <FeatureExplorer
+          items={section.items}
+          header={<SectionHeader id={id} eyebrow={section.eyebrow} title={section.title} lead={section.lead} />}
+          media={photo ? <FillPhoto photo={photo} sizes="(min-width: 1024px) 50vw, 100vw" className={styles.spotPhoto} /> : undefined}
         />
-        <ol data-reveal="group" className="border-t border-line-subtle">
-          {section.items.map((item, index) => (
-            <li
-              data-reveal-item
-              data-roll-trigger
-              key={item.title}
-              className="group grid grid-cols-[2.5rem_minmax(0,1fr)_auto] items-start gap-x-4 border-b border-line-subtle py-6 sm:grid-cols-[3.5rem_minmax(0,1fr)_auto] sm:py-8"
-            >
-              <span aria-hidden="true" className="pt-1 text-small font-bold text-fg-accent">
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <div className="flex flex-col gap-2">
-                <h3 className="text-h3 font-semibold text-fg-heading">
-                  <TextRoll>{item.title}</TextRoll>
-                </h3>
-                <p className="max-w-xl text-body text-fg-muted">{item.text}</p>
-              </div>
-              <span className="flex size-12 items-center justify-center rounded-full border border-line-subtle text-icon-accent transition-[background-color,color] duration-(--listaso-duration-standard) group-hover:bg-fg-heading group-hover:text-surface-page">
-                <Icon name={item.icon} size={20} />
-              </span>
-            </li>
-          ))}
-        </ol>
       </Container>
     </ProductSection>
   );

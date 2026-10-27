@@ -1,0 +1,396 @@
+/*
+ * B2B storefront demo (hero). Light product UI over the brand band: a browser
+ * window with the customer's store and a phone with the placed order.
+ * Reorder sequence: the button pulses, rows fill (quantity + line total) in
+ * turn, the cart counts up, the phone rises in. Final state by default.
+ */
+
+@layer components {
+  .stage {
+    position: relative;
+    display: flex;
+    width: 100%;
+    max-width: 36rem;
+    flex-direction: column;
+    margin-inline: auto;
+  }
+
+  .browser {
+    overflow: hidden;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-xl);
+    background: var(--listaso-surface-page);
+    box-shadow: 0 30px 80px rgb(0 0 0 / 0.35);
+  }
+
+  .chrome {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--listaso-border-subtle);
+    background: var(--listaso-surface-alt);
+  }
+
+  .chrome > span:not(.address) {
+    width: 0.75rem;
+    height: 0.75rem;
+    border-radius: 50%;
+    background: var(--listaso-border-control);
+  }
+
+  .chrome > span:first-child {
+    background: var(--listaso-action-primary);
+  }
+
+  .address {
+    flex: 1;
+    height: 1.5rem;
+    margin-left: 0.75rem;
+    border-radius: 999px;
+    background: var(--listaso-surface-page);
+  }
+
+  .storeHead {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid var(--listaso-border-subtle);
+  }
+
+  .storeName {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .storeLabel {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-caption);
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .customer {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-body);
+    font-weight: 700;
+  }
+
+  .cart {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    background: var(--listaso-text-heading);
+    color: var(--listaso-text-on-action);
+    font-size: var(--text-small);
+    font-weight: 600;
+    transition: box-shadow var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .cartBusy {
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--listaso-text-accent) 30%, transparent);
+  }
+
+  .cartTotal {
+    min-width: 4.5ch;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .body {
+    display: flex;
+    flex-direction: column;
+    gap: 0.875rem;
+    padding: 1.25rem;
+  }
+
+  .search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--listaso-border-control);
+    border-radius: 999px;
+    color: var(--listaso-text-muted);
+    font-size: var(--text-small);
+  }
+
+  .reorder {
+    display: inline-flex;
+    width: fit-content;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--listaso-surface-soft);
+    color: var(--listaso-text-heading);
+    cursor: pointer;
+    font: inherit;
+    font-size: var(--text-small);
+    font-weight: 600;
+    transition:
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      box-shadow var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .reorder svg {
+    color: var(--listaso-icon-accent);
+  }
+
+  .reorder:hover,
+  .reorderActive {
+    background: var(--listaso-text-heading);
+    color: var(--listaso-text-on-action);
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--listaso-text-heading) 15%, transparent);
+  }
+
+  .reorder:hover svg,
+  .reorderActive svg {
+    color: currentColor;
+  }
+
+  /* --- Products --------------------------------------------------------- */
+
+  .products {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-md);
+  }
+
+  .product {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    transition: background-color 400ms var(--listaso-ease-standard);
+  }
+
+  .product + .product {
+    border-top: 1px solid var(--listaso-border-subtle);
+  }
+
+  .productIcon {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: var(--listaso-radius-sm);
+    background: var(--listaso-surface-alt);
+    color: var(--listaso-icon-accent);
+  }
+
+  .productText {
+    display: flex;
+    min-width: 0;
+    flex: 1;
+    flex-direction: column;
+  }
+
+  .productName {
+    color: var(--listaso-text-default);
+    font-size: var(--text-small);
+    font-weight: 600;
+  }
+
+  .productMeta {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-caption);
+  }
+
+  .productRight {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  .lineTotal {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-body);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    opacity: 0;
+    transform: translateY(6px);
+    transition:
+      opacity 350ms var(--listaso-ease-standard),
+      transform 350ms var(--listaso-ease-standard);
+  }
+
+  /* "+" that turns into the quantity once added. */
+  .qty {
+    position: relative;
+    display: grid;
+    width: 3.25rem;
+    height: 2rem;
+    place-items: center;
+  }
+
+  .qtyPlus,
+  .qtyCount {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    border-radius: 999px;
+    transition:
+      opacity 300ms var(--listaso-ease-standard),
+      transform 450ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .qtyPlus {
+    width: 2rem;
+    height: 2rem;
+    background: var(--listaso-action-primary);
+    color: var(--listaso-text-on-action);
+  }
+
+  .qtyCount {
+    height: 2rem;
+    padding-inline: 0.625rem;
+    background: color-mix(in srgb, var(--listaso-text-accent) 16%, transparent);
+    color: var(--listaso-text-accent);
+    font-size: var(--text-small);
+    font-weight: 700;
+    white-space: nowrap;
+    opacity: 0;
+    transform: scale(0.6);
+  }
+
+  .productAdded {
+    background: color-mix(in srgb, var(--listaso-text-accent) 6%, transparent);
+  }
+
+  .productAdded .lineTotal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .productAdded .qtyPlus {
+    opacity: 0;
+    transform: scale(0.6) rotate(90deg);
+  }
+
+  .productAdded .qtyCount {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* --- Phone -------------------------------------------------------------- */
+
+  /* Narrow: below the browser, overlapping its lower-right edge. */
+  .phone {
+    position: relative;
+    z-index: 2;
+    margin: -3rem 0.75rem 0 auto;
+    display: flex;
+    width: 11rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 1.75rem 1rem 1.25rem;
+    border: 6px solid #0d1222;
+    border-radius: 1.75rem;
+    background: var(--listaso-surface-page);
+    box-shadow: 0 24px 60px rgb(0 0 0 / 0.4);
+    text-align: center;
+    opacity: 0;
+    transform: translateY(24px) rotate(-4deg);
+    transition:
+      opacity 450ms var(--listaso-ease-standard),
+      transform 650ms cubic-bezier(0.34, 1.4, 0.64, 1);
+  }
+
+  .phoneShown {
+    opacity: 1;
+    transform: rotate(-4deg);
+  }
+
+  .phoneNotch {
+    position: absolute;
+    top: 0.5rem;
+    left: 50%;
+    width: 3rem;
+    height: 0.375rem;
+    border-radius: 999px;
+    background: #0d1222;
+    transform: translateX(-50%);
+  }
+
+  .phoneCheck {
+    display: grid;
+    width: 2.75rem;
+    height: 2.75rem;
+    margin-bottom: 0.375rem;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--listaso-text-heading);
+    color: var(--listaso-text-on-action);
+    box-shadow: 0 0 0 6px color-mix(in srgb, var(--listaso-text-heading) 12%, transparent);
+  }
+
+  .phoneTitle {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-small);
+    font-weight: 700;
+  }
+
+  .phoneCustomer {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-caption);
+  }
+
+  .phoneTotal {
+    margin-top: 0.375rem;
+    color: var(--listaso-text-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  @media (min-width: 64rem) {
+    .stage {
+      margin-right: 0;
+    }
+
+    .stage {
+      padding-bottom: 3rem;
+    }
+
+    /* Mostly in the gap beside the browser, overlapping only its edge. */
+    .phone {
+      position: absolute;
+      bottom: -1rem;
+      left: -8.5rem;
+      margin: 0;
+    }
+  }
+
+  @media (max-width: 30rem) {
+    .lineTotal {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .lineTotal,
+    .qtyPlus,
+    .qtyCount,
+    .phone,
+    .product {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .browser,
+    .phone {
+      border: 1px solid CanvasText;
+    }
+  }
+}

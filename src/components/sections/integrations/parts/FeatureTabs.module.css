@@ -1,0 +1,194 @@
+/*
+ * Feature tabs: a vertical list of titles (chips row on small screens) and
+ * one illustrated panel that enters with a short rise on each change.
+ */
+
+@layer components {
+  .tabs {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .list {
+    display: flex;
+    gap: 0.5rem;
+    padding-bottom: 0.25rem;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+
+  .tab {
+    display: flex;
+    min-height: 3rem;
+    flex-shrink: 0;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.5rem 1rem 0.5rem 0.5rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: 999px;
+    background: var(--listaso-surface-raised);
+    color: var(--listaso-text-default);
+    cursor: pointer;
+    font: inherit;
+    font-weight: 600;
+    text-align: left;
+    transition:
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .tab:hover {
+    border-color: color-mix(in srgb, var(--listaso-text-accent) 50%, var(--listaso-border-subtle));
+  }
+
+  .tab:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .tabActive {
+    border-color: transparent;
+    background: var(--listaso-text-heading);
+    color: var(--listaso-surface-page);
+  }
+
+  .tabIcon {
+    display: grid;
+    width: 2rem;
+    height: 2rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--listaso-text-accent) 14%, transparent);
+    color: var(--listaso-icon-accent);
+  }
+
+  .tabActive .tabIcon {
+    background: var(--listaso-text-accent);
+    color: var(--listaso-surface-band);
+  }
+
+  .tabTitle {
+    white-space: nowrap;
+  }
+
+  .tabArrow {
+    display: none;
+  }
+
+  .panels {
+    display: grid;
+  }
+
+  .panel {
+    display: grid;
+    overflow: hidden;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-xl);
+    background: var(--listaso-surface-raised);
+    box-shadow: var(--listaso-shadow-e2);
+    animation: panel-in 500ms cubic-bezier(0.32, 0.72, 0, 1);
+  }
+
+  .panel[hidden] {
+    display: none;
+  }
+
+  @keyframes panel-in {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+  }
+
+  .panelBody {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1.5rem;
+    border-top: 1px solid var(--listaso-border-subtle);
+  }
+
+  .panelNumber {
+    color: var(--listaso-text-accent);
+    font-size: var(--text-small);
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .panelTitle {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-h3);
+    font-weight: 700;
+    line-height: var(--text-h3--line-height);
+  }
+
+  .panelText {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-body-lg);
+    line-height: var(--text-body-lg--line-height);
+  }
+
+  @media (min-width: 64rem) {
+    .tabs {
+      grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+      align-items: start;
+      gap: 2rem;
+    }
+
+    .list {
+      flex-direction: column;
+      gap: 0.375rem;
+      overflow: visible;
+    }
+
+    .tab {
+      min-height: 3.75rem;
+      padding: 0.625rem 1.25rem 0.625rem 0.625rem;
+      border-radius: var(--listaso-radius-lg);
+    }
+
+    .tabTitle {
+      flex: 1;
+      white-space: normal;
+    }
+
+    .tabArrow {
+      display: grid;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition:
+        opacity var(--listaso-duration-standard) var(--listaso-ease-standard),
+        transform var(--listaso-duration-standard) var(--listaso-ease-standard);
+    }
+
+    .tab:hover .tabArrow,
+    .tabActive .tabArrow {
+      opacity: 1;
+      transform: none;
+    }
+
+    .panelBody {
+      padding: 2rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .panel {
+      animation: none;
+    }
+
+    .tab,
+    .tabArrow {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .tabActive {
+      border: 2px solid Highlight;
+    }
+  }
+}

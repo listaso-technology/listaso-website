@@ -1,3 +1,4 @@
+import type { CSSProperties } from "react";
 import { Icon, type IconName } from "@/components/icons/Icon";
 import { cx } from "@/lib/utils/cx";
 import styles from "./Marquee.module.css";
@@ -8,7 +9,7 @@ type MarqueeProps = {
   items: readonly MarqueeItem[];
   /** Accessible name of the list, from the page copy. */
   label: string;
-  /** `display` for large outlined words, `pill` for chips. */
+  /** `display` for large words, `pill` for chips. */
   variant?: "pill" | "display";
   /** Two rows moving in opposite directions. */
   rows?: 1 | 2;
@@ -19,61 +20,90 @@ type MarqueeProps = {
 function Item({ item, variant }: { item: MarqueeItem; variant: "pill" | "display" }) {
   if (variant === "display") {
     return (
-      <span className="flex items-center gap-6 pr-6 text-h1 font-bold whitespace-nowrap text-fg-heading">
+      <span className={styles.word}>
         {item.label}
-        <span aria-hidden="true" className="size-3 rounded-full bg-icon-accent" />
+        <span aria-hidden="true" className={styles.wordDot} />
       </span>
     );
   }
 
   return (
-    <span className="flex items-center gap-2 rounded-full border border-line-subtle bg-surface-raised px-5 py-3 text-body font-semibold whitespace-nowrap text-fg-heading">
-      {item.icon ? <Icon name={item.icon} size={20} className="text-icon-accent" /> : null}
+    <span className={styles.pill}>
+      {item.icon ? (
+        <span aria-hidden="true" className={styles.pillIcon}>
+          <Icon name={item.icon} size={16} />
+        </span>
+      ) : (
+        <span aria-hidden="true" className={styles.pillDot} />
+      )}
       {item.label}
     </span>
   );
 }
 
 /**
- * Marquee of labels (Stavros Symeonidis, Good Fella). One accessible list;
- * the moving copies are decorative.
+ * Continuous marquee of labels (shared). Each row holds two identical halves
+ * that move -50%, so the loop is seamless; the second row runs the other way.
+ * One accessible list (the first half of the first row); every copy is
+ * aria-hidden. It never pauses (user instruction, DEC-022); with reduced
+ * motion it is one static, wrapped list. Rows are capped and centered so
+ * zooming out never shows the end of a row.
  */
 export function Marquee({ items, label, variant = "pill", rows = 1, tone = "page", className }: MarqueeProps) {
   const rowItems = rows === 2 ? [items, [...items].reverse()] : [items];
+  // Each half must be wider than very wide screens: repeat the labels (aria-hidden) as needed.
+  const repeats = Math.max(0, Math.ceil((variant === "display" ? 10 : 16) / items.length) - 1);
+  // Duration grows with the half's length so the speed stays steady.
+  const perItem = variant === "display" ? 6 : 4.5;
+  const speed = { "--marquee-duration": `${Math.max(24, items.length * (repeats + 1) * perItem)}s` } as CSSProperties;
 
   return (
     <div
       data-story-section
       {...(tone === "band" ? { "data-surface": "band" } : null)}
-      className={cx(
-        "flex flex-col gap-4 py-12 lg:py-16",
-        tone === "alt" && "bg-surface-alt",
-        className,
-      )}
+      className={cx(styles.section, styles[tone], variant === "display" && styles.isDisplay, className)}
+      style={speed}
     >
-      {rowItems.map((row, rowIndex) => (
-        // The reversed row only exists while it moves; static fallbacks show one list.
-        <div key={rowIndex} className={cx(styles.marquee, rowIndex === 1 && styles.secondRow)}>
-          <div className={cx(styles.track, rowIndex === 1 && styles.reverse, "px-4 md:px-6 lg:px-8")}>
-            <ul
-              aria-label={rowIndex === 0 ? label : undefined}
-              aria-hidden={rowIndex === 0 ? undefined : true}
-              className="flex flex-wrap gap-3"
-            >
-              {row.map((item) => (
-                <li key={item.label}>
-                  <Item item={item} variant={variant} />
-                </li>
-              ))}
-            </ul>
-            <div aria-hidden="true" className={cx(styles.copy, "gap-3")}>
-              {row.map((item) => (
-                <Item key={item.label} item={item} variant={variant} />
-              ))}
+      <div className={styles.rows}>
+        {rowItems.map((row, rowIndex) => (
+          <div key={rowIndex} className={cx(styles.row, rowIndex === 1 && styles.secondRow)}>
+            <div className={cx(styles.track, rowIndex === 1 && styles.reverse)}>
+              <div className={styles.half}>
+                <ul
+                  aria-label={rowIndex === 0 ? label : undefined}
+                  aria-hidden={rowIndex === 0 ? undefined : true}
+                  className={styles.list}
+                >
+                  {row.map((item) => (
+                    <li key={item.label} className={styles.item}>
+                      <Item item={item} variant={variant} />
+                    </li>
+                  ))}
+                </ul>
+                {Array.from({ length: repeats }, (_, repeat) => (
+                  <span key={repeat} aria-hidden="true" className={styles.extra}>
+                    {row.map((item) => (
+                      <span key={item.label} className={styles.item}>
+                        <Item item={item} variant={variant} />
+                      </span>
+                    ))}
+                  </span>
+                ))}
+              </div>
+              <div aria-hidden="true" className={styles.copy}>
+                {Array.from({ length: repeats + 1 }, (_, repeat) =>
+                  row.map((item) => (
+                    <span key={`${repeat}-${item.label}`} className={styles.item}>
+                      <Item item={item} variant={variant} />
+                    </span>
+                  )),
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+
     </div>
   );
 }

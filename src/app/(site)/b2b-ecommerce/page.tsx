@@ -5,10 +5,8 @@ import { StorefrontExample } from "@/components/sections/product/b2b-ecommerce/S
 import { IntegrationsBand } from "@/components/sections/product/IntegrationsBand";
 import { ProductHero } from "@/components/sections/product/ProductHero";
 import { RelatedProducts } from "@/components/sections/product/RelatedProducts";
-import { ImageBand } from "@/components/sections/variants/ImageBand";
 import { Marquee } from "@/components/sections/variants/Marquee";
 import { NextPage } from "@/components/sections/variants/NextPage";
-import { sectionMedia } from "@/content/media/sections";
 import { features, hero, metadata as content, related } from "@/content/products/b2b-ecommerce";
 import { pageMetadata } from "@/lib/page-metadata";
 
@@ -20,13 +18,12 @@ export default function B2bEcommercePage() {
     <>
       <ProductHero content={hero} icon="store" location="b2b-ecommerce-hero" media={<StorefrontExample />} />
       <Marquee
-        items={features.items.map((item) => ({ label: item.title }))}
+        items={features.items.map((item) => ({ label: item.title, icon: item.icon }))}
         label={features.eyebrow}
         rows={2}
         tone="alt"
       />
       <StoreFeatures />
-      <ImageBand photo={sectionMedia.storeCounter} />
       <RelatedProducts products={related} />
       <IntegrationsBand />
       <NextPage group="Products" current={content.path} />

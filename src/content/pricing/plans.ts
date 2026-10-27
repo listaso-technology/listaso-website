@@ -13,7 +13,7 @@ export const metadata = {
   path: "/plans/",
   title: "Pricing & Plans | Listaso",
   description:
-    "Growth $57.99, Professional $67.99 and Enterprise 360 $77.99 per user a month. No contract, 2-user minimum, 2 months free when paid yearly. Compare every feature.",
+    "Growth $59, Professional $69 and Enterprise 360 $79 per user a month. No contract, 2-user minimum, 2 months free when paid yearly. Compare every feature.",
 } as const;
 
 export const hero: ProductHeroContent = {
@@ -152,7 +152,7 @@ export const faq: SectionCopy & { items: readonly { question: string; answer: st
     },
     {
       question: "Can I try it before I pay?",
-      answer: "Book a Demo and we'll show you Listaso with the way you work. SAMI AI includes a 15-day free trial.",
+      answer: "Book a Demo and we'll show you Listaso with the way you work. SAMI plans include a 14-day free trial.",
     },
     {
       question: "Which accounting systems do you work with?",

@@ -37,8 +37,9 @@ duplican, para que la Homepage y las páginas internas digan siempre lo mismo:
   facturación, notas, CTA de demo y el add-on de Sami (`board = pricing`).
 - **Support:** tabla de tiempos de respuesta, horario, calificaciones (4.7
   Google · 42 reseñas, 5.0 QuickBooks App Store) y testimonios de clientes.
-- **About:** cifras de marca vía `MetricOdometer` (Homepage y About us
-  únicamente, DEC-016).
+- **About:** cifras de marca vía `ProofStrip`, el mismo componente de la
+  Homepage (Homepage y About us únicamente, DEC-016). `MetricOdometer` se
+  retiró el 20 de octubre de 2026.
 
 ## 3. Preguntas abiertas
 

@@ -1,0 +1,226 @@
+/*
+ * Closing demo band (shared). Navy brand mesh in both themes with the 72px
+ * grid of the footer/Pricing patterns, a display title and a solid dark
+ * contact card: primary demo button, then phone and email rows with icons.
+ * Only hover feedback moves; content is never hidden for animation.
+ */
+
+@layer components {
+  .band {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    border-top: 1px solid rgb(255 255 255 / 0.08);
+  }
+
+  .grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 72px 72px;
+    background-position: center;
+    mask-image: radial-gradient(ellipse 70% 90% at 30% 50%, #000 25%, transparent 75%);
+  }
+
+  .layout {
+    display: grid;
+    align-items: center;
+    gap: 2.5rem;
+    padding-block: 4.5rem;
+  }
+
+  /* --- Copy ------------------------------------------------------------ */
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .accent {
+    width: 3rem;
+    height: 4px;
+    border-radius: 4px;
+    background: linear-gradient(90deg, var(--listaso-link-on-band), #ff3a6a);
+  }
+
+  .title {
+    overflow: hidden;
+    color: #ffffff;
+    font-size: clamp(2.25rem, 3.6vw + 1rem, 3.5rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  .lead {
+    max-width: 36rem;
+    color: var(--listaso-text-on-band-muted);
+    font-size: var(--text-lead);
+    line-height: var(--text-lead--line-height);
+  }
+
+  /* --- Contact card ---------------------------------------------------- */
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.5rem;
+    border: 1px solid rgb(255 255 255 / 0.12);
+    border-radius: var(--listaso-radius-xl);
+    background:
+      linear-gradient(160deg, rgb(255 255 255 / 0.06), transparent 45%),
+      rgb(5 17 36 / 0.92);
+    box-shadow:
+      0 24px 64px rgb(0 0 0 / 0.35),
+      inset 0 1px 0 rgb(255 255 255 / 0.08);
+  }
+
+  /* Hairline glow on the card's top edge. */
+  .card::before {
+    position: absolute;
+    top: -1px;
+    right: 2rem;
+    left: 2rem;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--listaso-link-on-band), transparent);
+    content: "";
+    opacity: 0.7;
+  }
+
+  .primary {
+    width: 100%;
+  }
+
+  .primaryArrow {
+    transition: transform var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .primary:hover .primaryArrow {
+      transform: translateX(4px);
+    }
+  }
+
+  .contacts {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid rgb(255 255 255 / 0.1);
+    list-style: none;
+  }
+
+  .contact {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding-block: 1rem;
+  }
+
+  .contact + .contact {
+    border-top: 1px solid rgb(255 255 255 / 0.08);
+  }
+
+  .contact:last-child {
+    padding-bottom: 0;
+  }
+
+  .contactIcon {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    flex-shrink: 0;
+    place-items: center;
+    border: 1px solid rgb(255 255 255 / 0.12);
+    border-radius: var(--listaso-radius-md);
+    background: rgb(95 230 214 / 0.1);
+    color: var(--listaso-link-on-band);
+    transition:
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .contact:has(.contactLink:hover) .contactIcon,
+  .contact:has(.contactLink:focus-visible) .contactIcon {
+    border-color: rgb(95 230 214 / 0.5);
+    background: rgb(95 230 214 / 0.18);
+  }
+
+  .contactText {
+    min-width: 0;
+    color: var(--listaso-text-on-band-muted);
+    font-size: 0.9375rem;
+    line-height: 1.5rem;
+  }
+
+  .contactLabel {
+    color: var(--listaso-text-on-band-muted);
+  }
+
+  .contactLink {
+    color: #ffffff;
+    font-weight: 700;
+    text-decoration: underline;
+    text-decoration-color: rgb(95 230 214 / 0.55);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 4px;
+    overflow-wrap: anywhere;
+    transition:
+      color var(--listaso-duration-fast) var(--listaso-ease-standard),
+      text-decoration-color var(--listaso-duration-fast) var(--listaso-ease-standard);
+  }
+
+  .contactLink:hover {
+    color: var(--listaso-link-on-band);
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 2px;
+  }
+
+  .contactLink:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 3px;
+    border-radius: var(--listaso-radius-xs);
+  }
+
+  .contactNote {
+    color: var(--listaso-text-on-band-muted);
+  }
+
+  /* --- Wider screens --------------------------------------------------- */
+
+  @media (min-width: 64rem) {
+    .layout {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+      gap: 4rem;
+      padding-block: 6.5rem;
+    }
+
+    .card {
+      padding: 2rem;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .grid,
+    .card::before {
+      display: none;
+    }
+
+    .card {
+      border: 1px solid CanvasText;
+      background: Canvas;
+    }
+
+    .contactIcon {
+      border-color: CanvasText;
+      color: CanvasText;
+    }
+  }
+}

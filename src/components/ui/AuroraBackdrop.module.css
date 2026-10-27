@@ -1,0 +1,125 @@
+/*
+ * AuroraBackdrop: brand background in the manner of an aurora borealis, made of
+ * editable SVG curtains over a deep navy base. Retheme by setting the
+ * --aurora-* custom properties on the parent or via className; nothing here is
+ * a raster image.
+ *
+ * Motion (DEC-008): transform and opacity only, no animated filters or
+ * backdrop-filter. Static under reduced motion; hidden in forced colors.
+ * The parent must be `position: relative; isolation: isolate; overflow: hidden`.
+ */
+.root {
+  /* Listaso palette: aqua, blue, magenta (+ a violet between blue and magenta). */
+  --aurora-deep: #040a28;
+  --aurora-blue: var(--listaso-blue, #0960ff);
+  --aurora-blue-light: #4d8dff;
+  --aurora-aqua: var(--listaso-aqua, #00bda9);
+  --aurora-aqua-light: #5fe6d6;
+  --aurora-violet: #7a4dff;
+  --aurora-magenta: var(--listaso-magenta, #ff3a6a);
+  --aurora-opacity: 1;
+
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(60% 50% at 50% 115%, rgb(9 96 255 / 0.4), transparent 70%),
+    linear-gradient(175deg, var(--aurora-deep), #071345 55%, var(--aurora-deep));
+}
+
+.root[data-intensity="soft"] {
+  --aurora-opacity: 0.55;
+}
+
+.root[data-side="left"] .svg {
+  transform: scaleX(-1);
+}
+
+/* Soft atmospheric glows behind the curtains. */
+.glow {
+  position: absolute;
+  width: 60%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.glowA {
+  top: -30%;
+  left: -10%;
+  background: radial-gradient(circle closest-side, rgb(0 189 169 / 0.26), transparent);
+}
+
+.glowB {
+  right: -15%;
+  bottom: -35%;
+  background: radial-gradient(circle closest-side, rgb(255 58 106 / 0.24), rgb(122 77 255 / 0.12) 55%, transparent);
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: var(--aurora-opacity);
+}
+
+.curtain {
+  transform-box: fill-box;
+  transform-origin: 50% 0%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .root[data-animated="true"] .glowA {
+    animation: aurora-glow-a 24s var(--listaso-ease-standard, ease-in-out) infinite alternate;
+  }
+
+  .root[data-animated="true"] .glowB {
+    animation: aurora-glow-b 28s var(--listaso-ease-standard, ease-in-out) infinite alternate;
+  }
+
+  .root[data-animated="true"] .curtain-a {
+    animation: aurora-sway-a 19s var(--listaso-ease-standard, ease-in-out) infinite alternate;
+  }
+
+  .root[data-animated="true"] .curtain-b {
+    animation: aurora-sway-b 25s var(--listaso-ease-standard, ease-in-out) infinite alternate;
+  }
+
+  .root[data-animated="true"] .curtain-c {
+    animation: aurora-sway-c 31s var(--listaso-ease-standard, ease-in-out) infinite alternate;
+  }
+}
+
+@keyframes aurora-sway-a {
+  from { transform: translate3d(-3%, 0, 0) scaleY(0.94); opacity: 0.8; }
+  to { transform: translate3d(3%, 2%, 0) scaleY(1.06); opacity: 1; }
+}
+
+@keyframes aurora-sway-b {
+  from { transform: translate3d(4%, 1%, 0) scaleY(1.05); opacity: 1; }
+  to { transform: translate3d(-4%, -2%, 0) scaleY(0.92); opacity: 0.7; }
+}
+
+@keyframes aurora-sway-c {
+  from { transform: translate3d(-2%, 0, 0) scaleY(1); opacity: 0.6; }
+  to { transform: translate3d(5%, 4%, 0) scaleY(1.12); opacity: 1; }
+}
+
+@keyframes aurora-glow-a {
+  from { transform: translate3d(-4%, -2%, 0) scale(0.95); }
+  to { transform: translate3d(16%, 10%, 0) scale(1.1); }
+}
+
+@keyframes aurora-glow-b {
+  from { transform: translate3d(6%, 8%, 0) scale(1.05); }
+  to { transform: translate3d(-14%, -8%, 0) scale(0.92); }
+}
+
+@media (forced-colors: active) {
+  .root {
+    display: none;
+  }
+}

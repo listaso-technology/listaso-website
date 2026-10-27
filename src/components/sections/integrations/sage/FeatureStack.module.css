@@ -1,0 +1,145 @@
+/*
+ * Sage 100 feature stack. Wide: sticky header column; each card sticks
+ * 1.25rem lower than the previous one so earlier cards peek above as they
+ * pile up. Narrow: a simple list. No JavaScript; nothing moves on its own.
+ */
+
+@layer components {
+  .layout {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .aside {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    display: grid;
+    overflow: hidden;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-xl);
+    background:
+      radial-gradient(70% 90% at 0% 0%, color-mix(in srgb, var(--listaso-text-accent) 10%, transparent), transparent 70%),
+      var(--listaso-surface-raised);
+    box-shadow: 0 -12px 40px rgb(0 0 0 / 0.18);
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+    padding: 1.5rem;
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+  }
+
+  .icon {
+    display: grid;
+    width: 3rem;
+    height: 3rem;
+    place-items: center;
+    border-radius: var(--listaso-radius-md);
+    background: var(--listaso-text-accent);
+    color: var(--listaso-surface-band);
+  }
+
+  .number {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-h3);
+    font-weight: 800;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .total {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-small);
+    font-weight: 700;
+  }
+
+  .title {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-h3);
+    font-weight: 700;
+    line-height: var(--text-h3--line-height);
+  }
+
+  .text {
+    max-width: 30rem;
+    color: var(--listaso-text-muted);
+    font-size: var(--text-body-lg);
+    line-height: var(--text-body-lg--line-height);
+  }
+
+  .art {
+    display: none;
+    border-left: 1px solid var(--listaso-border-subtle);
+  }
+
+  @media (min-width: 48rem) {
+    .card {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      min-height: 17rem;
+    }
+
+    .copy {
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .art {
+      display: grid;
+    }
+
+    .art > * {
+      height: 100%;
+      aspect-ratio: auto;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .layout {
+      grid-template-columns: minmax(0, 0.75fr) minmax(0, 1.25fr);
+      align-items: start;
+      gap: 4rem;
+    }
+
+    .aside {
+      position: sticky;
+      top: 8rem;
+    }
+
+    .stack {
+      gap: 1.5rem;
+      padding-bottom: 2rem;
+    }
+
+    /* Each card sticks a little lower than the previous one. */
+    .item {
+      position: sticky;
+      top: calc(7rem + var(--i) * 1.25rem);
+    }
+  }
+
+  @media (forced-colors: active) {
+    .card {
+      border: 1px solid CanvasText;
+    }
+  }
+}

@@ -1,0 +1,94 @@
+/*
+ * Case-study hero: split head over a faint grid (theme-aware hairlines), then
+ * a wide framed photo that fades into the page where SpecSheet overlaps it.
+ */
+
+@layer components {
+  .hero {
+    position: relative;
+    isolation: isolate;
+    padding-top: 3rem;
+  }
+
+  .grid {
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: -1;
+    height: 38rem;
+    pointer-events: none;
+    background-image:
+      linear-gradient(var(--listaso-border-subtle) 1px, transparent 1px),
+      linear-gradient(90deg, var(--listaso-border-subtle) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(ellipse 60% 70% at 30% 30%, #000 10%, transparent 70%);
+    opacity: 0.6;
+  }
+
+  .head {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .headTitle {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .headAside {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .frame {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-xl);
+    background: var(--listaso-surface-soft);
+  }
+
+  /* Navy wash on the left and a fade at the bottom for the overlapping sheet. */
+  .frameShade {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      linear-gradient(0deg, rgb(4 22 42 / 0.55) 0%, transparent 45%),
+      linear-gradient(90deg, rgb(4 22 42 / 0.45) 0%, transparent 55%);
+  }
+
+  @media (min-width: 40rem) {
+    .frame {
+      aspect-ratio: 16 / 9;
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .hero {
+      padding-top: 5rem;
+    }
+
+    .head {
+      grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+      align-items: end;
+      gap: 4rem;
+    }
+
+    .headAside {
+      padding-left: 2.5rem;
+      border-left: 1px solid var(--listaso-border-subtle);
+    }
+
+    .frame {
+      aspect-ratio: 21 / 9;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .grid {
+      display: none;
+    }
+  }
+}

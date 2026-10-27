@@ -1,0 +1,284 @@
+/*
+ * SAMI examples: a SAMI atmosphere (glows + dot grid), a halo behind the
+ * sticky conversation, and the questions as prompt cards. On hover/focus a
+ * card's gradient border lights up, a caret blinks after the question and
+ * the sparkle becomes a send arrow. No loops at rest.
+ */
+
+@layer components {
+  .section {
+    position: relative;
+    isolation: isolate;
+    overflow-x: clip;
+  }
+
+  .atmosphere {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .atmosphere::before,
+  .atmosphere::after {
+    position: absolute;
+    width: 40rem;
+    height: 40rem;
+    border-radius: 50%;
+    content: "";
+    filter: blur(20px);
+  }
+
+  .atmosphere::before {
+    top: -12rem;
+    left: -10rem;
+    background: radial-gradient(closest-side, rgb(102 220 212 / 0.16), transparent);
+  }
+
+  .atmosphere::after {
+    right: -12rem;
+    bottom: -14rem;
+    background: radial-gradient(closest-side, rgb(176 72 255 / 0.14), transparent);
+  }
+
+  .dots {
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1.5px);
+    background-size: 24px 24px;
+    mask-image: radial-gradient(ellipse 60% 60% at 70% 40%, #000 20%, transparent 75%);
+  }
+
+  .stage {
+    position: relative;
+  }
+
+  .stageCurrent {
+    position: relative;
+    z-index: 1;
+    animation: conversation-enter 300ms var(--listaso-ease-enter) both;
+  }
+
+  .stagePrevious {
+    position: absolute;
+    z-index: 2;
+    inset: 0;
+    pointer-events: none;
+    animation: conversation-exit 300ms var(--listaso-ease-exit) both;
+  }
+
+  @keyframes conversation-enter {
+    from { opacity: 0.65; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+  }
+
+  @keyframes conversation-exit {
+    from { opacity: 1; transform: none; }
+    to { opacity: 0; transform: translateY(-6px); }
+  }
+
+  /* Soft halo behind the conversation. */
+  .stage::before {
+    position: absolute;
+    inset: 8% -4% -6%;
+    z-index: -1;
+    border-radius: 2rem;
+    background: conic-gradient(from 200deg, rgb(102 220 212 / 0.28), rgb(77 141 255 / 0.24), rgb(176 72 255 / 0.22), rgb(102 220 212 / 0.28));
+    content: "";
+    filter: blur(48px);
+    opacity: 0.7;
+  }
+
+  .prompts {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .promptItem {
+    display: flex;
+  }
+
+  .prompt {
+    --edge: var(--listaso-border-subtle);
+
+    position: relative;
+    display: grid;
+    width: 100%;
+    min-height: 4.5rem;
+    grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.125rem 1.25rem;
+    border: 1px solid transparent;
+    border-radius: var(--listaso-radius-lg);
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    background:
+      linear-gradient(var(--listaso-surface-raised), var(--listaso-surface-raised)) padding-box,
+      linear-gradient(var(--edge), var(--edge)) border-box;
+    cursor: pointer;
+    transition:
+      transform var(--listaso-duration-standard) var(--listaso-ease-standard),
+      box-shadow var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .prompt:hover,
+  .prompt[data-active="true"] {
+    background:
+      linear-gradient(var(--listaso-surface-raised), var(--listaso-surface-raised)) padding-box,
+      linear-gradient(110deg, #66dcd4, #4d8dff 50%, #b048ff) border-box;
+    box-shadow: 0 16px 40px rgb(0 0 0 / 0.3);
+    transform: translateY(-2px);
+  }
+
+  .prompt:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 3px;
+  }
+
+  .index {
+    color: var(--listaso-text-accent);
+    font-size: var(--text-small);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .question {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-h4);
+    font-weight: 600;
+    line-height: var(--text-h4--line-height);
+  }
+
+  /* Typing caret after the question, only on hover. */
+  .caret {
+    display: inline-block;
+    width: 2px;
+    height: 1.1em;
+    margin-left: 0.25rem;
+    vertical-align: -0.15em;
+    background: var(--listaso-text-accent);
+    opacity: 0;
+  }
+
+  .prompt:hover .caret,
+  .prompt:focus-visible .caret {
+    animation: caret-blink 1s steps(1) infinite;
+  }
+
+  @keyframes caret-blink {
+    0%,
+    100% {
+      opacity: 1;
+    }
+
+    50% {
+      opacity: 0;
+    }
+  }
+
+  /* Sparkle → send arrow. */
+  .action {
+    position: relative;
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border-radius: 50%;
+    background: var(--listaso-surface-soft);
+    color: var(--listaso-icon-accent);
+    transition:
+      background-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      color var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  .action > span {
+    position: absolute;
+    display: grid;
+    transition:
+      opacity var(--listaso-duration-standard) var(--listaso-ease-standard),
+      transform 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .send {
+    opacity: 0;
+    transform: translateY(8px) scale(0.6);
+  }
+
+  .prompt:hover .action,
+  .prompt[data-active="true"] .action {
+    background: #0ab3a1;
+    color: #ffffff;
+  }
+
+  .prompt:hover .sparkle,
+  .prompt[data-active="true"] .sparkle {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.6);
+  }
+
+  .prompt:hover .send,
+  .prompt[data-active="true"] .send {
+    opacity: 1;
+    transform: none;
+  }
+
+  @media (max-width: 39.99rem) {
+    .prompt {
+      grid-template-columns: 1.75rem minmax(0, 1fr) auto;
+      gap: 0.75rem;
+      padding: 1rem;
+    }
+
+    .question {
+      font-size: var(--text-body-lg);
+      line-height: var(--text-body-lg--line-height);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .stageCurrent { animation: none; }
+    .stagePrevious { display: none; }
+  }
+
+  @media (min-width: 64rem) {
+    .prompt {
+      padding: 1.25rem 1.5rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .prompt,
+    .action,
+    .action > span {
+      transition: none;
+    }
+
+    .prompt:hover {
+      transform: none;
+    }
+
+    .prompt:hover .caret {
+      animation: none;
+      opacity: 1;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .atmosphere,
+    .stage::before {
+      display: none;
+    }
+
+    .prompt {
+      border: 1px solid CanvasText;
+    }
+  }
+}

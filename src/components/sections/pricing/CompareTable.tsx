@@ -1,10 +1,16 @@
+import type { CSSProperties } from "react";
 import { Icon } from "@/components/icons/Icon";
 import { Container } from "@/components/layout/Container";
-import { board, compare, type Availability } from "@/content/pricing/plans";
+import { board, compare, type Availability, type CompareGroup } from "@/content/pricing/plans";
 import { cx } from "@/lib/utils/cx";
 import { ProductSection } from "../product/ProductSection";
 import { DossierHeader } from "../variants/DossierHeader";
 import dossier from "../variants/dossier.module.css";
+import styles from "./CompareTable.module.css";
+
+/** Share of a group's rows included in a plan (0–1). */
+const groupCoverage = (group: CompareGroup, plan: number) =>
+  Number((group.rows.filter((row) => row.plans[plan] === "y").length / group.rows.length).toFixed(3));
 
 function Mark({ value }: { value: Availability }) {
   if (value === "y") {
@@ -32,6 +38,9 @@ function Mark({ value }: { value: Availability }) {
  * Plan comparison (start-version COMPARE): one semantic table with a group
  * header per app. On desktop the plan header sticks under the site header;
  * on small screens the table scrolls sideways with the feature column fixed.
+ * Each app row shows a meter per plan (share of its features included) that
+ * fills as it scrolls in; hovering a cell highlights its row and plan column,
+ * and the featured plan's column stays tinted.
  */
 export function CompareTable() {
   const titleId = `${compare.id}-title`;
@@ -63,7 +72,7 @@ export function CompareTable() {
           tabIndex={0}
           className="relative overflow-x-auto border-2 border-fg-heading bg-surface-page focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-focus lg:overflow-visible"
         >
-          <table className="w-full min-w-[34rem] border-collapse text-left">
+          <table className={cx(styles.table, "w-full min-w-[34rem] border-collapse text-left")}>
             <caption className="sr-only">
               {compare.title.emphasis} {compare.title.rest}
             </caption>
@@ -96,19 +105,23 @@ export function CompareTable() {
             </thead>
             {compare.groups.map((group) => (
               <tbody key={group.group}>
-                <tr>
-                  <th
-                    scope="rowgroup"
-                    colSpan={compare.columns.length + 1}
-                    className="border-t-2 border-fg-heading bg-surface-soft px-4 py-3 text-left sm:px-6"
-                  >
-                    <span className={cx(dossier.bracket, "sticky left-4 text-small font-bold tracking-widest text-fg-heading uppercase")}>
+                <tr className={styles.groupRow}>
+                  <th scope="rowgroup" className="sticky left-0 z-[1] border-t-2 border-fg-heading bg-surface-soft px-4 py-3 text-left sm:px-6">
+                    <span className={cx(dossier.bracket, "text-small font-bold tracking-widest text-fg-heading uppercase")}>
                       {group.group}
                     </span>
                   </th>
+                  {compare.columns.map((column, index) => (
+                    <td key={column.name} className="border-t-2 border-fg-heading bg-surface-soft px-3 py-3">
+                      {/* Share of this app's rows included in the plan (decorative). */}
+                      <span aria-hidden="true" className={styles.groupMeter}>
+                        <span className={styles.groupMeterFill} style={{ "--cover": groupCoverage(group, index) } as CSSProperties} />
+                      </span>
+                    </td>
+                  ))}
                 </tr>
                 {group.rows.map((row) => (
-                  <tr key={row.feature} className="border-t border-line-subtle">
+                  <tr key={row.feature} className={cx(styles.row, "border-t border-line-subtle")}>
                     <th
                       scope="row"
                       className="sticky left-0 z-[1] bg-surface-page px-4 py-3 text-body font-normal text-fg-default sm:px-6"

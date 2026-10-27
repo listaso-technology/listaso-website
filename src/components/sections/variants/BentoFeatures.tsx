@@ -1,16 +1,19 @@
+import type { CSSProperties } from "react";
 import { Icon } from "@/components/icons/Icon";
 import { Container } from "@/components/layout/Container";
 import type { Feature, FeatureSection } from "@/content/products/types";
 import { cx } from "@/lib/utils/cx";
-import backdrops from "../backdrops.module.css";
+import { ProofGrid } from "../home/ProofGrid";
 import { ProductSection } from "../product/ProductSection";
+import { proofTone } from "../proofTones";
 import { SectionHeader } from "../SectionHeader";
+import styles from "./BentoFeatures.module.css";
 import { FillPhoto, type AnyPhoto } from "./HeroParts";
+import { SamiBrandText } from "../product/sami/SamiBrandText";
 
 /*
  * Cell spans on a 6-column desktop grid, per item count, so every row is
- * full. Photo cells take the large spans so the copy over them has room and
- * a strong scrim.
+ * full. Photo cells take the large spans so the copy over them has room.
  */
 const LAYOUTS: Record<number, readonly string[]> = {
   3: ["lg:col-span-2", "lg:col-span-2", "lg:col-span-2"],
@@ -45,73 +48,86 @@ const PHOTO_CELLS: Record<number, readonly number[]> = { 3: [], 4: [], 6: [0], 8
 type BentoFeaturesProps = {
   id: string;
   section: FeatureSection;
-  /** Photos placed behind the first cells, in order. */
+  /** Photos placed behind the first photo cells, in order. */
   photos?: readonly AnyPhoto[];
   tone?: "page" | "alt";
 };
 
-function Cell({ item, photo, span, index }: { item: Feature; photo?: AnyPhoto; span: string; index: number }) {
+type CellProps = { item: Feature; photo?: AnyPhoto; span: string; index: number };
+
+function Cell({ item, photo, span, index }: CellProps) {
+  const number = String(index + 1).padStart(2, "0");
+  const style = { "--i": index } as CSSProperties;
+
   if (photo) {
     return (
-      <li
-        data-reveal-item
-        data-surface="band"
-        className={cx(
-          "relative flex min-h-80 flex-col justify-end overflow-hidden rounded-lg bg-surface-band p-6 sm:col-span-2 lg:p-8",
-          span,
-        )}
-      >
-        <FillPhoto photo={photo} sizes="(min-width: 1024px) 60vw, 92vw" />
-        <div aria-hidden="true" className={`${backdrops.photoScrim} absolute inset-0`} />
-        {/* Solid navy under the copy (bottom half), so text keeps AA over any photo. */}
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-linear-to-t from-surface-band from-45% via-surface-band/80 via-65% to-transparent"
-        />
-        <div className="relative flex flex-col gap-3">
-          <span className="flex size-12 items-center justify-center rounded-md border border-line-subtle text-icon-accent">
-            <Icon name={item.icon} size={24} />
+      <li data-reveal-item className={cx(styles.item, "sm:col-span-2", span)} style={style}>
+        <article data-glow-card data-surface="band" className={cx(styles.card, styles.photoCard)}>
+          <div aria-hidden="true" className={styles.photoLayer}>
+            <FillPhoto photo={photo} sizes="(min-width: 1024px) 60vw, 92vw" />
+          </div>
+          <span aria-hidden="true" className={styles.photoScrim} />
+          <span aria-hidden="true" className={styles.spotlight} />
+          <span aria-hidden="true" className={styles.numberPill}>
+            {number}
           </span>
-          <h3 className="text-h3 font-semibold text-fg-heading">{item.title}</h3>
-          <p className="max-w-md text-body-lg text-fg-muted">{item.text}</p>
-        </div>
+          <div className={styles.photoCopy}>
+            <span className={styles.photoChip}>
+              <Icon name={item.icon} size={24} />
+            </span>
+            <h3 className={styles.photoTitle}><SamiBrandText text={item.title} /></h3>
+            <p className={styles.photoText}><SamiBrandText text={item.text} /></p>
+          </div>
+        </article>
       </li>
     );
   }
 
   return (
-    <li
-      data-reveal-item
-      className={cx(
-        "group relative flex min-h-56 flex-col justify-between gap-8 overflow-hidden rounded-lg border border-line-subtle bg-surface-raised p-6",
-        span,
-      )}
-    >
-      <span className="flex items-center justify-between">
-        <span className="flex size-12 items-center justify-center rounded-md bg-surface-soft text-icon-accent transition-transform duration-(--listaso-duration-standard) motion-safe:group-hover:-rotate-6">
-          <Icon name={item.icon} size={24} />
+    <li data-reveal-item className={cx(styles.item, span)} style={style}>
+      <article data-glow-card data-tone={proofTone(index)} className={styles.card}>
+        <span aria-hidden="true" className={styles.spotlight} />
+        <span aria-hidden="true" className={styles.watermark}>
+          <Icon name={item.icon} size={48} />
         </span>
-        <span aria-hidden="true" className="text-small font-bold text-fg-accent">
-          {String(index + 1).padStart(2, "0")}
+        <span className={styles.cardTop}>
+          <span className={styles.chip}>
+            <Icon name={item.icon} size={24} />
+          </span>
+          <span aria-hidden="true" className={styles.number}>
+            {number}
+          </span>
         </span>
-      </span>
-      <span className="flex flex-col gap-2">
-        <h3 className="text-h4 font-semibold text-fg-heading">{item.title}</h3>
-        <p className="text-body text-fg-muted">{item.text}</p>
-      </span>
+        <span className={styles.cardCopy}>
+            <h3 className={styles.title}><SamiBrandText text={item.title} /></h3>
+            <p className={styles.text}><SamiBrandText text={item.text} /></p>
+        </span>
+      </article>
     </li>
   );
 }
 
-/** Feature bento (Stavros Symeonidis): mixed cell sizes, photos in the large cells. */
+/**
+ * Feature bento shared by Products, Integrations and SAMI pages; each page
+ * passes its own copy and photos. Mixed cell sizes with photos in the large
+ * cells. With a mouse, cards tilt slightly toward the pointer, a spotlight and
+ * border glow follow it, the icon watermark drifts (parallax) and photos zoom.
+ * Touch, keyboard and reduced motion get the static layout.
+ */
 export function BentoFeatures({ id, section, photos = [], tone }: BentoFeaturesProps) {
+  const count = section.items.length;
+
   return (
-    <ProductSection labelledBy={id} tone={tone}>
-      <Container width="wide" className="flex flex-col gap-12">
+    <ProductSection labelledBy={id} tone={tone} className={styles.section}>
+      <span aria-hidden="true" className={styles.pattern} />
+      <Container width="wide" className="relative flex flex-col gap-12">
         <SectionHeader id={id} eyebrow={section.eyebrow} title={section.title} lead={section.lead} />
-        <ul data-reveal="group" className="grid auto-rows-auto gap-4 sm:grid-cols-2 lg:grid-cols-6">
+        <ProofGrid
+          data-reveal="group"
+          cardSelector="[data-glow-card]"
+          className={cx(styles.grid, "grid auto-rows-auto gap-4 sm:grid-cols-2 lg:grid-cols-6")}
+        >
           {section.items.map((item, index) => {
-            const count = section.items.length;
             const photoSlot = (PHOTO_CELLS[count] ?? []).indexOf(index);
             return (
               <Cell
@@ -123,7 +139,7 @@ export function BentoFeatures({ id, section, photos = [], tone }: BentoFeaturesP
               />
             );
           })}
-        </ul>
+        </ProofGrid>
       </Container>
     </ProductSection>
   );

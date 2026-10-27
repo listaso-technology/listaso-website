@@ -1,0 +1,449 @@
+/*
+ * Back Office "Better decisions": header, checks and CTA on the left; an
+ * illustrative Back Office window on the right (light product UI in both
+ * themes): sidebar icons, the week's sales chart and the order pipeline.
+ * Reveal (once): bars grow, order cards drop in sequence, a pulse runs along
+ * the column arrows, the truck lights up. Hovering a check highlights the
+ * part of the window it describes (data-focus).
+ */
+
+@layer components {
+  .section {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .glow {
+    position: absolute;
+    top: 10%;
+    right: -10%;
+    z-index: -1;
+    width: 60%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, color-mix(in srgb, var(--listaso-text-accent) 12%, transparent), transparent 65%);
+    pointer-events: none;
+  }
+
+  .layout {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  .console {
+    display: grid;
+    gap: 2.5rem;
+  }
+
+  /* --- Checks ----------------------------------------------------------- */
+
+  .checks {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .check {
+    display: flex;
+    align-items: center;
+    gap: 0.875rem;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-md);
+    background: var(--listaso-surface-raised);
+    color: var(--listaso-text-default);
+    font-size: var(--text-body);
+    font-weight: 500;
+    line-height: var(--text-body--line-height);
+    transition:
+      border-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      background-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      transform var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .checkIcon {
+    display: grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    flex-shrink: 0;
+    place-items: center;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--listaso-text-accent) 14%, transparent);
+    color: var(--listaso-icon-accent);
+    transition:
+      background-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      color var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .checkFocus {
+    border-color: color-mix(in srgb, var(--listaso-text-accent) 55%, var(--listaso-border-subtle));
+    background: color-mix(in srgb, var(--listaso-text-accent) 6%, var(--listaso-surface-raised));
+  }
+
+  .checkFocus .checkIcon {
+    background: var(--listaso-text-accent);
+    color: var(--listaso-surface-page);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .checkFocus {
+      transform: translateX(4px);
+    }
+  }
+
+  /* --- Window (light product UI) ----------------------------------------- */
+
+  .window {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-xl);
+    background: var(--listaso-surface-raised);
+    box-shadow: var(--listaso-shadow-e3);
+  }
+
+  .windowBar {
+    display: flex;
+    gap: 0.375rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid var(--listaso-border-subtle);
+    background: var(--listaso-surface-alt);
+  }
+
+  .windowBar > span {
+    width: 0.625rem;
+    height: 0.625rem;
+    border-radius: 50%;
+    background: var(--listaso-border-control);
+    opacity: 0.5;
+  }
+
+  .windowBar > span:first-child {
+    background: var(--listaso-action-primary);
+    opacity: 0.8;
+  }
+
+  .windowBody {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+
+  .nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem 0.625rem;
+    border-right: 1px solid var(--listaso-border-subtle);
+    background: var(--listaso-surface-alt);
+  }
+
+  .navItem {
+    display: grid;
+    width: 2.5rem;
+    height: 2.5rem;
+    place-items: center;
+    border-radius: var(--listaso-radius-sm);
+    color: var(--listaso-text-muted);
+    transition:
+      background-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      box-shadow var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .main {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+
+  /* Highlight driven by the hovered check. */
+  .window[data-focus="chart"] .navItem[data-zone="chart"],
+  .window[data-focus="pipeline"] .navItem[data-zone="pipeline"],
+  .window[data-focus="inventory"] .navItem[data-zone="inventory"],
+  .window[data-focus="invoices"] .navItem[data-zone="invoices"] {
+    background: var(--listaso-text-heading);
+    color: var(--listaso-surface-raised);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--listaso-text-heading) 15%, transparent);
+  }
+
+  .window[data-focus="chart"] .chart,
+  .window[data-focus="pipeline"] .pipeline {
+    border-color: var(--listaso-text-accent);
+    box-shadow: 0 0 0 4px color-mix(in srgb, var(--listaso-text-accent) 18%, transparent);
+  }
+
+  .window[data-focus="inventory"] .main,
+  .window[data-focus="invoices"] .main {
+    opacity: 0.55;
+  }
+
+  .main {
+    transition: opacity var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  /* --- Chart ------------------------------------------------------------- */
+
+  .chart,
+  .pipeline {
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-md);
+    transition:
+      border-color var(--listaso-duration-slow) var(--listaso-ease-standard),
+      box-shadow var(--listaso-duration-slow) var(--listaso-ease-standard);
+  }
+
+  .chart {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+  }
+
+  .chartHead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .chartTitle {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-body);
+    font-weight: 700;
+  }
+
+  .chartPeriod {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-caption);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .bars {
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    gap: 0.75rem;
+    height: 7rem;
+  }
+
+  .barCol {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 0.375rem;
+  }
+
+  .bar {
+    height: var(--h);
+    border-radius: 6px 6px 2px 2px;
+    background: linear-gradient(180deg, var(--listaso-text-heading), color-mix(in srgb, var(--listaso-text-heading) 55%, transparent));
+    transform-origin: bottom;
+    transition: transform 800ms cubic-bezier(0.32, 0.72, 0, 1) calc(var(--i) * 70ms);
+  }
+
+  .barCol:last-child .bar,
+  .barCol:nth-child(5) .bar {
+    background: linear-gradient(180deg, var(--listaso-text-accent), color-mix(in srgb, var(--listaso-text-accent) 50%, transparent));
+  }
+
+  .barDay {
+    color: var(--listaso-text-muted);
+    font-size: var(--text-caption);
+    font-weight: 600;
+    text-align: center;
+  }
+
+  /* --- Pipeline ------------------------------------------------------------ */
+
+  .pipeline {
+    display: grid;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    background: var(--listaso-surface-alt);
+  }
+
+  .column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .columnHead {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    padding: 0.25rem 0.25rem 0.125rem;
+    color: var(--listaso-text-heading);
+    font-size: var(--text-small);
+    font-weight: 700;
+  }
+
+  .flow {
+    position: relative;
+    display: grid;
+    color: var(--listaso-text-muted);
+  }
+
+  .truck {
+    display: grid;
+    width: 1.75rem;
+    height: 1.75rem;
+    place-items: center;
+    border-radius: 50%;
+    background: color-mix(in srgb, var(--listaso-text-accent) 14%, transparent);
+    color: var(--listaso-icon-accent);
+    transition:
+      background-color 400ms var(--listaso-ease-standard) 1300ms,
+      color 400ms var(--listaso-ease-standard) 1300ms,
+      transform 500ms cubic-bezier(0.34, 1.56, 0.64, 1) 1300ms;
+  }
+
+  .order {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    padding: 0.625rem 0.75rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-sm);
+    background: var(--listaso-surface-raised);
+    box-shadow: var(--listaso-shadow-e1);
+    transition:
+      opacity 500ms var(--listaso-ease-enter) calc(250ms + var(--i) * 220ms),
+      transform 600ms cubic-bezier(0.34, 1.4, 0.64, 1) calc(250ms + var(--i) * 220ms);
+  }
+
+  .orderName {
+    color: var(--listaso-text-heading);
+    font-size: var(--text-small);
+    font-weight: 600;
+    line-height: var(--text-small--line-height);
+  }
+
+  .orderMeta {
+    display: flex;
+    align-items: center;
+    gap: 0.375rem;
+    color: var(--listaso-text-muted);
+  }
+
+  .orderLine {
+    width: 3rem;
+    height: 0.375rem;
+    border-radius: 999px;
+    background: var(--listaso-surface-soft);
+  }
+
+  /* Played (final) state: truck lit. */
+  .window[data-played] .truck {
+    background: var(--listaso-text-accent);
+    color: var(--listaso-surface-raised);
+    transform: scale(1.12);
+  }
+
+  /* Start state, only while waiting to play. */
+  .window:not([data-played]) .bar {
+    transform: scaleY(0);
+  }
+
+  .window:not([data-played]) .order {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+
+  /* A pulse runs along each arrow once after its column fills. */
+  @media (prefers-reduced-motion: no-preference) {
+    .window[data-played] .flow {
+      animation: flow-pulse 700ms var(--listaso-ease-standard) calc(600ms + var(--i) * 450ms) 1 both;
+    }
+  }
+
+  @keyframes flow-pulse {
+    0% {
+      color: var(--listaso-text-muted);
+      transform: translateX(0);
+    }
+
+    50% {
+      color: var(--listaso-text-accent);
+      transform: translateX(5px);
+    }
+
+    100% {
+      color: var(--listaso-text-muted);
+      transform: translateX(0);
+    }
+  }
+
+  /* --- Layout ---------------------------------------------------------------- */
+
+  @media (min-width: 40rem) {
+    .pipeline {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 64rem) {
+    /* Header, checks, CTA | window across both rows. */
+    .layout {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      grid-template-rows: auto auto 1fr;
+      column-gap: 4rem;
+      row-gap: 2rem;
+    }
+
+    .console {
+      display: contents;
+    }
+
+    .checks {
+      grid-column: 1;
+    }
+
+    .window {
+      grid-column: 2;
+      grid-row: 1 / span 3;
+      align-self: center;
+    }
+
+    .cta {
+      grid-column: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bar,
+    .order,
+    .truck,
+    .check,
+    .main {
+      transition: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .glow {
+      display: none;
+    }
+
+    .window,
+    .check,
+    .chart,
+    .pipeline {
+      border: 1px solid CanvasText;
+    }
+
+    .bar {
+      background: CanvasText;
+    }
+  }
+}

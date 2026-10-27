@@ -1,6 +1,7 @@
 import type { SignatureText } from "@/content/home/en";
 import { cx } from "@/lib/utils/cx";
 import { Signature } from "./Signature";
+import { SamiBrandText } from "./product/sami/SamiBrandText";
 
 type SectionHeaderProps = {
   /** id of the h2, referenced by the section's aria-labelledby. */
@@ -17,7 +18,7 @@ export function SectionHeader({ id, eyebrow, title, lead, className }: SectionHe
     <div data-reveal="group" className={cx("flex max-w-3xl flex-col gap-4", className)}>
       {eyebrow ? (
         <p data-reveal-item className="text-eyebrow font-bold uppercase text-fg-accent">
-          {eyebrow}
+          <SamiBrandText text={eyebrow} />
         </p>
       ) : null}
       <h2 id={id} data-reveal="mask" className="overflow-hidden text-h2 text-balance text-fg-heading">
@@ -27,7 +28,7 @@ export function SectionHeader({ id, eyebrow, title, lead, className }: SectionHe
       </h2>
       {lead ? (
         <p data-reveal-item className="text-lead text-fg-muted">
-          {lead}
+          <SamiBrandText text={lead} />
         </p>
       ) : null}
     </div>
