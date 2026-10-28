@@ -137,6 +137,12 @@ Leyenda: `T+D` = título SEO y meta description; `s` = sesiones; `c` = clics; `i
 | `https://listaso.com/sami/` | EN / Página | start-version; assets locales | canonical+hreflang en referencia | — | Nueva propuesta; no indexar aún | Aprobar ruta, copy y propósito |
 | `https://listaso.com/support/` | EN / Página | start-version; assets locales | canonical+hreflang en referencia | — | Nueva página aprobada; implementar después | Añadir al dropdown Empresa |
 
+## Hub EN solicitado después del inventario inicial
+
+| URL canónica | Idioma / tipo | Copy y assets | Metadata / SEO | Analytics 68 días | Estado y destino | Pregunta pendiente |
+| --- | --- | --- | --- | --- | --- | --- |
+| `https://listaso.com/products/` | EN / Hub nuevo | Copy editorial y marcos de media en `docs/PRODUCTS_HUB_CONTENT_CONTRACT.md` | canonical; `noindex` | Sin baseline: ruta nueva | Implementado en `dev`; mantener slug y nueve destinos de producto | Aprobar copy, asociaciones con apps e indexación |
+
 ## Rutas nuevas ES presentes en start-version
 
 | URL canónica | Idioma / tipo | Copy y assets | Metadata / SEO | Analytics 68 días | Estado y destino | Pregunta pendiente |

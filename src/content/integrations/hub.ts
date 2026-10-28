@@ -68,3 +68,10 @@ export const alsoSection: SectionCopy & {
     },
   ],
 };
+
+export const productsBridge = {
+  eyebrow: "Explore Listaso",
+  title: { emphasis: "See the products", rest: "behind the workflow" },
+  lead: "Explore the tools your sales team, warehouse, drivers, customers and office use alongside your accounting system.",
+  cta: "Explore all products",
+} as const;

@@ -1,8 +1,49 @@
 # Estado de trabajo
 
-**Actualizado:** 26 de octubre de 2026
+**Actualizado:** 28 de octubre de 2026
+
+## Entrega a dev — 28 de octubre de 2026
+
+Erick autorizó guardar y subir todos los cambios locales a `dev`. El checkpoint
+incluye el hub Products, enlaces con Integrations y navegación, sincronización
+del widget SAMI y el brief interno de privacidad con su handoff.
+
+Validaciones de esta entrega: `pnpm lint`, `pnpm typecheck`,
+`pnpm build --webpack` (41 rutas) y `git diff --check` pasan. La primera
+compilación terminó con un aviso de vulnerabilidad conocida en Next.js 16.4.0;
+la repetición finalizó correctamente y conserva el aviso. Queda pendiente
+actualizar la dependencia y repetir las validaciones en un alcance separado.
+Los pendientes editoriales y de QA previamente documentados siguen vigentes.
 
 ## Tarea cerrada
+
+### Hubs Products e Integrations (Codex, `dev`, sin commit, 27 de octubre de 2026)
+
+Creado `/products/` como índice de nueve productos con hero vectorial SVG,
+selector accesible, panel lateral en escritorio y detalle bajo la selección en
+móvil. El marco 8:5 de cada producto queda definido para Diseño. Se enlazaron
+las apps oficiales pertinentes en App Store y Google Play; Listaso Advanced
+aparece por separado y Customer Order Catalog queda fuera por DEC-012. El menú,
+footer y páginas de error enlazan al nuevo hub. `/integrations/` añade regreso
+a Products. La navegación final entre productos conserva sus nueve pasos.
+
+Validaciones: lint, typecheck, build webpack y `git diff --check` pasan. El
+export contiene 41 rutas, incluida `/products/`, con canonical y `noindex`.
+Revisión local: 390 px claro, 1440 px oscuro, selección de Inventory y sin
+overflow a 320/768 px; cero errores de consola. Pendientes: aprobación editorial
+del copy y asociaciones app-producto, reemplazo de medios por Diseño y QA en
+dispositivo real con movimiento reducido. Ver
+`docs/PRODUCTS_HUB_CONTENT_CONTRACT.md`. Archivos reservados: ninguno
+(liberados).
+
+### SAMI: widget de WordPress sincronizado con la página (Claude, `dev`, sin commit, 27 de octubre de 2026)
+
+Regenerado desde `/sami/`: nuevas insignias del hero ("Your Listaso AI Assistant",
+"Customer Only", "+30 languages", "+100 prompts"), datos de ejemplo del chat
+(Customer 1/2/3), onboarding $299 y hero sin la espiral. Portado `data-intro` de
+SamiLogoMark (el texto del hero espera al video de entrada, con respaldo de 6 s;
+sin `SAMI_VIDEO_URL` no se oculta nada). Alturas idénticas a la página a 1440 px.
+Sin cambios en `src/`.
 
 ### SAMI: corrección visual del chip de precio y lead del hero (Codex, `dev`, sin commit, 26 de octubre de 2026)
 
