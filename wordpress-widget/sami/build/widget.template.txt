@@ -196,7 +196,14 @@
     var inViewM = false, hovered = false, playing = false;
     var unavailable = !video || !videoSrc || !video.canPlayType(VIDEO_TYPE);
     var introComplete = unavailable, frame = 0, last = 0, angle = 0, velocity = 0;
-    var autoTarget = unavailable ? 360 : null, returning = null;
+    var autoTarget = unavailable ? 360 : null, returning = null, introFallback = 0;
+
+    // The hero text waits for the entrance video (CSS keys on data-intro), with a 6 s safety net.
+    function revealText() { window.clearTimeout(introFallback); mark.setAttribute("data-intro", "complete"); }
+    if (!unavailable && !reduced.matches) {
+      mark.setAttribute("data-intro", "pending");
+      introFallback = window.setTimeout(revealText, 6000);
+    }
 
     function canPlay() { return !unavailable && !reduced.matches && !document.hidden && inViewM; }
     function shouldRotate() {
@@ -245,7 +252,7 @@
     function settle(completed) {
       if (video) video.pause();
       playing = false;
-      if (completed) { introComplete = true; autoTarget = Math.round(angle / 360) * 360 + 360; }
+      if (completed) { revealText(); introComplete = true; autoTarget = Math.round(angle / 360) * 360 + 360; }
       mark.setAttribute("data-playing", "false");
       syncRotation();
     }

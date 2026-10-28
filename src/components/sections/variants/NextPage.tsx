@@ -25,7 +25,9 @@ type NextPageProps = {
  */
 export function NextPage({ group, current }: NextPageProps) {
   const links = (mainNav.find((entry): entry is NavGroup => "links" in entry && entry.label === group)?.links ?? []).filter(
-    (link: NavLink) => link.href.startsWith("/") && (group !== "Company" || companyPages.includes(link.href)),
+    (link: NavLink) => link.href.startsWith("/") &&
+      (group !== "Company" || companyPages.includes(link.href)) &&
+      (group !== "Products" || link.href !== "/products/"),
   );
   const index = links.findIndex((link) => link.href === current);
   if (index < 0 || links.length < 2) return null;

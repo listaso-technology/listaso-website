@@ -25,7 +25,7 @@ export const stateLabels = {
 
 export const suggestedLinks = [
   { href: "/", label: "Home", description: "Start from the beginning" },
-  { href: "/pre-sales/", label: "Products", description: "See what Listaso does" },
+  { href: "/products/", label: "Products", description: "See what Listaso does" },
   { href: "/plans/", label: "Plans", description: "Compare pricing" },
   { href: "/support/", label: "Support", description: "Get help from our team" },
 ] as const;

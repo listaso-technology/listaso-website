@@ -1,5 +1,18 @@
 # Arquitectura actual
 
+## Actualización: hubs Products e Integrations (27 de octubre de 2026)
+
+`/products/` es un nuevo índice EN de las nueve páginas de producto. Su copy
+está separado en `src/content/products/hub.ts`; el explorador interactivo vive
+en `src/components/sections/products/` y reserva marcos 8:5 para los medios
+definitivos de Diseño. La ruta es estática y sólo el explorador es Client
+Component. El hub existente `/integrations/` enlaza ahora al índice de
+Products. Menú y footer incluyen `All Products`. Ambas rutas siguen `noindex`.
+Ver `docs/PRODUCTS_HUB_CONTENT_CONTRACT.md` para copy, apps y pendientes.
+
+La descripción histórica siguiente refleja el estado de foundation del 9 de
+octubre; `docs/WORKLOG.md` registra las páginas comerciales posteriores.
+
 **Actualizado:** 9 de octubre de 2026
 
 ## Aplicación nueva
