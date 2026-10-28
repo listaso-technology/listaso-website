@@ -52,6 +52,7 @@ export const mainNav: NavEntry[] = [
   {
     label: "Products",
     links: [
+      { href: "/products/", label: "All Products", description: "Explore the Listaso product family" },
       { href: "/pre-sales/", label: "Pre-sales", description: "Take customer orders in the field" },
       { href: "/direct-sales/", label: "Direct store delivery", description: "Sell and create invoices from the truck" },
       { href: "/inventory/", label: "Inventory", description: "Manage stock in warehouses and trucks" },
@@ -91,6 +92,7 @@ export const footerNav: NavGroup[] = [
   {
     label: "Products",
     links: [
+      { href: "/products/", label: "All Products" },
       { href: "/pre-sales/", label: "Pre-sales" },
       { href: "/direct-sales/", label: "Direct store delivery" },
       { href: "/inventory/", label: "Inventory" },

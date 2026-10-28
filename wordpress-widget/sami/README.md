@@ -36,7 +36,7 @@ Sin imágenes externas: logo, fondo y espiral del hero van en base64 (el widget 
 - `build/`: generador. Con `pnpm dev` activo: `node wordpress-widget/sami/build/build-widget.mjs`.
 
 ## Verificado
-Última regeneración: 26 de octubre de 2026 (sobre la página con hero nuevo y formulario de ventas). Alturas de sección idénticas a la página original a 1440 y 375 px (salvo el
+Última regeneración: 27 de octubre de 2026 (sobre la página con hero nuevo y formulario de ventas). Alturas de sección idénticas a la página original a 1440 y 375 px (salvo el
 hero, 76 px menor por quitar el breadcrumb), sin scroll horizontal, probado dentro
 de una página con CSS de tema hostil. Selector de ejemplos y FAQ funcionan; el chat
 avanza y se pausa fuera de pantalla, en pestaña oculta, al pasar el cursor y con

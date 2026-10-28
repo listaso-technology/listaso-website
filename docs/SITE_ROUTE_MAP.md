@@ -55,6 +55,10 @@ canónica con slash.
 Sólo entrarán al sitemap cuando estén completas, tengan canonical y se apruebe
 su indexación.
 
+`/products/` es un hub EN adicional solicitado el 27 de octubre de 2026 para
+reunir las nueve páginas de producto. No sustituye ninguno de sus slugs
+públicos; mantiene `noindex` hasta revisión editorial y aprobación SEO.
+
 ## Español
 
 Publicar `/es/` sólo con navegación y contenido validados, equivalencia uno a
