@@ -1,6 +1,21 @@
 # Estado de trabajo
 
-**Actualizado:** 28 de octubre de 2026
+**Actualizado:** 29 de octubre de 2026
+
+## Tarea cerrada — SAMI: frase de precio (29 de octubre de 2026)
+
+- Responsable: Codex, rama `dev`.
+- Alcance autorizado: cambiar únicamente el chip del hero de `/sami/` de
+  “From $59 a month per team” a “From $59 a month”.
+- Archivos modificados: `src/content/products/sami.ts`,
+  `docs/PRODUCT_CONTENT_CONTRACT.md` y `docs/WORKLOG.md`. Reservas liberadas.
+- Estado: implementado; Erick autorizó commit y push a `dev` el 29 de octubre.
+- Validaciones: lint global, TypeScript (`tsc --noEmit`) y `git diff --check`
+  pasan. Respuesta HTML de `localhost:3000/sami/` confirmada con el texto nuevo
+  y `$59` en negrita. Build y QA visual omitidos por tratarse de la eliminación
+  de dos palabras, sin cambios de markup.
+- Siguiente paso: subir a `dev` y verificar la recepción remota; CI y preview
+  de rama se ejecutan tras el push. Sin promoción a `qa` ni `main`.
 
 ## Entrega a dev — 28 de octubre de 2026
 

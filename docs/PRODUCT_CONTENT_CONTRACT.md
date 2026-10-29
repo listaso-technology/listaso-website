@@ -84,7 +84,7 @@ no enlazan ni descargan archivos. La capacidad de generar reportes Excel y PDF
 ya figura en el copy aprobado de la página.
 
 **Ajustes de copy de SAMI (26 de octubre de 2026, Erick).** El hero muestra
-“From $59 a month per team” y presenta a “SAMI, your Listaso AI Assistant”.
+“From $59 a month” y presenta a “SAMI, your Listaso AI Assistant”.
 La revisión posterior del mismo día cambia el cierre del párrafo a
 “Available in +30 languages”, coloca el precio en un chip blanco y da mayor
 jerarquía a “SAMI has the answers” frente a “Ask your business anything.”.

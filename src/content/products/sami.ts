@@ -22,7 +22,7 @@ export const hero: ProductHeroContent & {
   badge: {},
   title: { emphasis: "Ask your business anything.", rest: "SAMI has the answers" },
   lead: "Meet SAMI, your Listaso AI Assistant. Ask about your sales, customers, inventory and orders in everyday language. Available in +30 languages",
-  price: { prefix: "From", amount: "$59", suffix: "a month per team" },
+  price: { prefix: "From", amount: "$59", suffix: "a month" },
 };
 
 export const heroCtas = {
