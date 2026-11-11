@@ -1,8 +1,9 @@
 # Listaso Website
 
 Next.js, TypeScript and Tailwind foundation for the new Listaso website. The
-legacy implementation remains read-only in `start-version/` while content,
-routes, SEO and integrations are mapped into the new application.
+legacy implementation and WordPress widget are archived outside this repository
+as read-only references. See `docs/CURRENT_ARCHITECTURE.md` for their location
+and the cleanup record.
 
 ## Requirements
 

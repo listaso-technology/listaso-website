@@ -8,7 +8,7 @@ Before editing, check task owner, reserved files, status, risks and next step in
 `docs/WORKLOG.md`. Project Skills are exposed at `.claude/skills`, which points
 to the canonical `.agents/skills`; never create a second copy.
 
-- Treat `start-version/` as read-only evidence.
+- Legacy sources are archived outside this repository (see `docs/CURRENT_ARCHITECTURE.md`); treat them as read-only evidence.
 - Preserve work by Erick and Codex; do not edit the same files concurrently.
 - If reviewing, inspect the actual diff and validation output.
 - Follow the Tailwind/CSS Modules boundary and Server Components default.
