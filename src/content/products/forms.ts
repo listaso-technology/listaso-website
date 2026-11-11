@@ -15,11 +15,11 @@ export const metadata: ProductMetadata = {
 };
 
 export const hero: ProductHeroContent = {
-  breadcrumb: "Forms and surveys",
-  eyebrow: "New · Forms and surveys",
+  breadcrumb: "Forms and Surveys",
+  eyebrow: "New · Forms and Surveys",
   title: { emphasis: "Know what happens", rest: "at every store visit" },
-  lead: "Build your own forms in the Back Office, and your reps fill them in on the tablet during the visit: shelf photos, competitor products, customer feedback and signatures.",
-  plan: "Included in Enterprise 360",
+  lead: "Capture valuable information from every customer visit with customizable forms and surveys. Track shelf conditions, competitor activity, customer feedback directly from the field.",
+  plan: "Included in Enterprise 360 package",
 };
 
 /** Survey as the rep sees it on the tablet (start-version mock). */
@@ -45,14 +45,14 @@ export const howItWorks: SectionCopy & { steps: readonly Step[] } = {
   steps: [
     { title: "Build the form", text: "Pick from 12 question types in the Back Office and save questions to reuse." },
     { title: "Assign it", text: "Choose which customers get it, and make it required before a rep can close the visit." },
-    { title: "Fill it at the visit", text: "Reps see it as one page or step by step, with photos and signature." },
-    { title: "See the results", text: "Every answer appears in Entries, on a map and in charts." },
+    { title: "Fill it at the visit", text: "Reps complete forms on a single page or step by step, including photos or signatures." },
+    { title: "See the results", text: "View every response in Entries, on a map, or through charts." },
   ],
 };
 
 export const questionTypes: SectionCopy & { types: readonly string[] } = {
   eyebrow: "Question types",
-  title: { emphasis: "12 ways", rest: "to ask" },
+  title: { emphasis: "12 question types", rest: "for every kind of visit" },
   types: [
     "Single line",
     "Multi line",
@@ -70,10 +70,10 @@ export const questionTypes: SectionCopy & { types: readonly string[] } = {
 };
 
 export const ideas: FeatureSection = {
-  eyebrow: "Ideas",
-  title: { emphasis: "What distributors", rest: "use forms for" },
+  eyebrow: "USE CASES",
+  title: { emphasis: "Put forms to work", rest: "at every visit" },
   items: [
-    { icon: "photo", title: "Shelf checks", text: "Photos of how your products are displayed, and how many competitor products are next to them." },
+    { icon: "photo", title: "Shelf checks", text: "Capture photos of product displays and monitor competitor presence on the shelves." },
     { icon: "rating", title: "Visit feedback", text: "How the customer rates the visit, what they want to order and when to follow up." },
     { icon: "promotion", title: "Promotion follow-up", text: "Check that promotions are in place, with a photo and the customer's signature." },
   ],

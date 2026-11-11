@@ -12,7 +12,7 @@ import type { ProductSlug, SectionCopy } from "./types";
 
 export const productCtas = {
   demo: { href: externalLinks.demo, label: "Book a Demo" },
-  pricing: { href: "/plans/", label: "See Pricing" },
+  pricing: { href: "/plans/", label: "Pricing" },
 } as const;
 
 export const breadcrumbLabels = {

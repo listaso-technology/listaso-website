@@ -14,6 +14,8 @@ import {
   socialLinks,
 } from "@/content/site/navigation";
 import { Container } from "./Container";
+import { BackOfficeFooterLabel } from "./BackOfficeFooterLabel";
+import { FormsProductLabel } from "./FormsProductLabel";
 import styles from "./SiteFooter.module.css";
 
 /** Site footer, reorganized as an editorial directory and AI starting point. */
@@ -55,7 +57,7 @@ export function SiteFooter() {
                     {group.links.map((link) => (
                       <li key={link.href}>
                         <a href={link.href} className={styles.panelLink}>
-                          <SamiBrandText text={link.label} />
+                          {link.href === "/back-office/" ? <BackOfficeFooterLabel fallback={link.label} /> : link.href === "/forms/" ? <FormsProductLabel fallback={link.label} /> : <SamiBrandText text={link.label} />}
                         </a>
                       </li>
                     ))}

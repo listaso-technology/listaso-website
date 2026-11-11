@@ -17,13 +17,15 @@ type NextPageProps = {
   group: "Products" | "Integrations" | "Company";
   /** Path of the current page, e.g. "/pre-sales/". */
   current: string;
+  /** Page-specific labels; shared navigation remains unchanged. */
+  labelOverrides?: Readonly<Record<string, string>>;
 };
 
 /**
  * Keep the navigation data and route filtering on the server. The small client
  * navigator owns the preview selection and horizontal stepper position.
  */
-export function NextPage({ group, current }: NextPageProps) {
+export function NextPage({ group, current, labelOverrides }: NextPageProps) {
   const links = (mainNav.find((entry): entry is NavGroup => "links" in entry && entry.label === group)?.links ?? []).filter(
     (link: NavLink) => link.href.startsWith("/") &&
       (group !== "Company" || companyPages.includes(link.href)) &&
@@ -32,5 +34,5 @@ export function NextPage({ group, current }: NextPageProps) {
   const index = links.findIndex((link) => link.href === current);
   if (index < 0 || links.length < 2) return null;
 
-  return <NextPageNavigator key={current} group={group} links={links} currentIndex={index} />;
+  return <NextPageNavigator key={current} group={group} links={links.map((link) => ({ ...link, label: labelOverrides?.[link.href] ?? link.label }))} currentIndex={index} />;
 }

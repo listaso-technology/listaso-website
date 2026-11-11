@@ -45,7 +45,7 @@ export function HeroEditorial({ content, icon, location, photo, overlay, trail }
               {content.lead}
             </p>
             <HeroPlan>{content.plan}</HeroPlan>
-            <HeroCtas location={location} />
+            <HeroCtas location={location} secondary={content.secondaryCta} />
           </div>
         </div>
 

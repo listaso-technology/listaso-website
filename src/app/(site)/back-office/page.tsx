@@ -8,6 +8,7 @@ import { BentoFeatures } from "@/components/sections/variants/BentoFeatures";
 import { HeroStatement } from "@/components/sections/variants/HeroStatement";
 import { NextPage } from "@/components/sections/variants/NextPage";
 import { sectionMedia } from "@/content/media/sections";
+import { magnificMedia } from "@/content/media/magnific";
 import { features, hero, metadata as content, related } from "@/content/products/back-office";
 import { pageMetadata } from "@/lib/page-metadata";
 
@@ -27,12 +28,12 @@ export default function BackOfficePage() {
       <BentoFeatures
         id="features-title"
         section={features}
-        photos={[sectionMedia.accountingDesk, sectionMedia.warehouseAerial]}
+        photos={[magnificMedia.warehouseTeamA, magnificMedia.workerTablet]}
       />
       <BetterDecisions />
       <RelatedRail products={related} />
       <IntegrationsBand tone="alt" />
-      <NextPage group="Products" current={content.path} />
+      <NextPage group="Products" current={content.path} labelOverrides={{ "/b2b-ecommerce/": "B2B eCommerce" }} />
       <FinalCta />
       <HomeMotion />
     </>

@@ -18,9 +18,10 @@ export const metadata: ProductMetadata = {
 export const hero: ProductHeroContent = {
   breadcrumb: "Inventory",
   eyebrow: "Inventory app",
-  title: { emphasis: "Know what you have", rest: "in every warehouse and every truck" },
-  lead: "Your warehouse team receives, picks, counts and moves stock from a phone or scanner. No paper lists and no guessing.",
-  plan: "Included from Professional. Lot tracking, multi-bin and truck loading in Enterprise 360.",
+  title: { emphasis: "Know what's in stock", rest: "in every warehouse" },
+  lead: "With Listaso Advanced Inventory App, manage receiving, picking, stock counts, and transfers with greater accuracy, keeping your inventory records aligned with what's actually in your warehouse.",
+  plan: "Included from Professional package. Lot tracking, multi-bin and truck loading included in Enterprise 360 package.",
+  secondaryCta: { href: "#features-title", label: "Explore features" },
 };
 
 /** Illustrative pick list shown over the hero photo. */
@@ -38,24 +39,24 @@ export const pickExample = {
 
 export const features: FeatureSection = {
   eyebrow: "Features",
-  title: { emphasis: "A tidy warehouse", rest: "starts with one app" },
+  title: { emphasis: "An accurate inventory", rest: "starts with a system" },
   items: [
     { icon: "receive", title: "Receive from vendors", text: "Scan products as they arrive. No typing quantities by hand." },
-    { icon: "checklist", title: "Smart order picking", text: "Group or split orders by location to pick faster." },
+    { icon: "checklist", title: "Smart Order Picking", text: "Group or split orders by location to pick faster." },
     { icon: "reorder", title: "Replenishment", text: "Organized picking routes and better use of overstock." },
     { icon: "timeline", title: "Traceability", text: "Know where every product is and how it moved." },
-    { icon: "refresh", title: "Cycle counts", text: "Scheduled counts that take less effort and stay accurate." },
-    { icon: "data-grid", title: "Physical inventory", text: "Keep your records right and your differences small." },
-    { icon: "price", title: "Catch-weight products", text: "Sell and bill by weight, with flexible sales units." },
-    { icon: "box", title: "Pick and pack", text: "Assign products to boxes for faster, accurate orders." },
-    { icon: "print", title: "Custom labels", text: "Print labels in seconds to keep stock organized." },
+    { icon: "refresh", title: "Cycle Counts", text: "Scheduled counts that take less effort and stay accurate." },
+    { icon: "data-grid", title: "Physical Inventory", text: "Keep your records right and your differences small." },
+    { icon: "price", title: "Catch-weight Products", text: "Sell and bill by weight, with flexible sales units." },
+    { icon: "box", title: "Pick and Pack", text: "Assign products to boxes for faster, accurate orders." },
+    { icon: "print", title: "Custom Labels", text: "Print labels in seconds to keep stock organized." },
   ],
 };
 
 export const freshProduct: SectionCopy & { checks: readonly string[] } = {
   eyebrow: "Built for food distribution",
-  title: { emphasis: "Fresh product,", rest: "under control" },
-  lead: "When products expire, you need to know which lot is where and ship the oldest first.",
+  title: { emphasis: "Fresh products,", rest: "under control" },
+  lead: "When products expire, you need to know where each lot is and ship the oldest first.",
   checks: [
     "Lot numbers and expiration dates",
     "Multi-bin storage with stock rotation (FIFO)",

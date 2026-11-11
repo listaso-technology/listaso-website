@@ -8,7 +8,7 @@ import { RelatedRail } from "@/components/sections/product/RelatedRail";
 import { BentoFeatures } from "@/components/sections/variants/BentoFeatures";
 import { NextPage } from "@/components/sections/variants/NextPage";
 import { PixelDivider } from "@/components/sections/variants/PixelDivider";
-import { sectionMedia } from "@/content/media/sections";
+import { magnificMedia } from "@/content/media/magnific";
 import { features, hero, metadata as content, related } from "@/content/products/inventory";
 import { pageMetadata } from "@/lib/page-metadata";
 
@@ -22,7 +22,7 @@ export default function InventoryPage() {
       <BentoFeatures
         id="features-title"
         section={features}
-        photos={[sectionMedia.warehouseRacks, sectionMedia.tabletWarehouse]}
+        photos={[magnificMedia.warehouseInspector, magnificMedia.tabletFactory]}
       />
       <PixelDivider from="page" to="alt" />
       <FreshProduct />

@@ -13,26 +13,27 @@ export const metadata: ProductMetadata = {
 };
 
 export const hero: ProductHeroContent = {
-  breadcrumb: "Custom development",
-  eyebrow: "Custom development",
+  breadcrumb: "Custom Development",
+  eyebrow: "Custom Development",
   title: { emphasis: "Made for the way", rest: "your business works" },
-  lead: "From understanding your needs to designing, building and connecting a solution, we stay with you every step of the way and keep it working as you grow.",
+  lead: "Your business has unique needs. From custom reports and integrations to new features, Listaso builds solutions that enhance your workflows.",
+  secondaryCta: { href: "/plans/", label: "Pricing" },
 };
 
 export const features: FeatureSection = {
   eyebrow: "What we build",
   title: { emphasis: "Features and reports", rest: "that fit your operation" },
   items: [
-    { icon: "report", title: "Custom reports", text: "We pull data from sales, warehouse and delivery to build the report you need." },
-    { icon: "sync", title: "Custom integrations", text: "Connect Listaso to the systems you already use." },
-    { icon: "new", title: "New features", text: "Workflows built for the way your team really works." },
+    { icon: "report", title: "Custom Reports", text: "Get the reports you need using data from your sales, inventory, and delivery operations." },
+    { icon: "sync", title: "Custom Integrations", text: "Connect Listaso to the systems you already use." },
+    { icon: "new", title: "New Features", text: "Workflows built for the way your team really works." },
   ],
 };
 
 export const process: SectionCopy & { steps: readonly Step[] } = {
   eyebrow: "How it works",
   title: { emphasis: "From idea", rest: "to working tool" },
-  lead: "Tell us what you need on a call. We'll give you a plan and a quote before any work starts.",
+  lead: "Tell us what your business needs. We'll outline the solution and provide a quote before development begins.",
   steps: [
     { title: "We listen", text: "We study how your team works and what's missing." },
     { title: "We design", text: "You see and approve the solution before we build it." },

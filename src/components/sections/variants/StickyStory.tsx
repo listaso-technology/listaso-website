@@ -37,7 +37,7 @@ export function StickyStory({ id, copy, steps, tone = "page", mediaFirst = false
     <ProductSection labelledBy={id} tone={tone}>
       <Container className="flex flex-col gap-12">
         <SectionHeader id={id} eyebrow={copy.eyebrow} title={copy.title} lead={copy.lead} />
-        <div id={rootId} className={cx(styles.story, "grid gap-10 lg:grid-cols-2 lg:gap-16")}>
+        <div id={rootId} data-story-root className={cx(styles.story, "grid gap-10 lg:grid-cols-2 lg:gap-16")}>
           <div
             aria-hidden="true"
             className={cx("relative lg:sticky lg:top-28 lg:h-[min(72svh,40rem)]", mediaFirst ? "lg:order-first" : "lg:order-last")}
@@ -74,9 +74,6 @@ export function StickyStory({ id, copy, steps, tone = "page", mediaFirst = false
                   )}
                 </span>
                 <div className="flex flex-col gap-3 pt-2">
-                  <span aria-hidden="true" className="text-small font-bold tracking-widest text-fg-accent uppercase">
-                    {String(index + 1).padStart(2, "0")} / {String(steps.length).padStart(2, "0")}
-                  </span>
                   <h3 className={cx(styles.title, "text-h3 font-semibold text-fg-heading")}>{step.title}</h3>
                   <p className="max-w-lg text-body-lg text-fg-muted">{step.text}</p>
                 </div>

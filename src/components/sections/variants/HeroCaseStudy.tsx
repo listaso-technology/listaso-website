@@ -46,7 +46,7 @@ export function HeroCaseStudy({ content, icon, location, photo, overlay, trail, 
               {content.lead}
             </p>
             <HeroPlan>{content.plan}</HeroPlan>
-            {ctas ? <HeroCtas location={location} /> : null}
+            {ctas ? <HeroCtas location={location} secondary={content.secondaryCta} /> : null}
           </div>
         </div>
       </Container>
