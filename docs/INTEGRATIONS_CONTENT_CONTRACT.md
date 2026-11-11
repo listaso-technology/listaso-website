@@ -179,3 +179,7 @@ de Cloudflare.
 | I7 | ¿Se gestionan permisos para logos de los ERP o se mantienen sólo nombres? |
 | I8 | ¿Vigencia de los modelos de impresoras y requisitos de dispositivos? |
 | I9 | ¿Se añade una nota de marcas registradas al pie legal? |
+
+## Hub Integrations — brief editorial (11 de noviembre de 2026)
+
+Fuente: solicitud directa de Erick en el chat. Sólo `/integrations/`: hero usa “Listaso works with your accounting system, not instead of it. Keep your data connected, reduce manual entry, and avoid duplicate work.” La aclaración usa “Available data and sync directions vary by system. Explore each integration below for details.” Se sustituyen Also por MORE OPTIONS y el título del bloque de hardware por Printers and Scanners. No se cambian enlaces, descripción de hardware, diseño, imágenes, orden, tablas ni afirmaciones en otras secciones o páginas.

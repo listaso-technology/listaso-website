@@ -1,5 +1,12 @@
 # Estado de trabajo
 
+## Vista previa lista — Integrations: cuatro ajustes editoriales (11 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Archivos: `src/content/integrations/hub.ts`, contrato Integrations y esta entrada. Reservas liberadas.
+- Alcance: sólo cuatro cadenas del hub `/integrations/`: descripción contable exacta sin la afirmación de transferencia automática, aclaración de que datos/direcciones varían por sistema, MORE OPTIONS y Printers and Scanners. Diseño, imágenes, orden, enlaces, compatibilidades, metadata y otras páginas conservados.
+- Validación: lint global, typecheck, build webpack (44 rutas) y `git diff --check` pasan. HTML exportado confirma cada reemplazo una sola vez y ausencia de los párrafos antiguos. Navegador oscuro: 320/375/768/1440 px sin desbordamiento horizontal ni cortes en textos modificados; bloque hardware revisado visualmente a 320 px. Pendiente QA visual de tema claro/dispositivo físico antes de promoción.
+- Preview local: `http://127.0.0.1:3012/integrations/`. Sin commits, push, despliegue ni dependencias nuevas.
+
 ## Checkpoint local — commits por alcance (11 de noviembre de 2026)
 
 - Responsable: Codex, rama `dev`. Erick autorizó crear commits para todos los cambios del listado adjunto. Reservas liberadas; sin push ni promoción a `qa`/`main`.
