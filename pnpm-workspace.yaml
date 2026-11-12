@@ -1,2 +1,8 @@
 allowBuilds:
   unrs-resolver: true
+
+# Security patches for ESLint tooling; rationale and removal criteria:
+# docs/SECURITY_UPDATE_2026-11-12.md
+overrides:
+  'zod@4.6.5': 4.6.7
+  '@typescript-eslint/typescript-estree@8.71.1>minimatch': 11.0.8
