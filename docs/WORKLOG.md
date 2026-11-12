@@ -1,5 +1,12 @@
 # Estado de trabajo
 
+## Reintento terminado con bloqueo — Cloudflare Pages (12 de noviembre de 2026)
+
+- Responsable: Codex, `dev`. Erick autoriza actualizar el entorno de compilación y reintentar el despliegue conservando Node 24.22.3. Archivo: esta entrada; reserva liberada, sin cambios de aplicación.
+- Confirmado en panel: Production y Preview ya usan Build system Version 3, la más reciente disponible; no se cambió la configuración. Fallo original de preview dev 8ca97e0: `node-build: definition not found: 24.22.3`, antes de instalar dependencias o compilar. GitHub CI push/PR pasó.
+- Reintento de fab9d773-be99-414b-98af-1af658eb6d33 creó a9f915fe-23a6-42e3-beb5-3836d7c53c85, preview de dev 8ca97e0. Resultado confirmado: failure en 13 s, 10:41 CST; mismo `node-build: definition not found: 24.22.3` incluso después de actualizar automáticamente el plugin/node-build. No se compiló ni publicó la nueva versión. Registro: https://dash.cloudflare.com/cf6cd00861875c7c8b422ad385121593/pages/view/listaso-website/a9f915fe-23a6-42e3-beb5-3836d7c53c85.
+- Siguiente paso: resolver reconocimiento de Node 24.22.3 con Cloudflare o evaluar en alcance separado un instalador explícito del binario oficial verificado. No reducir Node ni sustituir integración Git por Direct Upload automáticamente. Sin cambios DNS, main o publicación de producción. La referencia `v2 root directory strategy` del log no es la versión de Build system: ambas selecciones del panel son Version 3.
+
 ## Vista previa lista — NetSuite y encabezados de integración (12 de noviembre de 2026)
 
 - Responsable: Codex, `dev`. Copy indicado de NetSuite aplicado; Sales orders, Inventory y descripciones sin reemplazo conservados. Botones tenían etiquetas y enlaces solicitados. Cambios anteriores preservados; sin cambios de medios, enlaces, orden ni datos. Reservas liberadas.
