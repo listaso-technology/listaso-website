@@ -26,7 +26,7 @@ export default function FormsPage() {
       <QuestionTypes />
       <FormsIdeas />
       <RelatedProducts products={related} tone="alt" />
-      <NextPage group="Products" current={content.path} />
+      <NextPage group="Products" current={content.path} labelOverrides={{ "/forms/": "Forms and Surveys" }} />
       <FinalCta />
       <HomeMotion />
     </>

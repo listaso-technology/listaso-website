@@ -41,13 +41,6 @@
     gap: 1.25rem;
   }
 
-  .accent {
-    width: 3rem;
-    height: 4px;
-    border-radius: 4px;
-    background: linear-gradient(90deg, var(--listaso-link-on-band), #ff3a6a);
-  }
-
   .title {
     overflow: hidden;
     color: #ffffff;

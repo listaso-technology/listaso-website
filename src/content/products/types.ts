@@ -28,6 +28,7 @@ export type ProductHeroContent = {
   lead: string;
   /** Plan availability line shown under the lead. */
   plan?: string;
+  secondaryCta?: Link;
 };
 
 export type Feature = { icon: IconName; title: string; text: string };

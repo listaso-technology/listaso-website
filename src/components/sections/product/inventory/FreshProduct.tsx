@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
-import { productMedia } from "@/content/media/products";
+import { magnificMedia } from "@/content/media/magnific";
 import { freshProduct, lotExample, plans } from "@/content/products/inventory";
 import { cx } from "@/lib/utils/cx";
 import { SectionHeader } from "../../SectionHeader";
@@ -59,7 +59,7 @@ function LotRotation() {
 
 /** "Fresh product, under control": lots and FIFO, plus plan availability. */
 export function FreshProduct() {
-  const photo = productMedia.inventoryForklift;
+  const photo = magnificMedia.barcodeScan;
 
   return (
     <ProductSection labelledBy="fresh-title" tone="alt">

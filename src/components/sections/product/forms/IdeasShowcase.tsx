@@ -4,6 +4,7 @@ import Image from "next/image";
 import { type CSSProperties, type ReactNode, useState } from "react";
 import { Icon } from "@/components/icons/Icon";
 import type { PhotoSlot } from "@/content/media/products";
+import type { MagnificPhoto } from "@/content/media/magnific";
 import type { Feature } from "@/content/products/types";
 import { cx } from "@/lib/utils/cx";
 import styles from "./IdeasShowcase.module.css";
@@ -15,7 +16,7 @@ import styles from "./IdeasShowcase.module.css";
  * and the ideas as options beside it (buttons with aria-pressed; hover,
  * focus or click selects). Every idea's title and text stay visible.
  */
-export function IdeasShowcase({ items, photo, header }: { items: readonly Feature[]; photo: PhotoSlot; header: ReactNode }) {
+export function IdeasShowcase({ items, photo, header }: { items: readonly Feature[]; photo: PhotoSlot | MagnificPhoto; header: ReactNode }) {
   const [active, setActive] = useState(0);
   const item = items[active];
 

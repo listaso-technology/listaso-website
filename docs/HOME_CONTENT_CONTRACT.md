@@ -10,6 +10,29 @@ y, para lo que no toca, la sección "Contrato final".
 Etiquetas (PROJECT_MASTER): CONFIRMADO, OBSERVACIÓN, HIPÓTESIS,
 RECOMENDACIÓN, DESCONOCIDO, REQUIERE VALIDACIÓN DEV.
 
+## Actualización de recursos gráficos — 10 de noviembre de 2026
+
+Erick aprobó continuar desde la vista previa del hero con Pexels y sustituir
+los medios restantes de Home, combinando fotografía y video según su relación
+con el copy. Esta actualización sólo reemplaza las referencias de medios de
+Home descritas abajo; copy, estructura, enlaces y recursos oficiales se conservan.
+
+- Hero: video Pexels 4292903 y poster en `src/content/media/placeholders.ts`.
+- Workflow: fotografía de revisión de productos en tablet, video de preparación
+  de despacho (Pexels 4292299), fotografía de firma de recepción y revisión de
+  documentos en oficina.
+- Capacidades: pedido digital de alimentos, fotografía de exhibición con teléfono,
+  documentos contables y productos alimenticios en cajas.
+- Registro vigente de estos ocho espacios: `src/content/media/home.ts`, con
+  fuentes, autores y licencia. Fotos WebP autohospedadas a 640/960/1440 px;
+  video de almacén autohospedado a 960×540, siete segundos, sin sonido de reproducción.
+- Los registros compartidos `products.ts` y `sections.ts` siguen gobernando
+  otras rutas; no se sustituyeron sus archivos ni sus referencias.
+- Los recursos son ilustrativos: las personas no son clientes o empleados de
+  Listaso y las pantallas de stock no representan interfaces de Listaso.
+- Estado: preview local para revisión visual. SAMI, cifras, soporte, clientes,
+  precios y cierre conservan sus recursos. Sin publicación ni cambios de copy.
+
 ## Fuentes comparadas
 
 | Fuente | Evidencia | Autoridad |

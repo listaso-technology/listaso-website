@@ -10,7 +10,8 @@ en `docs/ROUTE_CONTENT_MATRIX.md`.
 ## Fuentes
 
 - Sitemap público de `listaso.com` y sitemaps WordPress/Yoast.
-- `start-version/website/`.
+- `start-version/website/`, conservado en el archivo externo de referencias
+  (ver `docs/CURRENT_ARCHITECTURE.md`).
 - Redirects heredados de Apache y Nginx.
 
 ## Resumen

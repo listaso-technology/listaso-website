@@ -57,7 +57,7 @@ export const mainNav: NavEntry[] = [
       { href: "/direct-sales/", label: "Direct store delivery", description: "Sell and create invoices from the truck" },
       { href: "/inventory/", label: "Inventory", description: "Manage stock in warehouses and trucks" },
       { href: "/delivery/", label: "Delivery", description: "Plan routes, confirm delivery and collect payments" },
-      { href: "/back-office/", label: "Back Office", description: "Manage your operation from one place" },
+      { href: "/back-office/", label: "BackOffice", description: "Manage your operation from one place" },
       { href: "/b2b-ecommerce/", label: "B2B e-Commerce", description: "Let customers order online at any time" },
       { href: "/forms/", label: "Forms and surveys", description: "Capture information at every visit" },
       { href: "/sami/", label: "SAMI", description: "Get answers from your business data" },

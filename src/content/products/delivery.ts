@@ -18,9 +18,10 @@ export const metadata: ProductMetadata = {
 export const hero: ProductHeroContent = {
   breadcrumb: "Delivery",
   eyebrow: "Delivery app",
-  title: { emphasis: "Deliver on time", rest: "and prove every delivery" },
-  lead: "Drivers follow the day's route, change quantities or add credits at the door, get the customer's signature and record the payment. The office sees it as it happens.",
+  title: { emphasis: "Arrive on time", rest: "and prove every delivery" },
+  lead: "With Listaso Delivery App, track orders, capture proof of delivery, manage returns, and record payments directly from the field, keeping your office informed throughout the day.",
   plan: "Included from Professional. Delivery route planner in Enterprise 360.",
+  secondaryCta: { href: "#features-title", label: "Explore Features" },
 };
 
 /** Illustrative proof of delivery shown over the hero photo. */
@@ -37,11 +38,11 @@ export const features: FeatureSection = {
   eyebrow: "Features",
   title: { emphasis: "Every stop,", rest: "handled from the phone" },
   items: [
-    { icon: "route", title: "Delivery routes", text: "Build routes that save time and fuel." },
-    { icon: "invoice", title: "Invoices at the door", text: "Change quantities, add credits and fix invoices on the spot. No paper." },
-    { icon: "stopwatch", title: "Delivery timing", text: "See where drivers are, when they arrive and how long each stop takes." },
+    { icon: "route", title: "Delivery Routes", text: "Build routes that save time and fuel." },
+    { icon: "invoice", title: "Invoices at the Door", text: "Change quantities, add credits and fix invoices on the spot. No paper." },
+    { icon: "stopwatch", title: "Delivery Timing", text: "See where drivers are, when they arrive and how long each stop takes." },
     { icon: "payments", title: "Payments", text: "Record payments and match them to the right invoices." },
-    { icon: "signature", title: "Proof of delivery", text: "Signatures, photos and notes at every stop to avoid disputes." },
+    { icon: "signature", title: "Proof of Delivery", text: "Signatures, photos and notes at every stop to avoid disputes." },
     { icon: "return", title: "Returns", text: "Track returned items and adjust inventory to cut losses." },
   ],
 };
@@ -49,7 +50,7 @@ export const features: FeatureSection = {
 export const whyItMatters: SectionCopy & { checks: readonly string[] } = {
   eyebrow: "Why it matters",
   title: { emphasis: "Fewer disputes,", rest: "less waste, lower costs" },
-  lead: "A missed or argued delivery costs you the sale and the customer's trust. Listaso keeps a record of every stop.",
+  lead: "Missing deliveries, disputed orders, and unrecorded returns can quickly turn into unnecessary costs. With Listaso, keep a clear record of every stop and resolve issues faster.",
   checks: [
     "Signed proof of delivery for every invoice",
     "Returns logged and stock adjusted the same day",

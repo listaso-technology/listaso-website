@@ -15,7 +15,7 @@ export const hero: ProductHeroContent = {
   breadcrumb: "Integrations",
   eyebrow: "Integrations",
   title: { emphasis: "Connected", rest: "to the accounting system you already use" },
-  lead: "Listaso works with your accounting system, not instead of it. Your data moves between the two on its own, so nobody types the same order twice.",
+  lead: "Listaso works with your accounting system, not instead of it. Keep your data connected, reduce manual entry, and avoid duplicate work.",
 };
 
 export const hubExample = {
@@ -39,7 +39,7 @@ export const howSync: SectionCopy & {
     title: "From Listaso to your accounting system",
     items: ["Sales orders and invoices", "Credits and payments", "Warehouse transfers", "Inventory adjustments"],
   },
-  note: "Exactly what syncs, and in which direction, depends on the system. Each page below shows the details.",
+  note: "Available data and sync directions vary by system. Explore each integration below for details.",
 };
 
 export const systemsSection: SectionCopy & { linkLabel: string } = {
@@ -51,12 +51,12 @@ export const systemsSection: SectionCopy & { linkLabel: string } = {
 export const alsoSection: SectionCopy & {
   cards: readonly { href: string; title: string; text: string; icon: "print" | "report" }[];
 } = {
-  eyebrow: "Also",
+  eyebrow: "MORE OPTIONS",
   title: { emphasis: "Hardware", rest: "and custom work" },
   cards: [
     {
       href: "/printers-and-scanners/",
-      title: "Printers and scanners",
+      title: "Printers and Scanners",
       text: "Bluetooth printers and scanners that work with Listaso.",
       icon: "print",
     },

@@ -4,11 +4,11 @@ import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { GlassPanel } from "@/components/ui/GlassPanel";
 import { hero } from "@/content/home/en";
-import { homeMedia } from "@/content/media/placeholders";
 import backdrops from "../backdrops.module.css";
 import { Signature } from "../Signature";
 import { SamiBrandText } from "../product/sami/SamiBrandText";
 import { Stars } from "./Stars";
+import { HeroVideo } from "./HeroVideo";
 
 /**
  * Illustrative product example (approved start-version content). It is one
@@ -17,19 +17,11 @@ import { Stars } from "./Stars";
  */
 function HeroExample() {
   const { example } = hero;
-  const photo = homeMedia.heroWarehouse;
 
   return (
     <div data-reveal="media" className="relative mx-auto w-full max-w-xl lg:mr-0">
       <div className="relative aspect-[4/5] overflow-hidden rounded-xl bg-surface-soft shadow-e3">
-        <Image
-          src={photo.src}
-          alt={photo.alt}
-          fill
-          priority
-          sizes="(max-width: 1023px) 92vw, 44vw"
-          className="object-cover"
-        />
+        <HeroVideo />
         <div aria-hidden="true" className={`${backdrops.photoScrim} absolute inset-0`} />
       </div>
 

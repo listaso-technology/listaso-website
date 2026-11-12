@@ -1,0 +1,41 @@
+# Inventario de funciones estándar informado por Erick
+
+**Fuente:** [captura «Features (1).webp»](evidence/standard-features-2026-11-03.webp) compartida por Erick el 3 de noviembre de 2026 y su aclaración: estas funciones integran la versión estándar; los cambios solicitados por un cliente se gestionan aparte y tienen pago adicional. La copia de evidencia tiene SHA-256 `d2ac9b21d8f9080d60c9da95bf148ca995eaec01e6b5b83e33d8ad97c49e8e74`. **Estado:** inventario de alcance comercial informado por el responsable del proyecto; Development y Producto deben confirmar comportamiento, datos e integración efectiva por módulo. Los nombres se transcriben como aparecen en la interfaz, incluidos «Beta», «New» y duplicados.
+
+**Lectura para Legal:** una entrada de menú demuestra que la función forma parte del producto estándar informado, pero no revela por sí sola qué datos almacena, si procesa tarjetas, si geolocaliza continuamente, qué sistemas externos se conectan o qué permisos tiene cada usuario. Esas preguntas se registran en el anexo por función y cliente. La configuración y los permisos pueden variar sin que ello convierta automáticamente la función estándar en desarrollo a medida.
+
+| Área de la imagen | Funciones visibles, con los nombres de la interfaz | Cuestiones de datos y contrato por validar |
+| --- | --- | --- |
+| Customers | New Customer; Quotes; Credits; Pending Credits; Payments; Price Levels; Specials; Ful Fill; Customer Orders; New Payments; New Special; Ecommerce discount; New Price Level; Customer Photos; New Orders; Item Tracking (Beta); Jobs; New Invoice; Customer Survey; Receivable; Forms. | Identidad y contacto de compradores; precios y condiciones individuales; créditos y cuentas por cobrar; fotos y respuestas a encuestas; si «Payments» registra sólo estados/referencias o también datos de pago; reglas de acceso y retención. |
+| Vendors | Vendors; Purchase Orders; Receive Inventory; Bills; Bill Payment; New Purchase Orders; New Receive Inventory; New Bill. | Contactos de proveedores, órdenes de compra, facturas y pagos; datos importados o sincronizados; conciliación y titularidad del registro. |
+| Warehouse Management | View Adjustments; Physical Inventory; Move Inventory; Truck Route; Assign Truck; Assign Picker; Assign Route; Warehouse Locations; Staging Areas; New Returns/Damaged; Transfers; Pick Ticket; Delivery Truck; Item Storage; Warehouse; Location; New Transfer; Item UPC Codes; Route Manager Delivery; Sales Route Manager; New view Adjustments; Product Headers; Forecast Advance; Forecast; Route Sales Manager (New); Route Manager Delivery; Route Manager Delivery Route4me. | Trazabilidad de artículos y ubicaciones; actividad de personal, conductores y recolectores; rutas y posible ubicación; evidencia de entrega y devolución; «Route4me» requiere confirmar si identifica un proveedor externo; el nombre duplicado «Route Manager Delivery» se conserva como aparece. |
+| User Management | Timesheet; Timesheet Task; GPS Tracker; Employees; User Manager; User Config; Ref Number Sequence; Clone Configuration; Default User Config. | Datos laborales, horarios, tareas y ubicación; avisos al personal, permisos, visibilidad por rol, duración de seguimiento y retención. «GPS Tracker» no define por sí solo si el seguimiento es continuo o puntual. |
+| Maintenance | Employee Login; Customer Login; Route Manager; Calling Center; Category; Commission Rate; Survey; Quote. | Credenciales, autenticación, accesos de compradores, comunicaciones, encuestas y comisiones; quién determina reglas y ve resultados. |
+| Tools | Related Items; Image Product Labels; PDF Product Labels; Billing; Upload Logos; Listaso iViewer; Security; General Configuration; WebDocs; Product Catalog; Order Departments; Exclude Product; Authorized Products; Custom PDF Catalog; PDF Catalog (Beta); New PDF Catalog; Configuration Module. | Archivos y documentos, imágenes de marca, controles de acceso, catálogos y facturación; precisar qué significan «Security», «Billing» y las funciones Beta antes de comprometer niveles de servicio. |
+| Import | Customers; Products; Vendors; Update Product; Physical Inventory; Move Inventory; Custom Field Option Values; Update WL Product; Product Images; Price Levels; eCommerce Category; Purchase Order; Order; Custom Import; BL - Import Excel; Import Custom Fields; Import Order. | Origen, exactitud y permisos para importar datos de terceros; campos personalizados; duplicados, errores, reversión, archivos temporales y eliminación. |
+| Ecommerce | Config Site; Register Ecommerce. | Configuración de tienda, compradores, cuentas, pedidos y posibles terceros; confirmar si incluye procesamiento de pagos o sólo referencias. |
+| leadCommerce | Sync; Sync Configuration. | Identificar el sistema o proveedor, categorías de datos, direcciones de transferencia y responsables. |
+| Production | Bill of Material. | Componentes y trazabilidad de producción; confirmar si contiene información personal o reglas sectoriales. |
+| Integrations | NetSuite Sync; Zoho Sync; Zoho Configuration; Alere Sync; Acumatica Sync. | Confirmar conexiones efectivas, proveedores, credenciales, permisos, direcciones, datos y retención. «Alere Sync» aparece en esta imagen y debe cotejarse con el inventario público de integraciones. |
+
+## Implicaciones para el paquete legal
+
+1. **Privacidad.** El inventario sustenta categorías potenciales de datos de clientes, proveedores, empleados, compradores, pagos registrados, ubicación, imágenes, encuestas, archivos y campos personalizados. La política debe reflejar sólo los tratamientos confirmados y distinguir los datos que el cliente introduce de los captados por Listaso.
+2. **Suscripción.** El acuerdo debe definir «funcionalidad estándar» como la capacidad existente incluida en el producto contratado, y separar su configuración ordinaria del desarrollo adicional. Ningún cambio de precio, calendario o alcance debe inferirse sólo de una etiqueta de menú.
+3. **Anexo por cliente.** Cada modificación remunerada necesita solicitud, presupuesto, alcance, criterios de aceptación, propiedad intelectual, soporte y revisión de datos/proveedores. Una nueva función que recoja datos o use un tercero requiere evaluación antes de activarse.
+4. **Riesgos específicos.** «Payments», «Bill Payment», «GPS Tracker», «Timesheet», «Customer Photos», «Survey», «Customer Login», «Route4me» y las sincronizaciones justifican preguntas técnicas y legales concretas. Una etiqueta no prueba que se almacenen datos de tarjeta, que haya geolocalización continua ni que exista una transferencia internacional.
+5. **Versiones Beta/New.** «Item Tracking (Beta)», «PDF Catalog (Beta)» y las funciones marcadas «New» requieren confirmar disponibilidad, soporte y garantías antes de incluirlas como prestaciones contractuales estables.
+
+## Registro de validación pendiente
+
+| ID | Pregunta | Responsable sugerido |
+| --- | --- | --- |
+| F01 | ¿Qué módulos y entradas aparecen para cada plan y rol en un cliente nuevo, sin personalización? | Producto y Development |
+| F02 | ¿Qué datos concretos crea, recibe, muestra o exporta cada módulo? ¿Qué datos se conservan en logs o respaldos? | Development |
+| F03 | ¿Payments, Bill Payment, Billing o Ecommerce almacenan, procesan o transmiten datos de tarjeta, o sólo referencias y estados? | Development, Finanzas y Legal |
+| F04 | ¿GPS Tracker y rutas registran ubicación puntual o continua? ¿Quién puede verla y durante cuánto tiempo? | Producto, Development y Legal |
+| F05 | ¿Route4me, leadCommerce y Alere son proveedores externos activos, integraciones opcionales o nombres internos? | Integraciones y Producto |
+| F06 | ¿Cómo se habilitan funciones Beta/New y qué límites de soporte o garantía tienen? | Producto y Soporte |
+| F07 | ¿Qué configuración ordinaria está incluida y a partir de qué cambio se cotiza un desarrollo adicional? | Ventas, Producto y Legal |
+
+Referencias jurídicas para evaluar según mercados y datos reales: [California Privacy Protection Agency sobre categorías, finalidades y avisos antes de recolectar](https://cppa.ca.gov/pdf/20260101_ccpa_statute.pdf); [PCI Security Standards Council sobre alcance de proveedores que pueden afectar datos de pago](https://www.pcisecuritystandards.org/faqs/1579/). Estas fuentes no establecen por sí solas que esas normas apliquen a Listaso.

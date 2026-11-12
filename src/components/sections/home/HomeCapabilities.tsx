@@ -1,19 +1,13 @@
 import { Icon } from "@/components/icons/Icon";
 import { Container } from "@/components/layout/Container";
-import { ResponsivePhoto } from "@/components/media/ResponsivePhoto";
 import { TextLink } from "@/components/ui/TextLink";
 import { capabilities } from "@/content/home/en";
-import { sectionMedia } from "@/content/media/sections";
+import { homeCapabilityMedia } from "@/content/media/home";
+import { HomePhoto } from "./HomePhoto";
 import { CapabilityRail } from "./CapabilityRail";
 import styles from "./HomeCapabilities.module.css";
 
-/** Temporary photography per capability (DEC-009), in content order. */
-const photos = [
-  sectionMedia.storeCounter,
-  sectionMedia.tabletWarehouse,
-  sectionMedia.accountingDesk,
-  sectionMedia.industryWine,
-];
+const photos = homeCapabilityMedia;
 
 /**
  * Four additional capabilities as photo cards. Every card keeps its full copy
@@ -45,11 +39,9 @@ export function HomeCapabilities() {
                 <div data-reveal-item className={styles.reveal}>
                   <article data-surface="band" className={styles.card}>
                     <div aria-hidden="true" className={styles.media}>
-                      <ResponsivePhoto
+                      <HomePhoto
                         photo={photos[index % photos.length]}
                         sizes="(min-width: 1024px) 60vw, 85vw"
-                        fill
-                        decorative
                         className={styles.photo}
                       />
                     </div>

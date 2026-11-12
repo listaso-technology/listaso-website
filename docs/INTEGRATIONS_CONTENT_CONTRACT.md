@@ -179,3 +179,11 @@ de Cloudflare.
 | I7 | ¿Se gestionan permisos para logos de los ERP o se mantienen sólo nombres? |
 | I8 | ¿Vigencia de los modelos de impresoras y requisitos de dispositivos? |
 | I9 | ¿Se añade una nota de marcas registradas al pie legal? |
+
+## Hub Integrations — brief editorial (11 de noviembre de 2026)
+
+Fuente: solicitud directa de Erick en el chat. Sólo `/integrations/`: hero usa “Listaso works with your accounting system, not instead of it. Keep your data connected, reduce manual entry, and avoid duplicate work.” La aclaración usa “Available data and sync directions vary by system. Explore each integration below for details.” Se sustituyen Also por MORE OPTIONS y el título del bloque de hardware por Printers and Scanners. No se cambian enlaces, descripción de hardware, diseño, imágenes, orden, tablas ni afirmaciones en otras secciones o páginas.
+
+## QuickBooks — brief editorial (11 de noviembre de 2026)
+
+Fuente: solicitud directa de Erick. Sólo `/quickbooks/`: encabezado “QuickBooks in every part of your operation”; nueve nombres de funcionalidades capitalizados según brief; Product History, Mobile Printing y GPS Tracking con sus nuevas descripciones exactas. Impresión conserva compatible Bluetooth printers y GPS conserva during working hours. El párrafo de certificación usa certified integration, customer reviews y years of experience sin valoración numérica; Desktop y Online se identifican en la disponibilidad del hero y en los enlaces contiguos del bloque. Se conservan las insignias/reseñas y su valoración independiente, datos/direcciones de sincronización, disponibilidad, enlaces, medios y demás sistemas.

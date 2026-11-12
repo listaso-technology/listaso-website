@@ -1,9 +1,10 @@
-import Image from "next/image";
 import { Icon } from "@/components/icons/Icon";
 import { Container } from "@/components/layout/Container";
 import { TextLink } from "@/components/ui/TextLink";
 import { howItWorks, solutionsAnchor } from "@/content/home/en";
-import { productMedia } from "@/content/media/products";
+import { homeWorkflowMedia } from "@/content/media/home";
+import { HomePhoto } from "./HomePhoto";
+import { WorkflowVideo } from "./WorkflowVideo";
 import { SectionHeader } from "../SectionHeader";
 import styles from "./HowItWorks.module.css";
 
@@ -14,12 +15,7 @@ import styles from "./HowItWorks.module.css";
  * step stays fully visible and the rail is drawn complete.
  */
 export function HowItWorks() {
-  const stepPhotos = [
-    productMedia.preSalesTablet,
-    productMedia.inventoryFloor,
-    productMedia.deliveryHandTruck,
-    productMedia.backOfficeDashboards,
-  ];
+  const stepPhotos = homeWorkflowMedia;
 
   return (
     <section
@@ -41,22 +37,19 @@ export function HowItWorks() {
             <figure data-reveal="media" className={styles.visualFrame}>
               {stepPhotos.map((photo, index) => (
                 <span
-                  key={photo.src}
-                  aria-hidden="true"
+                  key={photo.base}
                   data-flow-image={index}
-                  className={styles.visualImageLayer}
+                  className={`${styles.visualImageLayer} pointer-events-none`}
                 >
-                  <Image
-                    src={photo.src}
-                    alt=""
-                    width={photo.width}
-                    height={photo.height}
+                  <HomePhoto
+                    photo={photo}
                     sizes="(max-width: 1023px) 92vw, 40vw"
                     className={styles.visualImage}
                   />
                 </span>
               ))}
-              <div aria-hidden="true" className={styles.visualScrim} />
+              <WorkflowVideo src={homeWorkflowMedia[1].video} step={1} />
+              <div aria-hidden="true" className={`${styles.visualScrim} pointer-events-none`} />
 
               <figcaption className={styles.visualCaption}>
                 <span className={styles.visualLabel}>{howItWorks.eyebrow}</span>

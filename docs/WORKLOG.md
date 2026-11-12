@@ -1,6 +1,196 @@
 # Estado de trabajo
 
-**Actualizado:** 29 de octubre de 2026
+## Vista previa lista — QuickBooks: brief editorial (11 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Archivos: bloque QuickBooks y `quickBooksCertified` en `src/content/integrations/systems.ts`, contrato Integrations y esta entrada. Reservas liberadas.
+- Aplicado: encabezado QuickBooks in every part of your operation, nueve nombres capitalizados, nuevas descripciones exactas de Product History/Mobile Printing/GPS Tracking y párrafo certified integration sin 5.0 ni App Store dentro de él. El texto mantiene compatible Bluetooth printers y during working hours. Desktop y Online quedan identificados en el hero y enlaces contiguos al párrafo.
+- Preservado: descripciones no indicadas, datos/direcciones de sincronización, compatibilidad/disponibilidad, CTAs y destinos, imágenes, orden, insignias, rating y reseña independientes. Comparación con HEAD confirma tablas de QuickBooks, otros siete sistemas y listings/rating/quote sin alteraciones. Sin componentes o estilos nuevos, dependencias, commits, push ni despliegue.
+- Validación: lint global, typecheck, build webpack (44 rutas) y git diff --check pasan. HTML exportado confirma todos los textos completos y ausencia del titular anterior/párrafo con rating. Navegador oscuro a 320/375/768/1440 px sin overflow global; párrafo certificado y descripciones sin cortes. Los títulos largos de funcionalidades caben con saltos naturales; la copia TextRoll oculta se conserva. Confirmados el contexto Desktop/Online y rating independiente 5.0. Revisión visual móvil de funcionalidades.
+- Pendiente: QA visual en tema claro y dispositivo físico antes de promoción. Preview local: http://127.0.0.1:3012/quickbooks/.
+
+## Vista previa lista — Integrations: cuatro ajustes editoriales (11 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Archivos: `src/content/integrations/hub.ts`, contrato Integrations y esta entrada. Reservas liberadas.
+- Alcance: sólo cuatro cadenas del hub `/integrations/`: descripción contable exacta sin la afirmación de transferencia automática, aclaración de que datos/direcciones varían por sistema, MORE OPTIONS y Printers and Scanners. Diseño, imágenes, orden, enlaces, compatibilidades, metadata y otras páginas conservados.
+- Validación: lint global, typecheck, build webpack (44 rutas) y `git diff --check` pasan. HTML exportado confirma cada reemplazo una sola vez y ausencia de los párrafos antiguos. Navegador oscuro: 320/375/768/1440 px sin desbordamiento horizontal ni cortes en textos modificados; bloque hardware revisado visualmente a 320 px. Pendiente QA visual de tema claro/dispositivo físico antes de promoción.
+- Preview local: `http://127.0.0.1:3012/integrations/`. Sin commits, push, despliegue ni dependencias nuevas.
+
+## Checkpoint local — commits por alcance (11 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Erick autorizó crear commits para todos los cambios del listado adjunto. Reservas liberadas; sin push ni promoción a `qa`/`main`.
+- Commits de implementación: `588dec1` (demo legal bilingüe y fuentes), `adf6f4c` (medios Home), `e283854` (briefs Products, medios editoriales y Forms), `8fa8324` (retirar acento decorativo del CTA). El commit de cierre agrupa retiro del legacy del checkout, referencias operativas actualizadas y este registro de trabajo.
+- Estado real del archivo: Erick movió `_legacy_archive/` a `/Users/Erick/Downloads/_legacy_archive/`. Se verificaron nuevamente los 120 archivos por SHA-256; no se modificó ni eliminó el respaldo externo. Las bajas Git de `start-version/` y `wordpress-widget/` registran su retiro del checkout; sus versiones anteriores siguen en el historial. `.playwright-cli/` y `.DS_Store` permanecen en la raíz.
+- README, AGENTS/CLAUDE, master, mapa y arquitectura explican que la referencia es externa y no requerida para ejecutar/compilar. Se conservan exclusiones de `_legacy_archive/` si se reintroduce localmente; comentarios y documentos históricos mantienen sus nombres de procedencia.
+- Validación del checkpoint completo: `pnpm lint`, `pnpm typecheck`, `pnpm build --webpack` (44 páginas), `git diff --check` y revisión de cada grupo preparado pasan. Sin conflictos de Git. Los pendientes editoriales/legales, medios premium, QA claro/reducido y dispositivo físico documentados en cada tarea siguen abiertos; crear estos commits no equivale a aprobación productiva.
+- Siguiente paso: entregar identificadores de los cinco commits locales. Sin dependencias nuevas, cambios de producción, DNS, Cloudflare ni credenciales. No se ejecuta push como parte de esta solicitud.
+
+## Vista previa lista — Forms and Surveys y numeración redundante (11 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Alcance: brief de Forms, carrusel accesible de doce tipos y revisión global de indicadores pequeños duplicados. Reservas liberadas.
+- Archivos: contenido/ruta Forms, `FormsSections`, nuevo `QuestionTypesCarousel`, etiqueta local `FormsProductLabel` en header/footer y configuración local de NextPage; `StickyStory` y eliminación de su opción ya innecesaria en Custom Development, contrato Products y esta entrada. Cambios locales anteriores preservados.
+- Copy: nombre Forms and Surveys sólo en esta ruta y sus referencias de navegación; hero y disponibilidad Enterprise 360 package, dos descripciones del proceso, encabezado 12 question types for every kind of visit, USE CASES y Put forms to work at every visit, descripción de Shelf checks según brief. Titular, fotos, CTA, los doce nombres y otros casos conservados.
+- Carrusel: lista única sin copias anunciadas, scroll horizontal nativo táctil, flechas anterior/siguiente y pausa/reanudación; teclado con flechas y Home/End. Avance lineal 24 px/s con reversa en extremos; se detiene por hover/foco y pausa persistente tras navegación manual. Sin autoplay con prefers-reduced-motion; escucha cambios de preferencia. No trabaja fuera de vista, limita el delta tras inactividad y limpia observer/RAF. Tailwind y Button/Icon existentes, sin tokens, estilos globales o dependencias nuevos.
+- Auditoría global: se retiran únicamente current/total de StickyStory (Forms, Pre-sales y Custom Development), conservando números principales, textos, orden, captions y observador. Se revisan los demás patrones fraccionarios: se conservan contadores únicos de FeatureStack/FeatureTabs, selección de FeatureExplorer/HomeCapabilities, NextPage, testimonios y encuestas por informar posición/navegación; datos y cantidades intactos.
+- Validación: lint global, typecheck, build webpack (44 rutas) y git diff --check pasan. HTML exportado confirma copy y principales pasos, doce tipos y ausencia de indicadores redundantes en los tres consumidores. Navegador oscuro: 320/375/768/1440 px sin overflow global ni nombres cortados en sus tarjetas; avance comprobado (scrollLeft 95→213), pausa estable en 214, botón siguiente a 1008, End llega al extremo 1455/1455 con Signature, Home regresa al inicio. Controles expuestos en accesibilidad y doce elementos sin duplicación.
+- Pendiente: QA visual en tema claro, preferencia reducida aplicada a nivel de navegador/sistema y gesto táctil en dispositivo físico. La rama reducida está implementada y revisada en código; no se reporta como probada en dispositivo. Preview local: http://127.0.0.1:3012/forms/. Sin commits, push ni despliegue.
+
+## Tarea cerrada — excluir registros y metadatos del archivo (11 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Por instrucción de Erick, `.playwright-cli/` (8 archivos originales) y `.DS_Store` vuelven a la raíz, fuera de `_legacy_archive/`, para su traslado manual posterior. Reservas liberadas.
+- Finder había regenerado `.DS_Store` en la raíz. Se conserva esa copia nueva en `.playwright-cli/finder-metadata/.DS_Store`, sin sobrescribir ni eliminar archivos, y se restaura el archivado en la raíz. Finder actualizó los metadatos del `.DS_Store` archivado desde la verificación anterior: su hash ya difiere del inventario inicial; no afecta código ni recursos del sitio.
+- Manifiesto, README del archivo y arquitectura actualizados. El archivo aislado conserva únicamente `start-version/` y `wordpress-widget/`: 120 archivos originales. La entrada anterior conserva el registro histórico del primer movimiento; este ajuste la sustituye respecto a los dos elementos excluidos.
+- Verificación: SHA-256 de los ocho registros devueltos y de los 120 archivos restantes correcto; existencia de ambos elementos en la raíz y `git diff --check` comprobados. Build no repetido porque sólo se trasladaron registros/metadatos y se actualizaron documentos. Sin cambios de código, configuración, commit, push ni despliegue.
+
+## Tarea cerrada — aislamiento de referencias y recursos externos (11 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Autorizado por Erick: limpiar la raíz sin eliminar archivos, incluyendo revisión de recursos de IA y referencias. Reservas liberadas.
+- Resultado: `_legacy_archive/` conserva 129 archivos sin alterar contenido: `start-version/` (113), `wordpress-widget/` (7), `.playwright-cli/` (8) y `.DS_Store` de raíz (1). Se preserva toda la estructura interna; inventario con tamaño, ruta original, destino y SHA-256 en `_legacy_archive/manifest.json`. Integridad comprobada antes/después y al cierre: 3,561,677 bytes.
+- Se conservan `src/`, `public/`, README raíz, dependencias, lockfile, entorno y demás configuración, junto con todos los cambios locales anteriores. Las únicas modificaciones de configuración son exclusiones de `_legacy_archive/` en ESLint/TypeScript. Se actualizan rutas de referencia operativas en AGENTS/CLAUDE, master, arquitectura y mapa de rutas; no se altera contenido del sitio anterior.
+- Permanecen activos `docs/` (reglas, contratos, decisiones y handoffs pendientes), `assets/icons/`, `scripts/`, `.agents/`, `.claude/` y `.github/`. `docs/legal-review/` contiene las tres fuentes reales del build legal. Los medios de IA/SAMI y marcas de proveedores de IA en `public/`, con consumidores y registros en `src/`, se mantienen en su ubicación; no se hizo una purga dentro del código o medios protegidos.
+- Validación: `pnpm lint`, `pnpm typecheck`, `pnpm build --webpack` (44 páginas) y `git diff --check` pasan. Lista efectiva de TypeScript sin archivos archivados; ningún directorio archivado aparece en `out/`; todos los recursos locales `src`, `srcset` y `poster` del HTML exportado existen. QA visual omitido al no cambiar código, estilos ni contenido público.
+- Alertas: README raíz, comentarios y registros históricos mantienen nombres de rutas originales, resueltos agregando `_legacy_archive/` según el índice del archivo. El generador externo de WordPress requiere restaurar `wordpress-widget/` a la raíz antes de ejecutarlo porque calcula rutas relativas a su ubicación original; no fue ejecutado ni modificado. Logs y `.DS_Store` ignorados por Git siguen conservados físicamente; el manifiesto registra sus hashes.
+- Entrega y restauración: `_legacy_archive/README.md`. Sin archivos eliminados por esta tarea, dependencias nuevas, commits, push, despliegue ni cambios en producción, DNS, Cloudflare o `main`. Los borrados que ya existían al inicio en otros alcances se preservan. Siguiente paso: revisión del archivo aislado por Erick; no eliminarlo automáticamente.
+
+## Tarea cerrada — etiquetas globales de CTA (11 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Alcance: Book a free demo → Book a Demo y See Pricing → Pricing en toda la aplicación. `Book a Demo` ya estaba normalizado; se actualizó la etiqueta de precios compartida en `src/content/products/shared.ts`. Reservas liberadas.
+- Enlaces, analytics, CTA específicos como Explore Features y prueba gratuita de SAMI y demás copy conservados. `start-version/` e historial documental se mantienen como referencia. Sin dependencias, commits, push ni despliegue.
+- Validación: lint global, typecheck, build webpack (44 rutas) y `git diff --check` pasan. Inspección de todos los enlaces y botones del HTML exportado: sin las dos etiquetas anteriores. QA visual omitido por ser un cambio de etiqueta a texto más corto sin modificar estilos ni estructura.
+
+## Vista previa lista — Custom Development: brief editorial (11 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Alcance exclusivo de `/custom-development/`: breadcrumb y etiqueta Custom Development, nuevo lead del hero, Pricing hacia `/plans/`, eliminación del resumen duplicado, capitalización de las tres funcionalidades, descripción de Custom Reports e introducción del proceso.
+- Archivos: contenido y ruta Custom Development, `CustomDevSections.tsx`, eliminación de sus estilos de minisección sin consumidores, extensión mínima de `HeroCaseStudy` para recibir el CTA secundario existente y opción `showStepCount` de `StickyStory` (true por defecto; false sólo aquí), contrato Products y esta entrada. Reservas liberadas. Se preservan los cambios locales previos de medios y otros alcances.
+- Estado: titular e imagen del hero conservados. SpecSheet y sus componentes locales sin uso retirados junto con su espacio. What we build y How it works principales presentes, tres funcionalidades y cuatro pasos con el mismo orden y comportamiento. Se retiran sólo los indicadores pequeños del proceso, conservando números principales y captions de imágenes. Relacionados, integraciones, siguiente producto, CTA final y footer sin cambios.
+- Validación: lint global, typecheck, build webpack (44 rutas) y `git diff --check` pasan. HTML exportado confirma copy exacto, headings principales, cuatro pasos, ausencia de minisección e indicadores pequeños y noindex. Navegador oscuro: 320/375/768/1440 px sin overflow horizontal; hero y tarjetas revisados visualmente, proceso móvil con números principales y contenido preservados; sin hueco estructural entre hero y Features. Los títulos móviles completos caben en 320 px (la copia decorativa TextRoll oculta se conserva). Reutiliza tokens y componentes existentes, sin nuevos estilos, dependencias, commits, push ni despliegue.
+- Pendiente: revisión visual en tema claro y dispositivo físico antes de promoción. Preview local: `http://127.0.0.1:3012/custom-development/`.
+
+## Vista previa lista — BackOffice: ajustes del brief (11 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Alcance exclusivo de `/back-office/`: nombre BackOffice, hero y descripción aprobados, CTA Book a Demo / Pricing, ocho títulos, descripción de clientes/productos/precios, condiciones Professional Package y Enterprise 360, reportes con SAMI y siguiente producto B2B eCommerce.
+- Archivos: `src/content/products/back-office.ts`, configuración local de `NextPage` en la ruta y extensión opcional del componente, etiqueta aislada `BackOfficeFooterLabel` en el footer; contrato Products y esta entrada. Reservas liberadas. Se preservan los cambios locales anteriores de medios y otras páginas.
+- Estado: nueve funcionalidades, orden, numeración, fotos, checks, relacionados, integraciones, CTA final, destinos y atributos de analytics conservados. El nombre del footer sólo cambia en BackOffice; comprobado que Inventory conserva Back Office. Los dos nombres del siguiente producto se configuran sólo en esta ruta. Sin cambios de navegación global, dependencias, commits, push ni despliegue.
+- Validación: lint global, typecheck, build webpack (44 rutas) y `git diff --check` pasan. HTML exportado verifica copy, disponibilidad sin duplicados, ausencia de Back Office, dos etiquetas B2B eCommerce, destinos y analytics del hero, y noindex. Navegador: revisión visual de hero en 375/768/1440 px y tarjetas en móvil; 320/375/768/1440 px sin overflow horizontal, textos de tarjetas sin cortes en 320/375 px. Se reutilizan tokens y Signature/BentoFeatures sin nuevos estilos ni tokens.
+- Pendiente: revisión visual de tema claro y dispositivo físico antes de promoción. QA ejecutado con preferencia oscura. Preview estático disponible en `http://127.0.0.1:3012/back-office/`.
+
+## Home premium — selección iniciada, descarga pendiente (11 de noviembre de 2026)
+
+- Responsable: Codex (Terra). Alcance: Home fuera del hero, cuatro fotos y cuatro videos, conforme al handoff premium. No se modificó la página ni se presentan portadas como videos.
+- Envato está conectado en Chrome y se localizó el video “Warehouse Worker Scanning Packages in Bright Facility”, Wavebreakmedia, ID `938276b1-dc4a-4f1f-8600-db35df960b9d`, candidato para H02. La interfaz mostró “Automatically licensed” después de pulsar descarga; el navegador no entregó un archivo local utilizable y la recuperación del evento de descarga falló. No hay evidencia de que el archivo se haya guardado. Evitar registrar repetidamente el recurso sin revisar sus licencias.
+- Pendiente: resolver acceso a los archivos descargados, completar selección y validación de los ocho medios, implementar y probar reproducción. La Home sigue con siete fotos y un video fuera del hero, no cumple aún el reparto 50/50. Sin cambios de aplicación, commits ni despliegue.
+
+## Plan listo — medios premium para Terra high (11 de noviembre de 2026)
+
+- Responsable del plan: Codex. Ejecutor previsto por Erick: Terra con razonamiento high; no se inició otro agente ni se cambió el modelo de esta sesión. Alcance actual: análisis y plan, sin sustituciones adicionales ni descargas premium.
+- Entrega: `docs/handoffs/2026-11-11-premium-media-plan.md`. Inventario de 42 espacios lógicos fuera de heroes, objetivo 21 fotografías / 21 videos; incluye la foto de anaquel del ejemplo interno de Forms, cuyo consumidor debe separarse del hero. Se documentan los medios no renderizados de Delivery y las asignaciones compartidas con heroes.
+- Evidencia: código de consumidores, copy, catálogos locales y consulta pública de Envato/Magnific. Candidatos marcados por nivel de validación; el acceso premium y recortes finales siguen sin verificarse. Se detectan asignaciones de stock incongruentes que deben reemplazarse.
+- Estado: plan preparado, reservas de código liberadas. La tarea anterior de activar los 21 clips se reemplaza por esta selección 50/50. Siguiente paso: ejecutar el handoff con Terra high, cerrar candidatos, descargar por vías autorizadas y verificar reproducción real por contexto. No commits, push, despliegue ni checks de aplicación en esta tarea documental; se valida conteo y diff documental.
+
+## Antecedente reemplazado por plan premium — reproducción de Magnific (11 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Alcance: corregir la integración de los recursos seleccionados para que sus clips de video se reproduzcan en las secciones internas que ya usan sus portadas, sin tocar heroes, copy, estructura, rutas ni analítica.
+- Archivos reservados: `src/content/media/magnific.ts`, nuevo reproductor reutilizable de medios editoriales y sus consumidores directos; `public/videos/magnific/`; esta entrada. Riesgos: peso de 21 clips, compatibilidad de export estático, reproducción reducida y términos de uso de la fuente. Siguiente paso: obtener las versiones de preview autorizadas, reducir duración/peso y conectar la reproducción diferida.
+
+## Tarea cerrada — recursos editoriales estáticos de Magnific (10 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Alcance: sustituir medios de secciones internas con los 21 recursos de Magnific proporcionados por Marketing, manteniendo heroes, copy, jerarquía, enlaces, analítica y estructura. Los clips y motion graphics quedan fuera de esta pasada.
+- Archivos: catálogo `src/content/media/magnific.ts`, 21 portadas locales en `public/images/magnific/` y los consumidores no-hero de Pre-sales, Direct Sales, Inventory, Delivery, Back Office, B2B e-Commerce, Forms y Custom Development. `AnyPhoto` acepta el nuevo tipo de foto estática; no modifica el comportamiento de los heroes.
+- Asignación: cada portada se consume una sola vez. Las escenas se distribuyen por intención —pedido/e-commerce, operación de almacén, uso de tablet, picking/escaneo, preparación, entrega, coordinación administrativa, formularios y desarrollo— y no se presentan como clientes, empleados o pantallas reales de Listaso. La portada sustituye al video en esta fase; no hay autoplay ni nueva animación. El video interno de la visita de Pre-sales deja de renderizarse hasta que se prepare su implementación de movimiento.
+- Validación: 21 referencias únicas verificadas en código; ESLint dirigido, typecheck, build webpack (44 rutas) y `git diff --check` pasan. Preview estático confirma carga correcta de las portadas visibles de Pre-sales, Inventory, Delivery, Back Office, B2B y Forms. Pendiente QA visual de todos los encuadres en escritorio/móvil y verificación legal/editorial de las condiciones de uso de Magnific antes de producción.
+- Riesgo y siguiente paso: las portadas son JPEG de 740×416 px procedentes de las fichas de video seleccionadas; son adecuadas para preview pero se debe obtener el master o una exportación de mayor resolución para publicación final. La fuente y título original de cada recurso quedan registrados en el catálogo. Sin dependencias, commits, push ni despliegue.
+
+## Tarea cerrada — Delivery: copy, CTA y nombres (10 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Alcance: aplicar el brief de `/delivery/` en hero, CTA secundario, cuatro títulos de funcionalidades, lead de Why it matters y nombre BackOffice del siguiente producto. Contenido comercial, medios, ejemplos, relacionados, integraciones y CTA final sin cambios.
+- Archivos: `src/content/products/delivery.ts`, `HeroEditorial.tsx`, `src/content/site/navigation.ts` y esta entrada. El CTA secundario reutiliza el patrón configurable ya introducido en heroes; Delivery lo define como “Explore Features” hacia `#features-title`. La etiqueta compartida BackOffice se actualizó en navegación para sincronizar sus apariciones derivadas. Reservas liberadas.
+- Validación: ESLint dirigido, typecheck, build webpack (44 rutas) y `git diff --check` pasan. Pendiente QA visual en escritorio/tablet/móvil y tema oscuro antes de promoción. Sin dependencias, commits, push ni despliegue.
+
+## Tarea cerrada — Inventory: copy, paquetes y CTA secundario (10 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Alcance: aplicar el brief exclusivo de `/inventory/`: hero, nota de paquetes, CTA secundario, título y capitalización de funcionalidades, y sección Fresh products. Sin cambios a relacionados, integraciones, NextPage, CTA final o footer.
+- Archivos: `src/content/products/inventory.ts`, `ProductHero.tsx` y esta entrada. La mejora técnica compartida permite a cada hero de producto definir su CTA secundario; solo Inventory la usa en este alcance, con ancla `#features-title`. Reservas liberadas.
+- Estado: “Book a Demo” conserva Calendly; “Explore features” ya no apunta a Pricing. Se conservan orden, nueve funcionalidades, imágenes, datos de lotes, planes y estructura de Inventory. No se propagó el texto específico de Inventory a otras rutas.
+- Validación: ESLint dirigido, typecheck, build webpack (44 rutas) y `git diff --check` pasan. Pendiente QA visual de escritorio/tablet/móvil y tema oscuro antes de promoción. Sin dependencias, commits, push ni despliegue.
+
+## Tarea cerrada — Direct Sales / DSD: contenido y organización (10 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Alcance: aplicar el brief editorial exclusivo de `/direct-sales/`: lead y CTA secundario del hero, nueve funcionalidades en tres categorías desplegables, bloque de conductores, hardware y soluciones conectadas. Sin cambios de rutas, metadata, CTAs de demo, analytics globales ni otras páginas.
+- Archivos: contenido `direct-sales.ts`, ruta Direct Sales, componentes locales `FeatureCategories`, `DriversSection`, `HardwareSection`, `ConnectedSolutions`, y extensión mínima del CTA compartido para aceptar la acción secundaria ya definida por la página. Reservas liberadas.
+- Estado: “Explore Features” enlaza a `#features-title`; “Book a Demo” conserva Calendly. Las categorías usan `<details>` nativo: teclado, estado abierto/cerrado y contenido disponible sin JavaScript. Route Planner queda en Truck Inventory Under Control. Printers and Scanners conserva destino `/printers-and-scanners/` y el alcance “compatible printer and scanner models”. Las tarjetas de soluciones conservan rutas de Inventory, Delivery y Pre-sales; sus eventos existentes `product_card_click` se preservan.
+- Validación: ESLint dirigido, typecheck, build webpack (44 rutas) y `git diff --check` pasan. El export local expone los tres acordeones como controles expanded/collapsed y las nueve tarjetas bajo H4; conserva los destinos de demo, ancla de funcionalidades, hardware y soluciones. Quedan pendientes QA visual de tema oscuro, teclado manual en navegador físico y tablet antes de promoción. No se añadieron dependencias, animaciones, enlaces inventados, commits, push ni despliegue.
+- Pendiente editorial: el comentario “Pendiente de explorar opciones de visualización” queda resuelto únicamente por la estructura explícita de tres categorías del brief; no se identificó otro elemento visual independiente en el código actual.
+
+## Tarea cerrada — recursos gráficos de Pre-Sales (10 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Alcance autorizado: sustituir únicamente los recursos de `/pre-sales/` por material de Pexels que represente la visita comercial, el catálogo, el cobro y el flujo hacia oficina/bodega. Copy, estructura, enlaces, analytics y rutas no cambian. Reservas liberadas.
+- Archivos: ruta `/pre-sales/`, `StoreVisit`, `StoreVisitVideo`, `HeroParts`, `StickyStory`, manifiesto `src/content/media/pre-sales.ts`, cinco WebP locales y esta entrada. Los registros existentes de Products/Sections y los medios de Home se preservan.
+- Estado: hero con catálogo en tablet dentro de una visita en tienda; las tarjetas ilustradas muestran captura de exhibición y confirmación digital; el recorrido cambia por cliente, pedido, confirmación y revisión de oficina. El clip de bodega de Pexels 4292299 (Tiger Lily), ya autohospedado, sólo carga en el último paso activo y visible; se pausa al cambiar de paso o salir de pantalla, y queda la foto de oficina con movimiento reducido o error. Las cinco fotos son Pexels, de Tom Tillhub, cottonbro studio, Kampus Production y Sora Shimazaki; se registran con fuente, licencia y fecha. Ninguna escena se presenta como cliente, empleado o pantalla de Listaso.
+- Rendimiento y validación: hero WebP 65 KB; tarjetas y pasos WebP entre 35–47 KB. ESLint dirigido, typecheck, build webpack de 44 rutas y `git diff --check` pasan. Navegador: todas las imágenes cargan, sin overflow en escritorio ni 390 px; video con `readyState 4` avanza en el paso 4 y se pausa en el paso 2. QA visual en claro y móvil; tema oscuro, preferencia de movimiento reducido aplicada en dispositivo y hardware físico pendientes.
+- Riesgo y siguiente paso: las escenas son aproximaciones de stock con pantallas de dispositivo no Listaso. El brief editorial de Pre-Sales sigue pendiente de implementación separada; no se modificó el copy ni la expresión “in seconds” existente fuera de este alcance.
+
+## Tarea cerrada — CTA pre-footer: línea y propuestas de copy (10 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Alcance: retirar el acento lineal aqua/magenta sobre el título del CTA compartido y proponer copy diferenciado para Products, Integrations, Pricing y Company en una tabla de revisión.
+- Archivos: `FinalCta.tsx`, `FinalCta.module.css` y esta entrada. Reservas liberadas. Se retiró el span decorativo sobre el título y su regla `.accent`; se conservan las separaciones de la tarjeta de contacto, contenido, enlaces y analytics.
+- Copy: cuatro propuestas en inglés presentadas en el chat para Products, Integrations, Pricing y Company, basadas en el flujo operativo, costes de setup y misión existentes. No se aplicaron a contenido público ni se cambiaron los destinos del CTA. Sin promesas numéricas de ROI, empleos u ofertas inventados.
+- Validación: ESLint dirigido, build webpack con TypeScript (44 páginas) y `git diff --check` pasan. Revisión visual de navegador omitida por ser la eliminación de un elemento decorativo y su regla aislada. Sin dependencias nuevas, commit, push o despliegue.
+- Siguiente paso: revisión editorial de las propuestas antes de implementar variantes por familia de página; Company requiere una acción de contacto coherente con su texto, conservando los destinos aprobados hasta esa implementación.
+
+## Vista previa lista — medios restantes de Home (10 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Autorizado: continuar sustituyendo recursos de Home, alternando foto/video según pertinencia, sin cambiar copy ni estructura. Hero aprobado como base.
+- Archivos: `HowItWorks.tsx`, `HomeCapabilities.tsx`, `HomePhoto.tsx`, `WorkflowVideo.tsx`, manifiesto `src/content/media/home.ts`, medios locales y contrato Home. Reservas liberadas. Registros compartidos de Products/Sections intactos.
+- Estado: ocho espacios sustituidos con siete fotos de Pexels y un video de almacén (4292299, Tiger Lily), además del hero aprobado. Ventas: revisión en tablet; entrega: firma digital; oficina: revisión documental. Capacidades: pedido digital de alimentos, captura de exhibición, contabilidad y productos en cajas. Sin compras ni activos Premium. Las pantallas de stock no se presentan como Listaso.
+- Medios: 24 WebP responsivos (640/960/1440) de hasta 80 KiB cada uno; clip nuevo de siete segundos, 960×540, 3,873,244 bytes, carga sólo al seleccionar el paso visible, pausa fuera de vista/pestaña oculta y respeta movimiento reducido. Poster estático y control de 48 px. Se descartó el primer clip 4293550 porque su caja ocupaba casi todo el encuadre; no queda en public.
+- Validaciones: lint, typecheck, build webpack (44 páginas) y `git diff --check` pasan. Copy `src/content/home/en.ts` sin diff. Navegador: video readyState 4 y tiempo avanzando, pausa/reanudación manual y pausa al salir del paso; inicialmente no carga el video inactivo. Fotos cargadas sin errores, sin overflow global en 390/1100/1440 px. Carrusel de capacidades conserva selección y recortes en móvil. QA visual oscuro; tema claro, preferencia de movimiento reducido a nivel de sistema y dispositivo físico pendientes.
+- Preview compilado en `http://127.0.0.1:3001/`; capturas de workflow y capacidades fuera del repo. Cambios legales concurrentes preservados; sin commit, push ni despliegue.
+- Siguiente paso: Erick revisa la relación de imágenes y copy y los encuadres. Las escenas son aproximaciones de stock, especialmente venta de mostrador, pedido de alimentos y mercado; no son casos de uso documentados de clientes. Optimización adicional de video/red móvil y QA claro/reducido antes de publicación.
+
+## Vista previa lista — hero con video Pexels (9 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Autorizado: mostrar el video Pexels 4292903 en el espacio actual del hero, conservando copy, estructura y tarjetas.
+- Archivos: `HomeHero.tsx`, `HeroVideo.tsx`, registro `src/content/media/placeholders.ts`, clip y poster locales. Reservas liberadas.
+- Estado: clip 4292903 de Tiger Lily autohospedado a 1280×720 (5,461,027 bytes; original 4K fuera del repo), poster WebP de 45,392 bytes y marco 4:5 existente. Copy, tarjetas, CTA y geometría conservados. Control superpuesto de reproducción/pausa de 48 px; pausa fuera de vista y pestaña oculta, poster sin carga automática del video con movimiento reducido. Sin dependencias nuevas.
+- Validación: lint, `tsc --noEmit`, build webpack (44 páginas) y `git diff --check` pasan. Navegador: reproducción real verificada (readyState 4 y currentTime avanzando), muted, pausa y reanudación por teclado; sin overflow a 1440 y 390 px. Captura de escritorio fuera del repo. QA visual en tema oscuro; tema claro, movimiento reducido a nivel de sistema y dispositivo físico quedan pendientes.
+- Preview compilado disponible en `http://127.0.0.1:3000/`, servido desde `out/`. Sin commit, push ni despliegue. Se preservaron los cambios legales concurrentes. El servidor de desarrollo mostró el aviso conocido de actualización de Next.js 16.4.0; no se cambiaron dependencias.
+- Riesgo y siguiente paso: Erick evalúa encuadre y pertinencia del clip. El formato vertical prioriza scanner/manos y deja fuera el rostro en gran parte de la secuencia; el movimiento del clip desplaza el scanner durante la reproducción. El video sigue en calidad de preview; comprobar peso/red móvil antes de publicación. Sin cambios en otras secciones, producción o ramas.
+
+## Tarea cerrada — demo de páginas legales (9 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Alcance: integrar los tres borradores bilingües de `docs/legal-review/` en `/privacy-policy/`, `/terms-and-conditions/` y `/subscription-agreement/` como demo accesible.
+- Archivos: rutas legales en `src/app/(site)/`, `src/components/sections/legal/LegalPage.tsx`, `src/lib/legal-documents.tsx` y esta entrada. Reservas liberadas.
+- Estado: las tres URL históricas muestran el contenido completo inglés y español de `docs/legal-review/`, con navegación entre documentos, índices por idioma, tablas accesibles y advertencia visible de borrador. El pie existente ya enlaza las tres páginas. Las referencias a anexos internos se muestran sin destino público nuevo.
+- Validación: `pnpm lint`, `pnpm typecheck`, `pnpm build --webpack` y `git diff --check` pasan. La exportación estática contiene las tres rutas, canonical correctos y `noindex, nofollow`; los 75 párrafos de origen y 42 apartados EN/ES aparecen completos. No se pudo abrir un servidor local para QA visual en navegador por restricción de socket del entorno.
+- Riesgo y siguiente paso: Legal debe confirmar entidad, vigencia, contactos, proveedores, obligaciones y equivalencia bilingüe antes de publicación. Conservar `noindex` hasta aprobación y completar QA visual en preview. Los borradores de `docs/legal-review/` son dependencia de compilación y deben incluirse junto con estas rutas al guardar el cambio.
+
+**Actualizado:** 9 de noviembre de 2026
+
+## Análisis — recursos gráficos de Home (9 de noviembre de 2026)
+
+- Responsable: Codex. Alcance solicitado: propuesta por sección, sin cambiar copy, estructura ni recursos publicados. Sin archivos de implementación reservados.
+- Revisados: orden real en `src/app/(site)/page.tsx`, copy en `src/content/home/en.ts`, componentes Home y registros `placeholders.ts`, `products.ts` y `sections.ts`.
+- OBSERVACIÓN: nueve espacios fotográficos actuales (hero, cuatro pasos del workflow y cuatro capacidades). Cifras, SAMI, soporte, clientes, precios y CTA final conservan sus recursos actuales en la propuesta.
+- RECOMENDACIÓN: hero con operación humana y tecnología; workflow con venta en tienda, escaneo, recepción con firma y revisión administrativa; capacidades con pedido digital, fotografía de exhibición, conciliación y alimentos en distribución. Conservar marcos y superposiciones existentes.
+- Preselección externa: Pexels 4292903 (video de escaneo), 4483942 (foto de escaneo), 5668879 (revisión de documentos), 6115031 (fotografía de exhibición), 4391227 (tablet junto a vehículo); Magnific 6683934 (video de inventario, Premium), 278573414 (tablet en supermercado, Premium), 3869749 (video de almacén refrigerado, Premium); Pixabay 819327 (vegetales en cajas, alternativa).
+- DESCONOCIDO: encuadres finales, marcas visibles y ajuste al recorte real; preselección basada en fichas públicas, sin validar reproducción completa ni descargar originales. B2B e-Commerce sigue sin candidato suficientemente específico; venta y entrega son aproximaciones, no representaciones exactas del flujo.
+- Mixkit 23011 descartado como opción gratuita comercial: su ficha limita la descarga gratuita a uso personal. Coverr Logistics y Pixabay Logistics quedan como colecciones de reserva, sin clip finalista.
+- Siguiente paso: revisión visual de candidatos y selección final por espacio antes de implementar. No se descargaron ni sustituyeron medios. Sin cambios en copy, rutas, dependencias, producción o ramas. No aplican lint/build a este análisis; se revisó el diff documental de esta entrada.
+
+## Ampliación — inventario estándar y cambios remunerados (3 de noviembre de 2026)
+
+- Erick aportó la imagen «Features (1).webp» y confirmó que las funciones visibles integran la versión estándar; los cambios solicitados por un cliente se gestionan aparte y tienen pago adicional.
+- Se añadió `docs/legal-review/STANDARD_FEATURE_INVENTORY_2026-11-03.md`, con copia de la imagen en `docs/legal-review/evidence/`, y se ajustaron índice, privacidad, términos del sitio, acuerdo de suscripción y anexo bilingüe para distinguir funcionalidad estándar, configuración y cambios cotizados.
+- Requieren validación técnica: datos y permisos por módulo, procesamiento de pagos, GPS y hojas de tiempo, funciones Beta/New, y el papel de Alere, leadCommerce y Route4me.
+- La imagen se usó como evidencia de nombres y alcance informado, no como prueba de que cada función esté activa o trate todos los datos posibles en cada cuenta. No se modificaron rutas ni producción.
+
+## Tarea cerrada — paquete legal bilingüe para revisión jurídica (3 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`.
+- Alcance: borradores internos en `docs/legal-review/` de privacidad, términos del sitio, suscripción y anexo de tratamiento y desarrollos a medida, en inglés y español.
+- Archivos reservados: `docs/legal-review/` y esta entrada de `docs/WORKLOG.md`.
+- Estado: cuatro documentos bilingües y un índice de decisiones en `docs/legal-review/`; sin cambios en rutas, copy público, proveedores ni producción. Reservas liberadas.
+- Validación: enlaces internos existentes, secciones EN/ES correspondientes y ausencia de espacios finales revisados; no se ejecutaron checks de código por ser documentación.
+- Riesgo y siguiente paso: Legal, Development y Producto deben confirmar las prácticas y términos señalados en la matriz antes de usar los textos para publicación o firma.
 
 ## Tarea cerrada — SAMI: frase de precio (29 de octubre de 2026)
 
