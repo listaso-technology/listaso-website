@@ -1,5 +1,13 @@
 # Estado de trabajo
 
+## Vista previa lista — QuickBooks: brief editorial (11 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Archivos: bloque QuickBooks y `quickBooksCertified` en `src/content/integrations/systems.ts`, contrato Integrations y esta entrada. Reservas liberadas.
+- Aplicado: encabezado QuickBooks in every part of your operation, nueve nombres capitalizados, nuevas descripciones exactas de Product History/Mobile Printing/GPS Tracking y párrafo certified integration sin 5.0 ni App Store dentro de él. El texto mantiene compatible Bluetooth printers y during working hours. Desktop y Online quedan identificados en el hero y enlaces contiguos al párrafo.
+- Preservado: descripciones no indicadas, datos/direcciones de sincronización, compatibilidad/disponibilidad, CTAs y destinos, imágenes, orden, insignias, rating y reseña independientes. Comparación con HEAD confirma tablas de QuickBooks, otros siete sistemas y listings/rating/quote sin alteraciones. Sin componentes o estilos nuevos, dependencias, commits, push ni despliegue.
+- Validación: lint global, typecheck, build webpack (44 rutas) y git diff --check pasan. HTML exportado confirma todos los textos completos y ausencia del titular anterior/párrafo con rating. Navegador oscuro a 320/375/768/1440 px sin overflow global; párrafo certificado y descripciones sin cortes. Los títulos largos de funcionalidades caben con saltos naturales; la copia TextRoll oculta se conserva. Confirmados el contexto Desktop/Online y rating independiente 5.0. Revisión visual móvil de funcionalidades.
+- Pendiente: QA visual en tema claro y dispositivo físico antes de promoción. Preview local: http://127.0.0.1:3012/quickbooks/.
+
 ## Vista previa lista — Integrations: cuatro ajustes editoriales (11 de noviembre de 2026)
 
 - Responsable: Codex, rama `dev`. Archivos: `src/content/integrations/hub.ts`, contrato Integrations y esta entrada. Reservas liberadas.
