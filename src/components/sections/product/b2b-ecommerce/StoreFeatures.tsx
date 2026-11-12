@@ -1,7 +1,7 @@
 import { Icon } from "@/components/icons/Icon";
 import { Container } from "@/components/layout/Container";
-import { ResponsivePhoto } from "@/components/media/ResponsivePhoto";
-import { sectionMedia } from "@/content/media/sections";
+import { FillPhoto } from "@/components/sections/variants/HeroParts";
+import { magnificMedia } from "@/content/media/magnific";
 import { features, spotlightTitles } from "@/content/products/b2b-ecommerce";
 import { SectionHeader } from "../../SectionHeader";
 import { ProductSection } from "../ProductSection";
@@ -26,10 +26,9 @@ export function StoreFeatures() {
         <StoreShowcase
           spotlight={spotlight}
           photo={
-            <ResponsivePhoto
-              photo={sectionMedia.storeCounter}
+            <FillPhoto
+              photo={magnificMedia.designerLaptop}
               sizes="(min-width: 1024px) 50vw, 100vw"
-              fill
               className={styles.photo}
             />
           }

@@ -8,7 +8,7 @@ import { FeatureIndex } from "@/components/sections/variants/FeatureIndex";
 import { HeroEditorial } from "@/components/sections/variants/HeroEditorial";
 import { NextPage } from "@/components/sections/variants/NextPage";
 import { productMedia } from "@/content/media/products";
-import { sectionMedia } from "@/content/media/sections";
+import { magnificMedia } from "@/content/media/magnific";
 import { features, hero, metadata as content, related } from "@/content/products/delivery";
 import { pageMetadata } from "@/lib/page-metadata";
 
@@ -25,7 +25,7 @@ export default function DeliveryPage() {
         photo={productMedia.deliveryHandTruck}
         overlay={<StopPanel />}
       />
-      <FeatureIndex id="features-title" section={features} photo={sectionMedia.highwayAerial} />
+      <FeatureIndex id="features-title" section={features} photo={magnificMedia.vanBoxes} />
       <WhyItMatters />
       <RelatedProducts products={related} />
       <IntegrationsBand />

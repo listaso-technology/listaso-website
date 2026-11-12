@@ -14,6 +14,7 @@ import { cx } from "@/lib/utils/cx";
 import { SamiBrandText } from "@/components/sections/product/sami/SamiBrandText";
 import { Container } from "./Container";
 import { NavDisclosures } from "./NavDisclosures";
+import { FormsProductLabel } from "./FormsProductLabel";
 import styles from "./SiteHeader.module.css";
 
 const isGroup = (entry: NavEntry): entry is NavGroup => "links" in entry;
@@ -39,7 +40,7 @@ function PanelLink({ link }: { link: NavLink }) {
       data-analytics-label={link.label}
     >
       <span className="flex min-w-0 flex-1 flex-col">
-        <span className="text-body font-semibold text-fg-heading"><SamiBrandText text={link.label} /></span>
+        <span className="text-body font-semibold text-fg-heading">{link.href === "/forms/" ? <FormsProductLabel fallback={link.label} /> : <SamiBrandText text={link.label} />}</span>
         {link.description ? <span className="text-small text-fg-muted">{link.description}</span> : null}
       </span>
       <Icon name="arrow-right" size={16} className={styles.panelArrow} />

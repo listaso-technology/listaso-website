@@ -1,5 +1,26 @@
 # Arquitectura actual
 
+## Actualización: aislamiento de referencias (11 de noviembre de 2026)
+
+Erick trasladó `_legacy_archive/` fuera del repositorio. La copia local
+verificada está en `/Users/Erick/Downloads/_legacy_archive/`; contiene
+`start-version/` y `wordpress-widget/`, con 120 archivos originales registrados
+en `manifest.json`. Su README explica restauración y límites. Esta ubicación
+es un respaldo local de Erick, no una dependencia requerida por el proyecto.
+Los originales permanecen además en el historial Git anterior a la limpieza.
+
+`.playwright-cli/` y `.DS_Store` permanecen en la raíz por instrucción de Erick.
+ESLint y TypeScript excluyen `_legacy_archive/` si vuelve a colocarse dentro
+del checkout; Tailwind continúa limitado a `src/`. Las menciones históricas
+a `start-version/` o `wordpress-widget/` corresponden al archivo externo;
+no son rutas del proyecto activo.
+
+`docs/` permanece como documentación activa y contiene `legal-review/`, cuyos
+tres borradores bilingües se leen durante el build. `assets/icons/` y
+`scripts/` son entradas del generador de iconos. `.agents/`, `.claude/` y
+`.github/` conservan instrucciones, Skills y CI. `src/` y `public/` permanecen
+intactos, incluidos recursos de IA/SAMI, medios generados y sus manifiestos.
+
 ## Actualización: hubs Products e Integrations (27 de octubre de 2026)
 
 `/products/` es un nuevo índice EN de las nueve páginas de producto. Su copy
@@ -76,7 +97,7 @@ scripts/          build-icons.mjs (`pnpm icons`)
 
 ## Referencia heredada
 
-`start-version/` contiene el generador Python, HTML estático bilingüe, CSS, JS,
+El `start-version/` del archivo externo contiene el generador Python, HTML estático bilingüe, CSS, JS,
 assets, metadata, redirects e integraciones heredadas. Es read-only, no participa
 en lint, tipos o build, y no es source of truth automático para contenido.
 

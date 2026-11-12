@@ -9,7 +9,7 @@ next step in `docs/WORKLOG.md`. Project Skills are discovered from
 `.agents/skills/`; read `docs/SKILLS_ARCHITECTURE.md` when choosing one.
 
 - Inspect before editing and stay inside the requested scope.
-- Treat `start-version/` as read-only reference; never include it in the build.
+- Legacy sources are archived outside this repository (see `docs/CURRENT_ARCHITECTURE.md`); treat them as read-only reference and never include them in the build.
 - Do not invent copy, claims, routes, translations or requirements.
 - Tailwind is the default. CSS Modules require a justified complex, isolated or
   third-party case.

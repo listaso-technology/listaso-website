@@ -23,7 +23,6 @@ export function FinalCta() {
       <span aria-hidden="true" className={styles.grid} />
       <Container className={styles.layout}>
         <div data-reveal="group" className={styles.copy}>
-          <span aria-hidden="true" className={styles.accent} />
           <h2 id="final-title" data-reveal="mask" className={styles.title}>
             <span data-reveal-content className="block">
               <Signature text={finalCta.title} />

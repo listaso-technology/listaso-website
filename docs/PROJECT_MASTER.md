@@ -54,7 +54,8 @@ autenticación, reconstrucción de SAMI, cutover productivo y rediseño masivo.
   sin una nueva decisión.
 - Contenido separado de presentación cuando facilite revisión y localización.
 - Sin estado global, base de datos o capas de servidor prematuras.
-- `start-version/` es referencia read-only y queda excluido de herramientas.
+- El antiguo `start-version/` se conserva como referencia read-only fuera del
+  repositorio (ver `docs/CURRENT_ARCHITECTURE.md`); nunca participa en el build.
 
 ## Estilos
 

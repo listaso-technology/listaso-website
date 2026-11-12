@@ -75,13 +75,13 @@ export function ProductHero({ content, icon, media, location, trail, ctas = true
                 {productCtas.demo.label}
               </Button>
               <Button
-                href={productCtas.pricing.href}
+                href={content.secondaryCta?.href ?? productCtas.pricing.href}
                 variant="secondary"
                 size="lg"
                 data-analytics-event="cta_secondary_click"
                 data-analytics-location={location}
               >
-                {productCtas.pricing.label}
+                {content.secondaryCta?.label ?? productCtas.pricing.label}
               </Button>
             </div>
           ) : null}

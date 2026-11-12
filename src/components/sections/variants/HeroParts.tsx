@@ -3,14 +3,17 @@ import { Icon, type IconName } from "@/components/icons/Icon";
 import { ResponsivePhoto } from "@/components/media/ResponsivePhoto";
 import { Button } from "@/components/ui/Button";
 import type { PhotoSlot } from "@/content/media/products";
+import type { MagnificPhoto } from "@/content/media/magnific";
+import type { PreSalesPhoto } from "@/content/media/pre-sales";
 import type { SectionPhoto } from "@/content/media/sections";
+import type { Link } from "@/content/products/types";
 import { productCtas } from "@/content/products/shared";
 import { cx } from "@/lib/utils/cx";
 
-export type AnyPhoto = PhotoSlot | SectionPhoto;
+export type AnyPhoto = PhotoSlot | PreSalesPhoto | SectionPhoto | MagnificPhoto;
 
 /** Demo and pricing CTAs (start-version `phero`). */
-export function HeroCtas({ location, className }: { location: string; className?: string }) {
+export function HeroCtas({ location, className, secondary = productCtas.pricing }: { location: string; className?: string; secondary?: Link }) {
   return (
     <div data-reveal-item className={cx("flex flex-wrap gap-4", className)}>
       <Button
@@ -22,13 +25,13 @@ export function HeroCtas({ location, className }: { location: string; className?
         {productCtas.demo.label}
       </Button>
       <Button
-        href={productCtas.pricing.href}
+        href={secondary.href}
         variant="secondary"
         size="lg"
         data-analytics-event="cta_secondary_click"
         data-analytics-location={location}
       >
-        {productCtas.pricing.label}
+        {secondary.label}
       </Button>
     </div>
   );

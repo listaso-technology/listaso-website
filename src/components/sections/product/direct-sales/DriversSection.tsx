@@ -1,40 +1,35 @@
 import Image from "next/image";
-import { Icon } from "@/components/icons/Icon";
-import { TextLink } from "@/components/ui/TextLink";
-import { productMedia } from "@/content/media/products";
-import { drivers, hardware } from "@/content/products/direct-sales";
-import { CheckList } from "../CheckList";
+import { magnificMedia } from "@/content/media/magnific";
+import { drivers } from "@/content/products/direct-sales";
 import { PrintedReceipt } from "../PrintedReceipt";
 import { ColorBand } from "../../variants/ColorBand";
 
 /**
  * "For your drivers" as a brand band (Thorstensson's paired showcase): the
  * crates being unloaded next to the invoice printed at the store, with the
- * benefits and the compatible hardware link.
+ * benefits and a smaller supporting image.
  */
 export function DriversSection() {
-  const photo = productMedia.dsdCrates;
+  const photo = magnificMedia.vanDriver;
 
   return (
     <ColorBand
       id="drivers-title"
       copy={drivers}
       aside={
-        <div className="flex flex-col gap-8">
-          <CheckList items={drivers.checks} />
-          <div data-reveal="fade" className="flex flex-col gap-2 border-t border-line-subtle pt-6">
-            <p className="text-eyebrow font-bold uppercase text-fg-accent">{hardware.tagline}</p>
-            <h3 className="text-h4 font-semibold text-fg-heading">{hardware.title}</h3>
-            <p className="text-body text-fg-muted">{hardware.text}</p>
-            <TextLink href={hardware.link.href} className="w-fit font-semibold">
-              {hardware.link.label}
-              <Icon name="arrow-right" size={16} className="self-center" />
-            </TextLink>
-          </div>
+        <div data-reveal="fade" className="flex flex-col gap-5 border-t border-line-subtle pt-6">
+          <h3 className="text-h4 font-semibold text-fg-heading">{drivers.benefitsTitle}</h3>
+          <ul className="grid gap-4">
+            {drivers.benefits.map((benefit) => (
+              <li key={benefit.emphasis} className="text-body text-fg-default">
+                <strong>{benefit.emphasis}</strong> {benefit.text}
+              </li>
+            ))}
+          </ul>
         </div>
       }
       pair={[
-        <figure key="photo" className="w-full max-w-sm overflow-hidden rounded-lg shadow-e3">
+        <figure key="photo" className="w-full max-w-xs overflow-hidden rounded-lg shadow-e3">
           <Image
             src={photo.src}
             alt={photo.alt}

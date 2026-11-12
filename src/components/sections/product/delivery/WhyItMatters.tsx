@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { Container } from "@/components/layout/Container";
-import { productMedia } from "@/content/media/products";
+import { magnificMedia } from "@/content/media/magnific";
 import { routeExample, whyItMatters } from "@/content/products/delivery";
 import backdrops from "../../backdrops.module.css";
 import { SectionHeader } from "../../SectionHeader";
@@ -16,7 +16,7 @@ const benefitStops = [0, 1, 3, 2] as const;
 
 /** "Why it matters" on the brand band: benefits linked to an animated day's route over the driver photo. */
 export function WhyItMatters() {
-  const photo = productMedia.deliveryDriver;
+  const photo = magnificMedia.onionUnloading;
 
   return (
     <section aria-labelledby="why-title" data-surface="band" data-story-section className={`${backdrops.brandMesh} ${styles.section}`}>

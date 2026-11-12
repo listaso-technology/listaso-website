@@ -44,7 +44,7 @@ export function HeroStatement({ content, icon, location, photo, overlay, trail, 
             {content.lead}
           </p>
           <HeroPlan>{content.plan}</HeroPlan>
-          {ctas ? <HeroCtas location={location} /> : null}
+          {ctas ? <HeroCtas location={location} secondary={content.secondaryCta} /> : null}
         </div>
 
         <div data-reveal="media" className={cx(styles.visual, Boolean(overlay) && styles.withOverlay)}>

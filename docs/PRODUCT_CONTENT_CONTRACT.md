@@ -32,14 +32,14 @@ No se añadieron claims, cifras, precios, integraciones ni compromisos.
 | Ruta | Title | Hero (eyebrow / H1) | Plan | Secciones | Relacionados |
 | --- | --- | --- | --- | --- | --- |
 | `/pre-sales/` | Mobile Order Taking App for Sales Reps \| Listaso | Pre-sales app / *Take orders faster* with every customer's prices in hand | Included in every plan, from Growth at $59 per user a month | Features (9), A store visit (4 pasos) | DSD, Forms, Sami |
-| `/direct-sales/` | Direct Store Delivery (DSD) & Van Sales App \| Listaso | Direct store delivery (DSD) / *Sell, invoice and collect* right from the truck | Included from Professional, $69 per user a month | Features (9), For your drivers (4 checks + hardware + factura impresa) | Inventory, Delivery, Pre-sales |
+| `/direct-sales/` | Direct Store Delivery (DSD) & Van Sales App \| Listaso | Direct store delivery (DSD) / *Sell, invoice and collect* right from the truck | Included from Professional, $69 per user a month | Features (9, 3 categorías), Built for your drivers (4 beneficios + factura impresa), Printers and Scanners | Inventory, Delivery, Sales |
 | `/inventory/` | Warehouse & Inventory App for Distributors \| Listaso | Inventory app / *Know what you have* in every warehouse and every truck | Included from Professional. Lot tracking, multi-bin and truck loading in Enterprise 360. | Features (9), Fresh product (6 checks + lotes FIFO + Which plan?) | Delivery, DSD, Back Office |
 | `/delivery/` | Delivery App with Routes & Proof of Delivery \| Listaso | Delivery app / *Deliver on time* and prove every delivery | Included from Professional. Delivery route planner in Enterprise 360. | Features (6), Why it matters (4 checks + ruta del día) | Inventory, DSD, Back Office |
-| `/back-office/` | Back Office for Sales, Inventory & Routes \| Listaso | Back Office / *One office system* for all your sales and inventory | Included in every plan | Features (9), Better decisions (4 checks + Meet Sami + flujo de pedidos) | Forms, Sami, Custom |
+| `/back-office/` | BackOffice for Sales, Inventory & Routes \| Listaso | BackOffice / *One system* for all your operations | Included in every plan | Features (9), Better decisions (4 checks + Meet Sami + flujo de pedidos) | Forms, Sami, Custom |
 | `/b2b-ecommerce/` | B2B Online Store for Distributors \| Listaso | B2B online store / *Take orders* even while you sleep | Professional includes 40 customer logins. Enterprise 360: unlimited. | Features (3 destacadas + 6) | Pre-sales, Back Office, DSD |
-| `/forms/` | Retail Execution: Forms & Surveys for Store Visits \| Listaso | New · Forms and surveys / *Know what happens* at every store visit | Included in Enterprise 360 | How it works (4), Question types (12), Ideas (3) | Pre-sales, Back Office, Sami |
+| `/forms/` | Retail Execution: Forms & Surveys for Store Visits \| Listaso | New · Forms and Surveys / *Know what happens* at every store visit | Included in Enterprise 360 package | How it works (4), Question types (12), Use cases (3) | Pre-sales, Back Office, Sami |
 | `/sami/` | SAMI AI Assistant for Distributors \| Listaso | *Ask your business anything.* SAMI has the answers | Starter $59, Professional $129, Business $299 per team/month · 14-day trial · onboarding fees waived through Dec 31, 2026 or with annual billing | Interactive examples (6), Features (4), pricing (3 plans + $10 SAMI Credit), formulario Zoho, exclusive rotating FAQ (6) | — (copy y precios revisados por Erick, 22–23 oct 2026) |
-| `/custom-development/` | Custom Development & Reports for Distributors \| Listaso | Custom development / *Made for the way* your business works | — (la fuente no tiene) | What we build (3), How it works (4) | Back Office, Sami, Forms |
+| `/custom-development/` | Custom Development & Reports for Distributors \| Listaso | Custom Development / *Made for the way* your business works | — (la fuente no tiene) | What we build (3), How it works (4) | Back Office, Sami, Forms |
 
 Todas las páginas de producto, salvo Forms y Sami, incluyen la franja de
 integraciones (como `product_page` en la fuente). Todas cierran con el
@@ -84,7 +84,7 @@ no enlazan ni descargan archivos. La capacidad de generar reportes Excel y PDF
 ya figura en el copy aprobado de la página.
 
 **Ajustes de copy de SAMI (26 de octubre de 2026, Erick).** El hero muestra
-“From $59 a month per team” y presenta a “SAMI, your Listaso AI Assistant”.
+“From $59 a month” y presenta a “SAMI, your Listaso AI Assistant”.
 La revisión posterior del mismo día cambia el cierre del párrafo a
 “Available in +30 languages”, coloca el precio en un chip blanco y da mayor
 jerarquía a “SAMI has the answers” frente a “Ask your business anything.”.
@@ -147,3 +147,17 @@ hero es la tienda ilustrada.
 | P6 | JSON-LD (`BreadcrumbList`, `SoftwareApplication`, `FAQPage`) | Omitido hasta validar datos |
 | P7 | `og:image` por página | Pendiente (igual que la Homepage) |
 | P8 | Versión en español (`/es/...`) | Fuera de alcance |
+
+## BackOffice — brief aplicado (11 de noviembre de 2026)
+
+Fuente aprobada: adjunto de Erick «Actualizar la página web de BackOffice de Listaso». Alcance exclusivo de `/back-office/`: nombre BackOffice (incluido footer sólo en esta ruta), hero y descripción exactos del brief, CTA Book a Demo / Pricing conservando Calendly y `/plans/`, ocho títulos capitalizados y descripción de Customers, products and prices. PDF conserva Available from Professional Package; Custom Templates y Forms Builder conservan Available from Enterprise 360 una sola vez. Reportes usa el texto aprobado con SAMI, the Listaso AI Assistant; se preservan checks y visuales. El siguiente producto muestra B2B eCommerce en sus dos etiquetas mediante configuración local, sin modificar navegación global ni destinos. Incluido en todos los planes sigue referido al producto base.
+
+## Custom Development — brief aplicado (11 de noviembre de 2026)
+
+Fuente aprobada: adjunto de Erick «Actualizar la página web de Custom Development de Listaso». Breadcrumb y etiqueta Custom Development; titular preservado. Hero y proceso usan las descripciones exactas del brief; Book a Demo / Pricing conservan Calendly y `/plans/`. Se retira exclusivamente SpecSheet (resumen duplicado bajo la imagen) con sus componentes y estilos locales sin consumidores. Se conservan las secciones principales, imágenes y comportamiento. Custom Reports, Custom Integrations y New Features mantienen orden; sólo la descripción de Reports cambia. StickyStory omite los cuatro indicadores pequeños únicamente aquí, conserva marcadores principales, captions e interacción. Relacionados, integraciones, siguiente producto, CTA final y footer sin cambios.
+
+## Forms and Surveys — brief aplicado (11 de noviembre de 2026)
+
+Fuente: adjunto aprobado por Erick «Actualizar la página de Forms and Surveys de Listaso». Nombre local de producto y navegación Forms and Surveys; hero, dos descripciones del proceso, disponibilidad Enterprise 360 package, encabezado de tipos y sección USE CASES actualizados con copy exacto. Titular, imagen, CTA, doce tipos y demás casos sin cambios. Carrusel horizontal local con lista única, desplazamiento lineal lento con reversa en extremos, scroll táctil y controles anterior/siguiente/pausa; pausa por hover, foco e interacción, sin autoplay con movimiento reducido. Sustituye la marquesina únicamente en Forms, sin alterar la decisión de movimiento de otras marquesinas.
+
+La instrucción global de retirar indicadores pequeños duplicados elimina los current/total de StickyStory en todos sus procesos. Se conservan números principales y captions. Se revisaron FeatureStack, FeatureTabs, HomeCapabilities y NextPage: sus contadores no duplican un número principal o sirven de orientación/navegación, por lo que se preservan, al igual que pasos del ejemplo de encuesta, precios, cantidades y datos.

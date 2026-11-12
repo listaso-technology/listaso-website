@@ -10,6 +10,7 @@ export default defineConfig([
     "out/**",
     "node_modules/**",
     "start-version/**",
+    "_legacy_archive/**",
     ".agents/**",
     ".claude/**",
   ]),

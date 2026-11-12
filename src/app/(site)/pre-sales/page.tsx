@@ -7,8 +7,8 @@ import { RelatedRail } from "@/components/sections/product/RelatedRail";
 import { BentoFeatures } from "@/components/sections/variants/BentoFeatures";
 import { HeroEditorial } from "@/components/sections/variants/HeroEditorial";
 import { NextPage } from "@/components/sections/variants/NextPage";
-import { productMedia } from "@/content/media/products";
-import { sectionMedia } from "@/content/media/sections";
+import { preSalesMedia } from "@/content/media/pre-sales";
+import { magnificMedia } from "@/content/media/magnific";
 import { features, hero, metadata as content, related } from "@/content/products/pre-sales";
 import { pageMetadata } from "@/lib/page-metadata";
 
@@ -22,13 +22,13 @@ export default function PreSalesPage() {
         content={hero}
         icon="orders"
         location="pre-sales-hero"
-        photo={productMedia.preSalesTablet}
+        photo={preSalesMedia.hero}
         overlay={<OrderPanel />}
       />
       <BentoFeatures
         id="features-title"
         section={features}
-        photos={[sectionMedia.storeCounter, sectionMedia.tabletWarehouse]}
+        photos={[magnificMedia.stockWorker, magnificMedia.officeTeam]}
       />
       <StoreVisit />
       <RelatedRail products={related} />

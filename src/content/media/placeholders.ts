@@ -5,6 +5,21 @@
  * operating environments and never represent a Listaso customer, employee or
  * documented deployment.
  */
+/** Pexels footage selected by Erick for the Home hero preview, 9 Nov 2026. */
+export const homeHeroVideo = {
+  src: "/videos/home/warehouse-scanning-4292903.mp4",
+  poster: "/images/home/warehouse-scanning-4292903.webp",
+  alt: "A warehouse worker scanning stocked products with a handheld barcode scanner",
+  sourceUrl: "https://www.pexels.com/video/man-scanning-the-codes-of-the-stocks-in-the-warehouse-4292903/",
+  author: "Tiger Lily",
+  licenseUrl: "https://www.pexels.com/license/",
+  downloadedOn: "2026-11-09",
+  width: 1280,
+  height: 720,
+  status: "preview",
+  notes: "Self-hosted 720p conversion via macOS AVFoundation. Illustrative stock footage, not a Listaso deployment. Center crop retains the scanner within the unchanged 4:5 hero frame.",
+} as const;
+
 export const homeMedia = {
   heroWarehouse: {
     src: "/images/home/warehouse-aisle.webp",
