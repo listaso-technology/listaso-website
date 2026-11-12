@@ -35,12 +35,13 @@ Principio: **primero paridad, después evolución**.
 ## Alcance actual
 
 - Foundation mantenible en Next.js y TypeScript.
-- Static export temporal para Cloudflare.
+- Static export; primera prueba Nginx en `listaso.net` según DEC-027.
 - Tailwind como sistema principal y CSS Modules para casos justificados.
 - Contenido localizado y revisado, sin traducción automática en runtime.
 - Preservación de rutas, SEO, analytics, SAMI y Zoho cuando corresponda.
 - Responsive, accesibilidad y performance desde el inicio.
-- CI con GitHub Actions; deployment temporal con Cloudflare.
+- CI con GitHub Actions; previews Pages existentes y publicación de prueba
+  por artefactos en Nginx (guía `docs/DEPLOY_LISTASO_NET.md`).
 
 Fuera del alcance actual: migración del blog, CMS final, base de datos,
 autenticación, reconstrucción de SAMI, cutover productivo y rediseño masivo.

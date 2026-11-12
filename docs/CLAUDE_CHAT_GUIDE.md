@@ -36,7 +36,7 @@ Haz una revisión read-only del estado real de Git y del diff sin commit. Verifi
 que la foundation respete las decisiones aprobadas, que start-version permanezca
 aislada y que no haya secretos ni archivos accidentales. Repite pnpm install
 --frozen-lockfile, pnpm peers check, pnpm lint, pnpm typecheck, pnpm build y git
-diff --check con Node 24.21.0 si está disponible.
+diff --check con Node 24.22.3 según `.node-version`.
 
 No crees páginas, no migres copy, no cambies dependencias, no hagas commit ni
 push. Entrégame: hallazgos por prioridad, resultado de cada validación, diferencias
@@ -72,7 +72,7 @@ Objetivo: convertir las validaciones locales en controles repetibles.
 
 ```text
 Implementa únicamente CI para Listaso Website conforme a DEC-003 y DEC-005.
-Usa Node 24.21.0 y pnpm 12.10.1. El workflow debe ejecutar instalación con
+Usa Node 24.22.3 y pnpm 12.10.1. El workflow debe ejecutar instalación con
 lockfile congelado, revisión de peer dependencies, lint, typecheck y production
 build. Fija las GitHub Actions de terceros a SHA completo y documenta sus nombres
 de checks para las futuras rulesets.

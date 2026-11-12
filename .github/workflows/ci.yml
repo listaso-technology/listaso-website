@@ -4,10 +4,12 @@ on:
   push:
     branches:
       - dev
+      - qa
       - main
   pull_request:
     branches:
       - dev
+      - qa
       - main
   workflow_dispatch:
 
@@ -60,4 +62,16 @@ jobs:
         run: pnpm build
 
       - name: Verify static output
-        run: test -f out/index.html
+        run: test -f out/index.html && test -f out/404.html
+
+      - name: Package static export
+        run: node scripts/package-static-export.mjs "$RUNNER_TEMP/static-export"
+
+      - name: Store static export artifact
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6.0.0
+        with:
+          name: listaso-static-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/static-export/
+          if-no-files-found: error
+          retention-days: 14
+          compression-level: 0
