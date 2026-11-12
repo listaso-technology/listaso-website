@@ -1,4 +1,9 @@
 import { Container } from "@/components/layout/Container";
+import { HomeMotion } from "@/components/sections/home/HomeMotion";
+import { GridPattern } from "@/components/sections/pricing/GridPattern";
+import dossier from "@/components/sections/variants/dossier.module.css";
+import heroStyles from "@/components/sections/variants/HeroDossier.module.css";
+import { cx } from "@/lib/utils/cx";
 import { legalBlocks, legalDocuments, legalInline, loadLegalDocument, type LegalDocumentKey } from "@/lib/legal-documents";
 
 export function LegalPage({ documentKey }: { documentKey: LegalDocumentKey }) {
@@ -6,19 +11,22 @@ export function LegalPage({ documentKey }: { documentKey: LegalDocumentKey }) {
 
   return (
     <div className="bg-surface-page pb-24 text-fg-default">
-      <header className="border-b border-line-subtle bg-surface-alt py-12 md:py-20">
-        <Container>
-          <p className="mb-4 text-eyebrow font-bold uppercase tracking-widest text-fg-accent">Legal preview · Vista previa legal</p>
-          <h1 className="max-w-4xl text-h1 font-bold tracking-tight text-fg-heading">{document.title}</h1>
-          <p className="mt-6 max-w-3xl text-body-lg leading-8 text-fg-muted">
-            Draft for legal review. This page does not replace an executed agreement or represent final published terms.
-            <span lang="es" className="mt-2 block">Borrador para revisión jurídica. Esta página no reemplaza un acuerdo firmado ni constituye un texto legal definitivo.</span>
-          </p>
-        </Container>
-      </header>
+      <GridPattern as="div" className="border-b border-line-subtle py-12 md:py-20">
+        <span aria-hidden="true" className={heroStyles.watermark}>Legal</span>
+        <header>
+          <Container data-reveal="fade">
+            <p className={cx(dossier.bracket, "mb-4 text-eyebrow font-bold uppercase tracking-widest text-fg-accent")}>Legal preview · Vista previa legal</p>
+            <h1 className="max-w-4xl text-h1 font-bold tracking-tight text-balance text-fg-heading">{document.title}</h1>
+            <p className="mt-6 max-w-3xl text-body-lg leading-8 text-fg-muted">
+              Draft for legal review. This page does not replace an executed agreement or represent final published terms.
+              <span lang="es" className="mt-2 block">Borrador para revisión jurídica. Esta página no reemplaza un acuerdo firmado ni constituye un texto legal definitivo.</span>
+            </p>
+          </Container>
+        </header>
+      </GridPattern>
 
       <Container className="pt-8 md:pt-12">
-        <nav aria-label="Related legal pages / Páginas legales relacionadas" className="mb-8 border-b border-line-subtle pb-8">
+        <nav data-reveal="fade" aria-label="Related legal pages / Páginas legales relacionadas" className="mb-8 border-b border-line-subtle pb-8">
           <ul className="flex flex-wrap gap-3">
             {(Object.keys(legalDocuments) as LegalDocumentKey[]).map((key) => {
               const item = legalDocuments[key];
@@ -35,14 +43,14 @@ export function LegalPage({ documentKey }: { documentKey: LegalDocumentKey }) {
 
         <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_16rem] lg:gap-16">
           <div className="min-w-0 max-w-3xl">
-            <aside aria-label="Draft status / Estado del borrador" className="mb-12 rounded-md border-l-4 border-status-warning bg-surface-soft p-5 text-small leading-7 text-fg-default">
+            <aside data-reveal="fade" aria-label="Draft status / Estado del borrador" className="mb-12 rounded-md border-l-4 border-status-warning bg-surface-soft p-5 text-small leading-7 text-fg-default">
               {legalInline(document.intro)}
             </aside>
 
             {document.languages.map((language) => (
               <article key={language.lang} id={language.id} lang={language.lang} aria-labelledby={`${language.id}-title`} className="mb-20 scroll-mt-8 last:mb-0">
-                <h2 id={`${language.id}-title`} className="mb-4 border-b border-line-subtle pb-4 text-h2-compact font-bold text-fg-heading">{language.title}</h2>
-                <nav aria-label={language.lang === "en" ? "Sections in English" : "Secciones en español"} className="mb-10 rounded-md bg-surface-alt p-5">
+                <h2 data-reveal="fade" id={`${language.id}-title`} className="mb-4 border-b border-line-subtle pb-4 text-h2-compact font-bold text-fg-heading">{language.title}</h2>
+                <nav data-reveal="fade" aria-label={language.lang === "en" ? "Sections in English" : "Secciones en español"} className="mb-10 rounded-md bg-surface-alt p-5">
                   <p className="mb-3 text-small font-bold text-fg-heading">{language.lang === "en" ? "On this page" : "En esta página"}</p>
                   <ol className="grid gap-2 text-small sm:grid-cols-2">
                     {language.sections.map((section) => (
@@ -51,7 +59,7 @@ export function LegalPage({ documentKey }: { documentKey: LegalDocumentKey }) {
                   </ol>
                 </nav>
                 {language.sections.map((section) => (
-                  <section key={section.id} aria-labelledby={section.id} className="mb-12 scroll-mt-8 last:mb-0">
+                  <section key={section.id} data-reveal="fade" aria-labelledby={section.id} className="mb-12 scroll-mt-8 last:mb-0">
                     <h3 id={section.id} className="mb-5 text-h3 font-bold text-fg-heading">{section.title}</h3>
                     {section.blocks.map((block, index) => <div key={index}>{legalBlocks(block)}</div>)}
                   </section>
@@ -71,6 +79,7 @@ export function LegalPage({ documentKey }: { documentKey: LegalDocumentKey }) {
           </nav>
         </div>
       </Container>
+      <HomeMotion />
     </div>
   );
 }

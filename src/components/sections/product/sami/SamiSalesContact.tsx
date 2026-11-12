@@ -44,7 +44,7 @@ export function SamiSalesContact({ section }: SamiSalesContactProps) {
         />
 
         <div className="grid min-w-0 items-stretch gap-8 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-12">
-          <div className="lg:relative">
+          <div data-reveal="fade" className="lg:relative">
             {/* Stays pinned below the header while the long form scrolls. */}
             <div className="flex flex-col gap-6 lg:sticky lg:top-28 motion-reduce:lg:static">
               <h3 className="text-h4 font-semibold text-fg-heading">
@@ -77,6 +77,7 @@ export function SamiSalesContact({ section }: SamiSalesContactProps) {
           </div>
 
           <div
+            data-reveal="fade"
             role="region"
             aria-labelledby="sami-sales-integration-title"
             aria-describedby="sami-sales-integration-description"

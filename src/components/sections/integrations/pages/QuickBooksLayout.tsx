@@ -1,9 +1,9 @@
 import { systemPageCopy } from "@/content/integrations/systems";
 import { ProductHero } from "../../product/ProductHero";
 import { FeatureIndex } from "../../variants/FeatureIndex";
+import { QuickBooksHeroMedia } from "../quickbooks/QuickBooksHeroMedia";
 import { QuickBooksSync } from "../quickbooks/QuickBooksSync";
-import { QuickBooksCertified, QuickBooksRatingChip } from "../SystemExtras";
-import { SystemHeroMedia } from "../SystemHeroMedia";
+import { QuickBooksCertified } from "../SystemExtras";
 import type { SystemLayoutProps } from "../SystemPage";
 
 /**
@@ -20,11 +20,7 @@ export function QuickBooksLayout({ system, photo }: SystemLayoutProps) {
         icon="sync"
         location={`${system.slug}-hero`}
         trail={systemPageCopy.trail}
-        media={
-          <SystemHeroMedia system={system}>
-            <QuickBooksRatingChip />
-          </SystemHeroMedia>
-        }
+        media={<QuickBooksHeroMedia system={system} />}
       />
       <QuickBooksCertified />
       <QuickBooksSync system={system} />

@@ -34,6 +34,7 @@ export function SamiFaqAccordion({ items }: { items: readonly FaqItem[] }) {
 
   return (
     <div
+      data-reveal="group"
       className="flex flex-col border-t border-line-subtle"
       onMouseEnter={() => setHovering(true)}
       onMouseLeave={() => setHovering(false)}
@@ -48,7 +49,7 @@ export function SamiFaqAccordion({ items }: { items: readonly FaqItem[] }) {
         const isOpen = openIndex === index;
         const answerId = `sami-faq-answer-${index}`;
         return (
-          <div key={item.question} className="border-b border-line-subtle">
+          <div data-reveal-item key={item.question} className="border-b border-line-subtle">
             <h3 className="m-0">
               <button
                 type="button"

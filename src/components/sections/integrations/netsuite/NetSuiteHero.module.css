@@ -1,0 +1,376 @@
+/*
+ * NetSuite hero: copy on the brand band and a card split by a seam (field
+ * photo | finance ledger). Product chips stay light in both themes. Motion is
+ * finite; static with reduced motion; decorations hidden in forced colors.
+ */
+@layer components {
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 72px 72px;
+    mask-image: radial-gradient(ellipse 70% 80% at 25% 40%, #000 15%, transparent 75%);
+  }
+
+  .hero::after {
+    position: absolute;
+    inset: auto 0 0;
+    height: 1px;
+    content: "";
+    background: linear-gradient(90deg, transparent, var(--listaso-aqua) 30%, var(--listaso-magenta) 70%, transparent);
+    opacity: 0.7;
+  }
+
+  .layout {
+    display: grid;
+    gap: 3rem;
+    padding-block: 3rem 4.5rem;
+  }
+
+  .copy {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    min-width: 0;
+  }
+
+  /* Split card */
+  .stage {
+    position: relative;
+    min-width: 0;
+  }
+
+  .split {
+    position: relative;
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    min-height: 34rem;
+    overflow: hidden;
+    border: 1px solid rgb(255 255 255 / 0.16);
+    border-radius: var(--listaso-radius-xl);
+    box-shadow: 0 30px 70px rgb(0 0 0 / 0.35);
+  }
+
+  .half {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1.1rem;
+    overflow: hidden;
+  }
+
+  /* Field half: the page photo. */
+  .photo {
+    position: absolute;
+    inset: 0;
+  }
+
+  .fieldShade {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(180deg, rgb(4 22 42 / 0.55) 0%, transparent 35%, transparent 50%, rgb(4 22 42 / 0.75) 100%);
+  }
+
+  /* Finance half: ruled ledger on deep navy. */
+  .finance {
+    background:
+      radial-gradient(70% 60% at 100% 0%, rgb(255 58 106 / 0.2), transparent 70%),
+      #071a31;
+  }
+
+  .ledger {
+    position: absolute;
+    inset: 0;
+    background-image:
+      repeating-linear-gradient(180deg, transparent 0 27px, rgb(255 255 255 / 0.07) 27px 28px),
+      linear-gradient(90deg, transparent calc(70% - 1px), rgb(0 189 169 / 0.18) calc(70% - 1px) 70%, transparent 70%);
+    mask-image: linear-gradient(180deg, #000 60%, transparent);
+  }
+
+  .badge {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    width: fit-content;
+    min-height: 2.5rem;
+    padding: 0.3rem 0.9rem 0.3rem 0.35rem;
+    border: 1px solid rgb(255 255 255 / 0.3);
+    border-radius: 999px;
+    background: rgb(4 22 42 / 0.75);
+    color: #fff;
+    font-weight: 800;
+  }
+
+  .badgeEnd {
+    align-self: flex-end;
+    padding-inline: 1rem;
+  }
+
+  .badgeMark {
+    display: grid;
+    place-items: center;
+    width: 1.9rem;
+    aspect-ratio: 1;
+    border-radius: 30%;
+    background: #fff;
+  }
+
+  .chips {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .chipsIn {
+    align-items: flex-end;
+  }
+
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    width: fit-content;
+    max-width: 100%;
+    padding: 0.4rem 0.75rem;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: 0 8px 20px rgb(0 0 0 / 0.25);
+    color: #00375b;
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .chipsOut .chip svg {
+    color: #008476;
+  }
+
+  .chipsIn .chip svg {
+    color: #c4114a;
+  }
+
+  /* Seam between the halves (horizontal when stacked, vertical side by side). */
+  .seam {
+    position: absolute;
+    top: 50%;
+    inset-inline: 0;
+    height: 3px;
+    translate: 0 -50%;
+    overflow: hidden;
+    background: linear-gradient(90deg, var(--listaso-aqua), var(--listaso-magenta));
+    box-shadow: 0 0 18px rgb(0 189 169 / 0.55);
+  }
+
+  .pulse {
+    position: absolute;
+    inset-block: 0;
+    left: -30%;
+    width: 30%;
+    background: linear-gradient(90deg, transparent, #fff, transparent);
+    opacity: 0;
+  }
+
+  .hub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background: var(--listaso-surface-band);
+    box-shadow: 0 0 0 8px rgb(0 189 169 / 0.18), 0 12px 30px rgb(0 0 0 / 0.4);
+    color: #fff;
+  }
+
+  .shared {
+    position: absolute;
+    top: calc(50% + 2.6rem);
+    left: 50%;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    translate: -50% 0;
+    padding: 0.4rem 0.8rem;
+    border-radius: 999px;
+    background: var(--listaso-surface-band);
+    box-shadow: 0 0 0 1px rgb(255 255 255 / 0.3), 0 10px 24px rgb(0 0 0 / 0.35);
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 800;
+    white-space: nowrap;
+  }
+
+  .shared svg {
+    color: var(--listaso-link-on-band);
+  }
+
+  /* Too narrow for the shared chip on the seam; it stays in the sync section. */
+  @media (max-width: 39.99rem) {
+    .shared {
+      display: none;
+    }
+
+    /* Stacked halves: arrows point at the horizontal seam (down from Listaso, up from NetSuite). */
+    .chip svg {
+      rotate: 90deg;
+    }
+  }
+
+  @media (min-width: 40rem) {
+    .split {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: none;
+      min-height: 30rem;
+    }
+
+    .half {
+      padding: 1.25rem;
+    }
+
+    .seam {
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      inset-inline: auto;
+      width: 4px;
+      height: auto;
+      translate: -50% 0;
+      background: linear-gradient(180deg, var(--listaso-aqua), var(--listaso-magenta));
+    }
+
+    .pulse {
+      inset-inline: 0;
+      top: -30%;
+      left: 0;
+      width: auto;
+      height: 30%;
+      background: linear-gradient(180deg, transparent, #fff, transparent);
+    }
+
+    .chipsOut {
+      align-items: flex-end;
+      padding-right: 0.75rem;
+    }
+
+    .chipsIn {
+      align-items: flex-start;
+      padding-left: 0.75rem;
+    }
+
+  }
+
+  @media (min-width: 64rem) {
+    .layout {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      align-items: center;
+      gap: 4rem;
+      padding-block: 4rem 5.5rem;
+    }
+
+    .split {
+      min-height: 34rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .chipsOut .chip {
+      animation: from-left 700ms var(--listaso-ease-enter) both;
+    }
+
+    .chipsIn .chip {
+      animation: from-right 700ms var(--listaso-ease-enter) both;
+    }
+
+    .hub {
+      animation: turn 1100ms var(--listaso-ease-enter) 400ms both;
+    }
+
+    .shared {
+      animation: rise 600ms var(--listaso-ease-enter) 1300ms both;
+    }
+
+    .pulse {
+      animation: run-x 1500ms var(--listaso-ease-standard) 1100ms 2 both;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) and (min-width: 40rem) {
+    .pulse {
+      animation-name: run-y;
+    }
+  }
+
+  @keyframes from-left {
+    from {
+      opacity: 0;
+      translate: -24px 0;
+    }
+  }
+
+  @keyframes from-right {
+    from {
+      opacity: 0;
+      translate: 24px 0;
+    }
+  }
+
+  @keyframes turn {
+    from {
+      rotate: -180deg;
+      scale: 0.6;
+    }
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      translate: -50% 10px;
+    }
+  }
+
+  @keyframes run-x {
+    0% { left: -30%; opacity: 0; }
+    20% { opacity: 1; }
+    100% { left: 100%; opacity: 0; }
+  }
+
+  @keyframes run-y {
+    0% { top: -30%; opacity: 0; }
+    20% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+  }
+
+  @media (forced-colors: active) {
+    .grid,
+    .hero::after,
+    .ledger,
+    .pulse {
+      display: none;
+    }
+
+    .split,
+    .chip,
+    .badge,
+    .shared {
+      border: 1px solid CanvasText;
+    }
+  }
+}

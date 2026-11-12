@@ -1,0 +1,633 @@
+/*
+ * Feature scenes for integration tabs. Dark brand stage in both themes with
+ * light "product" cards. Every animation is finite and restarts when the tab
+ * panel is shown (hidden → visible); static with reduced motion.
+ */
+@layer components {
+  .stage {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    place-items: center;
+    aspect-ratio: 16 / 10;
+    padding: 1.5rem;
+    overflow: hidden;
+    background:
+      radial-gradient(60% 55% at 50% 0%, rgb(0 189 169 / 0.2), transparent 70%),
+      radial-gradient(45% 50% at 100% 100%, rgb(255 58 106 / 0.14), transparent 70%),
+      #0b1a30;
+    color: #00375b;
+  }
+
+  .grid {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(rgb(255 255 255 / 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgb(255 255 255 / 0.05) 1px, transparent 1px);
+    background-size: 32px 32px;
+    mask-image: radial-gradient(ellipse 75% 75% at 50% 45%, #000 30%, transparent 80%);
+  }
+
+  .glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    width: 60%;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(0 189 169 / 0.18), transparent 65%);
+  }
+
+  /* Shared pieces */
+  .bar,
+  .barSoft,
+  .barStrong {
+    display: block;
+    height: 0.45rem;
+    border-radius: 999px;
+    background: #c9d6e2;
+  }
+
+  .barSoft {
+    height: 0.35rem;
+    background: #e1e8ef;
+  }
+
+  .barStrong {
+    width: 22%;
+    height: 0.6rem;
+    margin-left: auto;
+    background: #00375b;
+  }
+
+  .dot {
+    flex: none;
+    width: 0.5rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #c9d6e2;
+  }
+
+  .window,
+  .ledger,
+  .order,
+  .invoice {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.55rem;
+    padding: 0.85rem;
+    border-radius: 0.85rem;
+    background: #fff;
+    box-shadow: 0 18px 40px rgb(0 0 0 / 0.35);
+  }
+
+  .windowHead {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 0.15rem;
+    color: #00375b;
+    font-size: 0.75rem;
+    font-weight: 800;
+  }
+
+  .windowMark {
+    display: grid;
+    place-items: center;
+  }
+
+  .windowRow {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.3rem 0.4rem;
+    border-radius: 0.4rem;
+  }
+
+  /* 1. Automatic sync: two windows, rows light up in turn. */
+  .syncScene {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 0.75rem;
+    width: min(100%, 30rem);
+  }
+
+  .link {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 3.5rem;
+  }
+
+  .wire {
+    position: absolute;
+    inset-inline: -0.75rem;
+    top: 50%;
+    height: 2px;
+    background: repeating-linear-gradient(90deg, rgb(0 189 169 / 0.8) 0 6px, transparent 6px 11px);
+  }
+
+  .hub {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 2.75rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 0 6px rgb(0 189 169 / 0.22);
+    color: #00375b;
+  }
+
+  /* 2. Sales order: order card → ledger with a stamp. */
+  .orderScene,
+  .invoiceScene {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: min(100%, 30rem);
+  }
+
+  .order {
+    flex: 1;
+    max-width: 13rem;
+  }
+
+  .orderHead,
+  .invoiceHead {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: #008476;
+  }
+
+  .orderLine,
+  .invoiceLine {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+  }
+
+  .orderLine .bar,
+  .invoiceLine .bar {
+    flex: 1;
+  }
+
+  .thumb {
+    flex: none;
+    width: 1.4rem;
+    aspect-ratio: 1;
+    border-radius: 0.35rem;
+    background: linear-gradient(135deg, #d5f3ef, #b6e6df);
+  }
+
+  .qty,
+  .amount {
+    flex: none;
+    width: 1.6rem;
+    height: 0.45rem;
+    border-radius: 999px;
+    background: #00bda9;
+  }
+
+  .orderTotal,
+  .invoiceTotal {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px dashed #c9d6e2;
+  }
+
+  .arrow {
+    flex: none;
+    color: #5fe6d6;
+  }
+
+  .ledger {
+    flex: 1;
+    max-width: 11rem;
+  }
+
+  .ledgerRow {
+    padding: 0.35rem 0.4rem;
+    border-radius: 0.4rem;
+    background: #f2f6f9;
+  }
+
+  .ledgerNew {
+    background: #d5f3ef;
+  }
+
+  .stamp {
+    position: absolute;
+    right: -0.6rem;
+    bottom: -0.6rem;
+    display: grid;
+    place-items: center;
+    width: 2.4rem;
+    aspect-ratio: 1;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background: #00bda9;
+    color: #fff;
+  }
+
+  /* 3. Inventory: three locations, one adjusts. */
+  .inventoryScene {
+    position: relative;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 1.25rem;
+    width: min(100%, 22rem);
+    height: 80%;
+    padding: 1rem 1.25rem 0.85rem;
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: 0 18px 40px rgb(0 0 0 / 0.35);
+  }
+
+  .location {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    height: 100%;
+  }
+
+  .column {
+    position: relative;
+    display: flex;
+    flex: 1;
+    align-items: flex-end;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 0.5rem;
+    background: #f2f6f9;
+  }
+
+  .stock {
+    width: 100%;
+    border-radius: 0.5rem;
+    background: linear-gradient(180deg, #00bda9, #008476);
+    transform-origin: bottom;
+  }
+
+  .stockAdjust {
+    background: linear-gradient(180deg, #ff6b8e, #ff3a6a);
+  }
+
+  .locationTag {
+    display: grid;
+    place-items: center;
+    width: 1.9rem;
+    aspect-ratio: 1;
+    border-radius: 0.5rem;
+    background: #e6f1f8;
+    color: #00375b;
+  }
+
+  .syncBadge {
+    position: absolute;
+    top: -0.9rem;
+    right: -0.9rem;
+    display: grid;
+    place-items: center;
+    width: 2.4rem;
+    aspect-ratio: 1;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background: #00375b;
+    color: #fff;
+  }
+
+  /* 4. Products and pricing: price tags arrive. */
+  .priceScene {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    width: min(100%, 24rem);
+  }
+
+  .product {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0.75rem;
+    border-radius: 0.85rem;
+    background: #fff;
+    box-shadow: 0 12px 28px rgb(0 0 0 / 0.3);
+  }
+
+  .productThumb {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 2.4rem;
+    aspect-ratio: 1;
+    border-radius: 0.6rem;
+    background: #e6f1f8;
+    color: #00375b;
+  }
+
+  .productInfo {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+
+  .tag {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.3rem 0.55rem;
+    border-radius: 999px;
+    background: #e6f1f8;
+    color: #00375b;
+  }
+
+  .tagBar {
+    width: 1.6rem;
+    height: 0.45rem;
+    border-radius: 999px;
+    background: #00375b;
+  }
+
+  .tagNew {
+    background: #00bda9;
+    color: #fff;
+  }
+
+  .tagNew .tagBar {
+    background: #fff;
+  }
+
+  /* 5. Warehouse transfers: boxes travel between depots. */
+  .transferScene {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    width: min(100%, 30rem);
+  }
+
+  .depot {
+    display: grid;
+    place-items: center;
+    width: 4rem;
+    aspect-ratio: 1;
+    border-radius: 1rem;
+    background: #fff;
+    box-shadow: 0 18px 40px rgb(0 0 0 / 0.35);
+    color: #00375b;
+  }
+
+  .route {
+    position: relative;
+    height: 4rem;
+  }
+
+  .route svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .route path {
+    fill: none;
+    stroke: rgb(95 230 214 / 0.8);
+    stroke-width: 2;
+    stroke-dasharray: 6 6;
+    vector-effect: non-scaling-stroke;
+  }
+
+  .box {
+    position: absolute;
+    top: 50%;
+    left: 100%;
+    display: grid;
+    place-items: center;
+    width: 1.8rem;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    border-radius: 0.45rem;
+    background: #ffd46b;
+    box-shadow: 0 6px 14px rgb(0 0 0 / 0.3);
+    color: #5a3b00;
+  }
+
+  .box:nth-of-type(2) {
+    left: 82%;
+  }
+
+  .box:nth-of-type(3) {
+    left: 64%;
+  }
+
+  /* 6. Invoices: document fills, seal appears. */
+  .invoice {
+    flex: 1;
+    max-width: 15rem;
+  }
+
+  .seal {
+    position: absolute;
+    right: -0.8rem;
+    top: -0.8rem;
+    display: grid;
+    place-items: center;
+    width: 2.6rem;
+    aspect-ratio: 1;
+    border: 3px solid #fff;
+    border-radius: 50%;
+    background: #ff3a6a;
+    color: #fff;
+  }
+
+  .systemChip {
+    display: inline-flex;
+    flex: none;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.45rem 0.8rem;
+    border: 1px solid rgb(255 255 255 / 0.3);
+    border-radius: 999px;
+    background: rgb(4 22 42 / 0.75);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .systemChip svg {
+    color: #5fe6d6;
+  }
+
+  /* Motion (finite, restarts when the panel is shown). */
+  @media (prefers-reduced-motion: no-preference) {
+    .windowRow {
+      animation: flash 900ms ease-in-out both;
+      animation-delay: var(--d);
+    }
+
+    .hub {
+      animation: spin 1200ms var(--listaso-ease-enter) 200ms both;
+    }
+
+    .orderLine,
+    .invoiceLine,
+    .product {
+      animation: rise 500ms var(--listaso-ease-enter) both;
+      animation-delay: var(--d);
+    }
+
+    .ledgerNew {
+      animation: slide-in 600ms var(--listaso-ease-enter) 800ms both;
+    }
+
+    .stamp,
+    .seal,
+    .syncBadge {
+      animation: pop 450ms var(--listaso-ease-enter) 1100ms both;
+    }
+
+    .stock {
+      animation: grow 900ms var(--listaso-ease-enter) both;
+      animation-delay: var(--d);
+    }
+
+    .stockAdjust {
+      animation:
+        grow 900ms var(--listaso-ease-enter) both,
+        adjust 900ms ease-in-out 1300ms both;
+      animation-delay: var(--d), 1300ms;
+    }
+
+    .tagNew {
+      animation: tag 800ms var(--listaso-ease-enter) 700ms both;
+    }
+
+    .box {
+      animation: travel 1600ms var(--listaso-ease-standard) both;
+      animation-delay: var(--d);
+    }
+  }
+
+  @keyframes flash {
+    40% {
+      background: rgb(0 189 169 / 0.18);
+    }
+  }
+
+  @keyframes spin {
+    from {
+      rotate: -180deg;
+    }
+  }
+
+  @keyframes rise {
+    from {
+      opacity: 0;
+      translate: 0 8px;
+    }
+  }
+
+  @keyframes slide-in {
+    from {
+      opacity: 0;
+      translate: -16px 0;
+    }
+  }
+
+  @keyframes pop {
+    from {
+      opacity: 0;
+      scale: 0.4;
+    }
+  }
+
+  @keyframes grow {
+    from {
+      scale: 1 0;
+    }
+  }
+
+  @keyframes adjust {
+    50% {
+      scale: 1 0.7;
+    }
+  }
+
+  @keyframes tag {
+    from {
+      opacity: 0;
+      translate: 16px 0;
+    }
+  }
+
+  @keyframes travel {
+    from {
+      left: 0%;
+      opacity: 0;
+    }
+    15% {
+      opacity: 1;
+    }
+  }
+
+  /* Wide panels: scale the scene up so it fills the stage (layout unchanged). */
+  @media (min-width: 64rem) {
+    .stage > :last-child {
+      scale: 1.25;
+    }
+
+    .inventoryScene {
+      height: 66%;
+    }
+  }
+
+  @media (max-width: 39.99rem) {
+    .stage {
+      aspect-ratio: 4 / 3;
+      padding: 1rem;
+    }
+
+    .orderScene .arrow {
+      display: none;
+    }
+
+    .orderScene,
+    .invoiceScene {
+      gap: 0.6rem;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .grid,
+    .glow {
+      display: none;
+    }
+
+    .window,
+    .ledger,
+    .order,
+    .invoice,
+    .product,
+    .depot,
+    .inventoryScene {
+      border: 1px solid CanvasText;
+    }
+  }
+}

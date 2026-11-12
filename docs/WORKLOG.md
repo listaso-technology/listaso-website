@@ -1,5 +1,121 @@
 # Estado de trabajo
 
+## Vista previa lista — Acctivate: hero centrado verticalmente (12 de noviembre de 2026)
+
+- Responsable: Claude, `dev`, por instrucción del usuario (Henry): el hero parecía no estar centrado. Reservas liberadas. Sin commit, push ni despliegue.
+- Causa y cambio: `HeroImmersive.module.css` (sólo Acctivate) alineaba copy y panel al fondo (`align-items: end`) dentro de una altura de 88svh, dejando el cielo vacío arriba. Ahora `align-items: center` y padding vertical simétrico (4.5rem) en escritorio; móvil sin cambios. Estilo, foto, panel y copy intactos.
+- Validación: build webpack (44 rutas), lint y `git diff --check` pasan. Navegador: 1900×960 oscuro (106 px arriba y abajo del copy) y 1440×900 claro (79 px/79 px), sin overflow. Pendiente: revisión de Erick.
+
+## Vista previa lista — NetSuite: escenas por funcionalidad (12 de noviembre de 2026)
+
+- Responsable: Claude, `dev`, por instrucción del usuario (Henry): la sección de funcionalidades repetía el mismo diagrama en las seis pestañas. Reservas liberadas. Sin commit, push ni despliegue.
+- Archivos: nuevo `parts/FeatureScenes.tsx` + módulo CSS, `parts/FeatureTabs.tsx` (sólo NetSuite; nuevo prop `system`, `FeatureArt` queda como respaldo) y `NetSuiteLayout.tsx`. `FeatureArt` (compartido con FeatureIndex y Sage) no se modificó.
+- Escenas decorativas por icono, con marcadores sin texto salvo los nombres de los sistemas: sync (ventanas Listaso y NetSuite con filas que se iluminan en secuencia y hub), orders (pedido → registro con sello), inventory (tres ubicaciones, una se ajusta), price (productos con etiquetas de precio que llegan), move (cajas que viajan entre almacenes por ruta punteada) e invoice (factura que se completa con sello y chip NetSuite). Animaciones finitas que se reinician al abrir cada pestaña; estáticas con movimiento reducido. Pestañas ARIA, teclado y copy sin cambios.
+- Validación: lint, typecheck, build webpack (44 rutas) y `git diff --check` pasan. Navegador: las seis pestañas a 1440 px (escenas escaladas 1,25× para llenar el escenario) y 375 px claro; sin overflow. Pendiente: revisión de Erick y dispositivo físico.
+
+## Vista previa lista — hero de NetSuite (12 de noviembre de 2026)
+
+- Responsable: Claude, `dev`, por instrucción del usuario (Henry): el hero centrado se veía genérico; debía ser original, profesional y coherente con el sitio. Reservas liberadas. Sin commit, push ni despliegue.
+- Archivos: nuevo `netsuite/NetSuiteHero.tsx` + módulo CSS, `NetSuiteLayout.tsx` y fila en `SECTION_VARIANTS.md`. Se eliminó `parts/HeroCentered` (tsx + css), que sólo usaba NetSuite; queda en el historial Git.
+- Concepto «field and finance, together»: banda de marca con retícula y línea aqua→magenta; copy alineado a la izquierda (breadcrumb, eyebrow, H1, lead, CTAs con mismos destinos/analytics). A la derecha, tarjeta partida por una costura aqua→magenta con hub de sync: mitad «campo» (foto existente de la página + lo que Listaso envía a NetSuite) y mitad «finanzas» (libro contable decorativo + lo que NetSuite envía a Listaso); el dato bidireccional (Inventory quantities) sobre la costura. Todo sale de la tabla `sync`; NetSuite como texto (sin logo). Movimiento finito: chips hacia la costura, giro del hub y pulso dos veces; estático con movimiento reducido.
+- Móvil: mitades apiladas con costura horizontal, flechas giradas hacia la costura y chip bidireccional oculto (sigue en el puente de sync).
+- Validación: lint, typecheck, build webpack (44 rutas) y `git diff --check` pasan. Navegador: 1440 px oscuro y claro, 375 px oscuro; sin overflow. Ajustes de QA: chip bidireccional bajo el hub (evita choque con chips inferiores) y costura con brillo. Pendiente: revisión de Erick y dispositivo físico.
+
+## Vista previa lista — Sage: bloque de reseña (12 de noviembre de 2026)
+
+- Responsable: Claude, `dev`, por instrucción del usuario (Henry). Reservas liberadas. Sin commit, push ni despliegue.
+- Archivos: `SystemQuoteBlock` en `SystemExtras.tsx` (sólo lo usa Sage; `QuoteCard` de QuickBooks intacto), nuevo `SystemQuote.module.css` y `SageLayout.tsx` (pasa `highlight={system.name}`).
+- Diseño: tarjeta ancha en banda de marca con retícula, brillos y comilla decorativa en degradado aqua→magenta; eyebrow «Customer Testimonials» y cinco estrellas con «5 out of 5 stars» (copy aprobado de la Homepage, DEC-013); cita grande con «Sage 100» resaltado dentro del propio texto; autor con avatar de iniciales, nombre y fuente. Sin copy nuevo; `figure`/`blockquote`/`figcaption` semánticos.
+- Incidencia: la primera edición automatizada eliminó por error `QuickBooksCertified` (typecheck falló); se restauró el archivo desde `HEAD` y se aplicó sólo el cambio del bloque. Diff revisado.
+- Validación: lint, typecheck, build webpack (44 rutas) y `git diff --check` pasan. Navegador: 1440 px oscuro y claro, 375 px oscuro; sin overflow. Pendiente: revisión de Erick y dispositivo físico.
+
+## Vista previa lista — hero de QuickBooks (12 de noviembre de 2026)
+
+- Responsable: Claude, `dev`, por instrucción del usuario (Henry). Reservas liberadas. Sin commit, push ni despliegue.
+- Archivos: nuevo `quickbooks/QuickBooksHeroMedia.tsx` + módulo CSS y `QuickBooksLayout.tsx`. `ProductHero` (Inventory, B2B) y `SystemHeroMedia` (otras siete integraciones) no se modificaron.
+- Composición: anillos y brillo detrás; tarjeta clara con barra Listaso ↔ QuickBooks (pulso aqua que la recorre tres veces), «Sync / No double entry» y cinco filas cortas de la tabla de sincronización con su dirección en píldora (entrada escalonada); tarjeta flotante con las dos ediciones certificadas (QuickBooks Desktop / Online, de `quickBooksCertified.listings`) y el chip de calificación 5.0 existente. QuickBooks sigue como texto (sin logo). Movimiento finito; estático con movimiento reducido.
+- Validación: lint, typecheck, build webpack (44 rutas) y `git diff --check` pasan. Navegador: 1440 px oscuro y claro, 375 px oscuro (tres filas, ediciones en línea y espacio para el chip); sin overflow. Pendiente: revisión de Erick y dispositivo físico.
+
+## Vista previa lista — hero de Custom Development (12 de noviembre de 2026)
+
+- Responsable: Claude, `dev`, por instrucción del usuario (Henry): el hero se veía raro y poco profesional. Reservas liberadas. Sin commit, push ni despliegue.
+- Archivos: nuevo `CustomDevHero.tsx` + módulo CSS, ruta `/custom-development/` y fila en `SECTION_VARIANTS.md`. `HeroCaseStudy` no se modificó porque Acumatica lo usa con identidad propia (DEC-023).
+- Diseño: banda de marca (`brandMesh`) con retícula y línea aqua→magenta; a la izquierda breadcrumb, eyebrow con icono, H1, lead, CTAs Book a Demo/Pricing (mismos destinos y analytics) y los cuatro pasos de `process` como chips numerados; a la derecha la foto de código existente en marco con parallax, ventana de código decorativa cuyas líneas se escriben una vez y tarjeta clara con las tres capacidades de «What we build». Sin copy nuevo, dependencias ni vidrio; en móvil la tarjeta queda bajo la foto con solape.
+- Validación: lint, typecheck, build webpack (44 rutas) y `git diff --check` pasan. Navegador: 1440 px oscuro y claro, 375 px oscuro; sin overflow. Ajustes durante QA: marco cuadrado para que todo entre en el primer viewport y tarjeta sólida (GlassPanel forzaba posición relativa y bajo contraste). Pendiente: revisión de Erick y dispositivo físico.
+
+## Vista previa lista — Forms: carrusel infinito sin pausa (12 de noviembre de 2026)
+
+- Responsable: Claude, `dev`, por instrucción del usuario (Henry): quitar el botón de pausa y que la animación sea infinita. Reservas liberadas. Sin commit, push ni despliegue.
+- Archivos: `QuestionTypesCarousel.tsx` y su módulo CSS; DEC-022 (ampliación con riesgo WCAG 2.2.2) y contrato Products.
+- Cambio: bucle continuo en una dirección (30 px/s) con copia decorativa `aria-hidden` + `inert` (el lector anuncia una sola lista de 12); salto invisible entre conjuntos en el bucle y en las flechas; barra de progreso de dos segmentos para el cruce. Se retira el botón de pausa; flechas, teclado y gesto táctil se mantienen y la interacción manual sólo detiene el bucle 3,5 s. Pausas automáticas: hover, foco por teclado (`:focus-visible`), fuera de pantalla y pestaña oculta. Sin movimiento ni copia con movimiento reducido.
+- Validación: lint, typecheck, build webpack (44 rutas) y `git diff --check` pasan. Navegador: cruce del final del conjunto sin salto (3012 → 30 px), flecha anterior y siguiente sin salto en los extremos, pausa y reanudación tras 3,5 s, sólo dos botones; 1440 px oscuro y 375 px claro sin overflow. Pendiente: confirmación de Erick del riesgo de accesibilidad y gesto táctil en dispositivo físico.
+
+## Vista previa lista — Forms: carrusel de tipos de pregunta (12 de noviembre de 2026)
+
+- Responsable: Claude, `dev`, por instrucción del usuario (Henry): la sección se veía mal (barra de scroll nativa, mismo icono en las doce tarjetas, controles sueltos). Reservas liberadas. Sin commit, push ni despliegue.
+- Archivos: `QuestionTypesCarousel.tsx`, nuevo `QuestionTypesCarousel.module.css` y nota en el contrato Products.
+- Se conserva todo el comportamiento aprobado: lista única de doce tipos, scroll nativo táctil/rueda/teclado (flechas, Home/End), avance lineal lento con reversa, pausa por hover/foco/interacción, botones anterior/siguiente/pausa con sus nombres accesibles y sin autoplay con movimiento reducido.
+- Visual: tarjetas numeradas con miniatura decorativa del campo (texto, área, stepper, decimal, Sí/No, opción única, desplegable, casillas, calendario, hora, foto y firma; valores ilustrativos), línea aqua→magenta y elevación al pasar el cursor, bordes del carril desvanecidos, barra de scroll oculta y sustituida por barra de progreso (actualizada por ref, sin re-render) y controles redondos con icono de pausa/reproducción bajo el carril.
+- Validación: lint, typecheck, build webpack (44 rutas) y `git diff --check` pasan. Navegador: 1440 px oscuro y claro, 375 px oscuro; autoavance, pausa/reanudación, progreso y extremos comprobados; sin overflow. Pendiente: revisión de Erick y gesto táctil en dispositivo físico.
+
+## Vista previa lista — Direct Sales: sección Printers and Scanners (12 de noviembre de 2026)
+
+- Responsable: Claude, `dev`, por instrucción del usuario (Henry). Reservas liberadas. Sin commit, push ni despliegue.
+- Archivos: `HardwareSection.tsx` y nuevo `HardwareSection.module.css` (sólo los usa `/direct-sales/`).
+- Tarjeta sobre la banda de marca (ambos temas) con retícula y brillos: insignia de impresora, título, texto y enlace «More info» existentes (enlace convertido en botón píldora), chips con las seis marcas derivadas de la tabla de compatibilidad de `/printers-and-scanners/` (sólo texto, DEC-015) e ilustración SVG decorativa de impresora móvil con factura y lector de código de barras. Tras revelarse: el papel sale, llega el lector y el láser barre tres veces (finito); estado final visible con movimiento reducido o sin JS.
+- Validación: lint, typecheck y build webpack (44 rutas) pasan. Navegador: 1440 px oscuro y claro, 375 px claro; sin overflow. Pendiente: revisión de Erick y dispositivo físico.
+
+## Vista previa lista — `/products/`: sección de integraciones y app adicional (12 de noviembre de 2026)
+
+- Responsable: Claude, `dev`, por instrucción del usuario (Henry). Reservas liberadas. Sin commit, push ni despliegue.
+- Archivos: nuevo `ProductsConnection` (+ módulo CSS), ruta `/products/` simplificada y retiro de los estilos `connection*`/`additionalApp*` sin consumidores en `ProductsHub.module.css`.
+- Diagrama de sincronización sobre la banda de marca: símbolo oficial de Listaso, dos carriles con las direcciones y datos de `howSync` del hub de Integrations (mismo copy) y su nota «varía por sistema», y los ocho sistemas contables como enlaces de texto a sus páginas (DEC-015, sin logos de terceros). Al revelarse, un pulso recorre cada carril dos veces (finito; nada se mueve con movimiento reducido o sin JS). Tarjeta Listaso Advanced con icono, acento aqua→magenta y botón de App Store; mismo enlace y analytics. Copy y CTA de la sección sin cambios; en el DOM el texto va antes del diagrama (en escritorio el diagrama se ordena a la izquierda).
+- Validación: lint, typecheck, build webpack (44 rutas) y `git diff --check` pasan. Navegador: 1440 px oscuro y claro, 375 px claro; sin overflow. Pendiente: revisión de Erick y dispositivo físico.
+
+## Vista previa lista — explorador de `/products/` (12 de noviembre de 2026)
+
+- Responsable: Claude, `dev`, por instrucción del usuario (Henry): la vista previa sólo cambiaba un número al elegir producto; debía ser más profesional y llamativa. Reservas liberadas. Sin commit, push ni despliegue.
+- Archivos: `ProductExplorer` (cliente), nuevo `productPreviews.ts` (datos armados en servidor y pasados como prop), ruta `/products/`, `ProductsHub.module.css` y contrato del hub.
+- Vista previa: foto hero registrada de cada página con velo navy, titular hero de la página, chip `NN / 09` con icono, área y barra de progreso de nueve segmentos; SAMI (sin foto) muestra su primera pregunta de ejemplo como escena de chat. Debajo, las tres primeras capacidades de la página como chips con icono. Al cambiar, foto, titular y chips entran de nuevo (finito; instantáneo con movimiento reducido). Lista: icono y número por producto y barra aqua→magenta en la fila elegida. Sin copy nuevo, dependencias ni vidrio; nombres, resúmenes, enlaces, tiendas y analytics conservados.
+- Validación: lint, typecheck, build webpack (44 rutas) y `git diff --check` pasan (corregidos dos tamaños de `Icon` no admitidos). Navegador: Pre-sales, B2B y SAMI a 1440 px en oscuro, Delivery en claro, Inventory y SAMI a 375 px en claro; sin overflow. Ajustado en móvil: marco 4:3, escena SAMI sin burbuja de respuesta y barra de selección limitada a la fila. Pendiente: fotos definitivas de Diseño (las de stock y la portada Magnific de B2B son de 740 px), revisión de Erick y dispositivo físico.
+
+## Vista previa lista — heroes sencillos rediseñados (12 de noviembre de 2026)
+
+- Responsable: Claude, `dev`, por instrucción del usuario (Henry): que los heroes demasiado sencillos (referencia `/products/`) luzcan profesionales y vistosos. Reservas liberadas. Sin commit, push ni despliegue.
+- Auditoría visual de los 33 heroes a 1440 px: con foto, tarjetas o mockups ya resueltos (Home, nueve productos, Integrations, ocho sistemas, SAMI, Printers). Sencillos: `/products/`, los `HeroDossier` sólo tipográficos (Join us y Contact sin visual; Industries, Support, Rating y SAP sólo con caja) y la cabecera legal.
+- `/products/` (`ProductsHero`, `ProductsHub.module.css`): fondo de banda con degradado, retícula, brillos aqua/magenta y línea de marca inferior; énfasis del H1 en degradado blanco→aqua; chips con las cuatro áreas existentes de `productGroups`; diagrama con órbita de cuatro marcas oficiales activas (Van Sales, Advanced Inventory, Delivery, Warehouse Inventory; sin eCommerce/SAMI por su peso), halo cónico en el centro y trazos que se dibujan al cargar. La órbita gira un cuarto ligado al scroll (las marcas contrarrotan). Se conservan copy, CTAs, analytics y los cuatro nodos legibles.
+- `HeroDossier` (compartido; About, Industries, Support, Impact, Join us, Rating, Contact y SAP): fondo `GridPattern` (retícula y brillos tokenizados), marca de agua contorneada con el eyebrow (aria-hidden, deriva con scroll) y, sin aside, nuevo `HeroEmblem` (símbolo multicolor oficial con anillos y arcos aqua/magenta/navy). `LegalPage` usa el mismo fondo, marca de agua «Legal» y eyebrow entre corchetes.
+- Reglas: sin copy nuevo, dependencias ni componentes cliente; sin vidrio; movimiento finito al cargar o ligado al scroll (sin bucles), estático con movimiento reducido o sin soporte; decoraciones ocultas en forced-colors. Logos sin recolorear (DEC-012).
+- Validación: lint, typecheck, build webpack (44 rutas) y `git diff --check` pasan. Navegador: Products, Contact, Join us e Industries en oscuro y Contact, Support, About, Products, SAP, Rating y Terms en claro a 1440 px; Products y Join us a 375 px en oscuro sin overflow horizontal. Pendiente: revisión de Erick de la dirección visual, movimiento reducido a nivel de sistema y dispositivo físico. `/plans/` no se modificó (su hero ya muestra los precios en el primer viewport).
+
+## Vista previa lista — revelado al scroll consistente (12 de noviembre de 2026)
+
+- Responsable: Claude, `dev`, por instrucción del usuario (Henry): homogeneizar la animación de aparición al hacer scroll en las páginas y secciones que no la tenían. Reservas liberadas. Sin commit, push ni despliegue.
+- Sistema: se reutiliza el existente (`data-reveal` group/fade/media + `HomeMotion`, `src/styles/motion.css`). Sin CSS, tokens, componentes cliente ni dependencias nuevos; contenido visible sin JavaScript y estático con `prefers-reduced-motion`.
+- Auditoría previa sobre el export: `/products/` no montaba `HomeMotion` ni tenía revelados (su CTA final tampoco animaba); las tres páginas legales no tenían ninguno; sin revelado en lista de Industries, filas de About/Impact (`KineticWords`), categorías, Hardware y Connected Solutions de Direct Sales, puente a Products de Integrations, contacto y FAQ de SAMI, opciones de Forms y la tarjeta `NextPage` de todas las páginas.
+- Archivos: ruta `/products/`, `ProductExplorer`, `LegalPage` (monta `HomeMotion`; fade por sección), `IndexPreview` y `KineticWords` (grupo por fila; el hover de fila de `IndexPreview` conserva su transición porque el revelado va en el contenido), `FeatureCategories`, `HardwareSection`, `ConnectedSolutions`, ruta `/integrations/`, `SamiFaqAccordion`, `SamiSalesContact`, `IdeasShowcase` y `NextPageNavigator` (compartido: aplica a Products, Integrations y Company).
+- Sin cambio intencional: marquesinas (ya en movimiento continuo, DEC-022), heroes en primer viewport, páginas de error (sin scroll) y secciones con movimiento propio (StickyStory, FeatureStack, RouteStory, BackOfficeConsole, CompareTable).
+- Validación: lint, typecheck, build webpack (44 rutas) y `git diff --check` pasan. Auditoría del export: toda sección con contenido bajo el pliegue tiene revelado salvo las exclusiones anteriores. Navegador (export estático, 1280 px, transiciones desactivadas para medir): en 10 rutas todos los elementos pendientes inician en opacidad 0 y terminan en 1 al revelarse; sin overflow horizontal. Con el panel visible, scroll real a 1440 px (tema oscuro): Products, Industries, About, Impact, Direct Sales, SAMI, Forms, Integrations, Privacy y QuickBooks revelan el 100 % de sus elementos, sin overflow; capturas confirman la entrada con blur escalonado y el estado final nítido. A 375 px en tema claro: Products (8/9; la vista previa de escritorio está oculta por diseño bajo 1024 px) y Direct Sales (23/23), sin overflow. Pendiente: movimiento reducido a nivel de sistema (revisado en código: `HomeMotion` no activa estados ocultos) y dispositivo físico.
+
+## Vista previa lista — NetSuite y encabezados de integración (12 de noviembre de 2026)
+
+- Responsable: Codex, `dev`. Copy indicado de NetSuite aplicado; Sales orders, Inventory y descripciones sin reemplazo conservados. Botones tenían etiquetas y enlaces solicitados. Cambios anteriores preservados; sin cambios de medios, enlaces, orden ni datos. Reservas liberadas.
+- NetSuite usa diagrama y pestañas, no tabla y tarjetas: encabezados del diagrama pasan de 12 a 16 px y mantienen peso 700. Encabezados de las tablas de Acumatica y Printers and Scanners pasan de 12 a 14 px y mantienen peso 700; las demás vistas de sincronización no presentan encabezados de columna. Los rótulos auxiliares y celdas conservan tamaño.
+- Validación: ESLint dirigido, typecheck, build webpack (44 rutas) y diff check pasan. Navegador: seis pestañas NetSuite comprobadas a 320 y 1440 px; encabezados NetSuite 16 px/700 y de las dos tablas 14 px/700 sin cortes ni overflow global a 320, 390, 768 y 1440 px. Pendiente revisión visual completa en ambos temas y dispositivo físico. Sin commit, push ni despliegue.
+
+## Vista previa lista — contenido SAP (12 de noviembre de 2026)
+
+- Responsable: Codex, `dev`. Se actualizaron descripción principal, nueve títulos y cuatro descripciones de tarjetas según el brief; CTAs ya tenían etiquetas y destinos pedidos. Sin cambiar orden, enlaces, medios ni descripciones no indicadas. Cambios Sage y Acumatica previos preservados. Archivos: bloque SAP de `src/content/integrations/systems.ts`, contrato Integrations y esta entrada; reservas liberadas mientras se espera respuesta.
+- Erick confirmó reemplazar «stock» por «inventory» en el título principal; cambio aplicado. Reservas liberadas.
+- Validación: ESLint dirigido, typecheck y build webpack (44 rutas) pasan. Vista en navegador confirma copy y CTAs; a 320, 390, 768 y 1440 px no se detectaron desbordamiento horizontal ni textos cortados o fuera de sus tarjetas. Título confirmado visualmente en 390 y 1440 px. Revisión visual completa en temas y dispositivo físico pendiente. Sin commit, push ni despliegue.
+
+## Vista previa lista — contenido Acumatica y revisión de logo (12 de noviembre de 2026)
+
+- Responsable: Codex, `dev`. Archivos: bloque Acumatica de `src/content/integrations/systems.ts`, contrato Integrations y esta entrada; reservas liberadas. Se preservaron los cambios Sage anteriores.
+- Descripción y títulos actualizados según el brief; se modificaron únicamente las tres descripciones indicadas. Orden, estilos, medios, iconos, enlaces y resto del contenido conservados. Los CTA ya tenían los textos y destinos pedidos.
+- Revisadas las referencias de marca en `src`: header/footer usan lockups activos y diagramas el símbolo activo según el manifiesto de marca; variantes de marca principal obsoletas sin referencias activas detectadas. Sin sustituciones de logo.
+- Validación: ESLint dirigido, typecheck y build webpack (44 rutas) pasan. Vista en navegador confirma copy y enlaces; geometría a 320, 390, 768 y 1440 px sin desbordamiento horizontal de página ni texto cortado o fuera de las tarjetas. Pendiente revisión visual completa en ambos temas y dispositivo físico. Sin commit, push ni despliegue.
+
 ## Entrega — commits de seguridad y artefacto CI (12 de noviembre de 2026)
 
 - Responsable: Codex en `dev`. Erick autoriza commits y push de seguridad/workflow/documentación; Sage queda fuera de estos commits.
@@ -15,6 +131,12 @@
 - Validación: instalación congelada, peers, lint global, typecheck, build Turbopack (44 rutas), sintaxis JS, YAML de ramas/orden/SHA/permisos/retención y git diff --check pasan con Node 24.22.3/pnpm 12.10.1. Prueba real de empaquetado/extracción en /private/tmp: 487 archivos idénticos por SHA-256 y manifiesto válido; alteración de metadatos detectada. Negativas: SHA incorrecto, CI sucio, destino existente, export ausente, ocultos y symlinks rechazados.
 - Ajuste de validación: out/fonts/.gitkeep bloqueó el primer ensayo; se reconocen sólo esos marcadores y se excluyen del tar sin modificar out. Paquete local de prueba registra workingTreeClean:false y event local-validation, no es una candidata publicable.
 - Límites: subida/descarga reales de Actions y tar GNU del runner pendientes de la primera ejecución remota tras push autorizado; prueba local usó tar de macOS. No se ejecutó push, main, CD, servidor, DNS, Cloudflare o deploy. Siguiente paso: guardar cambios aprobados y promover dev -> qa; obtener el artefacto de push qa que pase CI.
+
+## Vista previa lista — contenido Sage 100 (12 de noviembre de 2026)
+
+- Responsable: Codex en `dev`. Alcance: textos solicitados de `/sage/` y verificación de CTAs existentes; sin modificar diseño, medios, enlaces ni otras rutas.
+- Archivos: bloque Sage en `src/content/integrations/systems.ts`, contrato Integrations y esta entrada. Reservas liberadas. Descripción del hero y seis títulos exactos; nuevas descripciones sólo en Two-way Sync, Orders from the Field y GPS Tracking. Botones ya tenían Book a Demo y Pricing, con Calendly y `/plans/` respectivamente; no se cambiaron. Descripciones restantes, título, estructura, iconos, imágenes y tablas conservados.
+- Validación: ESLint dirigido, typecheck, build webpack (44 rutas) y `git diff --check` pasan. Navegador confirma textos y destinos; a 320, 390, 768 y 1440 px no se detectó desbordamiento horizontal global ni desbordamiento de las seis tarjetas. Pendiente revisión visual en temas claro/oscuro y dispositivo físico. Sin dependencias, commit, push o despliegue.
 
 ## Tarea cerrada — parches Zod y minimatch de herramientas (12 de noviembre de 2026)
 

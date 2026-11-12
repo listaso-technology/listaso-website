@@ -51,7 +51,7 @@ export function NextPageNavigator({ group, links, currentIndex }: NextPageNaviga
   return (
     <nav aria-label={group} data-story-section className={styles.section}>
       <Container width="wide">
-        <div className={styles.card}>
+        <div data-reveal="fade" className={styles.card}>
           <span className={styles.meta}>
             <span>{group}</span>
             <span aria-hidden="true" className={styles.position}>{position}</span>

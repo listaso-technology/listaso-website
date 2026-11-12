@@ -24,7 +24,7 @@ export function SageLayout({ system, photo }: SystemLayoutProps) {
       />
       <SyncLanes system={system} />
       <FeatureStack id="features-title" section={{ ...systemPageCopy.features(system.name), items: system.features }} />
-      {system.quote ? <SystemQuoteBlock quote={system.quote} /> : null}
+      {system.quote ? <SystemQuoteBlock quote={system.quote} highlight={system.name} /> : null}
     </>
   );
 }

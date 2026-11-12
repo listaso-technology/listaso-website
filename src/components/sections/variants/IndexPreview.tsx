@@ -39,12 +39,13 @@ export function IndexPreview({ id, copy, label, items, tone }: IndexPreviewProps
             {items.map((item, index) => (
               <li
                 key={item.title}
+                data-reveal="group"
                 className={cx(dossier.row, "grid grid-cols-[2.5rem_minmax(0,1fr)] gap-x-4 gap-y-3 border-b border-line-subtle py-6 sm:grid-cols-[3.5rem_minmax(0,1fr)]")}
               >
-                <span aria-hidden="true" className="pt-2 text-small font-bold text-fg-accent">
+                <span data-reveal-item aria-hidden="true" className="pt-2 text-small font-bold text-fg-accent">
                   {String(index + 1).padStart(2, "0")}
                 </span>
-                <div className="flex flex-col gap-2">
+                <div data-reveal-item className="flex flex-col gap-2">
                   <h3 className="text-h3 font-bold break-words text-fg-heading uppercase sm:text-h2">{item.title}</h3>
                   <p className="max-w-xl text-body text-fg-muted">{item.text}</p>
                   <div className="relative mt-2 aspect-[16/9] overflow-hidden rounded-md bg-surface-soft lg:hidden">
@@ -54,7 +55,7 @@ export function IndexPreview({ id, copy, label, items, tone }: IndexPreviewProps
               </li>
             ))}
           </ol>
-          <div aria-hidden="true" className="hidden lg:block">
+          <div aria-hidden="true" data-reveal="media" className="hidden lg:block">
             <div className="sticky top-28 aspect-[4/5] overflow-hidden rounded-lg bg-surface-soft shadow-e2">
               {items.map((item) => (
                 <div key={item.title} className={cx(dossier.previewLayer, "absolute inset-0")}>
