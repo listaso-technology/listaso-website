@@ -1,5 +1,49 @@
 # Estado de trabajo
 
+## Entrega — commits de seguridad y artefacto CI (12 de noviembre de 2026)
+
+- Responsable: Codex en `dev`. Erick autoriza commits y push de seguridad/workflow/documentación; Sage queda fuera de estos commits.
+- Alcance: Node 24.22.3, Next/eslint-config-next 16.4.6, Zod/minimatch dirigidos, CI qa y empaquetado por commit/SHA-256. Validaciones locales documentadas en las entradas siguientes.
+- Siguiente paso: observar el run del SHA subido a dev, confirmar CI y descargar/verificar su artefacto. Esta entrada registra preparación de entrega, no éxito remoto anticipado. Sin CD, activación de servidor, cambios DNS/Cloudflare ni promoción a qa/main.
+
+## Tarea cerrada — artefacto de export en CI (12 de noviembre de 2026)
+
+- Responsable: Codex en `dev`. Autorizado: empaquetar out por commit/SHA-256, almacenar artefacto en Actions, documentar y validar; sin CD o deploy.
+- Archivos: workflow CI, `scripts/package-static-export.mjs`, README, guías CI/publicación, arquitectura, DEC-027 y esta entrada. Reservas liberadas. Se preserva el trabajo previo, incluido el brief Sage concurrente.
+- Implementado: después del build y verificación index/404, paquete tar del contenido de out + BUILD_INFO.json + SHA256SUMS; upload-artifact v6.0.0 fijado a b7c566a772e6b6bfb58ed0dc250532a479d7789f, verificado por git ls-remote oficial. Artefacto por SHA completo/run/intento, retención 14 días, error sin archivos y compresión ZIP 0. Permisos contents:read conservados; no credenciales de servidor o CD.
+- Procedencia: SHA del checkout igual a GITHUB_SHA y árbol limpio en CI; Node/pnpm exactos. Manifest con hash de lockfile/tar y contexto del run. Resumen del job muestra SHA/hash. Documentado usar push qa exitoso, no merge sintético de PR; descargar/verificar en Mac sin recompilar.
+- Validación: instalación congelada, peers, lint global, typecheck, build Turbopack (44 rutas), sintaxis JS, YAML de ramas/orden/SHA/permisos/retención y git diff --check pasan con Node 24.22.3/pnpm 12.10.1. Prueba real de empaquetado/extracción en /private/tmp: 487 archivos idénticos por SHA-256 y manifiesto válido; alteración de metadatos detectada. Negativas: SHA incorrecto, CI sucio, destino existente, export ausente, ocultos y symlinks rechazados.
+- Ajuste de validación: out/fonts/.gitkeep bloqueó el primer ensayo; se reconocen sólo esos marcadores y se excluyen del tar sin modificar out. Paquete local de prueba registra workingTreeClean:false y event local-validation, no es una candidata publicable.
+- Límites: subida/descarga reales de Actions y tar GNU del runner pendientes de la primera ejecución remota tras push autorizado; prueba local usó tar de macOS. No se ejecutó push, main, CD, servidor, DNS, Cloudflare o deploy. Siguiente paso: guardar cambios aprobados y promover dev -> qa; obtener el artefacto de push qa que pase CI.
+
+## Tarea cerrada — parches Zod y minimatch de herramientas (12 de noviembre de 2026)
+
+- Responsable: Codex en `dev`. Autorizado: corregir ambos avisos con versiones compatibles, validar y documentar sin deploy.
+- Archivos: pnpm-workspace.yaml, pnpm-lock.yaml, registro de seguridad, guía de publicación y esta entrada. Reservas liberadas; cambios previos sin commit conservados.
+- Cambio: override zod@4.6.5 → 4.6.7 (mismo major admitido por consumidores); override exclusivo typescript-estree@8.71.1 > minimatch → 11.0.8, conservando minimatch 3.1.5 de otros consumidores. No se añadieron dependencias directas ni se cambió código de aplicación.
+- Justificación: GHSA-mrhx-c7xc-m3w5 corrige Zod desde 4.6.6; GHSA-g3hv-75wg-m249 corrige minimatch desde 11.0.1. Incluso estree 8.72.2 consultado declara ^10.2.2, por lo que el salto 11 queda como excepción local documentada, no soporte upstream. Node 24.22.3 cumple engines de minimatch 11.0.8.
+- Validación con Node 24.22.3/pnpm 12.10.1: instalación congelada, peers, lint global, typecheck, build Turbopack (44 rutas), index/404 y git diff --check pasan. Auditorías completa y producción código 0 y 0 avisos conocidos. Pruebas de compatibilidad: require/export nombrado de minimatch, dot/globs positivos/negativos, parser.parseForESLint con projectService/allowDefaultProject, Zod válido/inválido y zod-validation-error pasan.
+- Documentación: registro de seguridad conserva auditorías anteriores como histórico y añade cierre, alcance de overrides y criterio de retirada. CI remoto y QA visual no ejecutados; pendientes antes de promoción según guía. Sin deploy, commit, push, cambios de servidor, DNS, Cloudflare o main.
+
+## Tarea cerrada — actualización de seguridad Next.js (12 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Autorizado: investigar el aviso de Next.js, actualizar a parche compatible, validar y documentar sin deploy.
+- Archivos: package.json, pnpm-lock.yaml, arquitectura, guía de publicación, `docs/SECURITY_UPDATE_2026-11-12.md` y esta entrada. Reservas liberadas; cambios previos de Node/CI/documentación sin commit preservados.
+- Investigación: audit inicial identifica tres avisos Next 16.4.0 (GHSA-2464-fhr4-w9xw y GHSA-673q-mjm6-r5xr críticos; GHSA-p3m5-59mp-jv5r alto), corregidos desde 16.4.1. Se contrastaron advisories, release oficial 16.4.5 y parche estable 16.4.6. Configuración estática sin optimizador/Server Actions/use cache reduce exposición en el origen previsto; no se usa como sustituto de parchear.
+- Cambio: next y eslint-config-next 16.4.0 → 16.4.6 exactos, paquetes @next relacionados y lockfile. React 19.3.0 y otras dependencias directas conservadas; sin código de aplicación o overrides nuevos.
+- Validación con Node 24.22.3/pnpm 12.10.1: install congelado, peers, lint, typecheck, build Turbopack (44 rutas, sin aviso de seguridad anterior), index/404, 42 HTML con noindex y src/poster locales existentes, git diff --check pasan. Build con permisos ampliados para evitar restricción local. Verificación auxiliar inicial de versión falló por exports de eslint-config-next/package.json; se corrigió leyendo el archivo instalado directamente.
+- Auditoría: producción código 0, sin avisos conocidos. Completa código 1: persisten zod 4.6.5 (alto) y minimatch 10.2.6 (moderado), ambos vía herramientas ESLint; documentados sin forzar actualización mayor de transitivas fuera del alcance. No se afirma auditoría completa limpia.
+- Siguiente paso: revisión separada de avisos de herramientas de desarrollo y CI remoto/QA de candidata antes de publicación. Sin deploy, commit, push, cambio de servidor, DNS, Cloudflare ni promoción de ramas. QA visual no ejecutado para este parche.
+
+## Tarea cerrada — Node 24.22.3, CI qa y guía Listaso.net (12 de noviembre de 2026)
+
+- Responsable: Codex, rama `dev`. Autorizado: fijar Node 24.22.3, incluir `qa` en CI y documentar publicación por artefactos en Nginx. Sin deploy.
+- Archivos: `.node-version`, `.github/workflows/ci.yml`, README, master, decisiones, arquitectura, guías CI/Claude y nueva `docs/DEPLOY_LISTASO_NET.md`. Reservas liberadas. Árbol limpio al inicio.
+- Estado: Node 24.22.3 fijado; CI incluye `qa` tanto en push como PR y conserva permisos de lectura/acciones fijadas. DEC-005 actualizada y DEC-027 registra build externo, releases y reversión; Pages independiente. Sin runtime Node en origen ni automatización SSH añadida.
+- Validación: binario oficial Node 24.22.3 temporal en `/private/tmp`, SHA-256 verificado contra publicación oficial; pnpm 12.10.1. Install congelado, peers, lint, typecheck, YAML (dev/qa/main y referencia .node-version), build Turbopack (44 rutas), existencia de index/404 y git diff --check pasan. Primera instalación offline sin caché suficiente; instalación con permisos ampliados reutilizó 354 paquetes, sin cambiar lockfile. Build restringido se detuvo sin progreso; ejecución con permisos ampliados compiló pero primero salió 1 por aviso de seguridad; la repetición terminó 0 manteniendo el aviso.
+- Riesgo abierto: Next.js 16.4.0 informa vulnerabilidad conocida; el build exitoso no equivale a aprobación de seguridad. Revisar y actualizar Next.js en alcance separado antes de publicar. CI remoto todavía no ejecutado; HTTPS `.net`, continuidad de assets antiguos y QA de infraestructura siguen pendientes.
+- Entrega: no se cambió Node global, dependencias del proyecto, servidor, DNS, Cloudflare ni `main`. Sin commit, push o deploy. Siguiente paso: resolver aviso Next.js y promover candidata mediante PR antes de empaquetar/publicar.
+
 ## Vista previa lista — QuickBooks: brief editorial (11 de noviembre de 2026)
 
 - Responsable: Codex, rama `dev`. Archivos: bloque QuickBooks y `quickBooksCertified` en `src/content/integrations/systems.ts`, contrato Integrations y esta entrada. Reservas liberadas.

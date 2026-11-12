@@ -47,9 +47,13 @@ oficial, igual que `docs/PROJECT_MASTER.md`; `feature/*` no se utiliza.
 
 **Estado:** Aprobada para la foundation — 8 de octubre de 2026
 
-Node.js `24.21.0` LTS y pnpm `12.10.1` quedan fijados para desarrollo y CI. El
+Node.js `24.22.3` LTS y pnpm `12.10.1` quedan fijados para desarrollo y CI. El
 lockfile es obligatorio. La máquina tiene Node 26 Current, que puede comprobar
 la base pero no será la referencia de CI.
+
+Actualización aprobada por Erick — 12 de noviembre de 2026: reemplaza
+24.21.0 por 24.22.3, publicada el 11 de noviembre como release de seguridad.
+Fuente: https://nodejs.org/en/blog/release/v24.22.3.
 
 ## DEC-006 Export estático e indexación inicial
 
@@ -578,3 +582,25 @@ sustituye el fondo rojo de la variante primaria descrito en DEC-007 y en la
 foundation visual, sin cambiar los acentos de otras partes de la interfaz.
 La referencia visual menciona 15 días, pero DEC-025 mantiene vigente la
 promoción de 14 días; sólo se toma de la imagen el estilo del botón.
+
+## DEC-027 Prueba Listaso.net mediante export estático en Nginx
+
+**Estado:** Aprobada por Erick — 12 de noviembre de 2026, para preparación
+documental y CI; sin autorización de deploy en esta tarea.
+
+El flujo conserva `dev -> qa -> main`. CI valida push y PR hacia las tres
+ramas. `qa` identifica la candidata de prueba en `listaso.net`; promoción,
+activación remota y cambios DNS requieren las aprobaciones correspondientes.
+Se compila fuera del servidor (Mac o CI con Node 24.22.3 y pnpm 12.10.1),
+ya que el origen compartido tiene aproximadamente 1 GB RAM y una CPU.
+Sólo el contenido de `out/` se publica como release identificada por commit,
+con SHA-256 y enlace activo `/srv/listaso/current`. Nginx no ejecuta Node.
+
+La primera publicación es manual y reversible. Actualización autorizada por
+Erick el 12 de noviembre: Actions conserva el export empaquetado, metadatos
+y SHA-256 por commit/ejecución/intento durante 14 días. No despliega por SSH;
+automatizar transferencia y activación requiere un alcance posterior.
+Cloudflare Pages y su conexión existente se mantienen independientes.
+`listaso.net` sigue `noindex`; no se modifica ListasoIQ, GoDaddy o `listaso.com`.
+El paso a `.com` exige preservar todas las URLs y resolver blog, SEO, legales,
+analítica e integraciones. Guía: `docs/DEPLOY_LISTASO_NET.md`.

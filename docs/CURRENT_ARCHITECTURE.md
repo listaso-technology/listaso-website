@@ -1,5 +1,13 @@
 # Arquitectura actual
 
+## Actualización: parche de seguridad Next.js (12 de noviembre de 2026)
+
+Next.js y eslint-config-next quedan fijados en 16.4.6, con lockfile actualizado,
+Node 24.22.3 y pnpm 12.10.1. Se conserva React/React DOM 19.3.0 y el export
+estático; sin cambios de aplicación o configuración de servidor. Validación,
+avisos corregidos y límites de la auditoría: `docs/SECURITY_UPDATE_2026-11-12.md`.
+Las versiones en la descripción histórica posterior no reflejan este parche.
+
 ## Actualización: aislamiento de referencias (11 de noviembre de 2026)
 
 Erick trasladó `_legacy_archive/` fuera del repositorio. La copia local
@@ -103,14 +111,24 @@ en lint, tipos o build, y no es source of truth automático para contenido.
 
 ## Deployment
 
+**Actualización — 12 de noviembre de 2026.** Node 24.22.3 y pnpm 12.10.1
+son la referencia de build. La primera prueba en `listaso.net` se prepara
+fuera del servidor: `out/` empaquetado por commit y SHA-256 se transfiere a
+`/srv/listaso/releases/<versión>/`; Nginx sirve `/srv/listaso/current`.
+No hay runtime Node en el origen ni despliegue SSH automatizado en CI.
+La guía `docs/DEPLOY_LISTASO_NET.md` define preparación, activación y reversión;
+su documentación no equivale a un deploy ejecutado. Pages sigue independiente.
+
 **Ramas.** Sólo `dev`, `qa` y `main` (DEC-021). `dev` integra el trabajo
 activo, `qa` valida y `main` conserva la propuesta estable para las
 validaciones presenciales.
 `main` no implica todavía un cutover productivo: el dominio y DNS no se
 modifican hasta una autorización posterior de Erick.
 
-**GitHub Actions.** El check `CI / Quality` valida cada push y PR a `dev` y
-`main`.
+**GitHub Actions.** El check `CI / Quality` valida cada push y PR a `dev`,
+`qa` y `main`. Después empaqueta `out/` mediante
+`scripts/package-static-export.mjs` y conserva el artefacto 14 días, con SHA
+completo, información de ejecución y SHA-256. No transfiere ni activa releases.
 
 **Cloudflare Pages.** Publica previews por rama en `*.listaso-website.pages.dev`
 (ver `docs/CI_CLOUDFLARE.md`).

@@ -6,8 +6,15 @@ checkpoint remoto. No autoriza DNS, dominio personalizado ni cutover.
 
 ## Responsabilidades
 
+**Actualización — 12 de noviembre de 2026:** la primera prueba en servidor
+Nginx usa artefactos compilados fuera del servidor para `listaso.net`.
+Procedimiento vigente: `docs/DEPLOY_LISTASO_NET.md`. La configuración Pages
+de este documento permanece como referencia del flujo existente; no se cambia
+su integración ni su panel. Actions valida, compila y guarda artefactos
+descargables; transferencia y activación en Nginx siguen siendo manuales.
+
 ```text
-GitHub Actions = validar calidad
+GitHub Actions = validar, compilar y guardar el paquete
 Cloudflare Pages = construir y publicar previews / sitio temporal
 ```
 
@@ -18,9 +25,9 @@ Cloudflare con GitHub administra los deployments.
 
 Workflow: `.github/workflows/ci.yml`
 
-- Eventos: push y Pull Request hacia `dev` o `main`, más ejecución manual.
+- Eventos: push y Pull Request hacia `dev`, `qa` o `main`, más ejecución manual.
 - Runner: `ubuntu-24.04`.
-- Runtime: Node `24.21.0`, leído desde `.node-version`.
+- Runtime: Node `24.22.3`, leído desde `.node-version`.
 - Package manager: pnpm `12.10.1`.
 - Instalación: `pnpm install --frozen-lockfile`.
 - Validaciones: peers, lint, typecheck, production build y presencia de
@@ -28,6 +35,39 @@ Workflow: `.github/workflows/ci.yml`
 - Permisos: sólo lectura de contenidos.
 - Concurrencia: cancela una ejecución anterior de la misma referencia.
 - No usa secretos, tokens ni acciones de deployment.
+
+### Artefacto de export estático
+
+Sólo después de validaciones y build exitosos, el mismo job ejecuta
+`node scripts/package-static-export.mjs "$RUNNER_TEMP/static-export"`.
+Verifica index/404, `_next`, ausencia de enlaces/archivos ocultos, Node/pnpm
+fijados y correspondencia entre checkout y GITHUB_SHA. En CI exige árbol limpio.
+Los marcadores `.gitkeep` de public se permiten en el export pero se excluyen
+del tar; cualquier otro archivo oculto provoca error.
+
+`actions/upload-artifact` v6.0.0 (Node 24, runner >=2.327.1; ubuntu-24.04
+alojado por GitHub) queda fijado al SHA verificado contra el tag oficial.
+Nombre: `listaso-static-<sha-completo>-<run-id>-<intento>`. Retención: 14 días;
+sin sobreescritura y sin compresión ZIP adicional del tar comprimido.
+
+Contiene exclusivamente:
+
+- `listaso-<sha-completo>.tgz`: contenido completo de out, sin carpeta out extra.
+- `BUILD_INFO.json`: SHA, árbol limpio, hora UTC del empaquetado, Node/pnpm/Next,
+  hash del lockfile, nombre/hash del tar, comando, repo, evento, ref y ejecución.
+- `SHA256SUMS`: hashes del tar y del JSON, con nombres relativos portables.
+
+La hora registrada es la de empaquetado posterior al build. El digest del ZIP
+que entrega GitHub es distinto del SHA-256 del tar. Conservar el resumen del
+job, que incluye commit y hash del tar, para contrastar tras la descarga.
+Un hash detecta alteraciones, pero no autentica por sí solo el origen.
+
+Para publicar la candidata usar el artefacto del **push a qa** cuyo SHA real
+coincida con el commit aprobado y cuya ejecución completa termine en success.
+PR usa por defecto el commit de merge sintético, no necesariamente la cabeza
+de dev: sus artefactos son sólo de validación y no se promueven. workflow_dispatch
+no sustituye aprobación de rama/commit. No recompilar en Mac tras descargar.
+Instrucciones de descarga y verificación: `docs/DEPLOY_LISTASO_NET.md`.
 
 Nombre del check para la futura ruleset:
 
@@ -45,6 +85,7 @@ de marcarlo como required check.
 | `actions/checkout` | `v6` | `d23441a48e516b6c34aea4fa41551a30e30af803` |
 | `actions/setup-node` | `v6` | `249970729cb0ef3589644e2896645e5dc5ba9c38` |
 | `pnpm/action-setup` | `v4` | `f40ffcd9367d9f12939873eb1018b921a783ffaa` |
+| `actions/upload-artifact` | `v6.0.0` | `b7c566a772e6b6bfb58ed0dc250532a479d7789f` |
 
 Los SHAs se verificaron directamente contra los tags de sus repositorios
 oficiales. Una actualización futura requiere revisar el nuevo tag y reemplazar
