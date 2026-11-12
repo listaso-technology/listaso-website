@@ -129,7 +129,7 @@
     border-bottom: 1px solid var(--listaso-border-subtle);
     background: var(--listaso-surface-alt);
     color: var(--listaso-text-muted);
-    font-size: var(--text-caption);
+    font-size: calc(var(--text-caption) + 0.125rem);
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;

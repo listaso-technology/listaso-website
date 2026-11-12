@@ -187,3 +187,23 @@ Fuente: solicitud directa de Erick en el chat. Sólo `/integrations/`: hero usa 
 ## QuickBooks — brief editorial (11 de noviembre de 2026)
 
 Fuente: solicitud directa de Erick. Sólo `/quickbooks/`: encabezado “QuickBooks in every part of your operation”; nueve nombres de funcionalidades capitalizados según brief; Product History, Mobile Printing y GPS Tracking con sus nuevas descripciones exactas. Impresión conserva compatible Bluetooth printers y GPS conserva during working hours. El párrafo de certificación usa certified integration, customer reviews y years of experience sin valoración numérica; Desktop y Online se identifican en la disponibilidad del hero y en los enlaces contiguos del bloque. Se conservan las insignias/reseñas y su valoración independiente, datos/direcciones de sincronización, disponibilidad, enlaces, medios y demás sistemas.
+
+## Sage 100 — brief editorial (12 de noviembre de 2026)
+
+Fuente: solicitud directa de Erick. Sólo `/sage/`: descripción del hero y títulos de las seis funcionalidades actualizados; descripciones sustituidas únicamente para Two-way Sync, Orders from the Field y GPS Tracking. Se conservan título, etiquetas y destinos de los CTA ya existentes, descripciones no indicadas, medios, estructura, datos y direcciones de sincronización y demás sistemas.
+
+## Acumatica — actualización editorial (12 de noviembre de 2026)
+
+- Descripción principal y seis títulos de funcionalidades actualizados por instrucción de Erick; nuevas descripciones para Products and Pricing, Inventory levels y Warehouse Transfers and Adjustments. Las otras tres descripciones y el orden se conservan.
+- Los CTA existentes ya muestran Book a Demo y Pricing, conservando sus destinos.
+- Revisión de referencias del logo en `src`: encabezado y pie usan los lockups vigentes registrados; los diagramas usan el símbolo activo. No se encontraron referencias activas a las variantes de marca principal catalogadas como legacy, por lo que no se sustituyeron archivos. La identificación del recurso se basa en el manifiesto `src/content/brand/assets.ts`.
+
+## SAP — actualización editorial (12 de noviembre de 2026)
+
+- Descripción principal y nueve títulos de funcionalidades actualizados; descripciones sustituidas únicamente en Two-way Sync, Purchase Orders and Transfers, Warehouses and Bins y Your Workflows. Orden y demás descripciones conservados; CTA ya tenían las etiquetas y destinos solicitados.
+- Erick confirmó sustituir «stock» por «inventory» en el título principal; cambio aplicado.
+
+## NetSuite y encabezados de tablas — actualización editorial (12 de noviembre de 2026)
+
+- Descripción principal, Automatic Sync, Products and Pricing, Warehouse Transfers e Invoices and Billing actualizados según el brief; Sales orders e Inventory y las descripciones sin reemplazo se conservan. Los CTA ya tenían las etiquetas y destinos indicados.
+- NetSuite usa pestañas y un diagrama de sincronización, no tarjetas y tabla convencionales. Sus encabezados What syncs y Direction pasan de 12 a 16 px y mantienen negrita 700. Los encabezados de las tablas existentes de Acumatica y Printers and Scanners pasan de 12 a 14 px y conservan negrita 700. Datos, direcciones, orden y contenidos de celdas conservados.

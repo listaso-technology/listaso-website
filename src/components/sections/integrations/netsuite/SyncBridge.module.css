@@ -92,7 +92,7 @@
     display: flex;
     justify-content: space-between;
     color: var(--listaso-text-muted);
-    font-size: var(--text-caption);
+    font-size: var(--text-body);
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;

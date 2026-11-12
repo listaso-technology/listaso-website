@@ -1,5 +1,24 @@
 # Estado de trabajo
 
+## Vista previa lista — NetSuite y encabezados de integración (12 de noviembre de 2026)
+
+- Responsable: Codex, `dev`. Copy indicado de NetSuite aplicado; Sales orders, Inventory y descripciones sin reemplazo conservados. Botones tenían etiquetas y enlaces solicitados. Cambios anteriores preservados; sin cambios de medios, enlaces, orden ni datos. Reservas liberadas.
+- NetSuite usa diagrama y pestañas, no tabla y tarjetas: encabezados del diagrama pasan de 12 a 16 px y mantienen peso 700. Encabezados de las tablas de Acumatica y Printers and Scanners pasan de 12 a 14 px y mantienen peso 700; las demás vistas de sincronización no presentan encabezados de columna. Los rótulos auxiliares y celdas conservan tamaño.
+- Validación: ESLint dirigido, typecheck, build webpack (44 rutas) y diff check pasan. Navegador: seis pestañas NetSuite comprobadas a 320 y 1440 px; encabezados NetSuite 16 px/700 y de las dos tablas 14 px/700 sin cortes ni overflow global a 320, 390, 768 y 1440 px. Pendiente revisión visual completa en ambos temas y dispositivo físico. Sin commit, push ni despliegue.
+
+## Vista previa lista — contenido SAP (12 de noviembre de 2026)
+
+- Responsable: Codex, `dev`. Se actualizaron descripción principal, nueve títulos y cuatro descripciones de tarjetas según el brief; CTAs ya tenían etiquetas y destinos pedidos. Sin cambiar orden, enlaces, medios ni descripciones no indicadas. Cambios Sage y Acumatica previos preservados. Archivos: bloque SAP de `src/content/integrations/systems.ts`, contrato Integrations y esta entrada; reservas liberadas mientras se espera respuesta.
+- Erick confirmó reemplazar «stock» por «inventory» en el título principal; cambio aplicado. Reservas liberadas.
+- Validación: ESLint dirigido, typecheck y build webpack (44 rutas) pasan. Vista en navegador confirma copy y CTAs; a 320, 390, 768 y 1440 px no se detectaron desbordamiento horizontal ni textos cortados o fuera de sus tarjetas. Título confirmado visualmente en 390 y 1440 px. Revisión visual completa en temas y dispositivo físico pendiente. Sin commit, push ni despliegue.
+
+## Vista previa lista — contenido Acumatica y revisión de logo (12 de noviembre de 2026)
+
+- Responsable: Codex, `dev`. Archivos: bloque Acumatica de `src/content/integrations/systems.ts`, contrato Integrations y esta entrada; reservas liberadas. Se preservaron los cambios Sage anteriores.
+- Descripción y títulos actualizados según el brief; se modificaron únicamente las tres descripciones indicadas. Orden, estilos, medios, iconos, enlaces y resto del contenido conservados. Los CTA ya tenían los textos y destinos pedidos.
+- Revisadas las referencias de marca en `src`: header/footer usan lockups activos y diagramas el símbolo activo según el manifiesto de marca; variantes de marca principal obsoletas sin referencias activas detectadas. Sin sustituciones de logo.
+- Validación: ESLint dirigido, typecheck y build webpack (44 rutas) pasan. Vista en navegador confirma copy y enlaces; geometría a 320, 390, 768 y 1440 px sin desbordamiento horizontal de página ni texto cortado o fuera de las tarjetas. Pendiente revisión visual completa en ambos temas y dispositivo físico. Sin commit, push ni despliegue.
+
 ## Entrega — commits de seguridad y artefacto CI (12 de noviembre de 2026)
 
 - Responsable: Codex en `dev`. Erick autoriza commits y push de seguridad/workflow/documentación; Sage queda fuera de estos commits.
@@ -15,6 +34,12 @@
 - Validación: instalación congelada, peers, lint global, typecheck, build Turbopack (44 rutas), sintaxis JS, YAML de ramas/orden/SHA/permisos/retención y git diff --check pasan con Node 24.22.3/pnpm 12.10.1. Prueba real de empaquetado/extracción en /private/tmp: 487 archivos idénticos por SHA-256 y manifiesto válido; alteración de metadatos detectada. Negativas: SHA incorrecto, CI sucio, destino existente, export ausente, ocultos y symlinks rechazados.
 - Ajuste de validación: out/fonts/.gitkeep bloqueó el primer ensayo; se reconocen sólo esos marcadores y se excluyen del tar sin modificar out. Paquete local de prueba registra workingTreeClean:false y event local-validation, no es una candidata publicable.
 - Límites: subida/descarga reales de Actions y tar GNU del runner pendientes de la primera ejecución remota tras push autorizado; prueba local usó tar de macOS. No se ejecutó push, main, CD, servidor, DNS, Cloudflare o deploy. Siguiente paso: guardar cambios aprobados y promover dev -> qa; obtener el artefacto de push qa que pase CI.
+
+## Vista previa lista — contenido Sage 100 (12 de noviembre de 2026)
+
+- Responsable: Codex en `dev`. Alcance: textos solicitados de `/sage/` y verificación de CTAs existentes; sin modificar diseño, medios, enlaces ni otras rutas.
+- Archivos: bloque Sage en `src/content/integrations/systems.ts`, contrato Integrations y esta entrada. Reservas liberadas. Descripción del hero y seis títulos exactos; nuevas descripciones sólo en Two-way Sync, Orders from the Field y GPS Tracking. Botones ya tenían Book a Demo y Pricing, con Calendly y `/plans/` respectivamente; no se cambiaron. Descripciones restantes, título, estructura, iconos, imágenes y tablas conservados.
+- Validación: ESLint dirigido, typecheck, build webpack (44 rutas) y `git diff --check` pasan. Navegador confirma textos y destinos; a 320, 390, 768 y 1440 px no se detectó desbordamiento horizontal global ni desbordamiento de las seis tarjetas. Pendiente revisión visual en temas claro/oscuro y dispositivo físico. Sin dependencias, commit, push o despliegue.
 
 ## Tarea cerrada — parches Zod y minimatch de herramientas (12 de noviembre de 2026)
 
