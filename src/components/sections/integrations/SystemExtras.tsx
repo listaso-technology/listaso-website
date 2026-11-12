@@ -1,12 +1,15 @@
+import type { ReactNode } from "react";
 import { Icon } from "@/components/icons/Icon";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { GlassPanel } from "@/components/ui/GlassPanel";
+import { customers } from "@/content/home/en";
 import { quickBooksCertified, type SystemQuote } from "@/content/integrations/systems";
 import { SectionHeader } from "../SectionHeader";
 import { Stars } from "../home/Stars";
 import { ProductSection } from "../product/ProductSection";
+import quoteStyles from "./SystemQuote.module.css";
 
 const NEW_TAB = "(opens in a new tab)";
 
@@ -61,17 +64,61 @@ export function QuickBooksCertified() {
   );
 }
 
+/** Splits "Name · Source" into its two parts. */
+function splitCite(cite: string) {
+  const [name, ...rest] = cite.split(" · ");
+  return { name, source: rest.join(" · ") };
+}
+
+/** Wraps the first mention of `highlight` in the quote with a brand mark. */
+function highlightQuote(text: string, highlight?: string): ReactNode {
+  if (!highlight) return text;
+  const index = text.indexOf(highlight);
+  if (index < 0) return text;
+  return (
+    <>
+      {text.slice(0, index)}
+      <mark className={quoteStyles.mark}>{highlight}</mark>
+      {text.slice(index + highlight.length)}
+    </>
+  );
+}
+
 /**
- * Approved customer review that mentions the integration. A plain block, not
- * a landmark: it has no heading of its own.
+ * Customer review on a brand-band card: gradient quote mark, the approved
+ * five-star line, the quote with the system name highlighted and the author
+ * with initials. Copy comes from the Homepage testimonials (DEC-013).
  */
-export function SystemQuoteBlock({ quote }: { quote: SystemQuote }) {
+export function SystemQuoteBlock({ quote, highlight }: { quote: SystemQuote; highlight?: string }) {
+  const { name, source } = splitCite(quote.cite);
+  const initials = name
+    .split(" ")
+    .filter(Boolean)
+    .map((part) => part[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+
   return (
     <div data-story-section className="py-16 lg:py-24">
       <Container>
-        <div className="max-w-4xl">
-          <QuoteCard quote={quote} />
-        </div>
+        <figure data-reveal="fade" data-surface="band" className={quoteStyles.card}>
+          <span aria-hidden="true" className={quoteStyles.glyph}>“</span>
+          <div className={quoteStyles.top}>
+            <p className={quoteStyles.eyebrow}>{customers.eyebrow}</p>
+            <p className={quoteStyles.rating}>
+              <Stars label={customers.starsLabel} />
+            </p>
+          </div>
+          <blockquote className={quoteStyles.quote}>{highlightQuote(quote.text, highlight)}</blockquote>
+          <figcaption className={quoteStyles.author}>
+            <span aria-hidden="true" className={quoteStyles.avatar}>{initials}</span>
+            <span className={quoteStyles.who}>
+              <span className={quoteStyles.name}>{name}</span>
+              {source ? <span className={quoteStyles.source}>{source}</span> : null}
+            </span>
+          </figcaption>
+        </figure>
       </Container>
     </div>
   );

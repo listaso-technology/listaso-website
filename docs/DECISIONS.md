@@ -518,6 +518,17 @@ conversación de SAMI se mueven sin un control visible de pausa, lo que no
 cumple WCAG 2.2.2 para quien no active "reducir movimiento"; Erick debe
 confirmarlo.
 
+**Ampliación (12 de noviembre de 2026, instrucción del usuario).** El carrusel
+de tipos de pregunta de Forms (`QuestionTypesCarousel`) pasa a bucle infinito
+en una sola dirección y se retira su botón de pausa/reanudación. Una copia
+decorativa de la lista (`aria-hidden`, `inert`) hace el bucle continuo; se
+conservan flechas, teclado y scroll táctil, y las pausas automáticas (hover,
+foco por teclado, fuera de pantalla, pestaña oculta y 3,5 s tras una
+interacción manual). Con `prefers-reduced-motion` no se mueve ni tiene copia.
+**Riesgo registrado:** igual que los demás rieles, sin control visible de pausa
+no cumple WCAG 2.2.2 para quien no active "reducir movimiento"; Erick debe
+confirmarlo.
+
 ## DEC-023 Identidad propia por página de integración
 
 **Estado:** Instrucción del usuario (Henry) — 21 de octubre de 2026.

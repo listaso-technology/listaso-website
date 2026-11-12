@@ -16,11 +16,11 @@ export function KineticWords({ items }: KineticWordsProps) {
   return (
     <ol className="border-t border-line-subtle">
       {items.map((item, index) => (
-        <li key={item.title} className="grid gap-4 overflow-hidden border-b border-line-subtle py-8 lg:grid-cols-[5rem_1fr_18rem] lg:items-center lg:gap-8">
-          <span aria-hidden="true" className="text-small font-bold text-fg-accent">
+        <li key={item.title} data-reveal="group" className="grid gap-4 overflow-hidden border-b border-line-subtle py-8 lg:grid-cols-[5rem_1fr_18rem] lg:items-center lg:gap-8">
+          <span data-reveal-item aria-hidden="true" className="text-small font-bold text-fg-accent">
             /{String(index + 1).padStart(2, "0")}
           </span>
-          <div className="min-w-0 overflow-hidden">
+          <div data-reveal-item className="min-w-0 overflow-hidden">
             <div className={cx(dossier.displaySmall, "flex gap-8 font-bold lg:whitespace-nowrap")}>
               <h3 className="break-words text-fg-heading">{item.title}</h3>
               {/* Outlined repeats only on wide screens; they drift, the word does not. */}
@@ -33,7 +33,7 @@ export function KineticWords({ items }: KineticWordsProps) {
               </span>
             </div>
           </div>
-          {item.text ? <p className="text-body text-fg-muted">{item.text}</p> : null}
+          {item.text ? <p data-reveal-item className="text-body text-fg-muted">{item.text}</p> : null}
         </li>
       ))}
     </ol>

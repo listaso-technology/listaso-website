@@ -58,9 +58,9 @@ export function IdeasShowcase({ items, photo, header }: { items: readonly Featur
 
       <div className={styles.side}>
         {header}
-      <ul className={styles.options}>
+      <ul data-reveal="group" className={styles.options}>
         {items.map((feature, index) => (
-          <li key={feature.title}>
+          <li data-reveal-item key={feature.title}>
             <button
               type="button"
               aria-pressed={index === active}

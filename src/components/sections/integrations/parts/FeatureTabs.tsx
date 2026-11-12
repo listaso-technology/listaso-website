@@ -5,15 +5,17 @@ import { Icon } from "@/components/icons/Icon";
 import type { Feature } from "@/content/products/types";
 import { cx } from "@/lib/utils/cx";
 import { FeatureArt } from "../../variants/FeatureArt";
+import { FeatureScene } from "./FeatureScenes";
 import styles from "./FeatureTabs.module.css";
 
 /**
  * Features as tabs (ARIA tabs: click, arrows, Home/End): the titles as a
  * vertical list on desktop (a scrollable row of chips on small screens), and
- * one large panel with the feature's illustration, number, title and text.
- * Every panel stays in the DOM; inactive ones are hidden.
+ * one large panel with the feature's own scene (FeatureScenes, with
+ * FeatureArt as fallback), number, title and text. Every panel stays in the
+ * DOM; inactive ones are hidden.
  */
-export function FeatureTabs({ items, idPrefix }: { items: readonly Feature[]; idPrefix: string }) {
+export function FeatureTabs({ items, idPrefix, system }: { items: readonly Feature[]; idPrefix: string; system: string }) {
   const [active, setActive] = useState(0);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -76,7 +78,7 @@ export function FeatureTabs({ items, idPrefix }: { items: readonly Feature[]; id
             hidden={index !== active}
             className={styles.panel}
           >
-            <FeatureArt icon={item.icon} />
+            {FeatureScene({ icon: item.icon, system }) ?? <FeatureArt icon={item.icon} />}
             <div className={styles.panelBody}>
               <span aria-hidden="true" className={styles.panelNumber}>
                 {String(index + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}

@@ -47,10 +47,15 @@ sus ratings, promesas y fechas no se trasladaron al copy.
 
 ## Marcos para imágenes de Diseño
 
-El explorador reserva un marco 8:5 con `data-media-slot` por producto. La
-ilustración vectorial actual ocupa ese mismo marco y puede sustituirse por un
-asset optimizado sin alterar la jerarquía. Los briefs completos viven en
-`src/content/products/hub.ts` (`mediaBriefs`).
+El explorador reserva un marco 8:5 (4:3 en móvil) con `data-media-slot` por
+producto. Desde el 12 de noviembre de 2026 el marco muestra, como relleno
+temporal, la foto hero ya registrada de cada página de producto (B2B usa
+`magnificMedia.designerLaptop`; SAMI, sin foto, muestra la primera pregunta de
+ejemplo de su página) con el titular hero de esa página, la posición `NN / 09`,
+el área y una barra de progreso; debajo, las tres primeras capacidades de la
+página. Todo sale de contenido existente (`productPreviews.ts`) y puede
+sustituirse por el asset de Diseño sin alterar la jerarquía. Los briefs
+completos viven en `src/content/products/hub.ts` (`mediaBriefs`).
 
 | Slot | Imagen solicitada |
 | --- | --- |

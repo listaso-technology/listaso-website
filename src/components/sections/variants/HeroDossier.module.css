@@ -1,0 +1,216 @@
+/*
+ * Dossier hero dressing: an outlined watermark word and the brand emblem
+ * shown when a page has no visual of its own. Both are decorative
+ * (aria-hidden). Motion is finite on load or scroll-linked (transform only);
+ * static with reduced motion, without scroll-driven animation support, and
+ * hidden in forced colors.
+ */
+
+.watermark {
+  position: absolute;
+  right: -0.04em;
+  bottom: -0.2em;
+  z-index: -1;
+  pointer-events: none;
+  user-select: none;
+  color: transparent;
+  font-size: clamp(5rem, 17vw, 17rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--listaso-text-heading) 13%, transparent);
+}
+
+/* Emblem: the official symbol tile inside concentric rings with brand arcs. */
+.emblem {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: min(100%, 26rem);
+  aspect-ratio: 1;
+  margin-inline: auto;
+}
+
+.rings {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.ring {
+  fill: none;
+  stroke: color-mix(in srgb, var(--listaso-text-heading) 24%, transparent);
+  stroke-width: 1.25;
+}
+
+.ringDashed {
+  stroke-dasharray: 2 8;
+}
+
+.arc {
+  fill: none;
+  stroke-width: 3;
+  stroke-linecap: round;
+  transform-box: view-box;
+  transform-origin: 50% 50%;
+}
+
+.arcAqua {
+  stroke: var(--listaso-icon-accent);
+}
+
+.arcMagenta {
+  stroke: var(--listaso-magenta);
+}
+
+.arcNavy {
+  stroke: var(--listaso-text-heading);
+}
+
+.halo {
+  position: absolute;
+  inset: 26%;
+  border-radius: 50%;
+  background: radial-gradient(circle, color-mix(in srgb, var(--listaso-icon-accent) 34%, transparent), transparent 70%);
+}
+
+.core {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 34%;
+  aspect-ratio: 1;
+  border-radius: 28%;
+  background: #fff;
+  box-shadow: var(--listaso-shadow-e3);
+}
+
+.core img {
+  width: 72%;
+  height: auto;
+}
+
+.dot {
+  position: absolute;
+  width: 0.75rem;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  translate: -50% -50%;
+}
+
+.dotA {
+  top: 7%;
+  left: 50%;
+  background: var(--listaso-icon-accent);
+}
+
+.dotB {
+  top: 64%;
+  left: 95%;
+  background: var(--listaso-magenta);
+}
+
+.dotC {
+  top: 82%;
+  left: 14%;
+  background: var(--listaso-text-heading);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .ring {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: draw 1400ms var(--listaso-ease-enter) 120ms forwards;
+  }
+
+  .ringDashed {
+    stroke-dasharray: 2 8;
+    stroke-dashoffset: 0;
+    animation: fade 1200ms var(--listaso-ease-enter) both;
+  }
+
+  .core {
+    animation: pop 700ms var(--listaso-ease-enter) 200ms both;
+  }
+
+  .dot,
+  .arc {
+    animation: fade 900ms var(--listaso-ease-enter) 600ms both;
+  }
+}
+
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .watermark {
+      animation: watermark-drift linear both;
+      animation-timeline: view();
+      animation-range: exit 0% exit 100%;
+    }
+
+    .arcAqua {
+      animation:
+        fade 900ms var(--listaso-ease-enter) 600ms both,
+        spin linear both;
+      animation-timeline: auto, view();
+      animation-range: normal, cover 0% cover 100%;
+    }
+
+    .arcMagenta {
+      animation:
+        fade 900ms var(--listaso-ease-enter) 600ms both,
+        spin-reverse linear both;
+      animation-timeline: auto, view();
+      animation-range: normal, cover 0% cover 100%;
+    }
+  }
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes pop {
+  from {
+    opacity: 0;
+    scale: 0.8;
+  }
+}
+
+@keyframes spin {
+  to {
+    rotate: 90deg;
+  }
+}
+
+@keyframes spin-reverse {
+  to {
+    rotate: -70deg;
+  }
+}
+
+@keyframes watermark-drift {
+  to {
+    translate: -8% 0;
+  }
+}
+
+@media (forced-colors: active) {
+  .watermark,
+  .halo,
+  .dot,
+  .arc {
+    display: none;
+  }
+}

@@ -63,13 +63,13 @@ de 768/1280/1920 y `next/image` de respaldo; `loading="eager"` y
 | B2B online store | Dividido + tienda | Marquesina doble · Funciones destacadas · Imagen a sangre · Relacionados · Next |
 | Forms and surveys | Statement + encuesta | How it works sticky (foto, foto, encuesta, resultados) · 12 tipos en marquesina display · Ideas · Next |
 | Sami AI | Display (SAMI) | Ejemplos con la conversación sticky · Bento incluido · Precios · FAQ · Next |
-| Custom development | Caso de estudio + plan | Ficha técnica · Índice · Proceso sticky (4 fotos) · Rail · Next |
+| Custom development | `CustomDevHero` en banda (12 nov 2026): copy y pasos del proceso; foto de código con parallax, ventana de código decorativa y tarjeta «What we build» | Índice · Proceso sticky (4 fotos) · Rail · Next |
 | Integrations (hub) | Statement | Divisor pixelado · Sync en banda con diagrama · Marquesina de sistemas · Índice de sistemas · Hardware y custom |
 | QuickBooks | Dividido (banda) + panel de sync y rating | Certificado (listados + reseña) · Órbita two-way + selector Desktop/Online · Explorador de funciones con foto · Otros sistemas · Next |
 | Sage 100 | Statement + panel de sync | Tablero de carriles horizontales entre pilares · Pila de tarjetas sticky de funciones · Reseña · Otros sistemas · Next |
 | Acumatica | Caso de estudio + panel de sync | Ficha técnica · Bento con foto · Tabla de sync con carriles · Otros sistemas · Next |
 | SAP | Dossier + caja con toda la sync | Rejilla dossier 3×3 que se invierte + foto halftone · Otros sistemas · Next |
-| NetSuite | Centrado + foto ancha con ambos sistemas | Puente de sync entre pilares · Funciones en pestañas con ilustración · Otros sistemas · Next |
+| NetSuite | `NetSuiteHero` (12 nov 2026): copy a la izquierda y tarjeta partida por una costura de sync (campo: foto + lo que Listaso envía · finanzas: libro + lo que NetSuite envía; «both» sobre la costura) | Puente de sync entre pilares · Funciones en pestañas con ilustración · Otros sistemas · Next |
 | Zoho | Mosaico (superficie de página) | Sync con filtro por dirección · Mosaico de funciones · Otros sistemas · Next |
 | Acctivate | Inmersivo a sangre + panel | Ruta de sync con camión (scroll) · Funciones en un teléfono · Otros sistemas · Next |
 | AccountMate | Espejo (foto en arco) + marquesina de la sync | Dial de sync por dirección · Línea de tiempo de funciones · Otros sistemas · Next |
@@ -101,7 +101,7 @@ adaptó el patrón; su branding y textos no se copiaron. Decisión: DEC-017.
 
 | Variante | Tipo | Notas técnicas |
 | --- | --- | --- |
-| `HeroDossier` | Hero | Superficie de página; eyebrow entre corchetes (los corchetes son contenido CSS con texto alternativo vacío); H1 display en mayúsculas; aside opcional |
+| `HeroDossier` | Hero | Superficie de página con la retícula y brillos aqua/magenta de `GridPattern`; eyebrow entre corchetes (los corchetes son contenido CSS con texto alternativo vacío) y repetido como marca de agua contorneada decorativa; H1 display en mayúsculas; aside opcional y, sin aside, `HeroEmblem` (símbolo oficial con anillos y arcos de marca) |
 | `DossierHeader` | Encabezado | H2 display (`large` o `small`) con firma Listaso |
 | `DossierBox` | Ficha | Caja enmarcada con estado entre corchetes, filas con etiqueta o check, `<dl>` opcional y barra de acento que se llena una vez |
 | `DossierPhoto` | Imagen | Marco grueso, medios tonos en escala de grises que recupera el color al hover |

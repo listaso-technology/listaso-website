@@ -1,0 +1,309 @@
+/*
+ * QuickBooks hero composition over the brand band. Decorative rings and glow
+ * behind a light product card; the sync pulse runs three times and the rows
+ * enter once (finite). Static with reduced motion; decorations hidden in
+ * forced colors.
+ */
+@layer components {
+  .stage {
+    position: relative;
+    width: 100%;
+    max-width: 36rem;
+    margin-inline: auto;
+    padding: 2.5rem 0 3.5rem;
+  }
+
+  .rings {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    width: 128%;
+    aspect-ratio: 1;
+    translate: -50% -50%;
+    overflow: visible;
+    pointer-events: none;
+  }
+
+  .rings circle {
+    fill: none;
+    stroke: rgb(255 255 255 / 0.12);
+    stroke-dasharray: 3 9;
+  }
+
+  .rings circle:nth-child(2) {
+    stroke: rgb(0 189 169 / 0.28);
+    stroke-dasharray: none;
+  }
+
+  .glow {
+    position: absolute;
+    inset: 10% 5%;
+    z-index: -1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgb(0 189 169 / 0.32), transparent 65%);
+    pointer-events: none;
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 1.25rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-xl);
+    background: var(--listaso-surface-page);
+    box-shadow: 0 30px 70px rgb(0 0 0 / 0.35);
+    color: var(--listaso-text-default);
+  }
+
+  /* Listaso ↔ QuickBooks bar */
+  .bridge {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.75rem;
+    border-radius: var(--listaso-radius-lg);
+    background: var(--listaso-surface-alt);
+  }
+
+  .tile {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 3.5rem;
+    aspect-ratio: 1;
+    border-radius: 28%;
+    background: #fff;
+    box-shadow: var(--listaso-shadow-e2);
+  }
+
+  .tile img {
+    width: 74%;
+    height: auto;
+  }
+
+  .systemTile {
+    display: grid;
+    flex: none;
+    place-items: center;
+    min-height: 3.5rem;
+    padding-inline: 1rem;
+    border-radius: var(--listaso-radius-md);
+    background: #fff;
+    box-shadow: var(--listaso-shadow-e2);
+    color: var(--listaso-text-heading);
+    font-weight: 800;
+  }
+
+  .wire {
+    position: relative;
+    display: grid;
+    flex: 1;
+    place-items: center;
+    height: 2.5rem;
+  }
+
+  .wire::before {
+    position: absolute;
+    inset-inline: 0;
+    top: 50%;
+    height: 2px;
+    content: "";
+    background: repeating-linear-gradient(90deg, var(--listaso-border-control) 0 6px, transparent 6px 11px);
+  }
+
+  .pulse {
+    position: absolute;
+    top: calc(50% - 2px);
+    left: 0;
+    width: 30%;
+    height: 4px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, transparent, var(--listaso-aqua), transparent);
+    opacity: 0;
+  }
+
+  .hub {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 2.5rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--listaso-surface-band);
+    color: #fff;
+    box-shadow: 0 0 0 5px color-mix(in srgb, var(--listaso-aqua) 22%, transparent);
+  }
+
+  .head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-inline: 0.25rem;
+  }
+
+  .headTitle {
+    color: var(--listaso-text-muted);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .status {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background: var(--listaso-surface-soft);
+    color: var(--listaso-text-accent);
+    font-size: 0.78rem;
+    font-weight: 800;
+  }
+
+  .rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .row {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-md);
+    background: var(--listaso-surface-raised);
+    font-size: 0.88rem;
+  }
+
+  .rowDot {
+    width: 0.5rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--listaso-icon-accent);
+  }
+
+  .row:nth-child(even) .rowDot {
+    background: var(--listaso-magenta);
+  }
+
+  .rowItem {
+    min-width: 0;
+    color: var(--listaso-text-heading);
+    font-weight: 600;
+  }
+
+  .rowDirection {
+    padding: 0.2rem 0.6rem;
+    border-radius: 999px;
+    background: var(--listaso-surface-soft);
+    font-size: 0.78rem;
+    white-space: nowrap;
+  }
+
+  /* Certified editions, top right. */
+  .editions {
+    position: absolute;
+    top: 0;
+    right: -0.5rem;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+    padding: 0.6rem 0.75rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-md);
+    background: var(--listaso-surface-page);
+    box-shadow: var(--listaso-shadow-e3);
+  }
+
+  .edition {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--listaso-text-heading);
+    font-size: 0.78rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  .edition svg {
+    color: var(--listaso-icon-accent);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .pulse {
+      animation: travel 1600ms var(--listaso-ease-standard) 900ms 3 both;
+    }
+
+    .row {
+      animation: rise 600ms var(--listaso-ease-enter) both;
+    }
+
+    .editions {
+      animation: drop 700ms var(--listaso-ease-enter) 1300ms both;
+    }
+  }
+
+  @keyframes travel {
+    0% { left: 0; opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { left: 70%; opacity: 0; }
+  }
+
+  @keyframes rise {
+    from { opacity: 0; translate: 0 10px; }
+  }
+
+  @keyframes drop {
+    from { opacity: 0; translate: 0 -12px; }
+  }
+
+  @media (max-width: 39.99rem) {
+    .stage {
+      padding-bottom: 5.5rem;
+    }
+
+    .editions {
+      position: static;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin-top: 0.75rem;
+    }
+
+    .row:nth-child(n + 4) {
+      display: none;
+    }
+
+    .row {
+      font-size: 0.82rem;
+    }
+
+    .rowDirection {
+      padding-inline: 0.45rem;
+      font-size: 0.72rem;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .rings,
+    .glow,
+    .pulse {
+      display: none;
+    }
+
+    .card,
+    .editions,
+    .row {
+      border: 1px solid CanvasText;
+    }
+  }
+}

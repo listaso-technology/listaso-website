@@ -1,0 +1,419 @@
+/*
+ * Forms question types carousel. Native horizontal scroll (touch, keyboard,
+ * wheel) with the scrollbar replaced by a progress bar; cards carry a
+ * decorative miniature of each field. Theme tokens only; the auto-scroll
+ * loop logic and its automatic pauses live in the component.
+ */
+@layer components {
+  .viewport {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    margin-inline: -0.5rem;
+    padding: 0.75rem 0.5rem 1.25rem;
+    border-radius: var(--listaso-radius-lg);
+    scrollbar-width: none;
+    mask-image: linear-gradient(90deg, transparent, #000 3%, #000 97%, transparent);
+  }
+
+  .viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  .viewport:focus-visible {
+    outline: 2px solid var(--listaso-text-accent);
+    outline-offset: 4px;
+    mask-image: none;
+  }
+
+  .loop,
+  .track {
+    display: flex;
+    gap: 1rem;
+    width: max-content;
+  }
+
+  .card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    width: 15rem;
+    padding: 1.25rem;
+    overflow: hidden;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-lg);
+    background: var(--listaso-surface-raised);
+    box-shadow: var(--listaso-shadow-e1);
+    transition:
+      translate var(--listaso-duration-standard) var(--listaso-ease-standard),
+      border-color var(--listaso-duration-standard) var(--listaso-ease-standard),
+      box-shadow var(--listaso-duration-standard) var(--listaso-ease-standard);
+  }
+
+  /* Accent line that grows on hover. */
+  .card::before {
+    position: absolute;
+    inset: 0 0 auto;
+    height: 3px;
+    content: "";
+    background: linear-gradient(90deg, var(--listaso-aqua), var(--listaso-magenta));
+    scale: 0 1;
+    transform-origin: left;
+    transition: scale var(--listaso-duration-slow) var(--listaso-ease-enter);
+  }
+
+  .card:hover {
+    translate: 0 -4px;
+    border-color: color-mix(in srgb, var(--listaso-icon-accent) 45%, var(--listaso-border-subtle));
+    box-shadow: var(--listaso-shadow-e2);
+  }
+
+  .card:hover::before {
+    scale: 1 1;
+  }
+
+  .index {
+    color: var(--listaso-text-accent);
+    font-size: 0.75rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .name {
+    color: var(--listaso-text-heading);
+    font-size: 1.15rem;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  /* Field miniature */
+  .preview {
+    display: flex;
+    align-items: center;
+    height: 5.25rem;
+    margin-top: 0.25rem;
+    padding: 0.75rem;
+    border: 1px dashed var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-md);
+    background: var(--listaso-surface-page);
+    color: var(--listaso-text-heading);
+    font-size: 0.85rem;
+  }
+
+  .textLine {
+    display: block;
+    height: 0.4rem;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--listaso-text-heading) 22%, transparent);
+  }
+
+  .input {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    gap: 0.45rem;
+    height: 2.25rem;
+    padding-inline: 0.7rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-sm);
+    background: var(--listaso-surface-raised);
+    color: var(--listaso-icon-accent);
+  }
+
+  .value {
+    color: var(--listaso-text-heading);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .caret {
+    width: 2px;
+    height: 1rem;
+    background: var(--listaso-icon-accent);
+  }
+
+  .chevron {
+    display: grid;
+    margin-left: auto;
+    rotate: 90deg;
+  }
+
+  .textarea {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.45rem;
+    padding: 0.6rem 0.7rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-sm);
+    background: var(--listaso-surface-raised);
+  }
+
+  .stepper {
+    display: grid;
+    flex: 1;
+    grid-template-columns: 2.25rem 1fr 2.25rem;
+    align-items: center;
+    height: 2.25rem;
+    overflow: hidden;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: var(--listaso-radius-sm);
+    background: var(--listaso-surface-raised);
+    text-align: center;
+  }
+
+  .stepper > span {
+    color: var(--listaso-icon-accent);
+    font-weight: 800;
+  }
+
+  .stepper > span:first-child {
+    border-right: 1px solid var(--listaso-border-subtle);
+  }
+
+  .stepper > span:last-child {
+    border-left: 1px solid var(--listaso-border-subtle);
+  }
+
+  .segmented {
+    display: grid;
+    flex: 1;
+    grid-template-columns: 1fr 1fr;
+    padding: 0.2rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: 999px;
+    background: var(--listaso-surface-raised);
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .segmented > span {
+    padding: 0.35rem 0;
+    border-radius: 999px;
+    color: var(--listaso-text-muted);
+  }
+
+  .segmented > span[data-on="true"] {
+    background: var(--listaso-surface-band);
+    color: #fff;
+  }
+
+  .options {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.45rem;
+  }
+
+  .options > span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .options .textLine {
+    flex: none;
+  }
+
+  .radio,
+  .checkbox {
+    display: grid;
+    flex: none;
+    place-items: center;
+    width: 0.95rem;
+    aspect-ratio: 1;
+    border: 1.5px solid color-mix(in srgb, var(--listaso-text-heading) 40%, transparent);
+    background: var(--listaso-surface-raised);
+    color: #fff;
+  }
+
+  .radio {
+    border-radius: 50%;
+  }
+
+  .radio[data-on="true"] {
+    border-color: var(--listaso-icon-accent);
+    box-shadow: inset 0 0 0 3px var(--listaso-surface-raised);
+    background: var(--listaso-icon-accent);
+  }
+
+  .checkbox {
+    border-radius: 4px;
+  }
+
+  .checkbox svg {
+    width: 0.7rem;
+    height: 0.7rem;
+  }
+
+  .checkbox[data-on="true"] {
+    border-color: var(--listaso-icon-accent);
+    background: var(--listaso-icon-accent);
+  }
+
+  .calendar {
+    display: grid;
+    flex: 1;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.3rem;
+  }
+
+  .calendar > span {
+    aspect-ratio: 1;
+    max-height: 1.35rem;
+    border-radius: 4px;
+    background: color-mix(in srgb, var(--listaso-text-heading) 12%, transparent);
+  }
+
+  .calendar > span[data-on="true"] {
+    background: var(--listaso-magenta);
+  }
+
+  .photo {
+    position: relative;
+    flex: 1;
+    height: 100%;
+    overflow: hidden;
+    border-radius: var(--listaso-radius-sm);
+    background: linear-gradient(180deg, #8fd4e8, #d8f1f6);
+  }
+
+  .photo svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .photo circle {
+    fill: #ffd46b;
+  }
+
+  .photo path {
+    fill: #00375b;
+  }
+
+  .photoBadge {
+    position: absolute;
+    right: 0.35rem;
+    bottom: 0.35rem;
+    display: grid;
+    place-items: center;
+    width: 1.6rem;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #fff;
+    color: #00375b;
+  }
+
+  .signature {
+    position: relative;
+    flex: 1;
+    height: 100%;
+    border-bottom: 1.5px solid color-mix(in srgb, var(--listaso-text-heading) 35%, transparent);
+  }
+
+  .signature svg {
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+
+  .signature path {
+    fill: none;
+    stroke: var(--listaso-text-heading);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  /* Controls */
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+  }
+
+  .progress {
+    --size: 0.3;
+    --offset: 0;
+
+    position: relative;
+    flex: 1 1 10rem;
+    height: 4px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--listaso-text-heading) 12%, transparent);
+  }
+
+  .progress > span {
+    position: absolute;
+    inset-block: 0;
+    left: calc(var(--offset) * 100%);
+    width: calc(var(--size) * 100%);
+    border-radius: inherit;
+    background: linear-gradient(90deg, var(--listaso-aqua), var(--listaso-magenta));
+  }
+
+  /* Second segment: the part of the window that wraps to the start of the set. */
+  .progress > span + span {
+    left: calc((var(--offset) - 1) * 100%);
+  }
+
+  .control {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    border: 1px solid var(--listaso-border-subtle);
+    border-radius: 999px;
+    background: var(--listaso-surface-raised);
+    color: var(--listaso-text-heading);
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background-color var(--listaso-duration-fast) var(--listaso-ease-standard), border-color var(--listaso-duration-fast) var(--listaso-ease-standard);
+  }
+
+  .control:hover {
+    border-color: var(--listaso-icon-accent);
+    background: var(--listaso-surface-soft);
+  }
+
+  .control:focus-visible {
+    outline: 2px solid var(--listaso-focus-ring);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .card,
+    .card::before {
+      transition: none;
+    }
+
+    .card:hover {
+      translate: none;
+    }
+  }
+
+  @media (forced-colors: active) {
+    .viewport {
+      mask-image: none;
+    }
+
+    .card,
+    .preview,
+    .control {
+      border: 1px solid CanvasText;
+    }
+
+    .progress > span {
+      background: Highlight;
+    }
+  }
+}
